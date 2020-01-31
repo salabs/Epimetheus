@@ -3,6 +3,7 @@
 UI for showing test history.
 
 Introduced in [Robocon 2020](https://robocon.io/#self-managing-testing-pipelines).
+Presentation YouTube link [here](https://www.youtube.com/watch?v=W3JUzeV8lp4&list=PLSK6YK5OGX1AZMAffD8EiTDq0lfzshRNg&index=25).
 
 Open source release coming soon.
 
