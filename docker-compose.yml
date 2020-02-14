@@ -1,0 +1,20 @@
+version: '3.7'
+
+services:
+
+  back-end:
+    build: ./backend_server
+    ports:
+    - "5000:5000"
+    env_file:
+    - ${ENV_FILE}
+    container_name: backend-server
+
+  front-end:
+    build: ./frontend
+    ports:
+    - "3000:3000"
+    volumes:
+      - ./frontend/src:/app/src
+    container_name: frontend-server
+
