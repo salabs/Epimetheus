@@ -45,6 +45,10 @@ Note that there should be some data saved in the database before user interface 
 
 Running project with [Docker](/README-docker.md)
 
+## Browser Support
+
+Supported browsers are "all modern browsers". This means IE and some mobile browsers are not supported.
+
 ## Contributing
 
 [Contributing guide](CONTRIBUTING.md)
