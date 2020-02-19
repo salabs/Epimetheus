@@ -39,7 +39,7 @@ Detailed information in [frontend readme](frontend/README.md).
 
 ## Usage
 
-Once you have both frontend and backend running, you can open your browser to http://localhost:3000 and check the front user interface.
+Once you have both frontend and backend running, you can open your browser to [http://localhost:3000](http://localhost:3000) and check the front user interface.
 
 Note that there should be some data saved in the database before user interface will show something. For pushing data into database, consult [TestArchiver documentation](https://github.com/salabs/TestArchiver).
 
