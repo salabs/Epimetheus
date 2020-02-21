@@ -45,15 +45,23 @@ const Build = () => {
       }
     }
   `;
-  const [{ loadingState, historyDataState }, dispatch] = useStateValue();
-  let { id } = useParams();
-
+  const [
+    { loadingState, historyDataState, selectedBranchState, branchesState},
+    dispatch
+  ] = useStateValue();
+  let { buildId } = useParams()
+  //console.log(options.series);
+  let { id } = useParams() || selectedBranchState;
+  
   useEffect(() => {
     const fetchData = async () => {
       dispatch({ type: 'setLoadingState', loadingState: true });
-      if (id) {
+      if (id && buildId) {
         try {
-          const res = await fetch(`/data/metadata?build_number=${id}`, {});
+          const res = await fetch(
+            `/data/metadata?series=${id}&build_number=${buildId}`,
+            {}
+          );
           const json = await res.json();
           dispatch({ type: 'setLoadingState', loadingState: false });
           dispatch({
@@ -65,12 +73,44 @@ const Build = () => {
         }
       }
     };
-    fetchData();
-  }, [dispatch, id]);
+    const fetchHistoryData = async () => {
+      dispatch({ type: 'setLoadingState', loadingState: true });
+      if (id && buildId) {
+        const branch = branchesState.series?.find(
+          ({ id:serie_id }) => serie_id === parseInt(id,10)
+        );
+        dispatch({
+          type: 'setSelectedBranch',
+          name: branch?.name +" "+ branch?.team || " ",
+          id: id
+        });
+        dispatch({ type: 'setSelectedBuild', selectedBuild: buildId});
+        try {
+          const res = await fetch(
+            ///`/data/history?series=${id}&builds=30`,
+            `/data/history?start_from=${buildId}&series=${id}&builds=5`,
+            {}
+          );
+          const json = await res.json();
+          dispatch({ type: 'setLoadingState', loadingState: false });
+          dispatch({
+            type: 'updateHistory',
+            historyData: json
+          });
+          
+        } catch (error) {
+        }
+      }
+    };
+    if (branchesState) {
+      fetchHistoryData();
+      fetchData();
+    }
+  }, [dispatch, id, buildId, branchesState]);
 
   return (
     <main id="last-run" css={filterStyles}>
-      <LastRunHeading id={id} />
+      <LastRunHeading id={buildId} />
       <div className="last-run-container"></div>
       {!historyDataState || loadingState ? (
         <div
@@ -93,7 +133,7 @@ const Build = () => {
           >
             Content loaded.
           </div>
-          <MetadataTable buildId={id} />
+          <MetadataTable buildId={buildId} />
           <LastRunCheckBox />
           <Table id={id} />
         </Fragment>

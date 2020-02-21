@@ -32,11 +32,12 @@ const Heading = () => {
   const [
     {
       historyDataState: { max_build_num },
-      amountOfBuilds
+      amountOfBuilds,
+      selectedBranchState,
     },
     dispatch
   ] = useStateValue();
-
+  let { id } = selectedBranchState;
   let headingBuildNumbers = [];
   const LIMIT =
     max_build_num - amountOfBuilds > 0 ? max_build_num - amountOfBuilds : 0;
@@ -63,7 +64,7 @@ const Heading = () => {
         key={buildNumber}
         onClick={e => handleBuildClick(e)}
       >
-        <Link className="run-link" to={`build/${buildNumber}`}>
+        <Link className="run-link" to={`/build/series/${buildNumber}/${id}`}>
           <span className="sr-show">Build </span>
           {buildNumber}
         </Link>

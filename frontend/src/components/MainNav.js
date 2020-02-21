@@ -97,14 +97,14 @@ const MainNav = () => {
           </NavLink>
         </li>{' '}
         <li>
-          <NavLink activeClassName="active" to="/history">
+          <NavLink activeClassName="active" to="/history/">
             History
           </NavLink>
         </li>
         <li>
           <NavLink
             activeClassName="active"
-            to={`/build/${maxBuildNum}`}
+            to={`/build/series/${maxBuildNum}/3`}
             onClick={() => handleClick()}
             onKeyDown={e => handleKeyDown(e)}
           >

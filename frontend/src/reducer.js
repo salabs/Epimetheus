@@ -69,7 +69,10 @@ const reducer = (state, action) => {
     case 'setSelectedBranch':
       return {
         ...state,
-        selectedBranchState: action.selectedBranch
+        selectedBranchState: {
+          name: action.name,
+          id: action.id
+        }
       };
     case 'setMetadata':
       return {

@@ -27,7 +27,7 @@ const Filter = () => {
     }
   `;
 
-  const options = [5, 10, 15, 30];
+  const options = [5, 10, 15, 30, 100];
 
   const onFilterChange = e => {
     dispatch({ type: 'setAmountOfBuilds', amountOfBuilds: e.target.value });
