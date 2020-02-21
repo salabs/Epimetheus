@@ -2,18 +2,18 @@
 import React from 'react';
 import Row from './Row';
 import { useStateValue } from '../../contexts/state';
+import { useParams } from 'react-router';
 
 const Body = ({ id }) => {
   const [
     {
       historyDataState: { history },
       lastRunFilterPass,
-      lastRunFilterFail,
-      selectedBuildState
+      lastRunFilterFail
     }
   ] = useStateValue();
-
-  const buildNum = selectedBuildState || id;
+  let { buildId } = useParams();
+  const buildNum = buildId;
 
   // Do we want last-run page filters to work on suite-level (false)
   // or test-level (true)?
@@ -88,7 +88,12 @@ const Body = ({ id }) => {
 
   return filteredRowData.map(({ test_cases, suite_full_name }, i) => {
     return (
-      <Row key={i} test_cases={test_cases} suite={suite_full_name} id={id} />
+      <Row
+        key={i}
+        test_cases={test_cases}
+        suite={suite_full_name}
+        id={buildNum}
+      />
     );
   });
 };

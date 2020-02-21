@@ -28,10 +28,10 @@ const initialState = {
     isChecked: false,
     filterType: ''
   },
-  branchesState: [],
-  selectedBranchState: 'All builds',
+  branchesState: null,
+  selectedBranchState: {name: 'All builds', id: 1},
   metadataState: [],
-  selectedBuildState: null
+  selectedBuildState: {},
 };
 
 ReactDOM.render(
