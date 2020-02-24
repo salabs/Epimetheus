@@ -43,11 +43,14 @@ ORDER BY build_number, test_run_id
 def build_numbers(series, start_from, last, offset):
     return """
 SELECT build_number
-FROM test_series_mapping as tsm
-JOIN test_run ON test_run.id=tsm.test_run_id
-WHERE series={series}
-  {starting_filter}
-  AND NOT ignored
+FROM (
+    SELECT DISTINCT build_number
+    FROM test_series_mapping as tsm
+    JOIN test_run ON test_run.id=tsm.test_run_id
+    WHERE series={series}
+      {starting_filter}
+      AND NOT ignored
+) as build_numbers
 ORDER BY build_number DESC
 LIMIT {last} OFFSET {offset}
 """.format(series=int(series), last=int(last), offset=int(offset),
