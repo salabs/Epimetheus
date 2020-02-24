@@ -101,6 +101,10 @@ const MainNav = () => {
             History
           </NavLink>
         </li>
+        {/* 
+        Commented out at the moment, can be implemented in the future to show some exact place wanted,
+        currently worked as a hard coded series, ideas on what to show here and should an implementation like this
+        be used are welcome. 
         <li>
           <NavLink
             activeClassName="active"
@@ -111,6 +115,7 @@ const MainNav = () => {
             Last Build
           </NavLink>
         </li>
+        */}
         <li className="nav-github">
           <a href="https://github.com/salabs/Epimetheus">GitHub</a>
         </li>
