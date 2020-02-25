@@ -1,58 +1,22 @@
 // eslint-disable-next-line
 import React, { Fragment, useEffect } from 'react';
-/** @jsx jsx */
-import { css, jsx } from '@emotion/core';
 import Table from '../components/lastRunTable/Table';
 import LastRunCheckBox from '../components/LastRunCheckbox';
 import { useStateValue } from '../contexts/state';
 import LastRunHeading from '../components/LastRunHeading';
 import MetadataTable from '../components/lastRunTable/MetadataTable';
 import { useParams } from 'react-router';
+import { filterStyles } from '../styles/commonStyles';
 
 const Build = () => {
-  const filterStyles = css`
-    position: relative;
-    margin-top: 10px;
-    .filter-container {
-      display: flex;
-    }
-    .loading-state {
-      height: 30px;
-      line-height: 30px;
-      padding: 0;
-      &:after {
-        margin: 0;
-        padding: 0;
-        line-height: 30px;
-        font-size: 1rem;
-        content: '...';
-        vertical-align: bottom;
-        display: inline-block;
-        width: 0px;
-        height: 30px;
-        animation-name: lastrun-loader;
-        animation-duration: 1.5s;
-        animation-iteration-count: infinite;
-        overflow: hidden;
-      }
-      @keyframes lastrun-loader {
-        from {
-          width: 0;
-        }
-        to {
-          width: 140px;
-        }
-      }
-    }
-  `;
   const [
-    { loadingState, historyDataState, selectedBranchState, branchesState},
+    { loadingState, historyDataState, selectedBranchState, branchesState },
     dispatch
   ] = useStateValue();
-  let { buildId } = useParams()
+  let { buildId } = useParams();
   //console.log(options.series);
   let { id } = useParams() || selectedBranchState;
-  
+
   useEffect(() => {
     const fetchData = async () => {
       dispatch({ type: 'setLoadingState', loadingState: true });
@@ -77,14 +41,14 @@ const Build = () => {
       dispatch({ type: 'setLoadingState', loadingState: true });
       if (id && buildId) {
         const branch = branchesState.series?.find(
-          ({ id:serie_id }) => serie_id === parseInt(id,10)
+          ({ id: serie_id }) => serie_id === parseInt(id, 10)
         );
         dispatch({
           type: 'setSelectedBranch',
-          name: branch?.name +" "+ branch?.team || " ",
+          name: branch?.name + ' ' + branch?.team || ' ',
           id: id
         });
-        dispatch({ type: 'setSelectedBuild', selectedBuild: buildId});
+        dispatch({ type: 'setSelectedBuild', selectedBuild: buildId });
         try {
           const res = await fetch(
             ///`/data/history?series=${id}&builds=30`,
@@ -97,9 +61,7 @@ const Build = () => {
             type: 'updateHistory',
             historyData: json
           });
-          
-        } catch (error) {
-        }
+        } catch (error) {}
       }
     };
     if (branchesState) {

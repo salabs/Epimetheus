@@ -1,5 +1,5 @@
 import React from 'react';
-import theme from '../../theme';
+import theme from '../../styles/theme';
 import TestIcon from '../TestIcon';
 
 const pickIcon = test_status => {

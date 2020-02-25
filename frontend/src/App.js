@@ -3,13 +3,14 @@ import React, { useState, useEffect } from 'react';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import theme from './theme';
+import theme from './styles/theme';
 import ThemeContext from './contexts/themeContext';
 import MainContent from './components/MainContent';
 import MainNav from './components/MainNav';
 import History from './pages/History';
 import Build from './pages/Build';
 import Frontpage from './pages/Frontpage';
+import Team from './pages/Team';
 import { useStateValue } from './contexts/state';
 //import { useParams } from 'react-router';
 
@@ -140,6 +141,12 @@ const App = () => {
               </Route>
               <Route path="/history/:series/:builds">
                 <History />
+              </Route>
+              <Route path="/team/:name">
+                <Team />
+              </Route>
+              <Route path="/team">
+                <Team />
               </Route>
               <Route path="/">
                 <Frontpage />

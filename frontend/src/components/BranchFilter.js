@@ -3,7 +3,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
 import { useStateValue } from '../contexts/state';
-import theme from '../theme';
+import theme from '../styles/theme';
 
 const BranchFilter = () => {
   const filterStyles = css`
@@ -71,10 +71,7 @@ const BranchFilter = () => {
 
   // Global states from reducer
   const [
-    { branchesState, 
-      selectedBranchState, 
-      amountOfBuilds,
-      selectedBuildState,  },
+    { branchesState, selectedBranchState, amountOfBuilds, selectedBuildState },
     dispatch
   ] = useStateValue();
   const options = branchesState;
@@ -121,7 +118,6 @@ const BranchFilter = () => {
     }
   };
 
-    
   const handleClick = e => {
     const clickedBranchName = e.target.getAttribute('name');
     const branchAndTeam = e.target.innerText;
