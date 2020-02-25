@@ -34,6 +34,11 @@ class Application(tornado.web.Application):
 
 
 class BaseHandler(tornado.web.RequestHandler):
+    
+    # Default error handling is to return HTTP status 500
+    def write_error(self, status_code, **kwargs):
+        self.send_error_response(500, 'Server error')
+
     @property
     def database(self):
         return self.application.database
@@ -54,6 +59,7 @@ class BaseHandler(tornado.web.RequestHandler):
         return results
 
     def send_error_response(self, status, message=''):
+        self.set_header('Content-Type', 'application/json')
         self.set_status(status)
         self.write({'error': {'code': status, 'message': message}})
 
