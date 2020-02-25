@@ -1,5 +1,5 @@
 // eslint-disable-next-line
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
 import Filter from '../components/historyTable/Filter';
@@ -7,6 +7,7 @@ import Table from '../components/historyTable/Table';
 import Checkbox from '../components/Checkbox';
 import { useStateValue } from '../contexts/state';
 import BranchFilter from '../components/BranchFilter';
+import { useParams } from 'react-router';
 
 const History = () => {
   const filterStyles = css`
@@ -45,10 +46,32 @@ const History = () => {
       }
     }
   `;
-  const [{ loadingState, historyDataState }] = useStateValue();
-
+  const [{ loadingState, historyDataState, selectedBranchState, amountOfBuilds}, dispatch] = useStateValue();
+  const { series } = useParams();
+  const { builds } = useParams();
+  const series_id = series || selectedBranchState.id || '1';
+  const number_of_builds = builds || amountOfBuilds || '30';
+  
+  useEffect(() => {
+    const url = `/data/history?builds=${number_of_builds}&series=${series_id}`;
+    const fetchData = async () => {
+      dispatch({ type: 'setLoadingState', loadingState: true });
+      try {
+        const res = await fetch(url, {});
+        const json = await res.json();
+        dispatch({
+          type: 'updateHistory',
+          historyData: json
+        });
+        dispatch({ type: 'setLoadingState', loadingState: false });
+      } catch (error) {
+        dispatch({ type: 'setErrorState', errorState: error });
+      }
+    };
+    fetchData();
+  }, [dispatch, series_id, number_of_builds]);
   return (
-    <main id="history" css={filterStyles}>
+   <main id="history" css={filterStyles}>
       <h1>History</h1>
       <div className="filter-container">
         <Filter />
