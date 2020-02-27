@@ -62,15 +62,30 @@ class BaseHandler(tornado.web.RequestHandler):
         self.set_header('Content-Type', 'application/json')
         self.set_status(status)
         self.write({'error': {'code': status, 'message': message}})
+    
+    def send_bad_request_response(self):
+        self.send_error_response(400, 'Bad request')
 
+    # Checks that given values can be casted to int. None value is considered valid.
+    def values_are_integers(self, *values):
+        try:
+            for val in values:
+                if val: int(val)
+        except ValueError:
+            return False
+        return True
 
 class MetaDataHandler(BaseHandler):
     @tornado.gen.coroutine
     def get(self):
         test_series = self.get_argument('series', '')
         build_number = self.get_argument('build_number', None)
-        metadata = yield self.coroutine_query(self.database.build_metadata, test_series, build_number)
-        self.write({'metadata': metadata})
+        
+        if self.values_are_integers(test_series, build_number) :
+            metadata = yield self.coroutine_query(self.database.build_metadata, test_series, build_number)
+            self.write({'metadata': metadata})
+        else:
+            self.send_bad_request_response()
 
 
 class HistoryDataHandler(BaseHandler):
@@ -80,9 +95,13 @@ class HistoryDataHandler(BaseHandler):
         start_from = self.get_argument('start_from', None)
         num_of_builds = self.get_argument('builds', 10)
         offset = self.get_argument('offset', 0)
-        history, max_build_num = yield self.coroutine_query(
-            self.database.history_page_data, test_series, start_from, num_of_builds, offset)
-        self.write({'max_build_num': max_build_num, 'history': history})
+
+        if self.values_are_integers(test_series, start_from, num_of_builds, offset):
+                history, max_build_num = yield self.coroutine_query(
+                    self.database.history_page_data, test_series, start_from, num_of_builds, offset)
+                self.write({'max_build_num': max_build_num, 'history': history})
+        else:
+            self.send_bad_request_response()
 
 
 class SeriesDataHandler(BaseHandler):
