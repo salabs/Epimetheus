@@ -9,6 +9,7 @@ const Team = () => {
 
   const { name } = useParams();
 
+  // Totally not from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce#Grouping_objects_by_a_property
   function groupBy(objectArray, property) {
     return objectArray.reduce(function(acc, obj) {
       let key = obj[property];
@@ -22,7 +23,24 @@ const Team = () => {
   return (
     <main id="team" css={filterStyles}>
       <h1>Team</h1>
-      {!branchesState || loadingState ? (
+      {name && branchesState && groupBy(branchesState.series, 'team')[name] ? (
+        <div>
+          <div>{name}</div>
+          <div>
+            {console.log(groupBy(branchesState.series, 'team'))}
+            {console.log(branchesState.series)}
+          </div>
+          {groupBy(branchesState.series, 'team')[name].map((e, i) => {
+            return (
+              <div key={i} style={{ display: 'flex' }}>
+                <p>{e.name}</p>
+                <p>{e.last_started}</p>
+                <p>{e.builds}</p>
+              </div>
+            );
+          })}
+        </div>
+      ) : !branchesState || loadingState ? (
         <div
           className="loading-state"
           role="status"
@@ -37,7 +55,6 @@ const Team = () => {
           style={{
             display: 'flex',
             flexWrap: 'wrap',
-            justifyContent: 'space-between',
             padding: '5px'
           }}
         >
@@ -53,9 +70,13 @@ const Team = () => {
             </div>
             {Object.entries(groupBy(branchesState.series, 'team')).map(
               (element, index) => {
-                return <Card series={element} key={index} />;
+                return <Card team={element[0]} series={element} key={index} />;
               }
             )}
+            {/*
+            {console.log(groupBy(branchesState.series, 'team'))}
+            {console.log(branchesState.series)}
+*/}
           </Fragment>
         </div>
       )}
