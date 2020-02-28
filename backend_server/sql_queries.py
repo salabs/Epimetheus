@@ -22,6 +22,29 @@ GROUP BY id, name, team
 ORDER BY last_generated DESC, last_started DESC, last_imported DESC;
 """
 
+TEST_SERIES_BY_TEAMS = """
+SELECT id, name, team,
+        count(*) as builds,
+        max(build_number) as last_build,
+        to_char(max(generated), 'DD.MM.YYYY HH24:MI:SS') as last_generated,
+        to_char(max(imported_at), 'DD.MM.YYYY HH24:MI:SS') as last_imported,
+        to_char(max(start_time), 'DD.MM.YYYY HH24:MI:SS') as last_started
+FROM (
+    SELECT test_series.id, name, team, build_number,
+            min(generated) as generated,
+            min(imported_at) as imported_at,
+            min(start_time) as start_time
+    FROM test_series
+    JOIN test_series_mapping as tsm ON tsm.series=test_series.id
+    JOIN test_run ON tsm.test_run_id=test_run.id
+    JOIN suite_result ON suite_result.test_run_id=test_run.id
+    WHERE NOT ignored
+    GROUP BY test_series.id, name, team, build_number
+) AS builds
+GROUP BY id, name, team
+ORDER BY team, last_generated DESC, last_started DESC, last_imported DESC;
+"""
+
 def test_run_ids(series=None, build_num=None, start_from=None, last=None, offset=0):
     filters = []
     if series:
@@ -43,11 +66,14 @@ ORDER BY build_number, test_run_id
 def build_numbers(series, start_from, last, offset):
     return """
 SELECT build_number
-FROM test_series_mapping as tsm
-JOIN test_run ON test_run.id=tsm.test_run_id
-WHERE series={series}
-  {starting_filter}
-  AND NOT ignored
+FROM (
+    SELECT DISTINCT build_number
+    FROM test_series_mapping as tsm
+    JOIN test_run ON test_run.id=tsm.test_run_id
+    WHERE series={series}
+      {starting_filter}
+      AND NOT ignored
+) as build_numbers
 ORDER BY build_number DESC
 LIMIT {last} OFFSET {offset}
 """.format(series=int(series), last=int(last), offset=int(offset),
