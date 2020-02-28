@@ -9,10 +9,19 @@ const Team = () => {
 
   const { name } = useParams();
 
+  function groupBy(objectArray, property) {
+    return objectArray.reduce(function(acc, obj) {
+      let key = obj[property];
+      if (!acc[key]) {
+        acc[key] = [];
+      }
+      acc[key].push(obj);
+      return acc;
+    }, {});
+  }
   return (
     <main id="team" css={filterStyles}>
       <h1>Team</h1>
-      {console.log(name)}
       {!branchesState || loadingState ? (
         <div
           className="loading-state"
@@ -42,10 +51,11 @@ const Team = () => {
             >
               Content loaded.
             </div>
-
-            {branchesState.series.map((x, y) => {
-              return <Card series={x} key={y} />;
-            })}
+            {Object.entries(groupBy(branchesState.series, 'team')).map(
+              (element, index) => {
+                return <Card series={element} key={index} />;
+              }
+            )}
           </Fragment>
         </div>
       )}

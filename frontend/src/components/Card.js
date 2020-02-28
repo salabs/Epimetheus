@@ -12,10 +12,6 @@ const Card = ({ series }) => {
       }}
     >
       {console.log(series)}
-      <div>{series.id}</div>
-      <div>{series.name}</div>
-      <div>{series.team}</div>
-      <div>{series.last_started}</div>
     </div>
   );
 };
