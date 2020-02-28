@@ -20,6 +20,7 @@ class Application(tornado.web.Application):
     def __init__(self, database, config):
         handlers = [
             (r"^/data/series/?$", SeriesDataHandler),
+            (r"^/data/teams/?$", TeamsDataHandler),
             (r"^/data/history/?$", HistoryDataHandler),
             (r"^/data/metadata/?$", MetaDataHandler),
 
@@ -83,6 +84,13 @@ class SeriesDataHandler(BaseHandler):
     def get(self):
         series = yield self.coroutine_query(self.database.test_series)
         self.write({'series': series})
+
+
+class TeamsDataHandler(BaseHandler):
+    @tornado.gen.coroutine
+    def get(self):
+        teams = yield self.coroutine_query(self.database.teams)
+        self.write({'teams': teams})
 
 
 class FooDataHandler(BaseHandler):
