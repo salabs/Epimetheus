@@ -7,7 +7,7 @@ const LastRunHeading = ({ id }) => {
 
   return (
     <h1>
-      Project / {selectedBranchState} # {id}
+      Project / {selectedBranchState.name} # {id}
     </h1>
   );
 };

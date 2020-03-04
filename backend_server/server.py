@@ -4,14 +4,11 @@ import os
 import re
 import sys
 
-import database as db
 import tornado.httpserver
 import tornado.ioloop
 import tornado.web
 
-APP_DIRECTORY = os.path.dirname(os.path.abspath(__file__))
-STATIC_DIRECTORY = os.path.abspath(os.path.join(APP_DIRECTORY, 'static'))
-TEMPLATES_DIRECTORY = os.path.abspath(os.path.join(APP_DIRECTORY, 'templates'))
+import database as db
 
 
 def load_config_file(config_file):
@@ -22,19 +19,16 @@ def load_config_file(config_file):
 class Application(tornado.web.Application):
     def __init__(self, database, config):
         handlers = [
-            (r"/data/series/", SeriesDataHandler),
-            (r"/data/history", HistoryDataHandler),
-            (r"/data/metadata", MetaDataHandler),
+            (r"^/data/series/?$", SeriesDataHandler),
+            (r"^/data/teams/?$", TeamsDataHandler),
+            (r"^/data/history/?$", HistoryDataHandler),
+            (r"^/data/metadata/?$", MetaDataHandler),
 
             # For query testing purposes only
-            (r"/data/foo/", FooDataHandler)
+            (r"^/data/foo/?$", FooDataHandler)
         ]
 
-        settings = dict(
-            template_path=TEMPLATES_DIRECTORY,
-            static_path=STATIC_DIRECTORY,
-            debug=True,
-        )
+        settings = dict(debug=True)
         self.database = database
         tornado.web.Application.__init__(self, handlers, **settings)
 
@@ -51,62 +45,52 @@ class BaseHandler(tornado.web.RequestHandler):
         else:
             connections.free()
 
-    async def async_query(self, querer, *args, **kwargs):
+    @tornado.gen.coroutine
+    def coroutine_query(self, querer, *args, **kwargs):
         rows, formatter = querer(*args, **kwargs)
-        rows = await rows
+        rows = yield rows
         results = formatter(rows)
         self.free_connection(rows)
-        return results
-
-    async def async_queries(self, querer, *args, **kwargs):
-        rows_1, rows_2, formatter = querer(*args, **kwargs)
-        rows_1 = await rows_1
-        rows_2 = await rows_2
-        results = formatter(rows_1, rows_2)
-        self.free_connection(rows_1)
-        self.free_connection(rows_2)
         return results
 
     def send_error_response(self, status, message=''):
         self.set_status(status)
         self.write({'error': {'code': status, 'message': message}})
 
-    def set_default_headers(self):
-        self.set_header("Access-Control-Allow-Headers",
-                        "Origin, X-Requested-With, Content-Type, Accept")
-
 
 class MetaDataHandler(BaseHandler):
-    async def get(self):
+    @tornado.gen.coroutine
+    def get(self):
+        test_series = self.get_argument('series', '')
         build_number = self.get_argument('build_number', None)
-        build_number_pattern = re.compile('^[0-9]*$')
-        if build_number and build_number_pattern.match(build_number):
-            metadata = await self.async_query(self.database.metadata,
-                                              build_number)
-            self.write({'metadata': metadata})
-        else:
-            self.send_error_response(400, 'Missing or invalid build number')
+        metadata = yield self.coroutine_query(self.database.build_metadata, test_series, build_number)
+        self.write({'metadata': metadata})
 
 
 class HistoryDataHandler(BaseHandler):
-    async def get(self):
-        num_of_builds = self.get_argument('builds', "10")
-        test_series_name = self.get_argument('series_name', '')
-        builds_pattern = re.compile('^[1-9][0-9]?$|^100$')
-        if not builds_pattern.match(num_of_builds):
-            self.send_error_response(
-                400, 'Amount of builds must be between 1 and 100')
-        else:
-            history, max_build_num = await self.async_queries(
-                self.database.history_page_data, num_of_builds,
-                test_series_name)
-            self.write({'max_build_num': max_build_num, 'history': history})
+    @tornado.gen.coroutine
+    def get(self):
+        test_series = self.get_argument('series', '')
+        start_from = self.get_argument('start_from', None)
+        num_of_builds = self.get_argument('builds', 10)
+        offset = self.get_argument('offset', 0)
+        history, max_build_num = yield self.coroutine_query(
+            self.database.history_page_data, test_series, start_from, num_of_builds, offset)
+        self.write({'max_build_num': max_build_num, 'history': history})
 
 
 class SeriesDataHandler(BaseHandler):
-    async def get(self):
-        series = await self.async_query(self.database.test_series)
+    @tornado.gen.coroutine
+    def get(self):
+        series = yield self.coroutine_query(self.database.test_series)
         self.write({'series': series})
+
+
+class TeamsDataHandler(BaseHandler):
+    @tornado.gen.coroutine
+    def get(self):
+        teams = yield self.coroutine_query(self.database.teams)
+        self.write({'teams': teams})
 
 
 class FooDataHandler(BaseHandler):
@@ -123,6 +107,7 @@ if __name__ == "__main__":
         help='path to JSON config file containing database credentials')
     parser.add_argument('--database', help='database name')
     parser.add_argument('--host', help='database host name', default=None)
+    parser.add_argument('--dbport', default=5432, help='database port (default: 5432)')
     parser.add_argument('--user', help='database user')
     parser.add_argument('--pw', '--password', help='database password')
     parser.add_argument('--port',
@@ -139,12 +124,13 @@ if __name__ == "__main__":
             'db_user': args.user,
             'db_password': args.pw,
             'db_host': args.host,
+            'db_port': args.dbport,
             'port': args.port
         }
 
     httpserver = tornado.httpserver.HTTPServer(
         Application(
-            db.Database(config['db_host'], config['db_name'],
+            db.Database(config['db_host'], config['db_port'], config['db_name'],
                         config['db_user'], config['db_password']), config))
     httpserver.listen(int(config['port']))
     print("Server listening port {}".format(config['port']))

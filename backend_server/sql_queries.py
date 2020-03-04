@@ -1,3 +1,4 @@
+
 TEST_SERIES = """
 SELECT id, name, team,
         count(*) as builds,
@@ -21,128 +22,149 @@ GROUP BY id, name, team
 ORDER BY last_generated DESC, last_started DESC, last_imported DESC;
 """
 
+TEST_SERIES_BY_TEAMS = """
+SELECT id, name, team,
+        count(*) as builds,
+        max(build_number) as last_build,
+        to_char(max(generated), 'DD.MM.YYYY HH24:MI:SS') as last_generated,
+        to_char(max(imported_at), 'DD.MM.YYYY HH24:MI:SS') as last_imported,
+        to_char(max(start_time), 'DD.MM.YYYY HH24:MI:SS') as last_started
+FROM (
+    SELECT test_series.id, name, team, build_number,
+            min(generated) as generated,
+            min(imported_at) as imported_at,
+            min(start_time) as start_time
+    FROM test_series
+    JOIN test_series_mapping as tsm ON tsm.series=test_series.id
+    JOIN test_run ON tsm.test_run_id=test_run.id
+    JOIN suite_result ON suite_result.test_run_id=test_run.id
+    WHERE NOT ignored
+    GROUP BY test_series.id, name, team, build_number
+) AS builds
+GROUP BY id, name, team
+ORDER BY team, last_generated DESC, last_started DESC, last_imported DESC;
+"""
 
-def max_build_number_by_test_series_name(test_series_name):
-    return f"""
-  (SELECT
-   MAX(build_number) 
-  FROM test_series_mapping 
-  INNER JOIN test_series
-  ON test_series.id=test_series_mapping.series 
-  WHERE test_series.name ILIKE '{test_series_name}'
-  LIMIT 1)
-  """
-
-
-def max_build_number():
+def test_run_ids(series=None, build_num=None, start_from=None, last=None, offset=0):
+    filters = []
+    if series:
+        filters.append("series={series_id}".format(series_id=int(series)))
+        if build_num:
+            filters.append("build_number={}".format(int(build_num)))
+        elif last:
+            filters.append("build_number IN ({})".format(build_numbers(series, start_from, last, offset)))
     return """
-    (SELECT MAX(build_number) FROM test_series_mapping LIMIT 1)
-    """
+SELECT test_run_id
+FROM test_series_mapping as tsm
+JOIN test_run ON test_run.id=tsm.test_run_id
+WHERE NOT ignored
+{filters}
+ORDER BY build_number, test_run_id
+""".format(filters='AND ' + ' AND '.join(filters) if filters else '')
 
 
-def log_messages_by_test_series_name(num_of_builds, test_series_name):
-    test_series_name_filter = f"AND test_series.name ILIKE '{test_series_name}'" if test_series_name else ''
-    max_build_num = max_build_number_by_test_series_name(
-        test_series_name) if test_series_name else max_build_number()
-    return f"""
-    SELECT
-      test_series_mapping.build_number,
-	  log_message.message,
-	  log_message.log_level,
-	  log_message.test_id
-    FROM
-        test_run
-        INNER JOIN public.log_message
-         ON public.test_run.id = public.log_message.test_run_id
-        INNER JOIN public.test_series_mapping
-         ON public.test_run.id = public.test_series_mapping.test_run_id
-        INNER JOIN test_series
-        ON test_series_mapping.series = test_series.id 
-    WHERE
-        test_series_mapping.build_number > {max_build_num} - {num_of_builds}
-        AND log_message.log_level = 'FAIL'
-        {test_series_name_filter}
-    ORDER BY
-        build_number DESC
-    """
+def build_numbers(series, start_from, last, offset):
+    return """
+SELECT build_number
+FROM (
+    SELECT DISTINCT build_number
+    FROM test_series_mapping as tsm
+    JOIN test_run ON test_run.id=tsm.test_run_id
+    WHERE series={series}
+      {starting_filter}
+      AND NOT ignored
+) as build_numbers
+ORDER BY build_number DESC
+LIMIT {last} OFFSET {offset}
+""".format(series=int(series), last=int(last), offset=int(offset),
+           starting_filter="AND build_number <= {}".format(int(start_from)) if start_from else '')
 
 
-def max_test_run_id_by_build_number(build_number):
-    return f"""
-    SELECT MAX(test_run.id) FROM test_run INNER JOIN test_series_mapping ON test_run.id = test_series_mapping.test_run_id WHERE build_number = {build_number} LIMIT 1
-    """
+def build_metadata(series, build_num):
+    return """
+SELECT DISTINCT ON (suite_metadata.name, suite_metadata.value)
+    suite_metadata.name as metadata_name,
+    suite_metadata.value as metadata_value,
+    suite_metadata.suite_id,
+    suite_metadata.test_run_id
+FROM suite_metadata
+JOIN suite ON suite.id=suite_metadata.suite_id
+WHERE test_run_id IN ({test_run_ids})
+ORDER BY suite_metadata.name, suite_metadata.value, suite.full_name
+""".format(test_run_ids=test_run_ids(series, build_num=build_num))
 
 
-def metadata_by_build_number(build_number):
-    return f"""
-  SELECT
-	  suite_metadata.suite_id,
-	  suite_metadata.test_run_id,
-	  suite_metadata.name AS metadata_name,
-	  suite_metadata.value AS metadata_value,
-	  test_series_mapping.build_number
-  FROM
-	  test_run
-	  INNER JOIN public.suite_metadata
-	   ON public.test_run.id = public.suite_metadata.test_run_id
-	  INNER JOIN public.test_series_mapping
-	   ON public.test_run.id = public.test_series_mapping.test_run_id
-  WHERE
-	  build_number = {build_number}
-	  AND test_run.id = ({max_test_run_id_by_build_number(build_number)})
-  ORDER BY
-	  test_run_id DESC, suite_id
-    """
+def history_page_data(series, start_from, last, offset=0):
+    return """
+SELECT *
+FROM (
+    SELECT DISTINCT ON (suite.id, test_results.id, build_number)
+        tsm.build_number,
+        suite.id as suite_id, suite.name as suite_name, suite.full_name as suite_full_name,
+        suite.repository as suite_repository,
+        suite_result.test_run_id as suite_test_run_id,
+        suite_result.start_time as suite_start_time,
+        suite_result.elapsed as suite_elapsed,
+
+        test_results.id as id, test_results.name as name, test_results.full_name as full_name,
+        test_results._test_run_id as test_run_id,
+        test_results.status as status,
+        -- test_results.setup_status as setup_status,
+        -- test_results.execution_status as execution_status,
+        -- test_results.teardown_status as teardown_status,
+        -- test_results.fingerprint as fingerprint,
+        -- test_results.setup_fingerprint as setup_fingerprint,
+        -- test_results.execution_fingerprint as execution_fingerprint,
+        -- test_results.teardown_fingerprint as teardown_fingerprint,
+        test_results.start_time as start_time,
+        test_results.elapsed as elapsed,
+        -- test_results.setup_elapsed as setup_elapsed,
+        -- test_results.execution_elapsed as execution_elapsed,
+        -- test_results.teardown_elapsed as teardown_elapsed,
+        CASE WHEN tags IS NULL THEN '{array_literal}' ELSE tags END as tags,
+        log_messages.log_level as failure_log_level,
+        log_messages.message as failure_message
+    FROM suite_result
+    JOIN suite ON suite.id=suite_result.suite_id
+    JOIN test_run ON test_run.id=suite_result.test_run_id
+    JOIN test_series_mapping as tsm ON test_run.id=tsm.test_run_id
+                                   AND tsm.series={series}
+    LEFT OUTER JOIN (
+        SELECT DISTINCT ON (test_case.id, build_number) *, test_result.test_run_id as _test_run_id
+        FROM test_result
+        JOIN test_case ON test_case.id=test_result.test_id
+        JOIN test_series_mapping as tsm ON test_result.test_run_id=tsm.test_run_id
+                                       AND tsm.series={series}
+        WHERE test_result.test_run_id IN ({test_run_ids})
+        ORDER BY test_case.id, build_number DESC, start_time DESC, test_result.test_run_id DESC
+    ) as test_results ON test_results.suite_id=suite.id
+                     AND test_results.build_number=tsm.build_number
+    LEFT OUTER JOIN (
+        SELECT array_agg(tag ORDER BY tag) as tags, test_id, test_run_id
+        FROM test_tag
+        WHERE test_run_id IN ({test_run_ids})
+        GROUP BY test_id, test_run_id
+    ) as test_tags ON test_tags.test_id=test_results.test_id
+                  AND test_tags.test_run_id=test_results._test_run_id
+    LEFT OUTER JOIN (
+        SELECT DISTINCT ON (test_run_id, test_id)
+            test_run_id, test_id, log_level, message
+        FROM log_message
+        WHERE test_run_id IN ({test_run_ids})
+          AND test_id IS NOT NULL
+          AND log_level IN ('ERROR', 'FAIL')
+        ORDER BY test_run_id, test_id, timestamp DESC, id DESC
+    ) as log_messages ON log_messages.test_id=test_results.test_id
+                     AND log_messages.test_run_id=test_results._test_run_id
+    WHERE suite_result.test_run_id IN ({test_run_ids})
+      AND NOT ignored
+    ORDER BY suite_id, test_results.id, build_number DESC, suite_start_time DESC, suite_test_run_id DESC
+) AS results
+ORDER BY suite_full_name, full_name, build_number DESC;
+""".format(array_literal='{}',
+           series=series,
+           test_run_ids=test_run_ids(series, start_from=start_from, last=last, offset=offset))
 
 
-def history_page_data(num_of_builds, test_series_name):
-    test_series_name_filter = f"AND test_series.name ILIKE '{test_series_name}'" if test_series_name else ''
-    max_build_num = max_build_number_by_test_series_name(
-        test_series_name) if test_series_name else max_build_number()
-    return f"""
-  SELECT
-    suite.id AS suite_id,
-    suite.name AS suite,
-    suite.full_name AS suite_full_name,
-    test_case.id AS test_id,
-    test_case.name AS test_case,
-    test_series_mapping.build_number,
-    test_result.status AS test_status,
-    {max_build_num} AS max_build_num,
-    COALESCE(test_result.elapsed, 0) AS test_run_time,
-    TO_CHAR(COALESCE(suite_result.elapsed, 0) * interval '1 millisecond', 'MI:SS:MS') AS suite_run_time
-  FROM
-    suite
-    INNER JOIN suite_result
-    ON suite.id = suite_result.suite_id
-    INNER JOIN test_case
-    ON suite.id = test_case.suite_id
-    INNER JOIN test_result
-    ON test_case.id = test_result.test_id
-    INNER JOIN test_run
-    ON test_result.test_run_id = test_run.id
-      AND suite_result.test_run_id = test_run.id
-    INNER JOIN suite_metadata
-    ON test_run.id = suite_metadata.test_run_id
-    INNER JOIN test_series_mapping
-    ON test_run.id = test_series_mapping.test_run_id
-    INNER JOIN test_series
-    ON test_series_mapping.series = test_series.id
-  GROUP BY
-    suite.id,
-    suite.name,
-    suite.full_name,
-    suite_result.start_time,
-    suite_result.elapsed,
-    test_case.id,
-    test_case.name,
-    test_series_mapping.build_number,
-    test_result.status,
-    test_result.elapsed,
-    test_series.name
-  HAVING
-    test_series_mapping.build_number > {max_build_num} - {num_of_builds}
-    {test_series_name_filter}
-  ORDER BY
-    test_series_mapping.build_number DESC, suite_result.start_time
-  """
+if __name__ == '__main__':
+    pass

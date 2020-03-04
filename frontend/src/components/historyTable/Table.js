@@ -4,6 +4,8 @@ import React, { useContext } from 'react';
 import { css, jsx } from '@emotion/core';
 import Heading from './Heading';
 import Body from './Body';
+import NotFound from '../NotFound';
+import { useStateValue } from '../../contexts/state';
 
 const Table = () => {
   const tableStyles = css`
@@ -36,17 +38,29 @@ const Table = () => {
       vertical-align: middle;
     }
   `;
+  const [
+    {
+      historyDataState: { max_build_num },
+    },
+  ] = useStateValue();
 
-  return (
-    <div css={tableStyles}>
-      <table id="history-table">
-        <Heading />
-        <tbody id="history-table-body">
-          <Body />
-        </tbody>
-      </table>
-    </div>
-  );
+  if (max_build_num > 0) {
+    return (
+      <div css={tableStyles}>
+        <table id="history-table">
+          <Heading />
+          <tbody id="history-table-body">
+            <Body />
+          </tbody>
+        </table>
+      </div>
+    );
+  } else {
+    return (
+      <NotFound/>
+    );
+  }
+
 };
 
 export default Table;

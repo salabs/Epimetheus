@@ -1,9 +1,11 @@
 // eslint-disable-next-line
 import React, { useState, useEffect, useCallback } from 'react';
+import { useHistory } from "react-router-dom";
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
 import { useStateValue } from '../contexts/state';
 import theme from '../theme';
+
 
 const BranchFilter = () => {
   const filterStyles = css`
@@ -71,10 +73,15 @@ const BranchFilter = () => {
 
   // Global states from reducer
   const [
-    { branchesState, selectedBranchState, amountOfBuilds },
+    { branchesState, 
+      selectedBranchState, 
+      amountOfBuilds,
+      selectedBuildState,  },
     dispatch
   ] = useStateValue();
   const options = branchesState;
+  const selectedBuild = selectedBuildState.id;
+  const history = useHistory()
 
   // Local component states
   const [suggestions, setSuggestions] = useState([]);
@@ -83,16 +90,13 @@ const BranchFilter = () => {
   const [visible, setVisible] = useState(false);
   const [suggestionError, setSuggestionError] = useState(false);
 
-  const fetchData = async (builds, series_name) => {
+  const fetchData = async (builds, series_id, build_id) => {
     dispatch({ type: 'setLoadingState', loadingState: true });
     try {
-      const res = await fetch(
-        `/data/history?builds=${builds}&series_name=${series_name}`,
-        {}
-      );
-      const json = await res.json();
+      const url = ('/history/'+series_id+'/'+builds+'/')
+      history.push(url);
       dispatch({ type: 'setLoadingState', loadingState: false });
-      dispatch({ type: 'updateHistory', historyData: json });
+      //dispatch({ type: 'updateHistory', historyData: json });
     } catch (error) {
       //
     }
@@ -116,6 +120,7 @@ const BranchFilter = () => {
     }
   };
 
+    
   const handleClick = e => {
     const clickedBranchName = e.target.getAttribute('name');
     const branchAndTeam = e.target.innerText;
@@ -123,8 +128,12 @@ const BranchFilter = () => {
       const branch = options.series.find(
         ({ name }) => name === clickedBranchName
       );
-      dispatch({ type: 'setSelectedBranch', selectedBranch: branchAndTeam });
-      fetchData(amountOfBuilds, branch.name);
+      dispatch({
+        type: 'setSelectedBranch',
+        name: branchAndTeam,
+        id: branch.id
+      });
+      fetchData(amountOfBuilds, branch.id, selectedBuild);
     } catch (error) {
       // console.log('clicked branch not found')
     }
@@ -139,16 +148,18 @@ const BranchFilter = () => {
         userInput !== '' &&
         document.getElementById(activeOption)
       ) {
+        console.log(selectedBuild);
         const branchNameAndTeam = document.getElementById(activeOption)
           .innerText;
-        const branchName = document
+        const branchId = document
           .getElementById(activeOption)
-          .getAttribute('name');
+          .getAttribute('tabIndex');
         dispatch({
           type: 'setSelectedBranch',
-          selectedBranch: branchNameAndTeam
+          name: branchNameAndTeam,
+          id: branchId
         });
-        fetchData(amountOfBuilds, branchName);
+        fetchData(amountOfBuilds, branchId, selectedBuild);
         emptySearchField();
       }
     } else if (e.key === 'ArrowDown' || e.key === 'Down') {
@@ -192,7 +203,7 @@ const BranchFilter = () => {
 
   return (
     <div id="branch-filter-container" css={filterStyles}>
-      <h2 id="branch-heading">Series / Branch: {selectedBranchState}</h2>
+      <h2 id="branch-heading">Series / Branch: {selectedBranchState.name}</h2>
       <form autoComplete="off" action="#" className="search-form">
         <div className="autocomplete">
           <label htmlFor="search-branch" className="sr-show">

@@ -11,16 +11,21 @@ import History from './pages/History';
 import Build from './pages/Build';
 import Frontpage from './pages/Frontpage';
 import { useStateValue } from './contexts/state';
+//import { useParams } from 'react-router';
 
 import 'normalize.css';
 import './index.css';
 
 const App = () => {
   // eslint-disable-next-line
-  const [{ selectedBuildState }, dispatch] = useStateValue();
-
+  const [{ selectedBranchState, amountOfBuilds }, dispatch] = useStateValue();
+  ///const { series } = useParams();
+  ///const { builds } = useParams();
+  ///const series_id = series || selectedBranchState.id || '1';
+  ///const number_of_builds = builds || amountOfBuilds || '30';
+  /*
   useEffect(() => {
-    const url = `/data/history?builds=30`;
+    const url = `/data/history?builds=${number_of_builds}&series=${series_id}`;
     const fetchData = async () => {
       dispatch({ type: 'setLoadingState', loadingState: true });
       try {
@@ -35,9 +40,29 @@ const App = () => {
         dispatch({ type: 'setErrorState', errorState: error });
       }
     };
+    const fetchHistoryData = async () => {
+      dispatch({ type: 'setLoadingState', loadingState: true });
+      if (series_id && buildId) {
+        try {
+          const res = await fetch(
+            `/data/history?start_from=${buildId}&series=${series_id}&builds=30`,
+            {}
+          );
+          const json = await res.json();
+          dispatch({ type: 'setLoadingState', loadingState: false });
+          dispatch({
+            type: 'updateHistory',
+            historyData: json
+          });
+        } catch (error) {
+        }
+      }
+    };
+
+    fetchHistoryData();
     fetchData();
   }, [dispatch]);
-
+  */
   useEffect(() => {
     const fetchData = async () => {
       dispatch({ type: 'setLoadingState', loadingState: true });
@@ -107,10 +132,13 @@ const App = () => {
           <MainNav />
           <MainContent>
             <Switch>
-              <Route path="/build/:id">
+              <Route path="/build/series/:buildId/:id">
                 <Build />
               </Route>
-              <Route path="/history">
+              <Route exact path="/history">
+                <History />
+              </Route>
+              <Route path="/history/:series/:builds">
                 <History />
               </Route>
               <Route path="/">
