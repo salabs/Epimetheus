@@ -1,0 +1,21 @@
+name: CI
+
+on: 
+  push:
+  #pull_request:
+  #  branches:
+  #    - master
+  #    - develop
+#We could use this on push as well?
+jobs:
+  build:
+    
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      name: Test Docker
+      run: |
+        docker -v
+        docker ps
+    - name: Test file checkout
+      run: ls -a
