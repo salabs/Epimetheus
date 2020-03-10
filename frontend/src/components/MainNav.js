@@ -79,29 +79,11 @@ const MainNav = () => {
             History
           </NavLink>
         </li>
-<<<<<<< HEAD
         <li>
           <NavLink activeClassName="active" to="/team/">
             Team
           </NavLink>
         </li>
-        {/* 
-        Commented out at the moment, can be implemented in the future to show some exact place wanted,
-        currently worked as a hard coded series, ideas on what to show here and should an implementation like this
-        be used are welcome. 
-        <li>
-          <NavLink
-            activeClassName="active"
-            to={`/build/series/${maxBuildNum}/3`}
-            onClick={() => handleClick()}
-            onKeyDown={e => handleKeyDown(e)}
-          >
-            Last Build
-          </NavLink>
-        </li>
-        */}
-=======
->>>>>>> master
         <li className="nav-github">
           <a href="https://github.com/salabs/Epimetheus">GitHub</a>
         </li>

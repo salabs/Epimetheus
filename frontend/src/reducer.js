@@ -84,6 +84,11 @@ const reducer = (state, action) => {
         ...state,
         selectedBuildState: action.selectedBuild
       };
+    case 'setTeams':
+      return {
+        ...state,
+        teamsState: action.teams
+      };
 
     default:
       return state;

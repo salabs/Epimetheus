@@ -2,7 +2,7 @@ import React from 'react';
 import { css } from '@emotion/core';
 import { Link } from 'react-router-dom';
 
-const Card = ({ team, series }) => {
+const Card = ({ team, numberOfSeries, lastRun }) => {
   return (
     <div
       style={{
@@ -14,6 +14,11 @@ const Card = ({ team, series }) => {
       }}
     >
       <Link to={`/team/${team}`}>{team}</Link>
+      <div>Number of series: {numberOfSeries}</div>
+      <div>
+        Latest run series: <b>{lastRun.name}</b> on{' '}
+        <b>{lastRun.last_started}</b>
+      </div>
     </div>
   );
 };
