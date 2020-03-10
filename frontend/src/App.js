@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import theme from './styles/theme';
+import theme from '../src/theme';
 import ThemeContext from './contexts/themeContext';
 import MainContent from './components/MainContent';
 import MainNav from './components/MainNav';

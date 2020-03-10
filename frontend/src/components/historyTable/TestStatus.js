@@ -1,7 +1,7 @@
 import React from 'react';
 import { useStateValue } from '../../contexts/state';
 import TestIcon from '../TestIcon';
-import theme from '../../styles/theme';
+import theme from '../../theme';
 
 const pickIcon = test_status => {
   let result = '';

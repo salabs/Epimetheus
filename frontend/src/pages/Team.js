@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect } from 'react';
-import { filterStyles } from '../styles/commonStyles';
 import { useStateValue } from '../contexts/state';
+import { css, jsx } from '@emotion/core';
 import Card from '../components/Card';
 import { useParams } from 'react-router';
 import SelectedTeam from '../components/SelectedTeam';
@@ -24,7 +24,42 @@ const Team = () => {
     };
     fetchData();
   }, [dispatch]);
-
+  const filterStyles = css`
+    position: relative;
+    margin-top: 10px;
+    .filter-container {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .loading-state {
+      height: 30px;
+      line-height: 30px;
+      padding: 0;
+      &:after {
+        margin: 0;
+        padding: 0;
+        line-height: 30px;
+        font-size: 1rem;
+        content: '...';
+        vertical-align: bottom;
+        display: inline-block;
+        width: 0px;
+        height: 30px;
+        animation-name: lastrun-loader;
+        animation-duration: 1.5s;
+        animation-iteration-count: infinite;
+        overflow: hidden;
+      }
+      @keyframes lastrun-loader {
+        from {
+          width: 0;
+        }
+        to {
+          width: 140px;
+        }
+      }
+    }
+  `;
   return (
     <main id="team" css={filterStyles}>
       {!teamsState || loadingState ? (
@@ -43,7 +78,7 @@ const Team = () => {
           series={teamsState.find(element => element.name === name).series}
         />
       ) : (
-        <Fragment>
+        <div>
           <h1>Teams</h1>
           <div
             className="sr-show"
@@ -64,7 +99,7 @@ const Team = () => {
               />
             );
           })}
-        </Fragment>
+        </div>
       )}
     </main>
   );

@@ -1,11 +1,10 @@
 // eslint-disable-next-line
 import React, { useState, useEffect, useCallback } from 'react';
-import { useHistory } from "react-router-dom";
+import { useHistory } from 'react-router-dom';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
 import { useStateValue } from '../contexts/state';
-import theme from '../styles/theme';
-
+import theme from '../theme';
 
 const BranchFilter = () => {
   const filterStyles = css`
@@ -78,7 +77,7 @@ const BranchFilter = () => {
   ] = useStateValue();
   const options = branchesState;
   const selectedBuild = selectedBuildState.id;
-  const history = useHistory()
+  const history = useHistory();
 
   // Local component states
   const [suggestions, setSuggestions] = useState([]);
@@ -90,7 +89,7 @@ const BranchFilter = () => {
   const fetchData = async (builds, series_id, build_id) => {
     dispatch({ type: 'setLoadingState', loadingState: true });
     try {
-      const url = ('/history/'+series_id+'/'+builds+'/')
+      const url = '/history/' + series_id + '/' + builds + '/';
       history.push(url);
       dispatch({ type: 'setLoadingState', loadingState: false });
       //dispatch({ type: 'updateHistory', historyData: json });
