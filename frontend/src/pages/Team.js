@@ -3,6 +3,7 @@ import { filterStyles } from '../styles/commonStyles';
 import { useStateValue } from '../contexts/state';
 import Card from '../components/Card';
 import { useParams } from 'react-router';
+import SelectedTeam from '../components/SelectedTeam';
 
 const Team = () => {
   const [{ loadingState, teamsState }, dispatch] = useStateValue();
@@ -26,7 +27,6 @@ const Team = () => {
 
   return (
     <main id="team" css={filterStyles}>
-      <h1>Team</h1>
       {!teamsState || loadingState ? (
         <div
           className="loading-state"
@@ -37,8 +37,14 @@ const Team = () => {
         >
           Loading
         </div>
+      ) : name ? (
+        <SelectedTeam
+          name={name}
+          series={teamsState.find(element => element.name === name).series}
+        />
       ) : (
         <Fragment>
+          <h1>Teams</h1>
           <div
             className="sr-show"
             role="status"

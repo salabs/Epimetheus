@@ -142,10 +142,10 @@ const App = () => {
               <Route path="/history/:series/:builds">
                 <History />
               </Route>
-              <Route path="/team/:name">
+              <Route exact path="/team">
                 <Team />
               </Route>
-              <Route path="/team">
+              <Route path="/team/:name">
                 <Team />
               </Route>
               <Route path="/">

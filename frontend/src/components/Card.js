@@ -1,8 +1,10 @@
 import React from 'react';
 import { css } from '@emotion/core';
 import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 const Card = ({ team, numberOfSeries, lastRun }) => {
+  let history = useHistory();
   return (
     <div
       style={{
@@ -12,11 +14,12 @@ const Card = ({ team, numberOfSeries, lastRun }) => {
         padding: '10px',
         minHeight: '20vh'
       }}
+      onClick={() => history.push(`/team/${team}`)}
     >
-      <Link to={`/team/${team}`}>{team}</Link>
+      <h3>{team}</h3>
       <div>Number of series: {numberOfSeries}</div>
       <div>
-        Latest run series: <b>{lastRun.name}</b> on{' '}
+        Latest run series: <b>{lastRun.name}</b> on{'   '}
         <b>{lastRun.last_started}</b>
       </div>
     </div>
