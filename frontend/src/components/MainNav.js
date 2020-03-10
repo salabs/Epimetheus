@@ -4,7 +4,6 @@ import { NavLink } from 'react-router-dom';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
 import ThemeContext from '../contexts/themeContext';
-import { useStateValue } from '../contexts/state';
 
 const MainNav = () => {
   const theme = useContext(ThemeContext);
@@ -66,27 +65,6 @@ const MainNav = () => {
       }
     }
   `;
-  const [{ historyDataState }, dispatch] = useStateValue();
-  const maxBuildNum = historyDataState ? historyDataState.max_build_num : null;
-
-  const handleClick = () => {
-    if (maxBuildNum) {
-      dispatch({
-        type: 'setSelectedBuild',
-        selectedBuild: maxBuildNum
-      });
-    }
-  };
-
-  const handleKeyDown = e => {
-    if (e.key === 'Enter' && maxBuildNum) {
-      dispatch({
-        type: 'setSelectedBuild',
-        selectedBuild: maxBuildNum
-      });
-    }
-  };
-
   return (
     <nav id="main-nav" css={mainNavStyles}>
       <h2 className="logo">Epimetheus</h2>
@@ -101,6 +79,7 @@ const MainNav = () => {
             History
           </NavLink>
         </li>
+<<<<<<< HEAD
         <li>
           <NavLink activeClassName="active" to="/team/">
             Team
@@ -121,6 +100,8 @@ const MainNav = () => {
           </NavLink>
         </li>
         */}
+=======
+>>>>>>> master
         <li className="nav-github">
           <a href="https://github.com/salabs/Epimetheus">GitHub</a>
         </li>

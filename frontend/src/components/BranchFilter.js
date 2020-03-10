@@ -1,9 +1,11 @@
 // eslint-disable-next-line
 import React, { useState, useEffect, useCallback } from 'react';
+import { useHistory } from "react-router-dom";
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
 import { useStateValue } from '../contexts/state';
 import theme from '../styles/theme';
+
 
 const BranchFilter = () => {
   const filterStyles = css`
@@ -76,6 +78,7 @@ const BranchFilter = () => {
   ] = useStateValue();
   const options = branchesState;
   const selectedBuild = selectedBuildState.id;
+  const history = useHistory()
 
   // Local component states
   const [suggestions, setSuggestions] = useState([]);
@@ -87,14 +90,10 @@ const BranchFilter = () => {
   const fetchData = async (builds, series_id, build_id) => {
     dispatch({ type: 'setLoadingState', loadingState: true });
     try {
-      const res = await fetch(
-        `/data/history?builds=${builds}&series=${series_id}`,
-        //`/data/history?start_from=${build_id}&series=${series_id}&builds=${builds}`,
-        {}
-      );
-      const json = await res.json();
+      const url = ('/history/'+series_id+'/'+builds+'/')
+      history.push(url);
       dispatch({ type: 'setLoadingState', loadingState: false });
-      dispatch({ type: 'updateHistory', historyData: json });
+      //dispatch({ type: 'updateHistory', historyData: json });
     } catch (error) {
       //
     }
@@ -125,13 +124,11 @@ const BranchFilter = () => {
       const branch = options.series.find(
         ({ name }) => name === clickedBranchName
       );
-      console.log(branch);
       dispatch({
         type: 'setSelectedBranch',
         name: branchAndTeam,
         id: branch.id
       });
-      //this.props.history.push('/history/',branch.id,'/','30','/')
       fetchData(amountOfBuilds, branch.id, selectedBuild);
     } catch (error) {
       // console.log('clicked branch not found')
