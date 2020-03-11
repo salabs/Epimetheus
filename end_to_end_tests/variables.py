@@ -1,7 +1,5 @@
 import os
 
-
-
 SELENIUM_URL = os.environ['SELENIUM_URL']
 SELENIUM_SPEED = 0
 BROWSER = 'chrome'

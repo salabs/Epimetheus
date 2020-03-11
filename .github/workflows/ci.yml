@@ -19,6 +19,8 @@ jobs:
       run: |
         ./run-docker.sh
     - name: Stop Docker
+      env: # Env variable from Github Secrets
+        TEST_DATABASE: ${{ secrets.Test_Database }}
       run: |
         docker ps
         docker-compose down
