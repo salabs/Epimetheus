@@ -14,8 +14,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Test Docker
+      env: # Env variable from Github Secrets
+        ENV_FILE: ${{ secrets.Test_Database }}
       run: |
-        docker -v
+        docker-compose up
         docker ps
-    - name: Test file checkout
-      run: ls -a
+    - name: Stop Docker
+      run: docker-compose down
