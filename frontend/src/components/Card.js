@@ -1,6 +1,4 @@
 import React from 'react';
-import { css } from '@emotion/core';
-import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 
 const Card = ({ team, numberOfSeries, lastRun }) => {
@@ -15,6 +13,7 @@ const Card = ({ team, numberOfSeries, lastRun }) => {
         minHeight: '20vh'
       }}
       onClick={() => history.push(`/team/${team}`)}
+      role={'presentation'}
     >
       <h3>{team}</h3>
       <div>Number of series: {numberOfSeries}</div>

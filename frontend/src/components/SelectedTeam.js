@@ -1,8 +1,10 @@
 import React from 'react';
 import FA from 'react-fontawesome';
-import { css, jsx } from '@emotion/core';
+import { css } from '@emotion/core';
+import { useHistory } from 'react-router-dom';
 
 const SelectedTeam = ({ name, series }) => {
+  let history = useHistory();
   const filterStyles = css`
     position: relative;
     margin-top: 10px;
@@ -55,6 +57,8 @@ const SelectedTeam = ({ name, series }) => {
                 minHeight: '20vh'
               }}
               key={i}
+              onClick={() => history.push(`/history/${element.id}/10`)}
+              role={'presentation'}
             >
               <h3>{element.name}</h3>
               <hr />

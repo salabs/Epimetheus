@@ -1,6 +1,6 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useStateValue } from '../contexts/state';
-import { css, jsx } from '@emotion/core';
+import { css } from '@emotion/core';
 import Card from '../components/Card';
 import { useParams } from 'react-router';
 import SelectedTeam from '../components/SelectedTeam';

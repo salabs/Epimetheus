@@ -6,7 +6,7 @@ import { useStateValue } from '../contexts/state';
 import LastRunHeading from '../components/LastRunHeading';
 import MetadataTable from '../components/lastRunTable/MetadataTable';
 import { useParams } from 'react-router';
-import { css, jsx } from '@emotion/core';
+import { css } from '@emotion/core';
 
 const Build = () => {
   const filterStyles = css`
