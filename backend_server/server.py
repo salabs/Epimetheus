@@ -67,6 +67,7 @@ class BaseHandler(tornado.web.RequestHandler):
         self.send_error_response(400, 'Bad request')
 
     # Checks that given values can be casted to int. None value is considered valid.
+    @staticmethod
     def values_are_integers(self, *values):
         try:
             for val in values:
@@ -80,7 +81,6 @@ class MetaDataHandler(BaseHandler):
     def get(self):
         test_series = self.get_argument('series', '')
         build_number = self.get_argument('build_number', None)
-        
         if self.values_are_integers(test_series, build_number) :
             metadata = yield self.coroutine_query(self.database.build_metadata, test_series, build_number)
             self.write({'metadata': metadata})
