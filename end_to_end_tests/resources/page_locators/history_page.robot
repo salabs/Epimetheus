@@ -1,3 +1,2 @@
 ***Variables***
 ${FOO}                                  bar
-${}
