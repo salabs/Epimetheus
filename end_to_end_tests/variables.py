@@ -1,6 +1,7 @@
 import os
 
-SELENIUM_URL = os.environ['SELENIUM_URL']
+#SELENIUM_URL = os.environ['SELENIUM_URL']
+SELENIUM_URL = 'http://seleniumgrid:4444'
 SELENIUM_SPEED = 0
 BROWSER = 'chrome'
 SCREEN_WIDTH = 1920

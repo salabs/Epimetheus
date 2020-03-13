@@ -1,0 +1,31 @@
+version: '3.7'
+
+services:
+  seleniumgrid:
+    image: elgalu/selenium:latest
+    ports:
+      - 4444:4444
+    environment:
+      VNC_PASSWORD: "no"
+      SCREEN_WIDTH: "1920"
+      SCREEN_HEIGHT: "1080"
+      CHROME: "true"
+      VIDEO: "false"
+    volumes:
+      - ./end_to_end_tests/logs/videos:/home/seluser/videos
+    privileged: true
+
+
+  robot:
+    user: root
+    build:
+      context: ./end_to_end_tests
+      dockerfile: ./resources/Dockerfile
+    volumes:
+      - ./robot/test/robot:/home/robot/test/robot
+      - ./end_to_end_tests/logs:/home/robot/test/logs
+      - ./end_to_end_tests/variables.py:/home/robot/test/variables.py
+    depends_on:
+      - seleniumgrid
+      #- front-end
+      #- back-end
