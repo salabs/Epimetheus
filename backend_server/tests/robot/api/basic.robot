@@ -21,6 +21,16 @@ Teams data
     GET                 /data/teams
     String              $.teams[*].name
     Integer             $.teams[*].series_count
+
+    Object              $.teams[*].all_builds
+    Integer             $.teams[*].all_builds.id
+    String              $.teams[*].all_builds.name
+    String              $.teams[*].all_builds.team
+    String              $.teams[*].all_builds.last_imported
+    String              $.teams[*].all_builds.last_started
+    Integer             $.teams[*].all_builds.builds
+    Integer             $.teams[*].all_builds.last_build
+
     Array               $.teams[*].series     minItems=1
     Integer             $.teams[*].series[*].id
     String              $.teams[*].series[*].name

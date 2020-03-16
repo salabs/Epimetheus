@@ -36,7 +36,7 @@ class Database:
         self.session = queries.TornadoSession(connection_uri)
 
     def test_series(self):
-        return self.session.query(sql_queries.TEST_SERIES), list_of_dicts
+        return self.session.query(sql_queries.test_series()), list_of_dicts
 
     def teams(self):
         def series_by_team(rows):
@@ -48,14 +48,18 @@ class Database:
                 if current_team_name != series['team']:
                     if current_team:
                         teams.append(current_team)
-                    current_team = {'name': series['team'], 'series_count': 0, 'series': []}
-                current_team['series_count'] += 1
-                current_team['series'].append(series)
-                current_team_name = series['team']
+                    current_team = {'name': series['team'], 'series_count': 0, 'series': [],
+                                    'all_builds': None}
+                if series['name'] == 'All builds':
+                    current_team['all_builds'] = series
+                else:
+                    current_team['series_count'] += 1
+                    current_team['series'].append(series)
+                    current_team_name = series['team']
             if current_team:
                 teams.append(current_team)
             return teams
-        return self.session.query(sql_queries.TEST_SERIES_BY_TEAMS), series_by_team
+        return self.session.query(sql_queries.test_series(by_teams=True)), series_by_team
 
     def history_page_data(self, test_series, start_from, num_of_builds, offset):
         history_sql = sql_queries.history_page_data(test_series, start_from, num_of_builds, offset)
