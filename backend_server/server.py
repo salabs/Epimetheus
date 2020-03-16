@@ -1,7 +1,5 @@
 import argparse
 import json
-import os
-import re
 import sys
 
 import tornado.httpserver
@@ -34,7 +32,6 @@ class Application(tornado.web.Application):
 
 
 class BaseHandler(tornado.web.RequestHandler):
-    
     # Default error handling is to return HTTP status 500
     def write_error(self, status_code, **kwargs):
         self.send_error_response(500, 'Server error')
