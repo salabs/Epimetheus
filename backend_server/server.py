@@ -62,7 +62,7 @@ class BaseHandler(tornado.web.RequestHandler):
         self.set_header('Content-Type', 'application/json')
         self.set_status(status)
         self.write({'error': {'code': status, 'message': message}})
-    
+
     def send_bad_request_response(self):
         self.send_error_response(400, 'Bad request')
 
