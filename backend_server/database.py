@@ -55,7 +55,7 @@ class Database:
                 else:
                     current_team['series_count'] += 1
                     current_team['series'].append(series)
-                    current_team_name = series['team']
+                current_team_name = series['team']
             if current_team:
                 teams.append(current_team)
             return teams
