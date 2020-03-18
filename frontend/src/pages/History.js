@@ -46,32 +46,53 @@ const History = () => {
       }
     }
   `;
-  const [{ loadingState, historyDataState, selectedBranchState, amountOfBuilds}, dispatch] = useStateValue();
-  const { series } = useParams();
-  const { builds } = useParams();
+  const [
+    {
+      loadingState,
+      historyDataState,
+      selectedBranchState,
+      amountOfBuilds,
+      branchesState
+    },
+    dispatch
+  ] = useStateValue();
+  const { series, builds } = useParams();
+
   const series_id = series || selectedBranchState.id || '1';
   const number_of_builds = builds || amountOfBuilds || '30';
-  
+
   useEffect(() => {
     const url = `/data/history?builds=${number_of_builds}&series=${series_id}`;
-    const fetchData = async () => {
-      dispatch({ type: 'setLoadingState', loadingState: true });
-      try {
-        const res = await fetch(url, {});
-        const json = await res.json();
+    if (branchesState) {
+      const branch = branchesState.series?.find(
+        ({ id: serie_id }) => serie_id === parseInt(series_id, 10)
+      );
+
+      const fetchData = async () => {
+        dispatch({ type: 'setLoadingState', loadingState: true });
         dispatch({
-          type: 'updateHistory',
-          historyData: json
+          type: 'setSelectedBranch',
+          name: branch?.name + ' ' + branch?.team || ' ',
+          id: series_id
         });
-        dispatch({ type: 'setLoadingState', loadingState: false });
-      } catch (error) {
-        dispatch({ type: 'setErrorState', errorState: error });
-      }
-    };
-    fetchData();
-  }, [dispatch, series_id, number_of_builds]);
+        try {
+          const res = await fetch(url, {});
+          const json = await res.json();
+          dispatch({
+            type: 'updateHistory',
+            historyData: json
+          });
+          dispatch({ type: 'setLoadingState', loadingState: false });
+        } catch (error) {
+          dispatch({ type: 'setErrorState', errorState: error });
+        }
+      };
+      fetchData();
+    }
+  }, [dispatch, series_id, number_of_builds, branchesState]);
+
   return (
-   <main id="history" css={filterStyles}>
+    <main id="history" css={filterStyles}>
       <h1>History</h1>
       <div className="filter-container">
         <Filter />
