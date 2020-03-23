@@ -294,12 +294,14 @@ class SeriesDataHandler(BaseHandler):
 class TeamsDataHandler(BaseHandler):
     @tornado.gen.coroutine
     def get(self):
-        """
+        """TeamsDataHandler
+        Get Teams Data
         ---
         tags:
         - Teams
         summary: Get teams and their series
-        description: teamsdata handler
+        description: Returns an array of all teams found in the database.
+            Nested in each team is listed all series for the team in an array.
         produces:
         - application/json
         responses:
