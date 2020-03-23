@@ -294,8 +294,7 @@ class SeriesDataHandler(BaseHandler):
 class TeamsDataHandler(BaseHandler):
     @tornado.gen.coroutine
     def get(self):
-        """TeamsDataHandler
-        Get Teams Data
+        """
         ---
         tags:
         - Teams
