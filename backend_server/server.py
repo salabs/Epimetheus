@@ -30,7 +30,11 @@ class Application(tornado.web.Application):
 
         settings = dict(debug=True)
         self.database = database
-        setup_swagger(handlers, swagger_url="/data/doc")
+        setup_swagger(handlers,
+            swagger_url="/data/doc",
+            description='Project repo at https://github.com/salabs/Epimetheus',
+            api_version='0.0.1',
+            title='Epimetheus backend API',)
         tornado.web.Application.__init__(self, handlers, **settings)
 
 
@@ -100,7 +104,27 @@ class MetaDataHandler(BaseHandler):
             type: integer
         responses:
             200:
-              description: Metadata for a given build in a series
+                description: Array of metadata for a given build in a series
+                schema:
+                    type: object
+                    properties:
+                        metadata:
+                            type: array
+                            items:
+                                type: object
+                                properties:
+                                    metadata_name:
+                                        type: string
+                                        description: Metadata name.
+                                    metadata_value:
+                                        type: string
+                                        description: Metadata value.
+                                    suite_id:
+                                        type: integer
+                                        description: Target suite for given metadata. Often links to root suite.
+                                    test_run_id:
+                                        type: integer
+                                        description: Target test run id for given metadata.
         """
         test_series = self.get_argument('series', '')
         build_number = self.get_argument('build_number', None)
@@ -149,6 +173,52 @@ class HistoryDataHandler(BaseHandler):
         responses:
             200:
               description: History for a given series
+              schema:
+                    type: object
+                    properties:
+                        max_build_num:
+                            type: integer
+                            description: Largest build number in resulted history query
+                        history:
+                            type: array
+                            items:
+                                properties:
+                                    id:
+                                        type: integer
+                                        description: Test id.
+                                    name:
+                                        type: string
+                                        description: Test name.
+                                    repository:
+                                        type: string
+                                        description: .
+                                    test_run_id:
+                                        type: integer
+                                        description: .
+                                    start_time:
+                                        type: string
+                                        format: date-time
+                                        description: Suite execution start timestamp
+                                    elapsed:
+                                        type: integer
+                                        description: Test execution time in milliseconds
+                                    suite:
+                                        type: string
+                                        description: Suite name
+                                    suite_full_name:
+                                        type: string
+                                        description: Full suite name with parent data included
+                                    suite_id:
+                                        type: integer
+                                        description: Suite id
+                                    suite_run_time:
+                                        type: integer
+                                        description: Suite execution time in milliseconds
+                                    test_cases:
+                                        type: array
+                                        description: Array of test cases and their build history
+                                        items:
+                                            type: object
         """
         test_series = self.get_argument('series', '')
         start_from = self.get_argument('start_from', None)
@@ -176,7 +246,46 @@ class SeriesDataHandler(BaseHandler):
         - application/json
         responses:
             200:
-              description: A list of series
+                description: A list of series
+                schema:
+                    type: object
+                    properties:
+                        series:
+                            type: array
+                            items:
+                                type: object
+                                properties:
+                                    id:
+                                        type: integer
+                                        description: Series id.
+                                    name:
+                                        type: string
+                                        description: Series name.
+                                    team:
+                                        type: string
+                                        description: Team assigned to series. From TestArchiver.
+                                    builds:
+                                        type: integer
+                                        description: Amount of builds in series.
+                                    last_build:
+                                        type: integer
+                                        description: Latest build number for series.
+                                    last_generated:
+                                        type: string
+                                        format: date-time
+                                        description: .
+                                    last_imported:
+                                        type: string
+                                        format: date-time
+                                        description: .
+                                    last_started:
+                                        type: string
+                                        format: date-time
+                                        description: .
+                                    sorting_value:
+                                        type: string
+                                        format: date-time
+                                        description: .
         """
         series = yield self.coroutine_query(self.database.test_series)
         self.write({'series': series})
@@ -196,6 +305,25 @@ class TeamsDataHandler(BaseHandler):
         responses:
             200:
               description: A list of teams
+              schema:
+                    type: object
+                    properties:
+                        teams:
+                            type: array
+                            items:
+                                type: object
+                                properties:
+                                    name:
+                                        type: string
+                                        description: Team name.
+                                    series_count:
+                                        type: string
+                                        description: Amount of series for a given team.
+                                    series:
+                                        type: array
+                                        description: Array of series for a given team.
+                                        items:
+                                            type: object
         """
         teams = yield self.coroutine_query(self.database.teams)
         self.write({'teams': teams})
