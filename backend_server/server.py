@@ -83,7 +83,7 @@ class MetaDataHandler(BaseHandler):
         ---
         tags:
         - Metadata
-        summary: Get metadata
+        summary: Get metadata for a specific build in a series
         description: metadata handler
         produces:
         - application/json
@@ -100,7 +100,7 @@ class MetaDataHandler(BaseHandler):
             type: integer
         responses:
             200:
-              description: metadata
+              description: Metadata for a given build in a series
         """
         test_series = self.get_argument('series', '')
         build_number = self.get_argument('build_number', None)
@@ -117,7 +117,7 @@ class HistoryDataHandler(BaseHandler):
         """
         ---
         tags:
-        - Metadata
+        - History
         summary: Get series history data
         description: historydata handler
         produces:
@@ -133,6 +133,7 @@ class HistoryDataHandler(BaseHandler):
             description: build number
             required: false
             type: integer
+            allowEmptyValue: true
         -   name: builds
             in: query
             description: number of builds
@@ -147,7 +148,7 @@ class HistoryDataHandler(BaseHandler):
             default: 0
         responses:
             200:
-              description: history
+              description: History for a given series
         """
         test_series = self.get_argument('series', '')
         start_from = self.get_argument('start_from', None)
@@ -165,6 +166,18 @@ class HistoryDataHandler(BaseHandler):
 class SeriesDataHandler(BaseHandler):
     @tornado.gen.coroutine
     def get(self):
+        """
+        ---
+        tags:
+        - Series
+        summary: Get series
+        description: seriesdata handler
+        produces:
+        - application/json
+        responses:
+            200:
+              description: A list of series
+        """
         series = yield self.coroutine_query(self.database.test_series)
         self.write({'series': series})
 
@@ -172,6 +185,18 @@ class SeriesDataHandler(BaseHandler):
 class TeamsDataHandler(BaseHandler):
     @tornado.gen.coroutine
     def get(self):
+        """
+        ---
+        tags:
+        - Teams
+        summary: Get teams and their series
+        description: teamsdata handler
+        produces:
+        - application/json
+        responses:
+            200:
+              description: A list of teams
+        """
         teams = yield self.coroutine_query(self.database.teams)
         self.write({'teams': teams})
 
