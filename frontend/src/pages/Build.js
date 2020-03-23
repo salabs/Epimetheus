@@ -1,13 +1,12 @@
 // eslint-disable-next-line
 import React, { Fragment, useEffect } from 'react';
-/** @jsx jsx */
-import { css, jsx } from '@emotion/core';
 import Table from '../components/lastRunTable/Table';
 import LastRunCheckBox from '../components/LastRunCheckbox';
 import { useStateValue } from '../contexts/state';
 import LastRunHeading from '../components/LastRunHeading';
 import MetadataTable from '../components/lastRunTable/MetadataTable';
 import { useParams } from 'react-router';
+import { css } from '@emotion/core';
 
 const Build = () => {
   const filterStyles = css`
@@ -46,10 +45,10 @@ const Build = () => {
     }
   `;
   const [
-    { loadingState, historyDataState, selectedBranchState, branchesState},
+    { loadingState, historyDataState, selectedBranchState, branchesState },
     dispatch
   ] = useStateValue();
-  let { buildId } = useParams()
+  let { buildId } = useParams();
   //console.log(options.series);
   let { id } = useParams()
   const branch_id = id ||  selectedBranchState;
@@ -86,7 +85,7 @@ const Build = () => {
           name: branch?.name +" "+ branch?.team || " ",
           id: branch_id
         });
-        dispatch({ type: 'setSelectedBuild', selectedBuild: buildId});
+        dispatch({ type: 'setSelectedBuild', selectedBuild: buildId });
         try {
           const res = await fetch(
             ///`/data/history?series=${id}&builds=30`,
@@ -99,9 +98,7 @@ const Build = () => {
             type: 'updateHistory',
             historyData: json
           });
-          
-        } catch (error) {
-        }
+        } catch (error) {}
       }
     };
     if (branchesState) {

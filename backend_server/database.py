@@ -36,7 +36,30 @@ class Database:
         self.session = queries.TornadoSession(connection_uri)
 
     def test_series(self):
-        return self.session.query(sql_queries.TEST_SERIES), list_of_dicts
+        return self.session.query(sql_queries.test_series()), list_of_dicts
+
+    def teams(self):
+        def series_by_team(rows):
+            all_series = list_of_dicts(rows)
+            teams = []
+            current_team_name = None
+            current_team = None
+            for series in all_series:
+                if current_team_name != series['team']:
+                    if current_team:
+                        teams.append(current_team)
+                    current_team = {'name': series['team'], 'series_count': 0, 'series': [],
+                                    'all_builds': None}
+                if series['name'] == 'All builds':
+                    current_team['all_builds'] = series
+                else:
+                    current_team['series_count'] += 1
+                    current_team['series'].append(series)
+                current_team_name = series['team']
+            if current_team:
+                teams.append(current_team)
+            return teams
+        return self.session.query(sql_queries.test_series(by_teams=True)), series_by_team
 
     def history_page_data(self, test_series, start_from, num_of_builds, offset):
         history_sql = sql_queries.history_page_data(test_series, start_from, num_of_builds, offset)
@@ -74,7 +97,7 @@ def history_data(history_rows):
             current_suite = suite
             current_suite['test_cases'] = []
         if current_suite['id'] != suite['id']:
-            if current_test:
+            if current_test and test['id']:
                 current_suite['test_cases'].append(current_test)
                 current_test = _test_item(test)
             suites.append(current_suite)

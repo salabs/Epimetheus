@@ -1,0 +1,2 @@
+robotframework==3.1.2
+RESTinstance==1.0.2

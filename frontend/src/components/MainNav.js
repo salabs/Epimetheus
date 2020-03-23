@@ -88,10 +88,15 @@ const MainNav = () => {
           <NavLink exact activeClassName="active" to="/">
             Help
           </NavLink>
-        </li>{' '}
+        </li>
         <li>
           <NavLink activeClassName="active" to="/history/">
             History
+          </NavLink>
+        </li>
+        <li>
+          <NavLink activeClassName="active" to="/team/">
+            Team
           </NavLink>
         </li>
         <li className="nav-github">
