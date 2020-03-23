@@ -6,8 +6,9 @@ import { useStateValue } from '../contexts/state';
 import LastRunHeading from '../components/LastRunHeading';
 import MetadataTable from '../components/lastRunTable/MetadataTable';
 import { useParams } from 'react-router';
-import { css } from '@emotion/core';
-
+/** @jsx jsx */
+import { css, jsx } from '@emotion/core';
+import theme from '../theme';
 const Build = () => {
   const filterStyles = css`
     position: relative;
@@ -109,7 +110,7 @@ const Build = () => {
     <main id="last-run" css={filterStyles}>
       <LastRunHeading id={buildId} />
       <div className="last-run-container"></div>
-      {!historyDataState || loadingState ? (
+      {!historyDataState || !branchesState || loadingState ? (
         <div
           className="loading-state"
           role="status"
@@ -130,12 +131,50 @@ const Build = () => {
           >
             Content loaded.
           </div>
+          <div>
+            {branchesState.series && (
+              <div>
+                <ParentInfo
+                  bundle={branchesState.series.find(e => (e.id = buildId))}
+                />
+              </div>
+            )}
+          </div>
           <MetadataTable buildId={buildId} />
           <LastRunCheckBox />
           <Table id={id} />
         </Fragment>
       )}
     </main>
+  );
+};
+
+const tableStyles = css`
+  ${theme.baseTableStyle}
+  margin-bottom: 10px;
+  margin-top: 20px;
+`;
+
+const ParentInfo = ({ bundle }) => {
+  return (
+    <div css={tableStyles}>
+      <table id="parentInfo-table">
+        <thead>
+          <tr>
+            {Object.keys(bundle).map((e, i) => {
+              return <th key={i}>{e}</th>;
+            })}
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            {Object.values(bundle).map((e, i) => {
+              return <td key={i}>{e}</td>;
+            })}
+          </tr>
+        </tbody>
+      </table>
+    </div>
   );
 };
 
