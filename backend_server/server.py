@@ -6,6 +6,8 @@ import tornado.httpserver
 import tornado.ioloop
 import tornado.web
 
+from tornado_swagger.setup import setup_swagger
+
 import database as db
 
 
@@ -17,17 +19,18 @@ def load_config_file(config_file):
 class Application(tornado.web.Application):
     def __init__(self, database, config):
         handlers = [
-            (r"^/data/series/?$", SeriesDataHandler),
-            (r"^/data/teams/?$", TeamsDataHandler),
-            (r"^/data/history/?$", HistoryDataHandler),
-            (r"^/data/metadata/?$", MetaDataHandler),
+            tornado.web.url(r"/data/series/?$", SeriesDataHandler),
+            tornado.web.url(r"/data/teams/?$", TeamsDataHandler),
+            tornado.web.url(r"/data/history/?$", HistoryDataHandler),
+            tornado.web.url(r"/data/metadata/?$", MetaDataHandler),
 
             # For query testing purposes only
-            (r"^/data/foo/?$", FooDataHandler)
+            tornado.web.url(r"/data/foo/?$", FooDataHandler)
         ]
 
         settings = dict(debug=True)
         self.database = database
+        setup_swagger(handlers, swagger_url="/data/doc")
         tornado.web.Application.__init__(self, handlers, **settings)
 
 
@@ -76,6 +79,29 @@ class BaseHandler(tornado.web.RequestHandler):
 class MetaDataHandler(BaseHandler):
     @tornado.gen.coroutine
     def get(self):
+        """
+        ---
+        tags:
+        - Metadata
+        summary: Get metadata
+        description: metadata handler
+        produces:
+        - application/json
+        parameters:
+        -   name: series
+            in: query
+            description: series
+            required: true
+            type: integer
+        -   name: build_number
+            in: query
+            description: build number
+            required: true
+            type: integer
+        responses:
+            200:
+              description: metadata
+        """
         test_series = self.get_argument('series', '')
         build_number = self.get_argument('build_number', None)
         if self.values_are_integers(test_series, build_number) :
@@ -88,6 +114,41 @@ class MetaDataHandler(BaseHandler):
 class HistoryDataHandler(BaseHandler):
     @tornado.gen.coroutine
     def get(self):
+        """
+        ---
+        tags:
+        - Metadata
+        summary: Get series history data
+        description: historydata handler
+        produces:
+        - application/json
+        parameters:
+        -   name: series
+            in: query
+            description: series
+            required: true
+            type: integer
+        -   name: start_from
+            in: query
+            description: build number
+            required: false
+            type: integer
+        -   name: builds
+            in: query
+            description: number of builds
+            required: false
+            type: integer
+            default: 10
+        -   name: offset
+            in: query
+            description: offset
+            required: false
+            type: integer
+            default: 0
+        responses:
+            200:
+              description: history
+        """
         test_series = self.get_argument('series', '')
         start_from = self.get_argument('start_from', None)
         num_of_builds = self.get_argument('builds', 10)
