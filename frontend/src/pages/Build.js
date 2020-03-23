@@ -108,7 +108,6 @@ const Build = () => {
 
   return (
     <main id="last-run" css={filterStyles}>
-      <LastRunHeading id={buildId} />
       <div className="last-run-container"></div>
       {!historyDataState || !branchesState || loadingState ? (
         <div
@@ -122,6 +121,7 @@ const Build = () => {
         </div>
       ) : (
         <Fragment>
+          <LastRunHeading id={buildId} />
           <div
             className="sr-show"
             role="status"
@@ -135,7 +135,9 @@ const Build = () => {
             {branchesState.series && (
               <div>
                 <ParentInfo
-                  bundle={branchesState.series.find(e => (e.id = buildId))}
+                  bundle={branchesState.series.find(
+                    ({ id: serie_id }) => serie_id === parseInt(id, 10)
+                  )}
                 />
               </div>
             )}
