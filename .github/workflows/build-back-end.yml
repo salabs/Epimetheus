@@ -1,10 +1,10 @@
-name: build-front-end
+name: deploy-back-end-container
 on:
   push:
-#    branches:
-#      - master
-#    paths:
-#      - "backend_server/**"
+    branches:
+      - master
+    paths:
+      - "backend_server/**"
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -18,7 +18,6 @@ jobs:
           tenant: ${{ secrets.tenant }}
           registry: ${{ secrets.registry }}
           repository: ${{ secrets.repository }}
-          #image: testmanager2.0-backend
-          image: testing-gh-actions
+          image: testmanager2.0-backend
           folder: backend_server
           dockerfile: ../../backend_server/Dockerfile
