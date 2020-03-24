@@ -78,7 +78,22 @@ ORDER BY suite_metadata.name, suite_metadata.value, suite.full_name
 
 def history_page_data(series, start_from, last, offset=0):
     return """
-SELECT *
+SELECT build_number,
+       suite_id,
+       suite_name,
+       suite_full_name,
+       suite_repository,
+       id,
+       name,
+       full_name,
+       test_run_id,
+       status,
+       start_time,
+       elapsed,
+       tags,
+       failure_log_level,
+       failure_message,
+       failure_timestamp
 FROM (
     SELECT DISTINCT ON (suite.id, test_results.id, build_number)
         tsm.build_number,
@@ -86,7 +101,6 @@ FROM (
         suite.repository as suite_repository,
         suite_result.test_run_id as suite_test_run_id,
         suite_result.start_time as suite_start_time,
-        suite_result.elapsed as suite_elapsed,
 
         test_results.id as id, test_results.name as name, test_results.full_name as full_name,
         test_results._test_run_id as test_run_id,
@@ -105,7 +119,8 @@ FROM (
         -- test_results.teardown_elapsed as teardown_elapsed,
         CASE WHEN tags IS NULL THEN '{array_literal}' ELSE tags END as tags,
         log_messages.log_level as failure_log_level,
-        log_messages.message as failure_message
+        log_messages.message as failure_message,
+        log_messages.timestamp as failure_timestamp
     FROM suite_result
     JOIN suite ON suite.id=suite_result.suite_id
     JOIN test_run ON test_run.id=suite_result.test_run_id
@@ -130,7 +145,7 @@ FROM (
                   AND test_tags.test_run_id=test_results._test_run_id
     LEFT OUTER JOIN (
         SELECT DISTINCT ON (test_run_id, test_id)
-            test_run_id, test_id, log_level, message
+            test_run_id, test_id, log_level, message, timestamp
         FROM log_message
         WHERE test_run_id IN ({test_run_ids})
           AND test_id IS NOT NULL
