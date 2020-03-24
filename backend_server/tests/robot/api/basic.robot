@@ -52,10 +52,6 @@ History data
     String              $.history[*].suite_full_name  # Alias for full name
     String              $.history[*].repository
 
-    String              $.history[*].start_time
-    Integer             $.history[*].elapsed
-    Integer             $.history[*].suite_run_time  # Alias for elapsed
-
     Array               $.history[*].test_cases
     String              $.history[*].test_cases[*].name
     String              $.history[*].test_cases[*].test_case  # Alias for name

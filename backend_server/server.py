@@ -7,6 +7,7 @@ import tornado.ioloop
 import tornado.web
 
 from tornado_swagger.setup import setup_swagger
+from tornado_swagger.model import register_swagger_model
 
 import database as db
 
@@ -14,6 +15,47 @@ import database as db
 def load_config_file(config_file):
     with open(config_file, 'r') as f:
         return json.load(f)
+
+
+@register_swagger_model
+class SeriesModel:
+    """
+    ---
+    type: object
+    description: Series object model
+    properties:
+        id:
+            type: integer
+            description: Series id.
+        name:
+            type: string
+            description: Series name.
+        team:
+            type: string
+            description: Team assigned to series. From TestArchiver.
+        builds:
+            type: integer
+            description: Number of builds in the series.
+        last_build:
+            type: integer
+            description: Latest build number for the series.
+        last_generated:
+            type: string
+            format: date-time
+            description: When available, the timestamp when the output of the last build was generated.
+        last_imported:
+            type: string
+            format: date-time
+            description: Timestamp when the first results of the last build were archived.
+        last_started:
+            type: string
+            format: date-time
+            description: The last build starting time i.e. the first timestamp in the last build.
+        sorting_value:
+            type: string
+            format: date-time
+            description: Timestamp used for sorting the series. Either last_started or last_imported
+    """
 
 
 class Application(tornado.web.Application):
@@ -94,7 +136,7 @@ class MetaDataHandler(BaseHandler):
         parameters:
         -   name: series
             in: query
-            description: series
+            description: series id
             required: true
             type: integer
         -   name: build_number
@@ -121,7 +163,7 @@ class MetaDataHandler(BaseHandler):
                                         description: Metadata value.
                                     suite_id:
                                         type: integer
-                                        description: Target suite for given metadata. Often links to root suite.
+                                        description: Target suite id for given metadata. Often links to root suite.
                                     test_run_id:
                                         type: integer
                                         description: Target test run id for given metadata.
@@ -143,28 +185,28 @@ class HistoryDataHandler(BaseHandler):
         tags:
         - History
         summary: Get series history data
-        description: historydata handler
+        description: Data for building the test history table
         produces:
         - application/json
         parameters:
         -   name: series
             in: query
-            description: series
+            description: series id
             required: true
             type: integer
         -   name: start_from
             in: query
-            description: build number
+            description: build number, history starting from this build (defaults to last build in series)
             required: false
             type: integer
             allowEmptyValue: true
         -   name: builds
             in: query
-            description: number of builds
+            description: number of builds, i.e. length of the history
             required: false
             type: integer
             default: 10
-        -   name: offset
+        -   name: offset for the number of builds moving further in history
             in: query
             description: offset
             required: false
@@ -181,45 +223,95 @@ class HistoryDataHandler(BaseHandler):
                             description: Largest build number in resulted history query
                         history:
                             type: array
+                            description: Set of suites with results
                             items:
+                                type: object
                                 properties:
                                     id:
                                         type: integer
-                                        description: Test id.
+                                        description: Suite id.
                                     name:
                                         type: string
-                                        description: Test name.
+                                        description: Suite name.
+                                    full_name:
+                                        type: string
+                                        description: Suite identifying full name.
                                     repository:
                                         type: string
-                                        description: .
-                                    test_run_id:
-                                        type: integer
-                                        description: .
-                                    start_time:
-                                        type: string
-                                        format: date-time
-                                        description: Suite execution start timestamp
-                                    elapsed:
-                                        type: integer
-                                        description: Test execution time in milliseconds
+                                        description: Repository that this suite belongs to.
                                     suite:
                                         type: string
-                                        description: Suite name
+                                        description: Alias for name (TO BE DEPRICATED)
                                     suite_full_name:
                                         type: string
-                                        description: Full suite name with parent data included
+                                        description: Alias for full_name (TO BE DEPRICATED)
                                     suite_id:
                                         type: integer
-                                        description: Suite id
-                                    suite_run_time:
-                                        type: integer
-                                        description: Suite execution time in milliseconds
+                                        description: Alias for id (TO BE DEPRICATED)
                                     test_cases:
                                         type: array
                                         description: Array of test cases and their build history
                                         items:
                                             type: object
+                                            properties:
+                                                test_id:
+                                                    type: integer
+                                                    description: Test case id.
+                                                name:
+                                                    type: string
+                                                    description: Test case name.
+                                                full_name:
+                                                    type: string
+                                                    description: Test case identifying full name.
+                                                test_case:
+                                                    type: string
+                                                    description: Alias for name (TO BE DEPRICATED)
+                                                builds:
+                                                    type: array
+                                                    description: list of test result objects in descending order
+                                                    items:
+                                                        type: object
+                                                        properties:
+                                                            build_number:
+                                                                type: integer
+                                                                description: Build number for the result.
+                                                            elapsed:
+                                                                type: integer
+                                                                description: Running time for the test case in millis.
+                                                            test_run_time:
+                                                                type: integer
+                                                                description: Alias for elapsed (TO BE DEPRICATED)
+                                                            test_run_id:
+                                                                type: integer
+                                                                description: Id of the actual test run this result belongs to.
+                                                            status:
+                                                                type: string
+                                                                description: Final status of the the test execution
+                                                            start_time:
+                                                                type: date-time
+                                                                description: Timestamp for the test execution start
+                                                            failure_log_level:
+                                                                type: string
+                                                                description: Log level for the representative error message
+                                                            failure_message:
+                                                                type: string
+                                                                description: The representative error message
+                                                            failure_timestamp:
+                                                                type: date-time
+                                                                description: Timestamp for the representative error message
+                                                            tags:
+                                                                type: array
+                                                                description: List of test tags associated with this test and its execution
+                                                                items:
+                                                                    type: string
+                                                            messages:
+                                                                type: array
+                                                                description: List of log message objects most likely to show the failure
+                                                                items:
+                                                                    type: object
         """
+
+
         test_series = self.get_argument('series', '')
         start_from = self.get_argument('start_from', None)
         num_of_builds = self.get_argument('builds', 10)
@@ -241,7 +333,7 @@ class SeriesDataHandler(BaseHandler):
         tags:
         - Series
         summary: Get series
-        description: seriesdata handler
+        description: list test series
         produces:
         - application/json
         responses:
@@ -253,39 +345,7 @@ class SeriesDataHandler(BaseHandler):
                         series:
                             type: array
                             items:
-                                type: object
-                                properties:
-                                    id:
-                                        type: integer
-                                        description: Series id.
-                                    name:
-                                        type: string
-                                        description: Series name.
-                                    team:
-                                        type: string
-                                        description: Team assigned to series. From TestArchiver.
-                                    builds:
-                                        type: integer
-                                        description: Amount of builds in series.
-                                    last_build:
-                                        type: integer
-                                        description: Latest build number for series.
-                                    last_generated:
-                                        type: string
-                                        format: date-time
-                                        description: .
-                                    last_imported:
-                                        type: string
-                                        format: date-time
-                                        description: .
-                                    last_started:
-                                        type: string
-                                        format: date-time
-                                        description: .
-                                    sorting_value:
-                                        type: string
-                                        format: date-time
-                                        description: .
+                                $ref: '#/definitions/SeriesModel'
         """
         series = yield self.coroutine_query(self.database.test_series)
         self.write({'series': series})
@@ -324,7 +384,7 @@ class TeamsDataHandler(BaseHandler):
                                         type: array
                                         description: Array of series for a given team.
                                         items:
-                                            type: object
+                                            $ref: '#/definitions/SeriesModel'
         """
         teams = yield self.coroutine_query(self.database.teams)
         self.write({'teams': teams})
