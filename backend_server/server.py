@@ -288,7 +288,8 @@ class HistoryDataHandler(BaseHandler):
                                                                 type: string
                                                                 description: Final status of the the test execution
                                                             start_time:
-                                                                type: date-time
+                                                                type: string
+                                                                format: date-time
                                                                 description: Timestamp for the test execution start
                                                             failure_log_level:
                                                                 type: string
@@ -297,7 +298,8 @@ class HistoryDataHandler(BaseHandler):
                                                                 type: string
                                                                 description: The representative error message
                                                             failure_timestamp:
-                                                                type: date-time
+                                                                type: string
+                                                                format: date-time
                                                                 description: Timestamp for the representative error message
                                                             tags:
                                                                 type: array
