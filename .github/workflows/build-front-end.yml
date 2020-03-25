@@ -20,5 +20,4 @@ jobs:
           repository: ${{ secrets.repository }}
           image: testmanager2.0-front
           folder: frontend
-          dockerfile: ../../frontend/Dockerfile
           tag: test
