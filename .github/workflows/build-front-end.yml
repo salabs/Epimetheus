@@ -22,3 +22,4 @@ jobs:
           image: test-gh-actions-front
           folder: frontend
           dockerfile: ../../frontend/Dockerfile
+          tag: latest
