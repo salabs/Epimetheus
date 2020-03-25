@@ -18,8 +18,7 @@ jobs:
           tenant: ${{ secrets.tenant }}
           registry: ${{ secrets.registry }}
           repository: ${{ secrets.repository }}
-          #image: testmanager2.0-front
-          image: test-gh-actions-front
+          image: testmanager2.0-front
           folder: frontend
           dockerfile: ../../frontend/Dockerfile
-          tag: latest
+          tag: test
