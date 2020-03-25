@@ -18,6 +18,6 @@ jobs:
           tenant: ${{ secrets.tenant }}
           registry: ${{ secrets.registry }}
           repository: ${{ secrets.repository }}
-          image: -back-end
+          image: back-end
           folder: backend_server
           tag: test
