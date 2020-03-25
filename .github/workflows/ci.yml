@@ -8,12 +8,12 @@ on:
       - develop
 #We could use this on push as well?
 jobs:
-  build:
+  Test-Docker-Compose:
     
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Test Docker
+    - name: Testing Docker-Compose execution
       env: # Env variable from Github Secrets
         TEST_DATABASE: ${{ secrets.Test_Database }}
       run: |

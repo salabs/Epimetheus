@@ -1,13 +1,16 @@
 name: deploy-back-end-container
 on:
-  push:
-#    branches:
-#      - master
-#    paths:
-#      - "backend_server/**"
+  pull_request:
+    types: [closed]
+    branches:
+      - master
+    paths:
+      - "backend_server/**"
 jobs:
   build:
     runs-on: ubuntu-latest
+    if: github.event.pull_request.merged
+
     steps:
       - name: ACR build back-end
         id: acr-back-end
@@ -20,4 +23,4 @@ jobs:
           repository: ${{ secrets.repository }}
           image: back-end
           folder: backend_server
-          tag: test
+          tag: stable

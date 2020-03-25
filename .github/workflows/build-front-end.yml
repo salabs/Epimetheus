@@ -1,13 +1,16 @@
 name: deploy-front-end-container
 on:
-  push:
-#    branches:
-#      - master
-#    paths:
-#      - "frontend/src/**"
+  pull_request:
+    types: [closed]
+    branches:
+      - master
+    paths:
+      - "frontend/src/**"
 jobs:
   build:
     runs-on: ubuntu-latest
+    if: github.event.pull_request.merged
+
     steps:
       - name: ACR build
         id: acr
