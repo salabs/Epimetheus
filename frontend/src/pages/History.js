@@ -72,8 +72,9 @@ const History = () => {
         dispatch({ type: 'setLoadingState', loadingState: true });
         dispatch({
           type: 'setSelectedBranch',
-          name: branch?.name + ' ' + branch?.team || ' ',
-          id: series_id
+          name: branch?.name || ' ',
+          id: series_id,
+          team: branch?.team || ' '
         });
         try {
           const res = await fetch(url, {});
