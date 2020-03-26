@@ -50,15 +50,17 @@ const Build = () => {
   ] = useStateValue();
   let { buildId } = useParams();
   //console.log(options.series);
-  let { id } = useParams() || selectedBranchState;
-
+  let { id } = useParams()
+  const branch_id = id ||  selectedBranchState;
+  
+  
   useEffect(() => {
     const fetchData = async () => {
       dispatch({ type: 'setLoadingState', loadingState: true });
-      if (id && buildId) {
+      if (branch_id && buildId) {
         try {
           const res = await fetch(
-            `/data/metadata?series=${id}&build_number=${buildId}`,
+            `/data/metadata?series=${branch_id}&build_number=${buildId}`,
             {}
           );
           const json = await res.json();
@@ -74,20 +76,20 @@ const Build = () => {
     };
     const fetchHistoryData = async () => {
       dispatch({ type: 'setLoadingState', loadingState: true });
-      if (id && buildId) {
+      if (branch_id && buildId) {
         const branch = branchesState.series?.find(
-          ({ id: serie_id }) => serie_id === parseInt(id, 10)
+          ({ id:serie_id }) => serie_id === parseInt(branch_id,10)
         );
         dispatch({
           type: 'setSelectedBranch',
-          name: branch?.name + ' ' + branch?.team || ' ',
-          id: id
+          name: branch?.name +" "+ branch?.team || " ",
+          id: branch_id
         });
         dispatch({ type: 'setSelectedBuild', selectedBuild: buildId });
         try {
           const res = await fetch(
             ///`/data/history?series=${id}&builds=30`,
-            `/data/history?start_from=${buildId}&series=${id}&builds=5`,
+            `/data/history?start_from=${buildId}&series=${branch_id}&builds=5`,
             {}
           );
           const json = await res.json();
@@ -103,7 +105,7 @@ const Build = () => {
       fetchHistoryData();
       fetchData();
     }
-  }, [dispatch, id, buildId, branchesState]);
+  }, [dispatch, branch_id, buildId, branchesState]);
 
   return (
     <main id="last-run" css={filterStyles}>
@@ -132,7 +134,7 @@ const Build = () => {
           </div>
           <MetadataTable buildId={buildId} />
           <LastRunCheckBox />
-          <Table id={id} />
+          <Table id={branch_id} />
         </Fragment>
       )}
     </main>

@@ -1,0 +1,25 @@
+name: CI
+
+on: 
+  #push:
+  pull_request:
+    branches:
+      - master
+      - develop
+#We could use this on push as well?
+jobs:
+  Test-Docker-Compose:
+    
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Testing Docker-Compose execution
+      env: # Env variable from Github Secrets
+        TEST_DATABASE: ${{ secrets.Test_Database }}
+      run: |
+        ./run-docker.sh
+    - name: Stop Docker
+      env: # Env variable from Github Secrets
+        TEST_DATABASE: ${{ secrets.Test_Database }}
+      run: |
+        ./stop-docker.sh
