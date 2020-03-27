@@ -1,13 +1,12 @@
 // eslint-disable-next-line
 import React, { Fragment, useEffect } from 'react';
-/** @jsx jsx */
-import { css, jsx } from '@emotion/core';
 import Table from '../components/lastRunTable/Table';
 import LastRunCheckBox from '../components/LastRunCheckbox';
 import { useStateValue } from '../contexts/state';
 import LastRunHeading from '../components/LastRunHeading';
 import MetadataTable from '../components/lastRunTable/MetadataTable';
 import { useParams } from 'react-router';
+import { css } from '@emotion/core';
 
 const Build = () => {
   const filterStyles = css`
@@ -46,20 +45,22 @@ const Build = () => {
     }
   `;
   const [
-    { loadingState, historyDataState, selectedBranchState, branchesState},
+    { loadingState, historyDataState, selectedBranchState, branchesState },
     dispatch
   ] = useStateValue();
-  let { buildId } = useParams()
+  let { buildId } = useParams();
   //console.log(options.series);
-  let { id } = useParams() || selectedBranchState;
+  let { id } = useParams()
+  const branch_id = id ||  selectedBranchState;
+  
   
   useEffect(() => {
     const fetchData = async () => {
       dispatch({ type: 'setLoadingState', loadingState: true });
-      if (id && buildId) {
+      if (branch_id && buildId) {
         try {
           const res = await fetch(
-            `/data/metadata?series=${id}&build_number=${buildId}`,
+            `/data/metadata?series=${branch_id}&build_number=${buildId}`,
             {}
           );
           const json = await res.json();
@@ -75,20 +76,20 @@ const Build = () => {
     };
     const fetchHistoryData = async () => {
       dispatch({ type: 'setLoadingState', loadingState: true });
-      if (id && buildId) {
+      if (branch_id && buildId) {
         const branch = branchesState.series?.find(
-          ({ id:serie_id }) => serie_id === parseInt(id,10)
+          ({ id:serie_id }) => serie_id === parseInt(branch_id,10)
         );
         dispatch({
           type: 'setSelectedBranch',
           name: branch?.name +" "+ branch?.team || " ",
-          id: id
+          id: branch_id
         });
-        dispatch({ type: 'setSelectedBuild', selectedBuild: buildId});
+        dispatch({ type: 'setSelectedBuild', selectedBuild: buildId });
         try {
           const res = await fetch(
             ///`/data/history?series=${id}&builds=30`,
-            `/data/history?start_from=${buildId}&series=${id}&builds=5`,
+            `/data/history?start_from=${buildId}&series=${branch_id}&builds=5`,
             {}
           );
           const json = await res.json();
@@ -97,16 +98,14 @@ const Build = () => {
             type: 'updateHistory',
             historyData: json
           });
-          
-        } catch (error) {
-        }
+        } catch (error) {}
       }
     };
     if (branchesState) {
       fetchHistoryData();
       fetchData();
     }
-  }, [dispatch, id, buildId, branchesState]);
+  }, [dispatch, branch_id, buildId, branchesState]);
 
   return (
     <main id="last-run" css={filterStyles}>
@@ -135,7 +134,7 @@ const Build = () => {
           </div>
           <MetadataTable buildId={buildId} />
           <LastRunCheckBox />
-          <Table id={id} />
+          <Table id={branch_id} />
         </Fragment>
       )}
     </main>

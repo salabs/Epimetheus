@@ -29,9 +29,9 @@ const initialState = {
     filterType: ''
   },
   branchesState: null,
-  selectedBranchState: {name: 'All builds', id: 1},
+  selectedBranchState: { name: 'All builds', id: 1 },
   metadataState: [],
-  selectedBuildState: {},
+  selectedBuildState: {}
 };
 
 ReactDOM.render(

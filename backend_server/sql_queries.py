@@ -1,11 +1,14 @@
 
-TEST_SERIES = """
+def test_series(by_teams=False):
+    return """
 SELECT id, name, team,
         count(*) as builds,
         max(build_number) as last_build,
-        to_char(max(generated), 'DD.MM.YYYY HH24:MI:SS') as last_generated,
-        to_char(max(imported_at), 'DD.MM.YYYY HH24:MI:SS') as last_imported,
-        to_char(max(start_time), 'DD.MM.YYYY HH24:MI:SS') as last_started
+        max(generated) as last_generated,
+        max(imported_at) as last_imported,
+        max(start_time) as last_started,
+        CASE WHEN max(start_time) IS NOT NULL THEN max(start_time)
+             ELSE max(imported_at) END as sorting_value
 FROM (
     SELECT test_series.id, name, team, build_number,
             min(generated) as generated,
@@ -19,31 +22,10 @@ FROM (
     GROUP BY test_series.id, name, team, build_number
 ) AS builds
 GROUP BY id, name, team
-ORDER BY last_generated DESC, last_started DESC, last_imported DESC;
-"""
+ORDER BY {team_sorting} sorting_value;
+""".format(team_sorting="team," if by_teams else '') # nosec
+# No user input is actually used here so query construction here is okay
 
-TEST_SERIES_BY_TEAMS = """
-SELECT id, name, team,
-        count(*) as builds,
-        max(build_number) as last_build,
-        to_char(max(generated), 'DD.MM.YYYY HH24:MI:SS') as last_generated,
-        to_char(max(imported_at), 'DD.MM.YYYY HH24:MI:SS') as last_imported,
-        to_char(max(start_time), 'DD.MM.YYYY HH24:MI:SS') as last_started
-FROM (
-    SELECT test_series.id, name, team, build_number,
-            min(generated) as generated,
-            min(imported_at) as imported_at,
-            min(start_time) as start_time
-    FROM test_series
-    JOIN test_series_mapping as tsm ON tsm.series=test_series.id
-    JOIN test_run ON tsm.test_run_id=test_run.id
-    JOIN suite_result ON suite_result.test_run_id=test_run.id
-    WHERE NOT ignored
-    GROUP BY test_series.id, name, team, build_number
-) AS builds
-GROUP BY id, name, team
-ORDER BY team, last_generated DESC, last_started DESC, last_imported DESC;
-"""
 
 def test_run_ids(series=None, build_num=None, start_from=None, last=None, offset=0):
     filters = []
@@ -96,7 +78,22 @@ ORDER BY suite_metadata.name, suite_metadata.value, suite.full_name
 
 def history_page_data(series, start_from, last, offset=0):
     return """
-SELECT *
+SELECT build_number,
+       suite_id,
+       suite_name,
+       suite_full_name,
+       suite_repository,
+       id,
+       name,
+       full_name,
+       test_run_id,
+       status,
+       start_time,
+       elapsed,
+       tags,
+       failure_log_level,
+       failure_message,
+       failure_timestamp
 FROM (
     SELECT DISTINCT ON (suite.id, test_results.id, build_number)
         tsm.build_number,
@@ -104,7 +101,6 @@ FROM (
         suite.repository as suite_repository,
         suite_result.test_run_id as suite_test_run_id,
         suite_result.start_time as suite_start_time,
-        suite_result.elapsed as suite_elapsed,
 
         test_results.id as id, test_results.name as name, test_results.full_name as full_name,
         test_results._test_run_id as test_run_id,
@@ -123,7 +119,8 @@ FROM (
         -- test_results.teardown_elapsed as teardown_elapsed,
         CASE WHEN tags IS NULL THEN '{array_literal}' ELSE tags END as tags,
         log_messages.log_level as failure_log_level,
-        log_messages.message as failure_message
+        log_messages.message as failure_message,
+        log_messages.timestamp as failure_timestamp
     FROM suite_result
     JOIN suite ON suite.id=suite_result.suite_id
     JOIN test_run ON test_run.id=suite_result.test_run_id
@@ -148,7 +145,7 @@ FROM (
                   AND test_tags.test_run_id=test_results._test_run_id
     LEFT OUTER JOIN (
         SELECT DISTINCT ON (test_run_id, test_id)
-            test_run_id, test_id, log_level, message
+            test_run_id, test_id, log_level, message, timestamp
         FROM log_message
         WHERE test_run_id IN ({test_run_ids})
           AND test_id IS NOT NULL

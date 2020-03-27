@@ -1,0 +1,4 @@
+# Requirements for running the robot tests, 
+# also make sure the execution machine has webdriver in PATH. 
+robotframework >= 3.1.2
+robotframework-seleniumlibrary >= 4.3.0

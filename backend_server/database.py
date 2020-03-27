@@ -36,7 +36,7 @@ class Database:
         self.session = queries.TornadoSession(connection_uri)
 
     def test_series(self):
-        return self.session.query(sql_queries.TEST_SERIES), list_of_dicts
+        return self.session.query(sql_queries.test_series()), list_of_dicts
 
     def teams(self):
         def series_by_team(rows):
@@ -48,14 +48,18 @@ class Database:
                 if current_team_name != series['team']:
                     if current_team:
                         teams.append(current_team)
-                    current_team = {'name': series['team'], 'series_count': 0, 'series': []}
-                current_team['series_count'] += 1
-                current_team['series'].append(series)
+                    current_team = {'name': series['team'], 'series_count': 0, 'series': [],
+                                    'all_builds': None}
+                if series['name'] == 'All builds':
+                    current_team['all_builds'] = series
+                else:
+                    current_team['series_count'] += 1
+                    current_team['series'].append(series)
                 current_team_name = series['team']
             if current_team:
                 teams.append(current_team)
             return teams
-        return self.session.query(sql_queries.TEST_SERIES_BY_TEAMS), series_by_team
+        return self.session.query(sql_queries.test_series(by_teams=True)), series_by_team
 
     def history_page_data(self, test_series, start_from, num_of_builds, offset):
         history_sql = sql_queries.history_page_data(test_series, start_from, num_of_builds, offset)
@@ -88,7 +92,6 @@ def history_data(history_rows):
         suite['suite'] = suite['name']
         suite['suite_full_name'] = suite['full_name']
         suite['suite_id'] = suite['id']
-        suite['suite_run_time'] = suite['elapsed']
         if not current_suite:
             current_suite = suite
             current_suite['test_cases'] = []
@@ -106,14 +109,12 @@ def history_data(history_rows):
                                      'message': test['failure_message']}]
             else:
                 test['messages'] = []
-            test['test_run_time'] = test['elapsed']
-            test['test_status'] = test['status']
             if not current_test:
                 current_test = _test_item(test)
             if current_test['test_id'] != test['id']:
                 current_suite['test_cases'].append(current_test)
                 current_test = _test_item(test)
-            current_test['builds'].append(test)
+            current_test['builds'].append(_test_result_item(test))
     if current_test:
         current_suite['test_cases'].append(current_test)
     if current_suite:
@@ -123,6 +124,16 @@ def history_data(history_rows):
 def _test_item(data_row):
     return {'builds': [], 'test_case': data_row['name'], 'test_id': data_row['id'],
             'full_name': data_row['full_name'], 'name': data_row['name']}
+
+def _test_result_item(data_row):
+    return {'build_number': data_row['build_number'], 'test_run_id': data_row['test_run_id'],
+            'elapsed': data_row['elapsed'], 'test_run_time': data_row['elapsed'],
+            'status': data_row['status'], 'test_status': data_row['status'],
+            'start_time': data_row['start_time'],
+            'tags': data_row['tags'], 'messages': data_row['messages'],
+            'failure_log_level': data_row['failure_log_level'],
+            'failure_message': data_row['failure_message'],
+            'failure_timestamp': data_row['failure_timestamp']}
 
 
 if __name__ == '__main__':

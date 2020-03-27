@@ -21,6 +21,16 @@ Teams data
     GET                 /data/teams
     String              $.teams[*].name
     Integer             $.teams[*].series_count
+
+    Object              $.teams[*].all_builds
+    Integer             $.teams[*].all_builds.id
+    String              $.teams[*].all_builds.name
+    String              $.teams[*].all_builds.team
+    String              $.teams[*].all_builds.last_imported
+    String              $.teams[*].all_builds.last_started
+    Integer             $.teams[*].all_builds.builds
+    Integer             $.teams[*].all_builds.last_build
+
     Array               $.teams[*].series     minItems=1
     Integer             $.teams[*].series[*].id
     String              $.teams[*].series[*].name
@@ -41,10 +51,6 @@ History data
     String              $.history[*].full_name
     String              $.history[*].suite_full_name  # Alias for full name
     String              $.history[*].repository
-
-    String              $.history[*].start_time
-    Integer             $.history[*].elapsed
-    Integer             $.history[*].suite_run_time  # Alias for elapsed
 
     Array               $.history[*].test_cases
     String              $.history[*].test_cases[*].name
