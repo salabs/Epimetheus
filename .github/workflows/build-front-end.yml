@@ -23,4 +23,4 @@ jobs:
           repository: ${{ secrets.repository }}
           image: front-end
           folder: frontend
-          tag: test
+          tag: stable
