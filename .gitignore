@@ -13,3 +13,4 @@ test/*
 .vscode/
 robot_test/logs/
 *.env
+variables.pyc
