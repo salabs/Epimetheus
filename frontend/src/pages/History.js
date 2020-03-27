@@ -8,6 +8,7 @@ import Checkbox from '../components/Checkbox';
 import { useStateValue } from '../contexts/state';
 import BranchFilter from '../components/BranchFilter';
 import { useParams } from 'react-router';
+import BreadcrumbNav from '../components/BreadcrumbNav';
 
 const History = () => {
   const filterStyles = css`
@@ -94,7 +95,7 @@ const History = () => {
 
   return (
     <main id="history" css={filterStyles}>
-      <h1>History</h1>
+      <BreadcrumbNav status={'series'} />
       <div className="filter-container">
         <Filter />
         <BranchFilter />
