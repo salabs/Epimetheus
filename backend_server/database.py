@@ -96,9 +96,9 @@ def history_data(history_rows):
             current_suite = suite
             current_suite['test_cases'] = []
         if current_suite['id'] != suite['id']:
-            if current_test and test['id']:
+            if current_test:
                 current_suite['test_cases'].append(current_test)
-                current_test = _test_item(test)
+                current_test = None
             suites.append(current_suite)
             current_suite = suite
             current_suite['test_cases'] = []
