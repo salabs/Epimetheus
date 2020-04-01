@@ -135,7 +135,7 @@ class KeywordModel:
     """
     ---
     type: object
-    description: Keyword or a test step object
+    description: Keyword or test step object
     properties:
         fingerprint:
             type: string
@@ -193,10 +193,17 @@ class Application(tornado.web.Application):
         setup_swagger(handlers,
             swagger_url="/data/doc",
             description='Project repo at https://github.com/salabs/Epimetheus',
-            api_version='0.0.1',
+            api_version='0.1.0',
             title='Epimetheus backend API',)
         tornado.web.Application.__init__(self, handlers, **settings)
 
+
+def free_connection(connections):
+    if isinstance(connections, list):
+        for conn in connections:
+            conn.free()
+    else:
+        connections.free()
 
 class BaseHandler(tornado.web.RequestHandler):
     # Default error handling is to return HTTP status 500
@@ -207,19 +214,13 @@ class BaseHandler(tornado.web.RequestHandler):
     def database(self):
         return self.application.database
 
-    def free_connection(self, connections):
-        if isinstance(connections, list):
-            for conn in connections:
-                conn.free()
-        else:
-            connections.free()
 
     @tornado.gen.coroutine
     def coroutine_query(self, querer, *args, **kwargs):
         rows, formatter = querer(*args, **kwargs)
         rows = yield rows
         results = formatter(rows)
-        self.free_connection(rows)
+        free_connection(rows)
         return results
 
     def send_error_response(self, status, message=''):
@@ -304,7 +305,7 @@ class TeamsDataHandler(BaseHandler):
                                         description: Amount of series for a given team.
                                     series:
                                         type: array
-                                        description: Array of series for a given team.
+                                        description: Array of series for a given team. Most recently updated first
                                         items:
                                             $ref: '#/definitions/SeriesModel'
         """
@@ -320,7 +321,7 @@ class SeriesDataHandler(BaseHandler):
         tags:
         - Series
         summary: Get series
-        description: list test series
+        description: List all test series. Most recently updated first
         produces:
         - application/json
         responses:
@@ -357,7 +358,7 @@ class SeriesInfoDataHandler(BaseHandler):
             type: integer
         responses:
             200:
-                description: A list of teams
+                description: Object with meta information about a test series
                 schema:
                     type: object
                     properties:
@@ -401,19 +402,19 @@ class BuildsDataHandler(BaseHandler):
             allowEmptyValue: true
         -   name: builds
             in: query
-            description: number of builds, i.e. length of the history
+            description: number of builds, i.e. maximum length of the history
             required: false
             type: integer
             default: 10
         -   name: offset
             in: query
-            description: offset for the number of builds moving further in history
+            description: offset for the number of builds, moving further in history
             required: false
             type: integer
             default: 0
         responses:
             200:
-                description: A list of teams
+                description: A list of build objects
                 schema:
                     type: object
                     properties:
@@ -442,7 +443,7 @@ class BuildInfoDataHandler(BaseHandler):
         ---
         tags:
         - Item info
-        summary: Get series info
+        summary: Get build info
         description: Information about a build.
         produces:
         - application/json
@@ -459,7 +460,7 @@ class BuildInfoDataHandler(BaseHandler):
             type: integer
         responses:
             200:
-                description: A list of teams
+                description: Object with meta information about a build
                 schema:
                     type: object
                     properties:
@@ -630,7 +631,7 @@ class SuiteResultInfoDataHandler(BaseHandler):
         ---
         tags:
         - Item info
-        summary: Get series info
+        summary: Get suite result info
         description: Information about a suite result.
         produces:
         - application/json

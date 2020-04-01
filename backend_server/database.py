@@ -29,7 +29,7 @@ class Database:
         try:
             with queries.Session(connection_uri) as session:
                 session.query('SELECT count(*) FROM test_run')
-        except Exception as e:
+        except Exception:
             print('ERROR: Given database is empty. Consider archiving some results first.')
             exit(1)
 
