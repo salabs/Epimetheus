@@ -116,8 +116,7 @@ def history_data(history_rows):
     current_test = None
     max_build_num = -1
     for row in list_of_dicts(history_rows):
-        suite = {key[6:]: row[key] for key in row if key.startswith('suite_')}
-        test = {key: row[key] for key in row if not key.startswith('suite_')}
+        suite, test = _separate_suite_and_test_values(row)
         max_build_num = max(test['build_number'], max_build_num)
         # Renaming fields to match old implementation
         suite['suite'] = suite['name']
@@ -156,8 +155,7 @@ def _suite_result_info(rows):
     tests = []
     current_suite = None
     for row in list_of_dicts(rows):
-        suite = {key[6:]: row[key] for key in row if key.startswith('suite_')}
-        test = {key: row[key] for key in row if not key.startswith('suite_')}
+        suite, test = _separate_suite_and_test_values(row)
         test['status'] = test['statuses'][0]
         current_suite = suite
         tests.append(test)
@@ -169,14 +167,18 @@ def suite_result_data(rows):
     tests = []
     current_suite = None
     for row in list_of_dicts(rows):
-        suite = {key[6:]: row[key] for key in row if key.startswith('suite_')}
-        test = {key: row[key] for key in row if not key.startswith('suite_')}
+        suite, test = _separate_suite_and_test_values(row)
         current_suite = suite
         if test['id']:
             tests.append(test)
     if current_suite:
         current_suite['tests'] = tests
     return current_suite
+
+def _separate_suite_and_test_values(row):
+    suite = {key[6:]: row[key] for key in row if key.startswith('suite_')}
+    test = {key: row[key] for key in row if not key.startswith('suite_')}
+    return suite, test
 
 def _test_item(data_row):
     return {'builds': [], 'test_case': data_row['name'], 'test_id': data_row['id'],

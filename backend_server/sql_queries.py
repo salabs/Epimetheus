@@ -33,7 +33,7 @@ FROM (
 ) AS builds
 GROUP BY id, name, team
 ORDER BY {team_sorting} sorting_value;
-""".format(team_sorting="team," if by_teams else '',
+""".format(team_sorting="team," if by_teams else '', # nosec
            series_filter='AND test_series.id={}'.format(int(series)) if series else '') # nosec
 
 
@@ -52,7 +52,7 @@ JOIN test_run ON test_run.id=tsm.test_run_id
 WHERE NOT ignored
 {filters}
 ORDER BY build_number, test_run_id
-""".format(filters='AND ' + ' AND '.join(filters) if filters else '')
+""".format(filters='AND ' + ' AND '.join(filters) if filters else '') # nosec
 
 
 def build_numbers(series, start_from=None, last=None, offset=0):
@@ -68,7 +68,7 @@ FROM (
 ) as build_numbers
 ORDER BY build_number DESC
 {limit}
-""".format(series=int(series),
+""".format(series=int(series), # nosec
            limit=LIMIT_STATEMENT.format(last=int(last), offset=int(offset)) if last else '',
            starting_filter="AND build_number <= {}".format(int(start_from)) if start_from else '')
 
@@ -107,7 +107,7 @@ FROM (
 ) AS test_runs
 GROUP BY team, name, build_number, build_id
 ORDER BY build_number {order};
-""".format(series=int(series),
+""".format(series=int(series),  # nosec
            build_filter=build_filter,
            order='ASC' if reverse else 'DESC')
 
@@ -133,7 +133,7 @@ WHERE suite_result.suite_id={suite_id}
 GROUP BY suite.id, suite.name, suite.full_name,
          test_case.id, test_case.name, test_case.full_name
 ORDER BY test_case.name;
-""".format(test_run_ids=test_run_ids(series, build_num), suite_id=int(suite))
+""".format(test_run_ids=test_run_ids(series, build_num), suite_id=int(suite)) # nosec
 
 
 def build_metadata(series, build_num):
@@ -147,7 +147,7 @@ FROM suite_metadata
 JOIN suite ON suite.id=suite_metadata.suite_id
 WHERE test_run_id IN ({test_run_ids})
 ORDER BY suite_metadata.name, suite_metadata.value, suite.full_name
-""".format(test_run_ids=test_run_ids(series, build_num=build_num))
+""".format(test_run_ids=test_run_ids(series, build_num=build_num)) # nosec
 
 
 def history_page_data(series, start_from, last, offset=0):
@@ -232,7 +232,7 @@ FROM (
     ORDER BY suite_id, test_results.id, build_number DESC, suite_start_time DESC, suite_test_run_id DESC
 ) AS results
 ORDER BY suite_full_name, full_name, build_number DESC;
-""".format(array_literal='{}',
+""".format(array_literal='{}', # nosec
            series=series,
            test_run_ids=test_run_ids(series, start_from=start_from, last=last, offset=offset))
 
@@ -303,7 +303,7 @@ FROM (
     ORDER BY suite_id, test_results.id, suite_start_time DESC, suite_test_run_id DESC
 ) AS results
 ORDER BY suite_full_name, full_name;
-""".format(array_literal='{}',
+""".format(array_literal='{}', # nosec
            series=int(series),
            suite_id=int(suite),
            test_run_ids=test_run_ids(series, build_num=build_number))
@@ -316,6 +316,6 @@ WHERE test_run_id={test_run_id}
   AND {test_filter}
   {suite_filter}
 ORDER BY timestamp, id
-""".format(test_run_id=int(test_run_id),
+""".format(test_run_id=int(test_run_id), # nosec
            suite_filter="AND suite_id={}".format(int(suite_id)) if suite_id else '',
            test_filter="test_id={}".format(int(test_id)) if test_id else 'test_id IS NULL')
