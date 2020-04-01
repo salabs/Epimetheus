@@ -9,3 +9,7 @@ Examples of contributions include:
 *   Bug reports and patch reviews
 
 Patches can be submitted as pull requests, but if you don't file an issue, it may be ignored. Please file an issue to suggest changes.
+
+## Coding style
+Epimetheus project uses [EditorConfig](https://editorconfig.org/) to manage the coding style. See the [.editorconfig](/.editorconfig) file
+for settings.
