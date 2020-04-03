@@ -1,5 +1,6 @@
 import urllib.parse
 import datetime
+import sys
 
 import queries
 
@@ -22,16 +23,16 @@ class Database:
         try:
             with queries.Session(connection_uri) as session:
                 session.query('SELECT 1')
-        except Exception as e:
+        except Exception as exception:
             print('ERROR: Unable to connect to database:')
-            raise e
+            raise exception
         # Check that test archive contains data
         try:
             with queries.Session(connection_uri) as session:
                 session.query('SELECT count(*) FROM test_run')
         except Exception:
             print('ERROR: Given database is empty. Consider archiving some results first.')
-            exit(1)
+            sys.exit(1)
 
         self.session = queries.TornadoSession(connection_uri)
 

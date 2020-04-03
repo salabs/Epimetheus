@@ -5,6 +5,7 @@ import sys
 import tornado.httpserver
 import tornado.ioloop
 import tornado.web
+from tornado.web import url
 
 from tornado_swagger.setup import setup_swagger
 from tornado_swagger.model import register_swagger_model
@@ -12,9 +13,9 @@ from tornado_swagger.model import register_swagger_model
 import database as db
 
 
-def load_config_file(config_file):
-    with open(config_file, 'r') as f:
-        return json.load(f)
+def load_config_file(file_name):
+    with open(file_name, 'r') as file:
+        return json.load(file)
 
 
 @register_swagger_model
@@ -164,37 +165,43 @@ class KeywordModel:
 
 
 class Application(tornado.web.Application):
-    def __init__(self, database, config):
+    def __init__(self, database):
         handlers = [
-            tornado.web.url(r"/$", BaseDataHandler),
-            tornado.web.url(r"/data/?$", BaseDataHandler),
-            tornado.web.url(r"/data/teams/?$", TeamsDataHandler),
-            tornado.web.url(r"/data/series/?$", SeriesDataHandler),
-            tornado.web.url(r"/data/series/(?P<series>[0-9]+)/info?$", SeriesInfoDataHandler),
-            tornado.web.url(r"/data/series/(?P<series>[0-9]+)/builds/?$", BuildsDataHandler),
-            tornado.web.url(r"/data/series/(?P<series>[0-9]+)/builds/(?P<build_number>[0-9]+)/info?$", BuildInfoDataHandler),
-            tornado.web.url(r"/data/series/(?P<series>[0-9]+)/builds/(?P<build_number>[0-9]+)/suites/(?P<suite>[0-9]+)/?$", SuiteResultDataHandler),
-            tornado.web.url(r"/data/series/(?P<series>[0-9]+)/builds/(?P<build_number>[0-9]+)/suites/(?P<suite>[0-9]+)/info?$", SuiteResultInfoDataHandler),
-            tornado.web.url(r"/data/series/(?P<series>[0-9]+)/history/?$", HistoryDataHandler),
-            tornado.web.url(r"/data/series/(?P<series>[0-9]+)/builds/(?P<build_number>[0-9]+)/metadata/?$", MetaDataHandler),
-            tornado.web.url(r"/data/test_runs/(?P<test_run>[0-9]+)/suites/(?P<suite>[0-9]+)/log_messages?$", SuiteLogMessageDataHandler),
-            tornado.web.url(r"/data/test_runs/(?P<test_run>[0-9]+)/test_cases/(?P<test>[0-9]+)/log_messages?$", TestCaseLogMessageDataHandler),
-            tornado.web.url(r"/data/keyword_tree/(?P<fingerprint>[0-9a-fA-F]{40})/?$", KeywordTreeDataHandler),
+            url(r"/$", BaseDataHandler),
+            url(r"/data/?$", BaseDataHandler),
+            url(r"/data/teams/?$", TeamsDataHandler),
+            url(r"/data/series/?$", SeriesDataHandler),
+            url(r"/data/series/(?P<series>[0-9]+)/info?$", SeriesInfoDataHandler),
+            url(r"/data/series/(?P<series>[0-9]+)/builds/?$", BuildsDataHandler),
+            url(r"/data/series/(?P<series>[0-9]+)/builds/(?P<build_number>[0-9]+)/info?$",
+                BuildInfoDataHandler),
+            url(r"/data/series/(?P<series>[0-9]+)/builds/(?P<build_number>[0-9]+)/suites/(?P<suite>[0-9]+)/?$",
+                SuiteResultDataHandler),
+            url(r"/data/series/(?P<series>[0-9]+)/builds/(?P<build_number>[0-9]+)/suites/(?P<suite>[0-9]+)/info?$",
+                SuiteResultInfoDataHandler),
+            url(r"/data/series/(?P<series>[0-9]+)/history/?$", HistoryDataHandler),
+            url(r"/data/series/(?P<series>[0-9]+)/builds/(?P<build_number>[0-9]+)/metadata/?$",
+                MetaDataHandler),
+            url(r"/data/test_runs/(?P<test_run>[0-9]+)/suites/(?P<suite>[0-9]+)/log_messages?$",
+                SuiteLogMessageDataHandler),
+            url(r"/data/test_runs/(?P<test_run>[0-9]+)/test_cases/(?P<test>[0-9]+)/log_messages?$",
+                TestCaseLogMessageDataHandler),
+            url(r"/data/keyword_tree/(?P<fingerprint>[0-9a-fA-F]{40})/?$", KeywordTreeDataHandler),
 
-            tornado.web.url(r"/data/history/?$", OldHistoryDataHandler), # Depricated see HistoryDataHandler
-            tornado.web.url(r"/data/metadata/?$", OldMetaDataHandler), # Depricated see MetaDataHandler
+            url(r"/data/history/?$", OldHistoryDataHandler), # Depricated see HistoryDataHandler
+            url(r"/data/metadata/?$", OldMetaDataHandler), # Depricated see MetaDataHandler
 
             # For query testing purposes only
-            tornado.web.url(r"/data/foo/?$", FooDataHandler)
+            url(r"/data/foo/?$", FooDataHandler)
         ]
 
         settings = dict(debug=True)
         self.database = database
         setup_swagger(handlers,
-            swagger_url="/data/doc",
-            description='Project repo at https://github.com/salabs/Epimetheus',
-            api_version='0.1.0',
-            title='Epimetheus backend API',)
+                      swagger_url="/data/doc",
+                      description='Project repo at https://github.com/salabs/Epimetheus',
+                      api_version='0.1.0',
+                      title='Epimetheus backend API')
         tornado.web.Application.__init__(self, handlers, **settings)
 
 
@@ -205,6 +212,22 @@ def free_connection(connections):
     else:
         connections.free()
 
+def values_are_integers(self, *values):
+    """Checks that given values can be casted to int. None value is considered valid."""
+    try:
+        [int(val) for val in values if val]
+    except ValueError:
+        return False
+    return True
+
+@tornado.gen.coroutine
+def coroutine_query(querer, *args, **kwargs):
+    rows, formatter = querer(*args, **kwargs)
+    rows = yield rows
+    results = formatter(rows)
+    free_connection(rows)
+    return results
+
 class BaseHandler(tornado.web.RequestHandler):
     # Default error handling is to return HTTP status 500
     def write_error(self, status_code, **kwargs):
@@ -214,14 +237,8 @@ class BaseHandler(tornado.web.RequestHandler):
     def database(self):
         return self.application.database
 
-
-    @tornado.gen.coroutine
-    def coroutine_query(self, querer, *args, **kwargs):
-        rows, formatter = querer(*args, **kwargs)
-        rows = yield rows
-        results = formatter(rows)
-        free_connection(rows)
-        return results
+    def data_received(self, chunk):
+        pass
 
     def send_error_response(self, status, message=''):
         self.set_header('Content-Type', 'application/json')
@@ -234,33 +251,22 @@ class BaseHandler(tornado.web.RequestHandler):
     def send_not_found_response(self):
         self.send_error_response(404, 'Not found')
 
-    # Checks that given values can be casted to int. None value is considered valid.
-    @staticmethod
-    def values_are_integers(self, *values):
-        try:
-            for val in values:
-                if val: int(val)
-        except ValueError:
-            return False
-        return True
-
     @tornado.gen.coroutine
     def keyword_tree(self, fingerprint):
         if not fingerprint:
             return None
-        keyword_tree = yield self.coroutine_query(self.database.keyword_tree, fingerprint)
+        keyword_tree = yield coroutine_query(self.database.keyword_tree, fingerprint)
         if keyword_tree:
             keyword_tree['children'] = []
             keyword_tree = yield self.child_trees(keyword_tree)
             return keyword_tree
-        else:
-            return None
+        return None
 
     @tornado.gen.coroutine
     def child_trees(self, keyword_tree):
         if 'children' not in keyword_tree:
             keyword_tree['children'] = []
-        children = yield self.coroutine_query(self.database.subtrees, keyword_tree['fingerprint'])
+        children = yield coroutine_query(self.database.subtrees, keyword_tree['fingerprint'])
         for child in children:
             child_tree = yield self.child_trees(child)
             keyword_tree['children'].append(child_tree)
@@ -309,7 +315,7 @@ class TeamsDataHandler(BaseHandler):
                                         items:
                                             $ref: '#/definitions/SeriesModel'
         """
-        teams = yield self.coroutine_query(self.database.teams)
+        teams = yield coroutine_query(self.database.teams)
         self.write({'teams': teams})
 
 
@@ -335,7 +341,7 @@ class SeriesDataHandler(BaseHandler):
                             items:
                                 $ref: '#/definitions/SeriesModel'
         """
-        series = yield self.coroutine_query(self.database.test_series)
+        series = yield coroutine_query(self.database.test_series)
         self.write({'series': series})
 
 
@@ -369,9 +375,9 @@ class SeriesInfoDataHandler(BaseHandler):
                         first_build:
                             $ref: '#/definitions/BuildModel'
         """
-        series_info = yield self.coroutine_query(self.database.test_series, series_id=series)
-        last_build = yield self.coroutine_query(self.database.builds, series, num_of_builds=1)
-        first_build = yield self.coroutine_query(self.database.builds, series, num_of_builds=1, reverse=True)
+        series_info = yield coroutine_query(self.database.test_series, series_id=series)
+        last_build = yield coroutine_query(self.database.builds, series, num_of_builds=1)
+        first_build = yield coroutine_query(self.database.builds, series, num_of_builds=1, reverse=True)
         if series_info and last_build:
             self.write({'series': series_info[0], 'last_build': last_build[0], 'first_build': first_build[0]})
         else:
@@ -428,8 +434,8 @@ class BuildsDataHandler(BaseHandler):
         num_of_builds = self.get_argument('builds', 10)
         offset = self.get_argument('offset', 0)
 
-        if self.values_are_integers(series, start_from, num_of_builds, offset):
-            builds = yield self.coroutine_query(self.database.builds, series, start_from=start_from,
+        if values_are_integers(series, start_from, num_of_builds, offset):
+            builds = yield coroutine_query(self.database.builds, series, start_from=start_from,
                                                 num_of_builds=num_of_builds, offset=offset)
             self.write({'builds': builds})
         else:
@@ -469,8 +475,8 @@ class BuildInfoDataHandler(BaseHandler):
                         build:
                             $ref: '#/definitions/BuildModel'
         """
-        series_info = yield self.coroutine_query(self.database.test_series, series_id=series)
-        build_info = yield self.coroutine_query(self.database.builds, series, build_number=build_number)
+        series_info = yield coroutine_query(self.database.test_series, series_id=series)
+        build_info = yield coroutine_query(self.database.builds, series, build_number=build_number)
         if series_info and build_info:
             self.write({'series': series_info[0], 'build': build_info[0]})
         else:
@@ -612,12 +618,12 @@ class SuiteResultDataHandler(BaseHandler):
                                                 format: date-time
                                                 description: Timestamp for the representative error message
         """
-        suite_result = yield self.coroutine_query(self.database.suite_result, series, build_number, suite)
+        suite_result = yield coroutine_query(self.database.suite_result, series, build_number, suite)
         if suite_result:
-            suite_result['log_messages'] = yield self.coroutine_query(self.database.suite_log_messages,
+            suite_result['log_messages'] = yield coroutine_query(self.database.suite_log_messages,
                                                                       suite_result['test_run_id'], suite)
             for test in suite_result['tests']:
-                test['log_messages'] = yield self.coroutine_query(self.database.test_case_log_messages,
+                test['log_messages'] = yield coroutine_query(self.database.test_case_log_messages,
                                                                   test['test_run_id'], test['id'])
             self.write({'suite': suite_result})
         else:
@@ -707,9 +713,9 @@ class SuiteResultInfoDataHandler(BaseHandler):
                                                     type: integer
                                                     description: Test run id
         """
-        series_info = yield self.coroutine_query(self.database.test_series, series_id=series)
-        build_info = yield self.coroutine_query(self.database.builds, series, build_number=build_number)
-        suite_result_info = yield self.coroutine_query(self.database.suite_result_info, series, build_number,
+        series_info = yield coroutine_query(self.database.test_series, series_id=series)
+        build_info = yield coroutine_query(self.database.builds, series, build_number=build_number)
+        suite_result_info = yield coroutine_query(self.database.suite_result_info, series, build_number,
                                                        suite)
         if series_info and build_info and suite_result_info:
             self.write({'series': series_info[0], 'build': build_info[0], 'suite': suite_result_info})
@@ -856,10 +862,10 @@ class HistoryDataHandler(BaseHandler):
         num_of_builds = self.get_argument('builds', 10)
         offset = self.get_argument('offset', 0)
 
-        if self.values_are_integers(series, start_from, num_of_builds, offset):
-                history, max_build_num = yield self.coroutine_query(
-                    self.database.history_page_data, series, start_from, num_of_builds, offset)
-                self.write({'max_build_num': max_build_num, 'history': history})
+        if values_are_integers(series, start_from, num_of_builds, offset):
+            history, max_build_num = yield coroutine_query(self.database.history_page_data, series,
+                                                                start_from, num_of_builds, offset)
+            self.write({'max_build_num': max_build_num, 'history': history})
         else:
             self.send_bad_request_response()
 
@@ -910,8 +916,8 @@ class MetaDataHandler(BaseHandler):
                                         type: integer
                                         description: Target test run id for given metadata.
         """
-        if self.values_are_integers(series, build_number):
-            metadata = yield self.coroutine_query(self.database.build_metadata, series, build_number)
+        if values_are_integers(series, build_number):
+            metadata = yield coroutine_query(self.database.build_metadata, series, build_number)
             self.write({'metadata': metadata})
         else:
             self.send_bad_request_response()
@@ -950,7 +956,7 @@ class SuiteLogMessageDataHandler(BaseHandler):
                             items:
                                 $ref: '#/definitions/LogMessageModel'
         """
-        log_messages = yield self.coroutine_query(self.database.suite_log_messages, test_run, suite)
+        log_messages = yield coroutine_query(self.database.suite_log_messages, test_run, suite)
         self.write({'log_messages': log_messages})
 
 
@@ -987,7 +993,7 @@ class TestCaseLogMessageDataHandler(BaseHandler):
                             items:
                                 $ref: '#/definitions/LogMessageModel'
         """
-        log_messages = yield self.coroutine_query(self.database.test_case_log_messages, test_run, test)
+        log_messages = yield coroutine_query(self.database.test_case_log_messages, test_run, test)
         self.write({'log_messages': log_messages})
 
 
@@ -1162,10 +1168,10 @@ class OldHistoryDataHandler(BaseHandler):
         num_of_builds = self.get_argument('builds', 10)
         offset = self.get_argument('offset', 0)
 
-        if self.values_are_integers(test_series, start_from, num_of_builds, offset):
-                history, max_build_num = yield self.coroutine_query(
-                    self.database.history_page_data, test_series, start_from, num_of_builds, offset)
-                self.write({'max_build_num': max_build_num, 'history': history})
+        if values_are_integers(test_series, start_from, num_of_builds, offset):
+            history, max_build_num = yield coroutine_query(self.database.history_page_data, test_series,
+                                                                start_from, num_of_builds, offset)
+            self.write({'max_build_num': max_build_num, 'history': history})
         else:
             self.send_bad_request_response()
 
@@ -1218,8 +1224,8 @@ class OldMetaDataHandler(BaseHandler):
         """
         series = self.get_argument('series', '')
         build_number = self.get_argument('build_number', None)
-        if self.values_are_integers(series, build_number) :
-            metadata = yield self.coroutine_query(self.database.build_metadata, series, build_number)
+        if values_are_integers(series, build_number):
+            metadata = yield coroutine_query(self.database.build_metadata, series, build_number)
             self.write({'metadata': metadata})
         else:
             self.send_bad_request_response()
@@ -1230,7 +1236,7 @@ class FooDataHandler(BaseHandler):
         self.write({'suites': []})
 
 
-if __name__ == "__main__":
+def main():
     parser = argparse.ArgumentParser(
         description='Test manager 2.0 backend server')
     parser.add_argument(
@@ -1242,10 +1248,7 @@ if __name__ == "__main__":
     parser.add_argument('--dbport', default=5432, help='database port (default: 5432)')
     parser.add_argument('--user', help='database user')
     parser.add_argument('--pw', '--password', help='database password')
-    parser.add_argument('--port',
-                        help='http server port (default: 5000)',
-                        default=5000,
-                        type=int)
+    parser.add_argument('--port', help='http server port (default: 5000)', default=5000, type=int)
     args = parser.parse_args()
 
     if args.config_file:
@@ -1261,10 +1264,13 @@ if __name__ == "__main__":
         }
 
     httpserver = tornado.httpserver.HTTPServer(
-        Application(
-            db.Database(config['db_host'], config['db_port'], config['db_name'],
-                        config['db_user'], config['db_password']), config))
+        Application(db.Database(config['db_host'], config['db_port'], config['db_name'],
+                                config['db_user'], config['db_password'])))
     httpserver.listen(int(config['port']))
     print("Server listening port {}".format(config['port']))
     sys.stdout.flush()
     tornado.ioloop.IOLoop.current().start()
+
+
+if __name__ == "__main__":
+    main()
