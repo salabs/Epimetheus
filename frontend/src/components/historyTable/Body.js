@@ -1,33 +1,31 @@
 import React, { Fragment } from 'react';
 import { useStateValue } from '../../contexts/state';
 import Suite from './Suite';
+import { useQueryParams } from '../../hooks/useQuery';
 
 const Body = () => {
   const [
     {
       historyDataState: { history },
-      historyFilterPass,
-      historyFilterFail,
       amountOfBuilds
     }
   ] = useStateValue();
+  const queryParams = useQueryParams();
 
   const tableBody = history.map(({ suite_full_name, test_cases, suite_id }) => {
-    let filteredTestCases = test_cases.filter(({ builds }) => {
-      return builds
-        .slice(0, amountOfBuilds)
-        .some(
-          ({ test_status }) => test_status !== historyFilterPass.filterType
-        );
-    });
-
-    filteredTestCases = filteredTestCases.filter(({ builds }) => {
-      return builds
-        .slice(0, amountOfBuilds)
-        .some(
-          ({ test_status }) => test_status !== historyFilterFail.filterType
-        );
-    });
+    let filteredTestCases = test_cases;
+    queryParams.getAll('tag').includes('Passing') &&
+      (filteredTestCases = filteredTestCases.filter(({ builds }) => {
+        return builds
+          .slice(0, amountOfBuilds)
+          .some(({ test_status }) => test_status !== 'PASS');
+      }));
+    queryParams.getAll('tag').includes('Failing') &&
+      (filteredTestCases = filteredTestCases.filter(({ builds }) => {
+        return builds
+          .slice(0, amountOfBuilds)
+          .some(({ test_status }) => test_status !== 'FAIL');
+      }));
 
     return (
       <Fragment key={suite_id}>

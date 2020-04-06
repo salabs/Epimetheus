@@ -1,15 +1,14 @@
 // eslint-disable-next-line
-import React from 'react';
+import React, { useState } from 'react';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
 import { useStateValue } from '../../contexts/state';
+import { useHistory, useLocation } from 'react-router-dom';
 
 const Filter = () => {
-  const [{ amountOfBuilds }, dispatch] = useStateValue();
+  // eslint-disable-next-line
   const filterStyles = css`
     padding: 20px 40px 20px 0px;
-    width: 50%;
-    min-width: 250px;
     select {
       width: 200px;
       padding: 10px 10px;
@@ -25,36 +24,68 @@ const Filter = () => {
       background-size: 1.2em auto, 100%;
       background-color: #fefefe;
     }
+    .selected {
+      background-color: transparent;
+      border: 2px solid #243b53;
+      color: #243b53;
+    }
+    .button-group {
+      display: flex;
+      flex-direction: column;
+    }
+    input {
+      border: 1px solid #eee;
+      width: 100px;
+      border-radius: 10px;
+      background-color: white;
+      padding: 5px;
+      margin: 5px;
+    }
   `;
 
   const options = [5, 10, 15, 30, 100];
 
-  const onFilterChange = e => {
-    dispatch({ type: 'setAmountOfBuilds', amountOfBuilds: e.target.value });
-  };
-
   return (
     <div id="history-filter-container" css={filterStyles}>
-      <h2>
-        <label htmlFor="history-filter">Amount of builds</label>
-      </h2>
-      <select
-        name="history-filter"
-        id="history-filter"
-        onChange={e => onFilterChange(e)}
-        onBlur={e => onFilterChange(e)}
-        value={amountOfBuilds}
-      >
-        {options.map(buildAmount => {
-          return (
-            <option key={buildAmount} value={buildAmount}>
-              {buildAmount}
-            </option>
-          );
-        })}
-      </select>
+      <h4>
+        <label htmlFor="history-filter">Display builds</label>
+      </h4>
+      <ButtonGroup options={options} />
     </div>
   );
 };
 
+const FilterButton = ({ title }) => {
+  const [{ amountOfBuilds }, dispatch] = useStateValue();
+  const history = useHistory();
+  const location = useLocation();
+
+  return (
+    <input
+      type="button"
+      value={title}
+      onClick={() => {
+        dispatch({ type: 'setAmountOfBuilds', amountOfBuilds: title });
+        history.push({
+          pathname: `/history/11/${title}`,
+          search: location.search,
+          state: {}
+        });
+      }}
+      className={
+        title === parseInt(amountOfBuilds, 10) ? 'selected' : 'disabled'
+      }
+    />
+  );
+};
+
+const ButtonGroup = ({ options }) => {
+  return (
+    <div className={'button-group'}>
+      {options.map((i, index) => {
+        return <FilterButton title={i} key={index} />;
+      })}
+    </div>
+  );
+};
 export default Filter;
