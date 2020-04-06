@@ -82,7 +82,7 @@ const Build = () => {
                 dispatch({
                     type: 'setSelectedBranch',
                     name: branch?.name,
-                    id,
+                    id: branch_id,
                     team: branch?.team || ' '
                 });
                 dispatch({ type: 'setSelectedBuild', selectedBuild: buildId });
