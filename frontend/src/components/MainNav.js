@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
 import ThemeContext from '../contexts/themeContext';
+import packageJson from '../../package.json';
 
 const MainNav = () => {
   const theme = useContext(ThemeContext);
@@ -28,6 +29,20 @@ const MainNav = () => {
           left: 10px;
           content: 'Epi';
           position: absolute;
+        }
+      }
+    }
+    p {
+      padding: 20px 20px 0px 20px;
+      @media only screen and (max-width: 999px) {
+        display: block;
+        width: 0;
+        height: 40px;
+        padding: 0;
+        margin: 0;
+        overflow: hidden;
+        &:after {
+          display: none;
         }
       }
     }
@@ -88,6 +103,10 @@ const MainNav = () => {
           <a href="https://github.com/salabs/Epimetheus">GitHub</a>
         </li>
       </ul>
+      <p>
+        {/* TODO: needs better design!*/}
+        Version {packageJson.version}
+      </p>
     </nav>
   );
 };
