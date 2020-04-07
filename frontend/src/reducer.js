@@ -71,7 +71,8 @@ const reducer = (state, action) => {
         ...state,
         selectedBranchState: {
           name: action.name,
-          id: action.id
+          id: action.id,
+          team: action.team
         }
       };
     case 'setMetadata':

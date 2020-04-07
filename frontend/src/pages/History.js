@@ -8,6 +8,7 @@ import Checkbox from '../components/Checkbox';
 import { useStateValue } from '../contexts/state';
 import BranchFilter from '../components/BranchFilter';
 import { useParams } from 'react-router';
+import BreadcrumbNav from '../components/BreadcrumbNav';
 
 const History = () => {
   const filterStyles = css`
@@ -72,8 +73,9 @@ const History = () => {
         dispatch({ type: 'setLoadingState', loadingState: true });
         dispatch({
           type: 'setSelectedBranch',
-          name: branch?.name + ' ' + branch?.team || ' ',
-          id: series_id
+          name: branch?.name || ' ',
+          id: series_id,
+          team: branch?.team || ' '
         });
         try {
           const res = await fetch(url, {});
@@ -93,7 +95,7 @@ const History = () => {
 
   return (
     <main id="history" css={filterStyles}>
-      <h1>History</h1>
+      <BreadcrumbNav status={'series'} />
       <div className="filter-container">
         <Filter />
         <BranchFilter />

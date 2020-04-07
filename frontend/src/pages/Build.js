@@ -3,10 +3,10 @@ import React, { Fragment, useEffect } from 'react';
 import Table from '../components/lastRunTable/Table';
 import LastRunCheckBox from '../components/LastRunCheckbox';
 import { useStateValue } from '../contexts/state';
-import LastRunHeading from '../components/LastRunHeading';
 import MetadataTable from '../components/lastRunTable/MetadataTable';
 import { useParams } from 'react-router';
 import { css } from '@emotion/core';
+import BreadcrumbNav from '../components/BreadcrumbNav';
 
 const Build = () => {
   const filterStyles = css`
@@ -82,8 +82,9 @@ const Build = () => {
         );
         dispatch({
           type: 'setSelectedBranch',
-          name: branch?.name +" "+ branch?.team || " ",
-          id: branch_id
+          name: branch?.name,
+          id: id,
+          team: branch?.team || ' '
         });
         dispatch({ type: 'setSelectedBuild', selectedBuild: buildId });
         try {
@@ -109,7 +110,6 @@ const Build = () => {
 
   return (
     <main id="last-run" css={filterStyles}>
-      <LastRunHeading id={buildId} />
       <div className="last-run-container"></div>
       {!historyDataState || loadingState ? (
         <div
@@ -132,6 +132,7 @@ const Build = () => {
           >
             Content loaded.
           </div>
+          <BreadcrumbNav status={'build'} />
           <MetadataTable buildId={buildId} />
           <LastRunCheckBox />
           <Table id={branch_id} />

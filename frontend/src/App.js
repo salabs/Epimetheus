@@ -120,7 +120,8 @@ const App = () => {
       border: 1px solid black;
       text-align: center;
       z-index: 999;
-    },
+    }
+    ,
     select:focus,
     input:focus {
       outline: 1px solid ${theme.testTheme.linkColor};

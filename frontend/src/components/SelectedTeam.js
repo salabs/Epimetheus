@@ -3,6 +3,7 @@ import FA from 'react-fontawesome';
 import NotFound from './NotFound';
 import { useHistory } from 'react-router-dom';
 import theme from '../theme';
+import BreadcrumbNav from './BreadcrumbNav';
 
 const SelectedTeam = ({ selectedTeam }) => {
   let history = useHistory();
@@ -14,9 +15,11 @@ const SelectedTeam = ({ selectedTeam }) => {
   const cardItem = {
     display: 'block'
   };
+
   return (
     <main id="selectedTeam" css={theme.loadingState}>
-      {selectedTeam !== null ? (
+      <BreadcrumbNav status={'team'} />
+      {selectedTeam && selectedTeam.all_builds !== null ? (
         <div style={flexContainer}>
           <div
             style={theme.flexItem}
