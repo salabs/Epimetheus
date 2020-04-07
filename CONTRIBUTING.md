@@ -15,6 +15,6 @@ Epimetheus project uses [EditorConfig](https://editorconfig.org/) to manage the 
 for settings.
 
 ## Release strategy
-Project uses semantic versioning, and all the pull requests are first created in to develeop branch. Releases are done regurlary when there are new commits in the development branch. The releases are done with a merge commit that has release version numbering in semantic order (Major, Minor, Patch) (Semantic versioning: https://semver.org/)
+Project uses semantic versioning, and all the pull requests are first created in to develeop branch. Releases are done regurlary when there are new commits in the development branch. The releases are done with a merge commit that has release version numbering in semantic order (Major, Minor, Patch) (Semantic versioning: <https://semver.org/>)
 
 ![image](./release_strategy.png)
