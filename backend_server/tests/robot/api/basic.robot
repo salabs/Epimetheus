@@ -6,7 +6,7 @@ Metadata        FIXTURE_SERIES_ID   ${FIXTURE_SERIES_ID}
 *** Variables ***
 ${PORT}=  5000
 ${FIXTURE_SERIES_ID}=  2
-${LAST_FIXTURE_TEST_RUN}=  1  # Notice updated
+${LAST_FIXTURE_TEST_RUN}=  1  # Notice: updated by some test case setups
 
 *** Test cases ***
 

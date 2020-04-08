@@ -105,6 +105,7 @@ const Build = () => {
             fetchHistoryData();
             fetchData();
         }
+
     }, [dispatch, branch_id, buildId, branchesState]);
 
     return (
