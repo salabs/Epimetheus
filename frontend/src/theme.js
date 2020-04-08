@@ -1,21 +1,22 @@
+import { css } from '@emotion/core';
 const theme = {
-  spacing: {
-    xs: 20
-  },
-  colors: {
-    fail: '#F00',
-    pass: '#008000',
-    skipped: '#CCC',
-    siiliOrange: '#FF5200'
-  },
-  flexItem: {
-    flexBasis: '30%',
-    boxShadow: '0 3px 4px rgba(0,0,0,0.16), 0 3px 4px rgba(0,0,0,0.23)',
-    margin: '10px',
-    padding: '10px',
-    minHeight: '20vh'
-  },
-  loadingState: `
+    spacing: {
+        xs: 20
+    },
+    colors: {
+        fail: '#F00',
+        pass: '#008000',
+        skipped: '#CCC',
+        siiliOrange: '#FF5200'
+    },
+    flexItem: {
+        flexBasis: '30%',
+        boxShadow: '0 3px 4px rgba(0,0,0,0.16), 0 3px 4px rgba(0,0,0,0.23)',
+        margin: '10px',
+        padding: '10px',
+        minHeight: '20vh'
+    },
+    loadingState: css`
     height: 30px;
     line-height: 30px;
     padding: 0;
@@ -35,7 +36,7 @@ const theme = {
       overflow: hidden;
     }
   }`,
-  baseTableStyle: `
+    baseTableStyle: `
       table {
         table-layout: fixed;
         width: 100%;
@@ -81,11 +82,11 @@ const theme = {
       }
     `,
 
-  testTheme: {
-    siiliOrange: '#FF5200',
-    linkColor: '#003399',
-    activeLinkColor: '#001155',
-    container: `
+    testTheme: {
+        siiliOrange: '#FF5200',
+        linkColor: '#003399',
+        activeLinkColor: '#001155',
+        container: `
         background-color: #eee;
         color: #222; 
         border: 1px solid #ccc;
@@ -97,7 +98,7 @@ const theme = {
           padding: 0;
         }
       `
-  }
+    }
 };
 
 export default theme;
