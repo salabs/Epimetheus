@@ -2,74 +2,94 @@
 import React, { useState } from 'react';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
-import { useStateValue } from '../contexts/state';
+import { useQueryParams } from '../hooks/useQuery';
+import { useHistory, useLocation } from 'react-router-dom';
 
 const Checkbox = () => {
-  // eslint-disable-next-line
-  const [{ historyFilterPass, historyFilterFail }, dispatch] = useStateValue();
-  const [passFilter, setPassFilter] = useState(historyFilterPass.isChecked);
-  const [failFilter, setFailFilter] = useState(historyFilterFail.isChecked);
+    const filterStyles = css`
+        display: flex;
+        flex-direction: column;
+        padding: 20px 40px 20px 0px;
+        // label {
+        //   margin-right: 20px;
+        //   display: block;
+        //   float: left;
+        //   input {
+        //     margin-left: 8px;
+        //     position: relative;
+        //     top: -2.5px;
+        //     display: inline-block;
+        //     transform: scale(1.2);
+        //   }
+        // }
+        input {
+            border: 1px solid #eee;
+            border-radius: 10px;
+            background-color: white;
+            padding: 5px;
+            margin: 5px;
+        }
+        .selected {
+            background-color: transparent;
+            border: 2px solid #243b53;
+            color: #243b53;
+        }
+    `;
+    const history = useHistory();
+    const location = useLocation();
+    const queryParams = useQueryParams();
 
-  const filterStyles = css`
-    padding: 10px 0 40px 0;
-    label {
-      margin-right: 20px;
-      display: block;
-      float: left;
-      input {
-        margin-left: 8px;
-        position: relative;
-        top: -2.5px;
-        display: inline-block;
-        transform: scale(1.2);
-      }
-    }
-  `;
+    const updateTags = tag => {
+        let tagList = queryParams.getAll('tag');
+        tagList.indexOf(tag) !== -1
+            ? tagList.splice(tagList.indexOf(tag), 1)
+            : tagList.push(tag);
+        queryParams.delete('tag');
+        tagList.forEach(element => queryParams.append('tag', element));
+        return queryParams.toString();
+    };
 
-  const handlePassFilterChange = e => {
-    dispatch({
-      type: 'setHistoryFilterPass',
-      filterType: passFilter ? '' : e.target.value,
-      isChecked: !passFilter
-    });
+    const handlePassFilterChange = e => {
+        history.push({
+            pathname: `${location.pathname}`,
+            search: `?${updateTags(e.target.value)}`,
+            state: {}
+        });
+    };
 
-    setPassFilter(!passFilter);
-  };
+    const handleFailFilterChange = e => {
+        history.push({
+            pathname: `${location.pathname}`,
+            search: `?${updateTags(e.target.value)}`,
+            state: {}
+        });
+    };
 
-  const handleFailFilterChange = e => {
-    dispatch({
-      type: 'setHistoryFilterFail',
-      filterType: failFilter ? '' : e.target.value,
-      isChecked: !failFilter
-    });
-
-    setFailFilter(!failFilter);
-  };
-
-  return (
-    <div id="history-checkbox-container" css={filterStyles}>
-      <label labelfor="filterPassed">
-        Hide fully passing tests
-        <input
-          type="checkbox"
-          name="filterPassed"
-          value="PASS"
-          checked={passFilter}
-          onChange={e => handlePassFilterChange(e)}
-        />
-      </label>
-      <label labelfor="filterFailed">
-        Hide fully failing tests
-        <input
-          type="checkbox"
-          name="filterFailed"
-          value="FAIL"
-          checked={failFilter}
-          onChange={e => handleFailFilterChange(e)}
-        />
-      </label>
-    </div>
-  );
+    return (
+        <div id="history-checkbox-container" css={filterStyles}>
+            <h4>Hide tests</h4>
+            <input
+                type="button"
+                value={'Passing'}
+                className={
+                    queryParams.getAll('tag').includes('Passing') === true
+                        ? 'selected'
+                        : ' '
+                }
+                onClick={e => handlePassFilterChange(e)}
+            />
+            <input
+                type="button"
+                value={'Failing'}
+                className={
+                    queryParams.getAll('tag').includes('Failing') === true
+                        ? 'selected'
+                        : 'disabled'
+                }
+                onClick={e => handleFailFilterChange(e)}
+            />
+        </div>
+    );
 };
 
 export default Checkbox;
