@@ -1,5 +1,6 @@
 import urllib.parse
 import datetime
+import sys
 
 import queries
 
@@ -22,21 +23,21 @@ class Database:
         try:
             with queries.Session(connection_uri) as session:
                 session.query('SELECT 1')
-        except Exception as e:
+        except Exception as exception:
             print('ERROR: Unable to connect to database:')
-            raise e
+            raise exception
         # Check that test archive contains data
         try:
             with queries.Session(connection_uri) as session:
                 session.query('SELECT count(*) FROM test_run')
-        except Exception as e:
+        except Exception:
             print('ERROR: Given database is empty. Consider archiving some results first.')
-            exit(1)
+            sys.exit(1)
 
         self.session = queries.TornadoSession(connection_uri)
 
-    def test_series(self):
-        return self.session.query(sql_queries.test_series()), list_of_dicts
+    def test_series(self, series_id=None):
+        return self.session.query(sql_queries.test_series(series=series_id)), list_of_dicts
 
     def teams(self):
         def series_by_team(rows):
@@ -69,6 +70,34 @@ class Database:
         sql = sql_queries.build_metadata(test_series, build_number)
         return self.session.query(sql), list_of_dicts
 
+    def builds(self, test_series, build_number=None, start_from=None, num_of_builds=None, offset=0,
+               reverse=False):
+        sql = sql_queries.builds(test_series, build_number, start_from, num_of_builds, offset, reverse)
+        return self.session.query(sql), list_of_dicts
+
+    def suite_result_info(self, test_series, build_number, suite):
+        sql = sql_queries.suite_result_info(test_series, build_number, suite)
+        return self.session.query(sql), _suite_result_info
+
+    def suite_result(self, test_series, build_number, suite):
+        sql = sql_queries.suite_result(test_series, build_number, suite)
+        return self.session.query(sql), suite_result_data
+
+    def suite_log_messages(self, test_run_id, suite):
+        sql = sql_queries.log_messages(test_run_id, suite_id=suite)
+        return self.session.query(sql), list_of_dicts
+
+    def test_case_log_messages(self, test_run_id, test_case):
+        sql = sql_queries.log_messages(test_run_id, test_id=test_case)
+        return self.session.query(sql), list_of_dicts
+
+    def keyword_tree(self, fingerprint):
+        sql = "SELECT * FROM keyword_tree WHERE fingerprint=%(fingerprint)s"
+        return self.session.query(sql, {'fingerprint': fingerprint}), single_dict
+
+    def subtrees(self, fingerprint):
+        return self.session.query(sql_queries.SUBTREES, {'fingerprint': fingerprint}), list_of_dicts
+
 
 def list_of_dicts(rows):
     results = []
@@ -79,14 +108,16 @@ def list_of_dicts(rows):
         results.append(row)
     return results
 
+def single_dict(rows):
+    return list_of_dicts(rows)[0] if rows else None
+
 def history_data(history_rows):
     suites = []
     current_suite = None
     current_test = None
     max_build_num = -1
     for row in list_of_dicts(history_rows):
-        suite = {key[6:]: row[key] for key in row if key.startswith('suite_')}
-        test = {key: row[key] for key in row if not key.startswith('suite_')}
+        suite, test = _separate_suite_and_test_values(row)
         max_build_num = max(test['build_number'], max_build_num)
         # Renaming fields to match old implementation
         suite['suite'] = suite['name']
@@ -120,6 +151,35 @@ def history_data(history_rows):
     if current_suite:
         suites.append(current_suite)
     return suites, max_build_num
+
+def _suite_result_info(rows):
+    tests = []
+    current_suite = None
+    for row in list_of_dicts(rows):
+        suite, test = _separate_suite_and_test_values(row)
+        test['status'] = test['statuses'][0]
+        current_suite = suite
+        tests.append(test)
+    if current_suite:
+        current_suite['tests'] = tests
+    return current_suite
+
+def suite_result_data(rows):
+    tests = []
+    current_suite = None
+    for row in list_of_dicts(rows):
+        suite, test = _separate_suite_and_test_values(row)
+        current_suite = suite
+        if test['id']:
+            tests.append(test)
+    if current_suite:
+        current_suite['tests'] = tests
+    return current_suite
+
+def _separate_suite_and_test_values(row):
+    suite = {key[6:]: row[key] for key in row if key.startswith('suite_')}
+    test = {key: row[key] for key in row if not key.startswith('suite_')}
+    return suite, test
 
 def _test_item(data_row):
     return {'builds': [], 'test_case': data_row['name'], 'test_id': data_row['id'],

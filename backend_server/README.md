@@ -6,6 +6,8 @@ Python server that connects to database and provides data for frontend.
 
 Currently the only supported database engine is PostgreSQL. It can be local or cloud version.
 
+The database should also be initailized and some results archived before the backend server can start serving data.
+
 ## Running natively with python
 
 First make sure you have `python` and `pip` installed.
@@ -42,7 +44,7 @@ PORT: server port
 
 ## Swagger API docs
 
-Backend API has swagger documentation available and it can be viewed at [localhost:3000/data/doc/](http://localhost:3000/data/doc). It uses [tornado-swagger](https://github.com/mrk-andreev/tornado-swagger).
+Backend API has swagger documentation available and it can be viewed at [localhost:5000/data/doc/](http://localhost:5000/data/doc) (with direct access to backend) or proxied through frontend server [localhost:3000/data/doc/](http://localhost:3000/data/doc). It uses [tornado-swagger](https://github.com/mrk-andreev/tornado-swagger).
 
 Documentation is located in [server.py](server.py).
 

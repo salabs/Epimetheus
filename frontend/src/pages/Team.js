@@ -9,6 +9,7 @@ const Team = () => {
   const [{ loadingState, teamsState }, dispatch] = useStateValue();
 
   const { name } = useParams();
+
   useEffect(() => {
     const fetchData = async () => {
       dispatch({ type: 'setLoadingState', loadingState: true });

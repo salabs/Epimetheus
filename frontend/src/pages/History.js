@@ -6,8 +6,9 @@ import Filter from '../components/historyTable/Filter';
 import Table from '../components/historyTable/Table';
 import Checkbox from '../components/Checkbox';
 import { useStateValue } from '../contexts/state';
-import BranchFilter from '../components/BranchFilter';
+// import BranchFilter from '../components/BranchFilter';
 import { useParams } from 'react-router';
+import BreadcrumbNav from '../components/BreadcrumbNav';
 
 const History = () => {
   const filterStyles = css`
@@ -71,9 +72,14 @@ const History = () => {
       const fetchData = async () => {
         dispatch({ type: 'setLoadingState', loadingState: true });
         dispatch({
+          type: 'setAmountOfBuilds',
+          amountOfBuilds: number_of_builds
+        });
+        dispatch({
           type: 'setSelectedBranch',
-          name: branch?.name + ' ' + branch?.team || ' ',
-          id: series_id
+          name: branch?.name || ' ',
+          id: series_id,
+          team: branch?.team || ' '
         });
         try {
           const res = await fetch(url, {});
@@ -93,10 +99,10 @@ const History = () => {
 
   return (
     <main id="history" css={filterStyles}>
-      <h1>History</h1>
+      <BreadcrumbNav status={'series'} />
       <div className="filter-container">
         <Filter />
-        <BranchFilter />
+        <Checkbox />
       </div>
 
       {!historyDataState || loadingState ? (
@@ -120,7 +126,6 @@ const History = () => {
           >
             Content loaded.
           </div>
-          <Checkbox />
           <Table />
         </Fragment>
       )}
