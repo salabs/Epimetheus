@@ -4,8 +4,6 @@ on:
     types: [closed]
     branches:
       - master
-    paths:
-      - "frontend/src/**"
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -24,4 +22,4 @@ jobs:
           image: front-end
           folder: frontend
           tag: stable
-          dockerfile: ./Docerfile-prod
+          dockerfile: ./Dockerfile-prod
