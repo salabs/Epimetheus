@@ -94,17 +94,19 @@ const Body = ({ id }) => {
         });
     }
 
-    console.log(filteredRowData);
-    return filteredRowData.map(({ test_cases, suite_full_name }, i) => {
-        return (
-            <Row
-                key={i}
-                test_cases={test_cases}
-                suite={suite_full_name}
-                id={buildNum}
-            />
-        );
-    });
+    return filteredRowData.map(
+        ({ test_cases, suite_full_name, suite_id }, i) => {
+            return (
+                <Row
+                    key={i}
+                    test_cases={test_cases}
+                    suite={suite_full_name}
+                    id={buildNum}
+                    suiteId={suite_id}
+                />
+            );
+        }
+    );
 };
 
 export default Body;

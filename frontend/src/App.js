@@ -138,7 +138,10 @@ const App = () => {
                     <MainNav />
                     <MainContent>
                         <Switch>
-                            <Route path="/build/series/:buildId/:id">
+                            <Route path="/build/:buildId/series/:seriesId/suite/:suiteId">
+                                <Suite />
+                            </Route>
+                            <Route path="/build/:buildId/series/:seriesId">
                                 <Build />
                             </Route>
                             <Route exact path="/history">
@@ -152,9 +155,6 @@ const App = () => {
                             </Route>
                             <Route path="/team/:name">
                                 <Team />
-                            </Route>
-                            <Route path="/build/:buildId/series/:seriesId/suite/:suiteId">
-                                <Suite />
                             </Route>
                             <Route path="/">
                                 <Frontpage />

@@ -73,6 +73,9 @@ const theme = {
       td {
         background: #fafafa;
       }
+      td:hover {
+        background-color: #ddd;
+      }
       td.test-result-undefined {
         background: #eee;
       }

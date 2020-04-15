@@ -48,10 +48,9 @@ const Build = () => {
         { loadingState, historyDataState, selectedBranchState, branchesState },
         dispatch
     ] = useStateValue();
-    let { buildId } = useParams();
+    let { buildId, seriesId } = useParams();
     //console.log(options.series);
-    let { id } = useParams();
-    const branch_id = id || selectedBranchState;
+    const branch_id = seriesId || selectedBranchState;
 
     useEffect(() => {
         const fetchData = async () => {
@@ -82,7 +81,7 @@ const Build = () => {
                 dispatch({
                     type: 'setSelectedBranch',
                     name: branch?.name,
-                    id: id,
+                    id: seriesId,
                     team: branch?.team || ' '
                 });
                 dispatch({ type: 'setSelectedBuild', selectedBuild: buildId });
@@ -105,7 +104,7 @@ const Build = () => {
             fetchHistoryData();
             fetchData();
         }
-    }, [dispatch, branch_id, buildId, branchesState]);
+    }, [dispatch, branch_id, buildId, seriesId, branchesState]);
 
     return (
         <main id="last-run" css={filterStyles}>

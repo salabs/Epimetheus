@@ -1,16 +1,26 @@
 /** @jsx jsx */
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { useStateValue } from '../contexts/state';
 import theme from '../theme';
 import { css } from '@emotion/core';
 
 import { jsx } from '@emotion/core';
+import BreadcrumbNav from '../components/BreadcrumbNav';
 
 const Suite = () => {
     const { suiteId, buildId, seriesId } = useParams();
-    const [{ selectedSuiteState, loadingState }, dispatch] = useStateValue();
-
+    const [
+        {
+            selectedSuiteState,
+            loadingState,
+            branchesState,
+            selectedBranchState
+        },
+        dispatch
+    ] = useStateValue();
+    const [selectedTestId, setSelectedTestId] = useState();
+    const branch_id = seriesId || selectedBranchState;
     const container = css`
         .container {
             display: flex;
@@ -18,7 +28,7 @@ const Suite = () => {
         }
         .suiteNav {
             flex-grow: 1;
-            background: #ddd;
+            background: #fff;
             align-content: center;
             border-right: 1px solid grey;
         }
@@ -26,20 +36,41 @@ const Suite = () => {
             padding: 10px;
             cursor: pointer;
         }
+        .suiteNav div:hover {
+            background: #ddd;
+        }
         .suiteMain {
             flex-grow: 2;
             padding: 10px;
         }
     `;
-
-    /* 
-name
-full_name
-repository
-test_run_id
-start_time
-*/
     useEffect(() => {
+        const fetchHistoryData = async () => {
+            if (branch_id && buildId) {
+                const branch = branchesState.series?.find(
+                    ({ id: serie_id }) => serie_id === parseInt(branch_id, 10)
+                );
+                dispatch({
+                    type: 'setSelectedBranch',
+                    name: branch?.name,
+                    id: seriesId,
+                    team: branch?.team || ' '
+                });
+                dispatch({ type: 'setSelectedBuild', selectedBuild: buildId });
+                try {
+                    const res = await fetch(
+                        ///`/data/history?series=${id}&builds=30`,
+                        `/data/history?start_from=${buildId}&series=${branch_id}&builds=5`,
+                        {}
+                    );
+                    const json = await res.json();
+                    dispatch({
+                        type: 'updateHistory',
+                        historyData: json
+                    });
+                } catch (error) {}
+            }
+        };
         const fetchSuiteData = async () => {
             dispatch({ type: 'setLoadingState', loadingState: true });
             try {
@@ -50,13 +81,15 @@ start_time
                 const json = await res.json();
                 dispatch({ type: 'setLoadingState', loadingState: false });
                 dispatch({ type: 'setSelectedSuiteState', suite: json });
-                console.log(json);
             } catch (error) {
                 //console.log(error);
             }
         };
-        fetchSuiteData();
-    }, [suiteId, buildId, seriesId]);
+        if (branchesState) {
+            fetchHistoryData();
+            fetchSuiteData();
+        }
+    }, [dispatch, branch_id, suiteId, buildId, seriesId, branchesState]);
 
     return (
         <main id="suite" css={container}>
@@ -81,23 +114,54 @@ start_time
                     >
                         Content loaded.
                     </div>
-                    <div>Lorem ipsum ya see dis</div>
+                    <BreadcrumbNav status={'suite'} />
                     <div className="container">
                         <div className="suiteNav">
                             {selectedSuiteState.suite.tests.map((test, i) => {
-                                return <div key={i}>{test.name}</div>;
+                                return (
+                                    <div
+                                        key={i}
+                                        onClick={() => {
+                                            setSelectedTestId(test.id);
+                                        }}
+                                    >
+                                        {test.name}
+                                    </div>
+                                );
                             })}
                         </div>
                         <div className="suiteMain">
-                            {selectedSuiteState.suite.tests.map((test, i) => {
-                                return <div key={i}>{test.status}</div>;
-                            })}
+                            <div>ID: {selectedSuiteState.suite.id}</div>
+                            <div>Name: {selectedSuiteState.suite.name}</div>
+                            <div>
+                                Fullname: {selectedSuiteState.suite.full_name}
+                            </div>
+                            <div>
+                                Repository:{' '}
+                                {selectedSuiteState.suite.repository}
+                            </div>
+                            <div>
+                                Testrunid:{' '}
+                                {selectedSuiteState.suite.test_run_id}
+                            </div>
+                            <div>
+                                Starttime: {selectedSuiteState.suite.start_time}
+                            </div>
                         </div>
                     </div>
+                    <SelectedTest
+                        test={selectedSuiteState.suite.tests.find(
+                            i => i.id === selectedTestId
+                        )}
+                    />
                 </div>
             )}
         </main>
     );
+};
+
+const SelectedTest = ({ test }) => {
+    return <div>{JSON.stringify(test, null, 1)}</div>;
 };
 
 export default Suite;
