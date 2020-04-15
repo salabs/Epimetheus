@@ -4,8 +4,6 @@ on:
     types: [closed]
     branches:
       - master
-    paths:
-      - "frontend/src/**"
 jobs:
   build:
     runs-on: ubuntu-latest
