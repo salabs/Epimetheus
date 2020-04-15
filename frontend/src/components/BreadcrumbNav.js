@@ -38,6 +38,7 @@ const BreadcrumbItemBuild = () => {
     );
 };
 
+
 const BreadcrumbItemSuite = () => {
     const { suiteId } = useParams();
     return (
@@ -63,7 +64,7 @@ const BreadcrumbNav = ({ status }) => {
 
     return (
         <div css={breadCrumbNavStyles}>
-            <div>{BREADCRUMB_STATUS[status]}</div>
+            <div>{BREADCRUMB_STATUS[`${status}`]}</div>
         </div>
     );
 };
@@ -76,3 +77,4 @@ const BREADCRUMB_STATUS = {
     build: <BreadcrumbItemBuild />,
     suite: <BreadcrumbItemSuite />
 };
+
