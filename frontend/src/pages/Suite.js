@@ -7,6 +7,7 @@ import { css } from '@emotion/core';
 
 import { jsx } from '@emotion/core';
 import BreadcrumbNav from '../components/BreadcrumbNav';
+import Notfound from '../components/NotFound';
 
 const Suite = () => {
     const { suiteId, buildId, seriesId } = useParams();
@@ -57,18 +58,6 @@ const Suite = () => {
                     team: branch?.team || ' '
                 });
                 dispatch({ type: 'setSelectedBuild', selectedBuild: buildId });
-                try {
-                    const res = await fetch(
-                        ///`/data/history?series=${id}&builds=30`,
-                        `/data/history?start_from=${buildId}&series=${branch_id}&builds=5`,
-                        {}
-                    );
-                    const json = await res.json();
-                    dispatch({
-                        type: 'updateHistory',
-                        historyData: json
-                    });
-                } catch (error) {}
             }
         };
         const fetchSuiteData = async () => {
@@ -103,7 +92,7 @@ const Suite = () => {
                 >
                     Loading
                 </div>
-            ) : (
+            ) : selectedSuiteState.suite ? (
                 <div>
                     <div
                         className="sr-show"
@@ -155,6 +144,8 @@ const Suite = () => {
                         )}
                     />
                 </div>
+            ) : (
+                <Notfound />
             )}
         </main>
     );

@@ -1,12 +1,14 @@
 // eslint-disable-next-line
-import React from 'react';
+import React, { Fragment } from 'react';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
-import SuiteName from '../SuiteName';
 import Flakiness from './Flakiness';
 import Status from './Status';
 import Error from './Error';
 import TestCase from './TestCase';
+import { dashify } from '../../helpers';
+import { useHistory } from 'react-router';
+import { Link } from 'react-router-dom';
 
 const Row = ({ test_cases, suite, id, suiteId }) => {
     const tableRowStyles = css`
@@ -45,7 +47,7 @@ const Row = ({ test_cases, suite, id, suiteId }) => {
         return (
             <tr css={tableRowStyles} key={index}>
                 {index === 0 && (
-                    <SuiteName
+                    <LinksSuiteName
                         tableCellHeight={test_cases.length}
                         suiteName={suite}
                         suiteId={suiteId}
@@ -67,3 +69,27 @@ const Row = ({ test_cases, suite, id, suiteId }) => {
 };
 
 export default Row;
+
+// Show suite name separated on different lines with dots showing depth level
+const LinksSuiteName = ({ tableCellHeight, suiteName, suiteId }) => {
+    const history = useHistory();
+    let tempSuiteName = suiteName.split('.');
+    let splitSuiteName = [];
+    for (var index = 0; index < tempSuiteName.length; index++) {
+        let el = tempSuiteName[index];
+        splitSuiteName.push(
+            <Fragment key={index}>
+                .{el}
+                <br />
+            </Fragment>
+        );
+    }
+    return (
+        <td rowSpan={tableCellHeight} data-ta={`suite-${dashify(suiteName)}`}>
+            <Link to={`${history.location.pathname}/suite/${suiteId}`}>
+                <span className="sr-show">Build </span>
+                {splitSuiteName}
+            </Link>
+        </td>
+    );
+};
