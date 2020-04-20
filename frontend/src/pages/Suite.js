@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useParams } from 'react-router';
 import { useStateValue } from '../contexts/state';
 import theme from '../theme';
@@ -8,9 +8,10 @@ import { css } from '@emotion/core';
 import { jsx } from '@emotion/core';
 import BreadcrumbNav from '../components/BreadcrumbNav';
 import Notfound from '../components/NotFound';
+import { Link } from 'react-router-dom';
 
 const Suite = () => {
-    const { suiteId, buildId, seriesId } = useParams();
+    const { suiteId, buildId, seriesId, testId } = useParams();
     const [
         {
             selectedSuiteState,
@@ -20,7 +21,6 @@ const Suite = () => {
         },
         dispatch
     ] = useStateValue();
-    const [selectedTestId, setSelectedTestId] = useState();
     const branch_id = seriesId || selectedBranchState;
     const container = css`
         .container {
@@ -33,11 +33,12 @@ const Suite = () => {
             align-content: center;
             border-right: 1px solid grey;
         }
-        .suiteNav div {
+        .suiteNav a {
             padding: 10px;
             cursor: pointer;
+            display: flex;
         }
-        .suiteNav div:hover {
+        .suiteNav a:hover {
             background: #ddd;
         }
         .suiteMain {
@@ -108,14 +109,12 @@ const Suite = () => {
                         <div className="suiteNav">
                             {selectedSuiteState.suite.tests.map((test, i) => {
                                 return (
-                                    <div
+                                    <Link
+                                        to={`/series/${seriesId}/build/${buildId}/suite/${suiteId}/test/${test.id}`}
                                         key={i}
-                                        onClick={() => {
-                                            setSelectedTestId(test.id);
-                                        }}
                                     >
                                         {test.name}
-                                    </div>
+                                    </Link>
                                 );
                             })}
                         </div>
@@ -140,7 +139,7 @@ const Suite = () => {
                     </div>
                     <SelectedTest
                         test={selectedSuiteState.suite.tests.find(
-                            i => i.id === selectedTestId
+                            i => i.id === parseInt(testId, 10)
                         )}
                     />
                 </div>

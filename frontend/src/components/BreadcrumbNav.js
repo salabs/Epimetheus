@@ -33,11 +33,10 @@ const BreadcrumbItemBuild = () => {
     return (
         <div>
             <BreadcrumbItemSeries />>
-            <Link to={`/build/${buildId}/series/${seriesId}`}>{buildId}</Link>
+            <Link to={`/series/${seriesId}/build/${buildId}`}>{buildId}</Link>
         </div>
     );
 };
-
 
 const BreadcrumbItemSuite = () => {
     const { suiteId } = useParams();
@@ -77,4 +76,3 @@ const BREADCRUMB_STATUS = {
     build: <BreadcrumbItemBuild />,
     suite: <BreadcrumbItemSuite />
 };
-

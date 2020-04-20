@@ -29,14 +29,13 @@ const Row = ({ test_cases, suite, id, suiteId }) => {
         }
     `;
 
-    const tableRow = test_cases.map(({ builds }, index) => {
+    const tableRow = test_cases.map(({ builds, test_id }, index) => {
         let filteredBuilds = null;
         if (id) {
             filteredBuilds = builds.filter(
                 ({ build_number }) => build_number === Number(id)
             );
         }
-
         const build =
             filteredBuilds !== null && filteredBuilds.length > 0
                 ? filteredBuilds[0]
@@ -54,7 +53,12 @@ const Row = ({ test_cases, suite, id, suiteId }) => {
                     />
                 )}
                 <Status build={build} selectedBuild={id} />
-                <TestCase testCases={test_cases} index={index} />
+                <TestCase
+                    testCases={test_cases}
+                    index={index}
+                    suiteId={suiteId}
+                    testId={test_id}
+                />
 
                 <Error build={build} />
                 <td className="test-time-row">
