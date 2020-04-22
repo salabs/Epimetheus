@@ -9,7 +9,7 @@ import { css } from '@emotion/core';
 import BreadcrumbNav from '../components/BreadcrumbNav';
 
 const Build = () => {
-    const filterStyles = css`
+    const buildStyles = css`
         position: relative;
         margin-top: 10px;
         .filter-container {
@@ -105,11 +105,10 @@ const Build = () => {
             fetchHistoryData();
             fetchData();
         }
-
     }, [dispatch, branch_id, buildId, branchesState]);
 
     return (
-        <main id="last-run" css={filterStyles}>
+        <main id="last-run" css={buildStyles}>
             <div className="last-run-container"></div>
             {!historyDataState || loadingState ? (
                 <div
