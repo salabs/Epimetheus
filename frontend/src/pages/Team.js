@@ -4,6 +4,7 @@ import Card from '../components/Card';
 import { useParams } from 'react-router';
 import SelectedTeam from '../components/SelectedTeam';
 import theme from '../styles/theme';
+import Loading from '../components/Loading';
 
 const Team = () => {
     const [{ loadingState, teamsState }, dispatch] = useStateValue();
@@ -29,15 +30,7 @@ const Team = () => {
     return (
         <main id="team" css={theme.loadingState}>
             {!teamsState || loadingState ? (
-                <div
-                    className="loading-state"
-                    role="status"
-                    aria-live="polite"
-                    aria-label="Loading"
-                    aria-relevant="all"
-                >
-                    Loading
-                </div>
+                <Loading />
             ) : name ? (
                 <SelectedTeam
                     selectedTeam={teamsState.find(
