@@ -1,11 +1,5 @@
 import React, { createContext, useContext, useReducer } from 'react';
 export const StateContext = createContext();
-export const StateProvider = ({ reducer, children }) => (
-    <StateContext.Provider value={useReducer(reducer, initialState)}>
-        {children}
-    </StateContext.Provider>
-);
-export const useStateValue = () => useContext(StateContext);
 
 const initialState = {
     historyDataState: null,
@@ -26,3 +20,10 @@ const initialState = {
     metadataState: [],
     selectedBuildState: {}
 };
+
+export const StateProvider = ({ reducer, children }) => (
+    <StateContext.Provider value={useReducer(reducer, initialState)}>
+        {children}
+    </StateContext.Provider>
+);
+export const useStateValue = () => useContext(StateContext);
