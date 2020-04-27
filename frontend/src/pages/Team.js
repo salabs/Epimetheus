@@ -3,7 +3,6 @@ import { useStateValue } from '../contexts/state';
 import Card from '../components/Card';
 import { useParams } from 'react-router';
 import SelectedTeam from '../components/SelectedTeam';
-import theme from '../styles/theme';
 import Loading from '../components/Loading';
 
 const Team = () => {
@@ -28,7 +27,7 @@ const Team = () => {
     }, [dispatch]);
 
     return (
-        <main id="team" css={theme.loadingState}>
+        <main id="team">
             {!teamsState || loadingState ? (
                 <Loading />
             ) : name ? (
