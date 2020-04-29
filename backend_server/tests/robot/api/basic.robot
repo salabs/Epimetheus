@@ -32,6 +32,8 @@ Teams data
     String              $.teams[*].all_builds.last_started
     Integer             $.teams[*].all_builds.builds
     Integer             $.teams[*].all_builds.last_build
+    String              $.teams[*].all_builds.last_build_id
+    String              $.teams[*].all_builds.last_status
 
     Array               $.teams[*].series     minItems=1
     Valid series object     $.teams[*].series[*]
@@ -196,8 +198,10 @@ Valid series object
     String              ${json_path}.team
     Integer             ${json_path}.builds
     Integer             ${json_path}.last_build
+    String              ${json_path}.last_build_id
     String              ${json_path}.last_imported
     String              ${json_path}.last_started
+    String              ${json_path}.last_status
 
 Valid build object
     [Arguments]         ${json_path}

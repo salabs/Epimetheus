@@ -11,28 +11,39 @@ ORDER BY call_index;
 
 def test_series(by_teams=False, series=None):
     return """
-SELECT id, name, team,
-        count(*) as builds,
-        max(build_number) as last_build,
-        max(generated) as last_generated,
-        max(imported_at) as last_imported,
-        max(start_time) as last_started,
-        CASE WHEN max(start_time) IS NOT NULL THEN max(start_time)
-             ELSE max(imported_at) END as sorting_value
+SELECT *
 FROM (
-    SELECT test_series.id, name, team, build_number,
-            min(generated) as generated,
-            min(imported_at) as imported_at,
-            min(start_time) as start_time
-    FROM test_series
-    JOIN test_series_mapping as tsm ON tsm.series=test_series.id
-    JOIN test_run ON tsm.test_run_id=test_run.id
-    JOIN suite_result ON suite_result.test_run_id=test_run.id
-    WHERE NOT ignored {series_filter}
-    GROUP BY test_series.id, name, team, build_number
-) AS builds
-GROUP BY id, name, team
-ORDER BY {team_sorting} sorting_value;
+    SELECT DISTINCT ON (id)
+            id, name, team,
+            count(*) OVER (PARTITION BY id ) as builds,
+            build_number as last_build,
+            build_id as last_build_id,
+            generated as last_generated,
+            imported_at as last_imported,
+            status as last_status,
+            start_time as last_started,
+            CASE WHEN start_time IS NOT NULL THEN start_time ELSE imported_at END as sorting_value
+    FROM (
+        SELECT test_series.id, name, team, build_number,
+                CASE WHEN build_id IS NOT NULL THEN build_id ELSE build_number::text END as build_id,
+                min(generated) as generated,
+                min(imported_at) as imported_at,
+                min(start_time) as start_time,
+                min(status) as status
+        FROM test_series
+        JOIN test_series_mapping as tsm ON tsm.series=test_series.id
+        JOIN test_run ON tsm.test_run_id=test_run.id
+        JOIN (
+            SELECT test_run_id, min(status) as status, min(start_time) as start_time
+            FROM suite_result
+            GROUP BY test_run_id
+        ) AS suite_result ON suite_result.test_run_id=test_run.id
+        WHERE NOT ignored {series_filter}
+        GROUP BY test_series.id, name, team, build_number, build_id
+    ) AS builds
+    ORDER BY id, build_number DESC
+) AS unordered
+ORDER BY {team_sorting} sorting_value
 """.format(team_sorting="team," if by_teams else '', # nosec
            series_filter='AND test_series.id={}'.format(int(series)) if series else '') # nosec
 
