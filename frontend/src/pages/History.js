@@ -35,13 +35,13 @@ const History = () => {
     const series_id = series || selectedBranchState.id || '1';
     const number_of_builds = builds || amountOfBuilds || '30';
 
-    useEffect(() => {
-        const url = `/data/history?builds=${number_of_builds}&series=${series_id}`;
-        if (branchesState) {
-            const branch = branchesState.series?.find(
-                ({ id: serie_id }) => serie_id === parseInt(series_id, 10)
-            );
 
+  useEffect(() => {
+    const url = `/data/series/${series_id}/history?builds=${number_of_builds}`;
+    if (branchesState) {
+      const branch = branchesState.series?.find(
+        ({ id: serie_id }) => serie_id === parseInt(series_id, 10)
+      );
             const fetchData = async () => {
                 dispatch({ type: 'setLoadingState', loadingState: true });
                 dispatch({

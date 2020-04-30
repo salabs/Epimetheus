@@ -31,7 +31,7 @@ const Build = () => {
             if (branch_id && buildId) {
                 try {
                     const res = await fetch(
-                        `/data/metadata?series=${branch_id}&build_number=${buildId}`,
+                        `/data/series/${branch_id}/builds/${buildId}/metadata`,
                         {}
                     );
                     const json = await res.json();
@@ -60,8 +60,7 @@ const Build = () => {
                 dispatch({ type: 'setSelectedBuild', selectedBuild: buildId });
                 try {
                     const res = await fetch(
-                        ///`/data/history?series=${id}&builds=30`,
-                        `/data/history?start_from=${buildId}&series=${branch_id}&builds=5`,
+                        `/data/series/${branch_id}/history?start_from=${buildId}&builds=5`,
                         {}
                     );
                     const json = await res.json();
