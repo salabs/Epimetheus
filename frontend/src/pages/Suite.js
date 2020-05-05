@@ -11,62 +11,8 @@ import { jsx } from '@emotion/core';
 import BreadcrumbNav from '../components/BreadcrumbNav';
 import Notfound from '../components/NotFound';
 import { Link } from 'react-router-dom';
-import TestIcon from '../components/TestIcon';
-const pickIcon = test_status => {
-    let result = '';
-    // move to utils, copied in many places
-    switch (test_status) {
-        case 'PASS':
-            result = (
-                <TestIcon
-                    text="Pass"
-                    type="check"
-                    iconColor={theme.colors.pass}
-                />
-            );
-            break;
-        case 'FAIL':
-            result = (
-                <TestIcon
-                    text="Fail"
-                    type="times"
-                    iconColor={theme.colors.fail}
-                />
-            );
-            break;
-        case 'SKIPPED':
-            result = (
-                <TestIcon
-                    text="Skipped"
-                    type="circle"
-                    iconColor={theme.colors.skipped}
-                />
-            );
-            break;
-        case 'EMPTY':
-            result = (
-                <TestIcon
-                    text="Empty"
-                    type="minus"
-                    iconColor={theme.colors.skipped}
-                />
-            );
-            break;
-        case 'TIME':
-            result = (
-                <TestIcon
-                    text="Time"
-                    type="clock-o"
-                    iconColor={theme.colors.skipped}
-                />
-            );
-            break;
-        default:
-            result = '';
-    }
+import { pickIcon } from '../components/TestIcon';
 
-    return result;
-};
 const Suite = () => {
     const { suiteId, buildId, seriesId, testId } = useParams();
     const [
