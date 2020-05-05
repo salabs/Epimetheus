@@ -40,6 +40,9 @@ class SeriesModel:
         last_build:
             type: integer
             description: Latest build number for the series.
+        last_build_id:
+            type: string
+            description: Latest build id for the series.
         last_generated:
             type: string
             format: date-time
@@ -52,6 +55,9 @@ class SeriesModel:
             type: string
             format: date-time
             description: The last build starting time i.e. the first timestamp in the last build.
+        last_status:
+            type: string
+            description: The last build status (for so far archived results).
         sorting_value:
             type: string
             format: date-time
