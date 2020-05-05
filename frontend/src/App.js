@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import theme from '../src/theme';
+import theme from './styles/theme';
 import ThemeContext from './contexts/themeContext';
 import MainContent from './components/MainContent';
 import MainNav from './components/MainNav';
@@ -21,50 +21,6 @@ import './index.css';
 const App = () => {
     // eslint-disable-next-line
     const [{ selectedBranchState, amountOfBuilds }, dispatch] = useStateValue();
-    ///const { series } = useParams();
-    ///const { builds } = useParams();
-    ///const series_id = series || selectedBranchState.id || '1';
-    ///const number_of_builds = builds || amountOfBuilds || '30';
-    /*
-  useEffect(() => {
-    const url = `/data/history?builds=${number_of_builds}&series=${series_id}`;
-    const fetchData = async () => {
-      dispatch({ type: 'setLoadingState', loadingState: true });
-      try {
-        const res = await fetch(url, {});
-        const json = await res.json();
-        dispatch({
-          type: 'updateHistory',
-          historyData: json
-        });
-        dispatch({ type: 'setLoadingState', loadingState: false });
-      } catch (error) {
-        dispatch({ type: 'setErrorState', errorState: error });
-      }
-    };
-    const fetchHistoryData = async () => {
-      dispatch({ type: 'setLoadingState', loadingState: true });
-      if (series_id && buildId) {
-        try {
-          const res = await fetch(
-            `/data/history?start_from=${buildId}&series=${series_id}&builds=30`,
-            {}
-          );
-          const json = await res.json();
-          dispatch({ type: 'setLoadingState', loadingState: false });
-          dispatch({
-            type: 'updateHistory',
-            historyData: json
-          });
-        } catch (error) {
-        }
-      }
-    };
-
-    fetchHistoryData();
-    fetchData();
-  }, [dispatch]);
-  */
     useEffect(() => {
         const fetchData = async () => {
             dispatch({ type: 'setLoadingState', loadingState: true });

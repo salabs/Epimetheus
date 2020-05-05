@@ -6,7 +6,7 @@ import Flakiness from './Flakiness';
 import Status from './Status';
 import Error from './Error';
 import TestCase from './TestCase';
-import { dashify } from '../../helpers';
+import { dashify } from '../../utils/helpers';
 import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 

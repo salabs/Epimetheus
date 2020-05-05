@@ -1,4 +1,3 @@
-import { css } from '@emotion/core';
 const theme = {
     spacing: {
         xs: 20
@@ -16,26 +15,6 @@ const theme = {
         padding: '10px',
         minHeight: '20vh'
     },
-    loadingState: css`
-    height: 30px;
-    line-height: 30px;
-    padding: 0;
-    &:after {
-      margin: 0;
-      padding: 0;
-      line-height: 30px;
-      font-size: 1rem;
-      content: '...';
-      vertical-align: bottom;
-      display: inline-block;
-      width: 0px;
-      height: 30px;
-      animation-name: lastrun-loader;
-      animation-duration: 1.5s;
-      animation-iteration-count: infinite;
-      overflow: hidden;
-    }
-  }`,
     baseTableStyle: `
       table {
         table-layout: fixed;
@@ -91,10 +70,10 @@ const theme = {
         activeLinkColor: '#001155',
         container: `
         background-color: #eee;
-        color: #222; 
+        color: #222;
         border: 1px solid #ccc;
         p { line-height: 1.6 }
-        
+
         nav {
           border-right: 1px solid darkgrey;
           background: #ddd;

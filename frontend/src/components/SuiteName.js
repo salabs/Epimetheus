@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { dashify } from '../helpers';
+import { dashify } from '../utils/helpers';
 
 // Show suite name separated on different lines with dots showing depth level
 const SuiteName = ({ tableCellHeight, suiteName }) => {

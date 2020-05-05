@@ -4,7 +4,7 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useParams } from 'react-router';
 import { useStateValue } from '../contexts/state';
-import theme from '../theme';
+import theme from '../styles/theme';
 import { css } from '@emotion/core';
 import FA from 'react-fontawesome';
 import { jsx } from '@emotion/core';
