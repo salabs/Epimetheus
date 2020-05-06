@@ -5,12 +5,11 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router';
 import { useStateValue } from '../contexts/state';
 import theme from '../styles/theme';
-import { css } from '@emotion/core';
+import { css, jsx } from '@emotion/core';
 import FA from 'react-fontawesome';
-import { jsx } from '@emotion/core';
 import BreadcrumbNav from '../components/BreadcrumbNav';
 import Notfound from '../components/NotFound';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { pickIcon } from '../components/TestIcon';
 
 const Suite = () => {
@@ -36,7 +35,6 @@ const Suite = () => {
         .suiteNav {
             list-style: none;
             padding: 0;
-            background: #fff;
             align-content: center;
             border-right: 1px solid grey;
             flex-grow: 1;
@@ -60,6 +58,9 @@ const Suite = () => {
         }
         .suiteNav a:hover {
             background: #ddd;
+        }
+        .suiteNav .active {
+            background: #fff;
         }
         .suiteMain {
             flex-grow: 2;
@@ -131,12 +132,12 @@ const Suite = () => {
                             {selectedSuiteState.suite.tests.map((test, i) => {
                                 return (
                                     <div key={i}>
-                                        <Link
+                                        <NavLink
                                             to={`/series/${seriesId}/build/${buildId}/suite/${suiteId}/test/${test.id}`}
                                         >
                                             {pickIcon(test.status)}
                                             {test.name}
-                                        </Link>
+                                        </NavLink>
                                     </div>
                                 );
                             })}
@@ -200,7 +201,7 @@ const SelectedTest = ({ test }) => {
         margin-top: 5px;
         padding: 5px;
         border-radius: 5px;
-        font-size: 14px;
+        font-size: 1rem;
         display: flex;
         flex-direction: row;
         table {
@@ -223,6 +224,15 @@ const SelectedTest = ({ test }) => {
         tr {
             border-bottom: 1px solid #eee;
         }
+        .tableLogLevel {
+            width: 10%;
+        }
+        .tableMessage {
+            width: 60%;
+        }
+        .tableTimeStamp {
+            width: 30%;
+        }
     `;
 
     return test ? (
@@ -231,16 +241,12 @@ const SelectedTest = ({ test }) => {
                 <div className="flex-grow flex-column">
                     <div className="list-title">
                         <FA name="desktop" />
-                        Name and commit
+                        Name
                     </div>
                     <ul className="flex-column list-header">
                         <li>
                             <FA name="info" />
                             {test.name}
-                        </li>
-                        <li>
-                            <FA name="terminal" />
-                            {test.fingerprint}
                         </li>
                     </ul>
                 </div>
@@ -276,9 +282,9 @@ const SelectedTest = ({ test }) => {
                     <table id="logMessages-table">
                         <thead>
                             <tr>
-                                <th style={{ width: '20%' }}>Log level</th>
-                                <th style={{ width: '50%' }}>Message</th>
-                                <th style={{ width: '30%' }}>Timestamp</th>
+                                <th className="tableLogLevel">Log level</th>
+                                <th className="tableMessage">Message</th>
+                                <th className="tableTimeStamp">Timestamp</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -288,7 +294,10 @@ const SelectedTest = ({ test }) => {
                                         return (
                                             <tr key={i}>
                                                 <td>
-                                                    <div className="table-item">
+                                                    <div
+                                                        className="table-item"
+                                                        title={log_level}
+                                                    >
                                                         {log_level}
                                                     </div>
                                                 </td>
@@ -301,9 +310,12 @@ const SelectedTest = ({ test }) => {
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <div className="table-item">
+                                                    <div
+                                                        className="table-item"
+                                                        title={timestamp}
+                                                    >
                                                         {pickIcon('TIME')}
-                                                        {timestamp.slice(0, 16)}
+                                                        {timestamp}
                                                     </div>
                                                 </td>
                                             </tr>
