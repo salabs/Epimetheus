@@ -156,7 +156,13 @@ const Suite = () => {
                                 {selectedSuiteState.suite.test_run_id}
                             </div>
                             <div>
-                                Starttime: {selectedSuiteState.suite.start_time}
+                                Starttime:{' '}
+                                {selectedSuiteState.suite.start_time
+                                    ? selectedSuiteState.suite.start_time.slice(
+                                          0,
+                                          16
+                                      )
+                                    : ''}
                             </div>
                         </div>
                     </div>
@@ -287,14 +293,17 @@ const SelectedTest = ({ test }) => {
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <div className="table-item">
+                                                    <div
+                                                        className="table-item"
+                                                        title={message}
+                                                    >
                                                         {message}
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div className="table-item">
                                                         {pickIcon('TIME')}
-                                                        {timestamp}
+                                                        {timestamp.slice(0, 16)}
                                                     </div>
                                                 </td>
                                             </tr>
