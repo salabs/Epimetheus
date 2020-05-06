@@ -1,38 +1,38 @@
 {
-  "extends": [
-    "eslint:recommended",
-    "plugin:import/errors",
-    "plugin:react/recommended",
-    "plugin:jsx-a11y/recommended",
-    "plugin:prettier/recommended",
-    "prettier",
-    "prettier/react"
-  ],
-  "rules": {
-    "react/prop-types": 0,
-    "no-console": 1,
-    "react-hooks/rules-of-hooks": 2,
-    "react-hooks/exhaustive-deps": 1,
-    "no-unused-vars": ["error", { "varsIgnorePattern": "React" }]
-  },
-  "plugins": ["react", "import", "jsx-a11y", "react-hooks", "emotion"],
-  "parser": "babel-eslint",
-  "parserOptions": {
-    "ecmaVersion": 2018,
-    "sourceType": "module",
-    "ecmaFeatures": {
-      "jsx": true
-    }
-  },
+    "extends": [
+        "eslint:recommended",
+        "plugin:import/errors",
+        "plugin:react/recommended",
+        "plugin:jsx-a11y/recommended",
+        "plugin:prettier/recommended",
+        "prettier",
+        "prettier/react"
+    ],
+    "rules": {
+        "react/prop-types": 0,
+        "no-console": 1,
+        "react-hooks/rules-of-hooks": 2,
+        "react-hooks/exhaustive-deps": 1,
+        "no-unused-vars": ["error", { "varsIgnorePattern": "React" }]
+    },
+    "plugins": ["react", "import", "jsx-a11y", "react-hooks", "emotion"],
+    "parser": "babel-eslint",
+    "parserOptions": {
+        "ecmaVersion": 2018,
+        "sourceType": "module",
+        "ecmaFeatures": {
+            "jsx": true
+        }
+    },
 
-  "env": {
-    "es6": true,
-    "browser": true,
-    "node": true
-  },
-  "settings": {
-    "react": {
-      "version": "detect"
+    "env": {
+        "es6": true,
+        "browser": true,
+        "node": true
+    },
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
     }
-  }
 }
