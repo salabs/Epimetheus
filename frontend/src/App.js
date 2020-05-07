@@ -11,6 +11,7 @@ import History from './pages/History';
 import Build from './pages/Build';
 import Frontpage from './pages/Frontpage';
 import Team from './pages/Team';
+import Suite from './pages/Suite';
 import { useStateValue } from './contexts/state';
 //import { useParams } from 'react-router';
 
@@ -49,7 +50,6 @@ const App = () => {
         a {
             color: ${theme.testTheme.linkColor};
         }
-
         a:active,
         a:hover {
             color: ${theme.testTheme.linkColor};
@@ -94,7 +94,13 @@ const App = () => {
                     <MainNav />
                     <MainContent>
                         <Switch>
-                            <Route path="/build/series/:buildId/:id">
+                            <Route path="/series/:seriesId/build/:buildId/suite/:suiteId/test/:testId">
+                                <Suite />
+                            </Route>
+                            <Route path="/series/:seriesId/build/:buildId/suite/:suiteId/">
+                                <Suite />
+                            </Route>
+                            <Route path="/series/:seriesId/build/:buildId">
                                 <Build />
                             </Route>
                             <Route exact path="/history">

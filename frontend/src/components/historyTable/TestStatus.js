@@ -1,45 +1,6 @@
 import React from 'react';
 import { useStateValue } from '../../contexts/state';
-import TestIcon from '../TestIcon';
-import theme from '../../styles/theme';
-
-const pickIcon = test_status => {
-    let result = '';
-
-    switch (test_status) {
-        case 'PASS':
-            result = (
-                <TestIcon
-                    text="Pass"
-                    type="check"
-                    iconColor={theme.colors.pass}
-                />
-            );
-            break;
-        case 'FAIL':
-            result = (
-                <TestIcon
-                    text="Fail"
-                    type="times"
-                    iconColor={theme.colors.fail}
-                />
-            );
-            break;
-        case 'SKIPPED':
-            result = (
-                <TestIcon
-                    text="Skipped"
-                    type="circle"
-                    iconColor={theme.colors.skipped}
-                />
-            );
-            break;
-        default:
-            result = <span className="sr-show">Empty</span>;
-    }
-
-    return result;
-};
+import { pickIcon } from '../TestIcon';
 
 const TableTestStatusCell = ({ builds }) => {
     const [

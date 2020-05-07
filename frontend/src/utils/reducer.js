@@ -95,6 +95,11 @@ const reducer = (state, action) => {
                 ...state,
                 seriesInfo: action.seriesInfo
             };
+        case 'setSelectedSuiteState':
+            return {
+                ...state,
+                selectedSuiteState: action.suite
+            };
         default:
             return state;
     }
