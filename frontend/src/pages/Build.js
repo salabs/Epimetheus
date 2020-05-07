@@ -20,10 +20,9 @@ const Build = () => {
         { loadingState, historyDataState, selectedBranchState, branchesState },
         dispatch
     ] = useStateValue();
-    let { buildId } = useParams();
+    let { buildId, seriesId } = useParams();
     //console.log(options.series);
-    let { id } = useParams();
-    const branch_id = id || selectedBranchState;
+    const branch_id = seriesId || selectedBranchState;
 
     useEffect(() => {
         const fetchData = async () => {

@@ -27,19 +27,24 @@ const BreadcrumbItemSeries = () => {
         </div>
     );
 };
-const BreadcrumbItemHistory = () => {
-    const { buildId } = useParams();
+
+const BreadcrumbItemBuild = () => {
+    const { buildId, seriesId } = useParams();
     return (
         <div>
-            <BreadcrumbItemSeries /> > {buildId}
+            <BreadcrumbItemSeries />>
+            <Link to={`/series/${seriesId}/build/${buildId}`}>{buildId}</Link>
         </div>
     );
 };
 
-const BREADCRUMB_STATUS = {
-    team: <BreadcrumbItem />,
-    series: <BreadcrumbItemSeries />,
-    build: <BreadcrumbItemHistory />
+const BreadcrumbItemSuite = () => {
+    const { suiteId } = useParams();
+    return (
+        <div>
+            <BreadcrumbItemBuild /> > {suiteId}
+        </div>
+    );
 };
 const BreadcrumbNav = ({ status }) => {
     const breadCrumbNavStyles = css`
@@ -51,7 +56,7 @@ const BreadcrumbNav = ({ status }) => {
                 transition: 0.1s background-color;
             }
         }
-        div:last-child {
+        div {
             display: inline;
         }
     `;
@@ -64,3 +69,10 @@ const BreadcrumbNav = ({ status }) => {
 };
 
 export default BreadcrumbNav;
+
+const BREADCRUMB_STATUS = {
+    team: <BreadcrumbItem />,
+    series: <BreadcrumbItemSeries />,
+    build: <BreadcrumbItemBuild />,
+    suite: <BreadcrumbItemSuite />
+};
