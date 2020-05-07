@@ -27,7 +27,7 @@ const History = () => {
         }
 
         .parentInfo-container {
-            padding-top: 20px;
+            padding: 20px 0;
         }
     `;
     const [

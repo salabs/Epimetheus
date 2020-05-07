@@ -1,56 +1,43 @@
-﻿import React, { useEffect } from 'react';
+﻿import React, { useEffect, useContext } from 'react';
 import { useParams } from 'react-router';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
 import { useStateValue } from '../../contexts/state';
 
+import ThemeContext from '../../contexts/themeContext';
+
 const ParentItem = () => {
+    const theme = useContext(ThemeContext);
+
     const tableStyles = css`
-        overflow: auto;
-        clear: both;
+        ${theme.baseTableStyle}
 
         table {
             border-collapse: collapse;
             table-layout: fixed;
             overflow: auto;
         }
-        table,
-        th,
-        td {
-            padding: 10px;
-            border: 1px solid black;
-            text-align: left;
-            vertical-align: top;
-        }
+
+        td,
         th {
-            background: #ddd;
-        }
-        td {
-            background: #fafafa;
-        }
-        td.test-result-undefined {
-            background: #eee;
-        }
-        .centerTableCellContent {
-            text-align: center;
             vertical-align: middle;
         }
     `;
 
     const { series } = useParams();
-
-    const [{ parentItem }, dispatch] = useStateValue();
+    const [{ seriesInfo }, dispatch] = useStateValue();
 
     useEffect(() => {
         const url = `/data/series/${series}/info?`;
 
         const fetchData = async () => {
-            dispatch({ type: 'setLoadingState', loadingState: true });
+            // dispatch({ type: 'setLoadingState', loadingState: true });
             try {
                 const res = await fetch(url);
                 const json = await res.json();
-                dispatch({ type: 'setParentItem', parentItem: json });
-                dispatch({ type: 'setLoadingState', loadingState: false });
+                const seriesInfo = json.series;
+                dispatch({ type: 'setSeriesInfo', seriesInfo });
+                // dispatch({ type: 'setLoadingState', loadingState: false });
             } catch (error) {
                 dispatch({ type: 'setErrorState', errorState: error });
             }
@@ -58,33 +45,37 @@ const ParentItem = () => {
         fetchData();
     }, [series, dispatch]);
 
+    const headerNames = ['id', 'name', 'team'];
+
     const headerRow = () => {
-        const headerNames = Object.keys(parentItem.series);
+        const headerNames = Object.keys(seriesInfo);
         return headerNames.map(name => {
             return <th key={name}>{name}</th>;
         });
     };
 
     const bodyRow = () => {
-        const headerValues = Object.values(parentItem.series);
-        return headerValues.map((value, index) => {
+        const bodyValues = Object.values(seriesInfo);
+        return bodyValues.map((value, index) => {
             return <td key={index}>{value}</td>;
         });
     };
 
     return (
-        <div css={tableStyles}>
-            {parentItem && (
-                <table>
-                    <thead>
-                        <tr>{headerRow()}</tr>
-                    </thead>
-                    <tbody>
-                        <tr>{bodyRow()}</tr>
-                    </tbody>
-                </table>
+        <React.Fragment>
+            {seriesInfo && (
+                <div css={tableStyles}>
+                    <table>
+                        <thead>
+                            <tr>{headerRow()}</tr>
+                        </thead>
+                        <tbody>
+                            <tr>{bodyRow()}</tr>
+                        </tbody>
+                    </table>
+                </div>
             )}
-        </div>
+        </React.Fragment>
     );
 };
 
