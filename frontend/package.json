@@ -5,6 +5,7 @@
     "dependencies": {
         "@emotion/core": "^10.0.21",
         "normalize.css": "^8.0.1",
+        "prop-types": "^15.7.2",
         "react": "^16.10.2",
         "react-dom": "^16.10.2",
         "react-fontawesome": "^1.7.1",

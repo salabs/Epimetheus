@@ -4,7 +4,7 @@ import React, { Fragment, useEffect } from 'react';
 import { css, jsx } from '@emotion/core';
 import Filter from '../components/historyTable/Filter';
 import Table from '../components/historyTable/Table';
-import ParentItem from '../components/historyTable/ParentItem';
+import ParentHistory from '../components/parentData/ParentHistory';
 import Checkbox from '../components/Checkbox';
 import { useStateValue } from '../contexts/state';
 // import BranchFilter from '../components/BranchFilter';
@@ -83,7 +83,7 @@ const History = () => {
         <main id="history" css={filterStyles}>
             <BreadcrumbNav status={'series'} />
             <div className="parentInfo-container">
-                <ParentItem />
+                <ParentHistory />
             </div>
             <div className="filter-container">
                 <Filter />

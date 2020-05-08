@@ -20,7 +20,9 @@ const initialState = {
     selectedBranchState: { name: 'All builds', id: 1 },
     metadataState: [],
     selectedBuildState: {},
-    seriesInfo: null
+    parentData: {
+        seriesData: null
+    }
 };
 
 export const StateProvider = ({ reducer, children }) => {

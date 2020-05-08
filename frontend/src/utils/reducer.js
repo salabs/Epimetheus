@@ -90,15 +90,26 @@ const reducer = (state, action) => {
                 ...state,
                 teamsState: action.teams
             };
-        case 'setSeriesInfo':
-            return {
-                ...state,
-                seriesInfo: action.seriesInfo
-            };
         case 'setSelectedSuiteState':
             return {
                 ...state,
                 selectedSuiteState: action.suite
+            };
+        case 'setSeriesData':
+            return {
+                ...state,
+                parentData: {
+                    ...state.parentData,
+                    seriesData: action.seriesData
+                }
+            };
+        case 'setBuildData':
+            return {
+                ...state,
+                parentData: {
+                    ...state.parentData,
+                    buildData: action.buildData
+                }
             };
         default:
             return state;

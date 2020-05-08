@@ -7,13 +7,19 @@ import MetadataTable from '../components/lastRunTable/MetadataTable';
 import { useParams } from 'react-router';
 import { css } from '@emotion/core';
 import BreadcrumbNav from '../components/BreadcrumbNav';
+import ParentBuild from '../components/parentData/ParentBuild';
 
 const Build = () => {
     const buildStyles = css`
         position: relative;
         margin-top: 10px;
-        .filter-container {
+        .filter-container,
+        .parentInfo-container {
             display: flex;
+        }
+
+        .parentInfo-container {
+            padding: 20px 0;
         }
     `;
     const [
@@ -102,6 +108,9 @@ const Build = () => {
                         Content loaded.
                     </div>
                     <BreadcrumbNav status={'build'} />
+                    <div className="parentInfo-container">
+                        <ParentBuild />
+                    </div>
                     <MetadataTable buildId={buildId} />
                     <LastRunCheckBox />
                     <Table id={branch_id} />
