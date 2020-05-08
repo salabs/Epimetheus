@@ -7,11 +7,12 @@ import ParentTable from './ParentTable';
 
 const ParentHistory = () => {
     const { seriesId, buildId } = useParams();
-    const [{ seriesInfo }, dispatch] = useStateValue();
-
-    // console.log('build_number', build_number);
-    console.log('seriesId', seriesId);
-    console.log('buildID', buildId);
+    const [
+        {
+            parentData: { buildData }
+        },
+        dispatch
+    ] = useStateValue();
 
     useEffect(() => {
         const url = `/data/series/${seriesId}/builds/${buildId}/info?`;
@@ -31,7 +32,7 @@ const ParentHistory = () => {
         fetchData();
     }, [dispatch, seriesId, buildId]);
 
-    return <ParentTable data={seriesInfo} types={buildTypes} />;
+    return <ParentTable data={buildData} types={buildTypes} />;
 };
 
 export default ParentHistory;

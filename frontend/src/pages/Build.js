@@ -5,7 +5,8 @@ import LastRunCheckBox from '../components/LastRunCheckbox';
 import { useStateValue } from '../contexts/state';
 import MetadataTable from '../components/lastRunTable/MetadataTable';
 import { useParams } from 'react-router';
-import { css } from '@emotion/core';
+/** @jsx jsx */
+import { css, jsx } from '@emotion/core';
 import BreadcrumbNav from '../components/BreadcrumbNav';
 import ParentBuild from '../components/parentData/ParentBuild';
 

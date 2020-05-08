@@ -34,8 +34,8 @@ const ParentTable = props => {
     const bodyRow = () => {
         const bodyValues = types.map(type => data[type]);
 
-        return bodyValues.map(value => {
-            return <td key={value}>{value}</td>;
+        return bodyValues.map((value, index) => {
+            return <td key={index}>{value}</td>;
         });
     };
 
