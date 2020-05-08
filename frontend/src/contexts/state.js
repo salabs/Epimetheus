@@ -21,7 +21,8 @@ const initialState = {
     metadataState: [],
     selectedBuildState: {},
     parentData: {
-        seriesData: null
+        seriesData: null,
+        buildData: null
     }
 };
 
