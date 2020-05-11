@@ -2,6 +2,7 @@
 import PropTypes from 'prop-types';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
+import * as R from 'ramda';
 import ThemeContext from '../../contexts/themeContext';
 
 const ParentTable = props => {
@@ -32,7 +33,7 @@ const ParentTable = props => {
     };
 
     const bodyRow = () => {
-        const bodyValues = types.map(type => data[type]);
+        const bodyValues = R.props(types, data);
 
         return bodyValues.map((value, index) => {
             return <td key={index}>{value}</td>;
