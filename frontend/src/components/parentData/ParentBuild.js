@@ -32,8 +32,6 @@ const ParentHistory = () => {
         fetchData();
     }, [dispatch, seriesId, buildId]);
 
-    console.log('testId on', testId);
-
     const types = testId ? suiteTypes : buildTypes;
 
     return <ParentTable data={buildData} types={types} />;
