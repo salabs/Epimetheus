@@ -7,3 +7,10 @@ export const buildTypes = [
     'status',
     'start_time'
 ];
+export const suiteTypes = [
+    'team',
+    'name',
+    'build_number',
+    'build_id',
+    'start_time'
+];

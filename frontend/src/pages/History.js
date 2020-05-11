@@ -82,9 +82,11 @@ const History = () => {
     return (
         <main id="history" css={filterStyles}>
             <BreadcrumbNav status={'series'} />
-            <div className="parentInfo-container">
-                <ParentHistory />
-            </div>
+            {!loadingState && (
+                <div className="parentInfo-container">
+                    <ParentHistory />
+                </div>
+            )}
             <div className="filter-container">
                 <Filter />
                 <Checkbox />

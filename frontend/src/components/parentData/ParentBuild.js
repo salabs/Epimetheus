@@ -1,12 +1,12 @@
 ﻿import React, { useEffect } from 'react';
 import { useParams } from 'react-router';
 import { useStateValue } from '../../contexts/state';
-import { buildTypes } from '../../utils/parentDataTypes';
+import { buildTypes, suiteTypes } from '../../utils/parentDataTypes';
 
 import ParentTable from './ParentTable';
 
 const ParentHistory = () => {
-    const { seriesId, buildId } = useParams();
+    const { seriesId, buildId, testId } = useParams();
     const [
         {
             parentData: { buildData }
@@ -32,7 +32,11 @@ const ParentHistory = () => {
         fetchData();
     }, [dispatch, seriesId, buildId]);
 
-    return <ParentTable data={buildData} types={buildTypes} />;
+    console.log('testId on', testId);
+
+    const types = testId ? suiteTypes : buildTypes;
+
+    return <ParentTable data={buildData} types={types} />;
 };
 
 export default ParentHistory;

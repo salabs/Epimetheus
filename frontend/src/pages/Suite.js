@@ -11,6 +11,7 @@ import BreadcrumbNav from '../components/BreadcrumbNav';
 import Notfound from '../components/NotFound';
 import { NavLink } from 'react-router-dom';
 import { pickIcon } from '../components/TestIcon';
+import ParentBuild from '../components/parentData/ParentBuild';
 
 const Suite = () => {
     const { suiteId, buildId, seriesId, testId } = useParams();
@@ -25,9 +26,12 @@ const Suite = () => {
     ] = useStateValue();
     const branch_id = seriesId || selectedBranchState;
     const container = css`
+        .parentInfo-container {
+            display: flex;
+            padding: 20px 0;
+        }
         .container {
             display: flex;
-            //   flex-direction: column;
         }
         .fa {
             margin-right: 8px;
@@ -127,6 +131,9 @@ const Suite = () => {
                         Content loaded.
                     </div>
                     <BreadcrumbNav status={'suite'} />
+                    <div className="parentInfo-container">
+                        <ParentBuild />
+                    </div>
                     <div className="container">
                         <div className="suiteNav">
                             {selectedSuiteState.suite.tests.map((test, i) => {
