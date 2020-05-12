@@ -4,6 +4,7 @@ import React, { Fragment, useEffect } from 'react';
 import { css, jsx } from '@emotion/core';
 import Filter from '../components/historyTable/Filter';
 import Table from '../components/historyTable/Table';
+import ParentHistory from '../components/parentData/ParentHistory';
 import Checkbox from '../components/Checkbox';
 import { useStateValue } from '../contexts/state';
 // import BranchFilter from '../components/BranchFilter';
@@ -14,10 +15,19 @@ import Loading from '../components/Loading';
 const History = () => {
     const filterStyles = css`
         position: relative;
-        .filter-container {
+
+        .filter-container,
+        .parentInfo-container {
             display: flex;
             flex-flow: row wrap;
+        }
+
+        .filter-container {
             max-width: 800px;
+        }
+
+        .parentInfo-container {
+            padding: 20px 0;
         }
     `;
     const [
@@ -35,13 +45,12 @@ const History = () => {
     const series_id = series || selectedBranchState.id || '1';
     const number_of_builds = builds || amountOfBuilds || '30';
 
-
-  useEffect(() => {
-    const url = `/data/series/${series_id}/history?builds=${number_of_builds}`;
-    if (branchesState) {
-      const branch = branchesState.series?.find(
-        ({ id: serie_id }) => serie_id === parseInt(series_id, 10)
-      );
+    useEffect(() => {
+        const url = `/data/series/${series_id}/history?builds=${number_of_builds}`;
+        if (branchesState) {
+            const branch = branchesState.series?.find(
+                ({ id: serie_id }) => serie_id === parseInt(series_id, 10)
+            );
             const fetchData = async () => {
                 dispatch({ type: 'setLoadingState', loadingState: true });
                 dispatch({
@@ -73,6 +82,11 @@ const History = () => {
     return (
         <main id="history" css={filterStyles}>
             <BreadcrumbNav status={'series'} />
+            {!loadingState && (
+                <div className="parentInfo-container">
+                    <ParentHistory />
+                </div>
+            )}
             <div className="filter-container">
                 <Filter />
                 <Checkbox />
