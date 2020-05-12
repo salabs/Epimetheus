@@ -14,7 +14,7 @@ import Team from './pages/Team';
 import Suite from './pages/Suite';
 import { useStateValue } from './contexts/state';
 //import { useParams } from 'react-router';
-import './utils/i118n'
+import './utils/i118n';
 
 import 'normalize.css';
 import './index.css';
