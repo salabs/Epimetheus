@@ -30,7 +30,7 @@ const SelectedTeam = ({ selectedTeam }) => {
         flexWrap: 'wrap'
     };
 
-    const TeamCard = ({ serie }) => {
+    const TeamCard = ({ data }) => {
         const {
             id,
             name,
@@ -39,7 +39,7 @@ const SelectedTeam = ({ selectedTeam }) => {
             last_build_id,
             last_started,
             last_status
-        } = serie;
+        } = data;
 
         const LastStarted = last_started.slice(0, 16);
         const testStatusIcon = pickIcon(last_status);
@@ -84,57 +84,9 @@ const SelectedTeam = ({ selectedTeam }) => {
             <BreadcrumbNav status={'team'} />
             {selectedTeam && selectedTeam.all_builds ? (
                 <div style={flexContainer}>
-                    {/* <div
-                        style={theme.flexItem}
-                        onClick={() =>
-                            history.push(
-                                `/history/${selectedTeam.all_builds.id}/10`
-                            )
-                        }
-                        role={'presentation'}
-                    >
-                        <h3>{selectedTeam.all_builds.name}</h3>
-                        <hr />
-                        <div style={cardItem}>
-                            <div>
-                                <FA name="clock-o" />{' '}
-                                {selectedTeam.all_builds.last_started.slice(
-                                    0,
-                                    16
-                                )}
-                            </div>
-                            <div>
-                                <FA name="hashtag" />{' '}
-                                {selectedTeam.all_builds.last_build}
-                            </div>
-                        </div>
-                    </div> */}
-                    <TeamCard serie={selectedTeam.all_builds} />
+                    <TeamCard data={selectedTeam.all_builds} />
                     {selectedTeam.series.reverse().map((serie, i) => {
-                        return (
-                            // <div
-                            //     style={theme.flexItem}
-                            //     key={i}
-                            //     onClick={() =>
-                            //         history.push(`/history/${element.id}/10`)
-                            //     }
-                            //     role={'presentation'}
-                            // >
-                            //     <h3>{element.name}</h3>
-                            //     <hr />
-                            //     <div style={cardItem}>
-                            //         <div>
-                            //             <FA name="clock-o" />{' '}
-                            //             {element.last_started.slice(0, 16)}
-                            //         </div>
-                            //         <div>
-                            //             <FA name="hashtag" />{' '}
-                            //             {element.last_build}
-                            //         </div>
-                            //     </div>
-                            // </div>
-                            <TeamCard key={i} serie={serie} />
-                        );
+                        return <TeamCard key={i} data={serie} />;
                     })}
                 </div>
             ) : (
