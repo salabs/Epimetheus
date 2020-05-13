@@ -11,7 +11,16 @@ import { css, jsx } from '@emotion/core';
 
 const SelectedTeam = ({ selectedTeam }) => {
     const cardStyles = css`
-        background-color: white;
+        background-color: #fafafa;
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 4px,
+            rgba(0, 0, 0, 0.23) 0px 3px 4px;
+        margin: 10px;
+        padding: 10px;
+
+        .series:hover,
+        .builds:hover {
+            cursor: pointer;
+        }
     `;
 
     let history = useHistory();
@@ -19,9 +28,6 @@ const SelectedTeam = ({ selectedTeam }) => {
     const flexContainer = {
         display: 'flex',
         flexWrap: 'wrap'
-    };
-    const cardItem = {
-        display: 'block'
     };
 
     const TeamCard = ({ serie }) => {
@@ -39,21 +45,26 @@ const SelectedTeam = ({ selectedTeam }) => {
         const testStatusIcon = pickIcon(last_status);
 
         return (
-            <div style={theme.flexItem} css={cardStyles}>
-                <h3>{name}</h3>
+            <div css={cardStyles}>
+                <div>
+                    <h3>{name}</h3>
+                </div>
                 <hr />
-                <div
-                    style={cardItem}
-                    onClick={() => history.push(`/history/${id}/10`)}
-                    onKeyPress={() => history.push(`/history/${id}/10`)}
-                    role={'presentation'}
-                >
-                    <div>
+                <div>
+                    <div
+                        className="series"
+                        onClick={() => history.push(`/history/${id}/10`)}
+                        role={'presentation'}
+                    >
                         <h4>Series</h4>
                         Number of builds: {builds}
                     </div>
                     <hr />
-                    <div>
+                    <div
+                        className="builds"
+                        onClick={() => history.push(`/history/${id}/10`)}
+                        role={'presentation'}
+                    >
                         <h4>Last build</h4>
                         Build number: {last_build}
                         <br />
