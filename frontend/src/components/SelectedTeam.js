@@ -1,11 +1,19 @@
 import React from 'react';
-import FA from 'react-fontawesome';
+import PropTypes from 'prop-types';
 import NotFound from './NotFound';
 import { useHistory } from 'react-router-dom';
 import theme from '../styles/theme';
 import BreadcrumbNav from './BreadcrumbNav';
+import { pickIcon } from './TestIcon';
+
+/** @jsx jsx */
+import { css, jsx } from '@emotion/core';
 
 const SelectedTeam = ({ selectedTeam }) => {
+    const cardStyles = css`
+        background-color: white;
+    `;
+
     let history = useHistory();
 
     const flexContainer = {
@@ -16,12 +24,56 @@ const SelectedTeam = ({ selectedTeam }) => {
         display: 'block'
     };
 
+    const TeamCard = ({ serie }) => {
+        const {
+            id,
+            name,
+            builds,
+            last_build,
+            last_build_id,
+            last_started,
+            last_status
+        } = serie;
+
+        const LastStarted = last_started.slice(0, 16);
+        const testStatusIcon = pickIcon(last_status);
+
+        return (
+            <div style={theme.flexItem} css={cardStyles}>
+                <h3>{name}</h3>
+                <hr />
+                <div
+                    style={cardItem}
+                    onClick={() => history.push(`/history/${id}/10`)}
+                    onKeyPress={() => history.push(`/history/${id}/10`)}
+                    role={'presentation'}
+                >
+                    <div>
+                        <h4>Series</h4>
+                        Number of builds: {builds}
+                    </div>
+                    <hr />
+                    <div>
+                        <h4>Last build</h4>
+                        Build number: {last_build}
+                        <br />
+                        Build id: {last_build_id}
+                        <br />
+                        Last build started: {LastStarted}
+                        <br />
+                        Last status: {testStatusIcon}
+                    </div>
+                </div>
+            </div>
+        );
+    };
+
     return (
         <main id="selectedTeam" css={theme.loadingState}>
             <BreadcrumbNav status={'team'} />
-            {selectedTeam && selectedTeam.all_builds !== null ? (
+            {selectedTeam && selectedTeam.all_builds ? (
                 <div style={flexContainer}>
-                    <div
+                    {/* <div
                         style={theme.flexItem}
                         onClick={() =>
                             history.push(
@@ -45,30 +97,32 @@ const SelectedTeam = ({ selectedTeam }) => {
                                 {selectedTeam.all_builds.last_build}
                             </div>
                         </div>
-                    </div>
-                    {selectedTeam.series.reverse().map((element, i) => {
+                    </div> */}
+                    <TeamCard serie={selectedTeam.all_builds} />
+                    {selectedTeam.series.reverse().map((serie, i) => {
                         return (
-                            <div
-                                style={theme.flexItem}
-                                key={i}
-                                onClick={() =>
-                                    history.push(`/history/${element.id}/10`)
-                                }
-                                role={'presentation'}
-                            >
-                                <h3>{element.name}</h3>
-                                <hr />
-                                <div style={cardItem}>
-                                    <div>
-                                        <FA name="clock-o" />{' '}
-                                        {element.last_started.slice(0, 16)}
-                                    </div>
-                                    <div>
-                                        <FA name="hashtag" />{' '}
-                                        {element.last_build}
-                                    </div>
-                                </div>
-                            </div>
+                            // <div
+                            //     style={theme.flexItem}
+                            //     key={i}
+                            //     onClick={() =>
+                            //         history.push(`/history/${element.id}/10`)
+                            //     }
+                            //     role={'presentation'}
+                            // >
+                            //     <h3>{element.name}</h3>
+                            //     <hr />
+                            //     <div style={cardItem}>
+                            //         <div>
+                            //             <FA name="clock-o" />{' '}
+                            //             {element.last_started.slice(0, 16)}
+                            //         </div>
+                            //         <div>
+                            //             <FA name="hashtag" />{' '}
+                            //             {element.last_build}
+                            //         </div>
+                            //     </div>
+                            // </div>
+                            <TeamCard key={i} serie={serie} />
                         );
                     })}
                 </div>
@@ -77,6 +131,15 @@ const SelectedTeam = ({ selectedTeam }) => {
             )}
         </main>
     );
+};
+
+SelectedTeam.propTypes = {
+    selectedTeam: PropTypes.shape({
+        all_builds: PropTypes.object,
+        name: PropTypes.string,
+        series: PropTypes.array,
+        series_count: PropTypes.number
+    })
 };
 
 export default SelectedTeam;

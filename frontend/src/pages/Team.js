@@ -20,7 +20,7 @@ const Team = () => {
                 dispatch({ type: 'setLoadingState', loadingState: false });
                 dispatch({ type: 'setTeams', teams: json.teams });
             } catch (error) {
-                console.log(error);
+                dispatch({ type: 'setErrorState', errorState: error });
             }
         };
         fetchData();
