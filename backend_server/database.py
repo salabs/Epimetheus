@@ -1,7 +1,6 @@
 import urllib.parse
 import datetime
 import sys
-from decimal import Decimal
 
 import queries
 
