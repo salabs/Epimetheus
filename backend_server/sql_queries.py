@@ -201,7 +201,7 @@ FROM (
 ) AS status_per_suite
 GROUP BY build_number
 ORDER BY build_number DESC
-""".format(series=series,
+""".format(series=int(series), # nosec
            test_run_ids=test_run_ids(series, start_from=start_from, last=last, offset=offset))
 
 def history_page_data(series, start_from, last, offset=0):
@@ -287,7 +287,7 @@ FROM (
 ) AS results
 ORDER BY suite_full_name, full_name, build_number DESC;
 """.format(array_literal='{}', # nosec
-           series=series,
+           series=int(series),
            test_run_ids=test_run_ids(series, start_from=start_from, last=last, offset=offset))
 
 
@@ -411,7 +411,7 @@ FROM (
 GROUP BY suite_id, suite_name, suite_full_name, test_id, test_name, test_full_name
 ORDER BY instability {order}
 LIMIT {limit} OFFSET {limit_offset};
-""".format(series=series,
+""".format(series=int(series), # nosec
            test_run_ids=test_run_ids(series, start_from=start_from, last=last, offset=offset),
            limit=int(limit),
            limit_offset=int(limit_offset),
