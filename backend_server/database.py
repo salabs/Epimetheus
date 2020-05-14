@@ -1,6 +1,7 @@
 import urllib.parse
 import datetime
 import sys
+from decimal import Decimal
 
 import queries
 
@@ -65,6 +66,15 @@ class Database:
     def history_page_data(self, test_series, start_from, num_of_builds, offset):
         history_sql = sql_queries.history_page_data(test_series, start_from, num_of_builds, offset)
         return self.session.query(history_sql), history_data
+
+    def status_counts(self, test_series, start_from, num_of_builds, offset):
+        sql = sql_queries.status_counts(test_series, start_from, num_of_builds, offset)
+        return self.session.query(sql), list_of_dicts
+
+    def most_stable_tests(self, test_series, start_from, num_of_builds, offset, limit, limit_offset, stable):
+        sql = sql_queries.most_stable_tests(test_series, start_from, num_of_builds, offset, limit,
+                                            limit_offset, stable)
+        return self.session.query(sql), list_of_dicts
 
     def build_metadata(self, test_series, build_number):
         sql = sql_queries.build_metadata(test_series, build_number)
