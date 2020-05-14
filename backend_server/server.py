@@ -186,6 +186,8 @@ class Application(tornado.web.Application):
             url(r"/data/series/(?P<series>[0-9]+)/builds/(?P<build_number>[0-9]+)/suites/(?P<suite>[0-9]+)/info?$",
                 SuiteResultInfoDataHandler),
             url(r"/data/series/(?P<series>[0-9]+)/history/?$", HistoryDataHandler),
+            url(r"/data/series/(?P<series>[0-9]+)/most_stable_tests/?$", MostStableTestsDataHandler),
+            url(r"/data/series/(?P<series>[0-9]+)/status_counts/?$", SeriesStatusCountsDataHandler),
             url(r"/data/series/(?P<series>[0-9]+)/builds/(?P<build_number>[0-9]+)/metadata/?$",
                 MetaDataHandler),
             url(r"/data/test_runs/(?P<test_run>[0-9]+)/suites/(?P<suite>[0-9]+)/log_messages?$",
@@ -872,6 +874,207 @@ class HistoryDataHandler(BaseHandler):
             history, max_build_num = yield coroutine_query(self.database.history_page_data, series,
                                                                 start_from, num_of_builds, offset)
             self.write({'max_build_num': max_build_num, 'history': history})
+        else:
+            self.send_bad_request_response()
+
+
+class MostStableTestsDataHandler(BaseHandler):
+    @tornado.gen.coroutine
+    def get(self, series):
+        """
+        ---
+        tags:
+        - Series data
+        summary: Resently stable or unstable test cases
+        description: List the most stable or unstable (failing) test cases based on resent history
+        produces:
+        - application/json
+        parameters:
+        -   name: series
+            in: path
+            description: series id
+            required: true
+            type: integer
+        -   name: start_from
+            in: query
+            description: build number, history starting from this build (defaults to last build in series)
+            required: false
+            type: integer
+            allowEmptyValue: true
+        -   name: builds
+            in: query
+            description: number of builds, i.e. length of the history
+            required: false
+            type: integer
+            default: 10
+        -   name: offset
+            in: query
+            description: offset for the number of builds moving further in history
+            required: false
+            type: integer
+            default: 0
+        -   name: limit
+            in: query
+            description: limit for the number of test cases listed
+            required: false
+            type: integer
+            default: 10
+        -   name: limit_offset
+            in: query
+            description: offset for the limit of number of test cases listed
+            required: false
+            type: integer
+            default: 0
+        -   name: most
+            in: query
+            description: either 'stable' or 'unstable'
+            required: false
+            type: string
+            default: stable
+        responses:
+            200:
+                description: Recently stable or unstable tests
+                schema:
+                    type: object
+                    properties:
+                        tests:
+                            type: array
+                            description: List of test cases in order. Either stable or unstable first
+                            items:
+                                type: object
+                                description: Test object with stability info
+                                properties:
+                                    test_id:
+                                        type: integer
+                                        description: id of the test case
+                                    test_name:
+                                        type: string
+                                        description: name of the test case
+                                    test_full_name:
+                                        type: string
+                                        description: full name of the test case
+                                    suite_id:
+                                        type: integer
+                                        description: id of the suite the test case belongs to
+                                    suite_name:
+                                        type: string
+                                        description: name of the suite the test case belongs to
+                                    suite_full_name:
+                                        type: string
+                                        description: full name of the suite the test case belongs to
+                                    fails_in_window:
+                                        type: integer
+                                        description: number of times the test case has failed in the history window
+                                    instability:
+                                        type: number
+                                        description: instabilty measure for the test case, the more fails the more recently the higher the value
+        """
+        start_from = self.get_argument('start_from', None)
+        num_of_builds = self.get_argument('builds', 10)
+        offset = self.get_argument('offset', 0)
+        limit = self.get_argument('limit', 10)
+        limit_offset = self.get_argument('limit_offset', 0)
+        most = self.get_argument('most', 'passing')
+        stable = most == 'passing'
+
+        if values_are_integers(series, start_from, num_of_builds, offset, limit, limit_offset):
+            tests = yield coroutine_query(self.database.most_stable_tests, series, start_from,
+                                          num_of_builds, offset, limit, limit_offset, stable)
+            self.write({'tests': tests})
+        else:
+            self.send_bad_request_response()
+
+
+class SeriesStatusCountsDataHandler(BaseHandler):
+    @tornado.gen.coroutine
+    def get(self, series):
+        """
+        ---
+        tags:
+        - Series data
+        summary: Get status counts for builds series
+        description: PASS-FAIL-SKIPPED counts for tests and suites per build
+        produces:
+        - application/json
+        parameters:
+        -   name: series
+            in: path
+            description: series id
+            required: true
+            type: integer
+        -   name: start_from
+            in: query
+            description: build number, history starting from this build (defaults to last build in series)
+            required: false
+            type: integer
+            allowEmptyValue: true
+        -   name: builds
+            in: query
+            description: number of builds, i.e. length of the history
+            required: false
+            type: integer
+            default: 10
+        -   name: offset
+            in: query
+            description: offset for the number of builds moving further in history
+            required: false
+            type: integer
+            default: 0
+        responses:
+            200:
+                description: Status counts for a given series
+                schema:
+                    type: object
+                    properties:
+                        status_counts:
+                            type: array
+                            description: List of status count objects for builds in descending order
+                            items:
+                                type: object
+                                description: Status count object
+                                properties:
+                                    build_number:
+                                        type: integer
+                                        description: number of the build
+                                    suites_total:
+                                        type: integer
+                                        description: total number of suites in the build
+                                    suites_passed:
+                                        type: integer
+                                        description: number of suites in the build where all tests passed
+                                    suites_failed:
+                                        type: integer
+                                        description: number of suites in the build where some test failed
+                                    suites_skipped:
+                                        type: integer
+                                        description: number of suites in the build where all tests were skipped
+                                    suites_other:
+                                        type: integer
+                                        description: number of suites in the build where test had status other than PASS, FAIL or SKIPPED
+                                    tests_total:
+                                        type: integer
+                                        description: total number of tests in the build
+                                    tests_passed:
+                                        type: integer
+                                        description: number of tests in the build that passed
+                                    tests_failed:
+                                        type: integer
+                                        description: number of tests in the build that failed
+                                    tests_skipped:
+                                        type: integer
+                                        description: number of tests in the build where that were skipped
+                                    tests_other:
+                                        type: integer
+                                        description: number of tests in the build that had status other than PASS, FAIL or SKIPPED
+        """
+        start_from = self.get_argument('start_from', None)
+        num_of_builds = self.get_argument('builds', 10)
+        offset = self.get_argument('offset', 0)
+
+        if values_are_integers(series, start_from, num_of_builds, offset):
+            status_counts = yield coroutine_query(self.database.status_counts, series, start_from,
+                                                  num_of_builds, offset)
+            self.write({'status_counts': status_counts})
         else:
             self.send_bad_request_response()
 
