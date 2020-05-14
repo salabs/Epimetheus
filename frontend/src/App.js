@@ -1,5 +1,5 @@
 // eslint-disable-next-line
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
@@ -14,6 +14,7 @@ import Team from './pages/Team';
 import Suite from './pages/Suite';
 import { useStateValue } from './contexts/state';
 //import { useParams } from 'react-router';
+import './utils/i118n';
 
 import 'normalize.css';
 import './index.css';
@@ -82,45 +83,45 @@ const App = () => {
         input:focus {
             outline: 1px solid ${theme.testTheme.linkColor};
         }
-    `;
+        `;
 
     return (
         <ThemeContext.Provider value={theme}>
             <div id="main" css={appStyles}>
-                <Router>
-                    <a className="skip-main" href="#main-content">
-                        Skip to main content
-                    </a>
-                    <MainNav />
-                    <MainContent>
-                        <Switch>
-                            <Route path="/series/:seriesId/build/:buildId/suite/:suiteId/test/:testId">
-                                <Suite />
-                            </Route>
-                            <Route path="/series/:seriesId/build/:buildId/suite/:suiteId/">
-                                <Suite />
-                            </Route>
-                            <Route path="/series/:seriesId/build/:buildId">
-                                <Build />
-                            </Route>
-                            <Route exact path="/history">
-                                <History />
-                            </Route>
-                            <Route path="/history/:series/:builds">
-                                <History />
-                            </Route>
-                            <Route exact path="/team">
-                                <Team />
-                            </Route>
-                            <Route path="/team/:name">
-                                <Team />
-                            </Route>
-                            <Route path="/">
-                                <Frontpage />
-                            </Route>
-                        </Switch>
-                    </MainContent>
-                </Router>
+                <Suspense fallback="loading">
+                    <Router>
+                        <a className="skip-main" href="#main-content">Skip to main content</a>
+                        <MainNav />
+                        <MainContent>
+                            <Switch>
+                                <Route path="/series/:seriesId/build/:buildId/suite/:suiteId/test/:testId">
+                                    <Suite />
+                                </Route>
+                                <Route path="/series/:seriesId/build/:buildId/suite/:suiteId/">
+                                    <Suite />
+                                </Route>
+                                <Route path="/series/:seriesId/build/:buildId">
+                                    <Build />
+                                </Route>
+                                <Route exact path="/history">
+                                    <History />
+                                </Route>
+                                <Route path="/history/:series/:builds">
+                                    <History />
+                                </Route>
+                                <Route exact path="/team">
+                                    <Team />
+                                </Route>
+                                <Route path="/team/:name">
+                                    <Team />
+                                </Route>
+                                <Route path="/">
+                                    <Frontpage />
+                                </Route>
+                            </Switch>
+                        </MainContent>
+                    </Router>
+                </Suspense>
             </div>
         </ThemeContext.Provider>
     );
