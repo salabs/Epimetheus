@@ -1,0 +1,17 @@
+﻿{
+    "title": "Teams",
+    "series": "Number of series",
+    "card": {
+        "series": {
+            "title": "Series",
+            "builds": "Number of builds"
+        },
+        "last_build": {
+            "title": "Last build",
+            "build_number": "Build number",
+            "build_id": "Build id",
+            "last_build_started": "Last build started",
+            "last_status": "Last status"
+        }
+    }
+}

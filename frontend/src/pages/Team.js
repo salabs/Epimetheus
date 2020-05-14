@@ -4,8 +4,10 @@ import Card from '../components/Card';
 import { useParams } from 'react-router';
 import SelectedTeam from '../components/SelectedTeam';
 import Loading from '../components/Loading';
+import { useTranslation } from 'react-i18next';
 
 const Team = () => {
+    const [t] = useTranslation(['team']);
     const [{ loadingState, teamsState }, dispatch] = useStateValue();
 
     const { name } = useParams();
@@ -20,7 +22,7 @@ const Team = () => {
                 dispatch({ type: 'setLoadingState', loadingState: false });
                 dispatch({ type: 'setTeams', teams: json.teams });
             } catch (error) {
-                console.log(error);
+                dispatch({ type: 'setErrorState', errorState: error });
             }
         };
         fetchData();
@@ -38,8 +40,8 @@ const Team = () => {
                 />
             ) : (
                 <div>
-                    <h1>Teams</h1>
-                    {teamsState.map(({ name, series_count, series }, i) => {
+                    <h1>{t('title')}</h1>
+                    {teamsState.map(({ name, series_count }, i) => {
                         return (
                             <Card
                                 team={name}

@@ -5,11 +5,14 @@ import { useHistory } from 'react-router-dom';
 import theme from '../styles/theme';
 import BreadcrumbNav from './BreadcrumbNav';
 import { pickIcon } from './TestIcon';
+import { useTranslation } from 'react-i18next';
 
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
 
 const SelectedTeam = ({ selectedTeam }) => {
+    const [t] = useTranslation(['team']);
+
     const cardStyles = css`
         background-color: #fafafa;
         box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 4px,
@@ -56,8 +59,8 @@ const SelectedTeam = ({ selectedTeam }) => {
                         onClick={() => history.push(`/history/${id}/10`)}
                         role={'presentation'}
                     >
-                        <h4>Series</h4>
-                        Number of builds: {builds}
+                        <h4>{t('card.series.title')}</h4>
+                        {t('card.series.builds')}: {builds}
                     </div>
                     <hr />
                     <div
@@ -67,14 +70,14 @@ const SelectedTeam = ({ selectedTeam }) => {
                         }
                         role={'presentation'}
                     >
-                        <h4>Last build</h4>
-                        Build number: {last_build}
+                        <h4>{t('card.last_build.title')}</h4>
+                        {t('card.last_build.build_number')}: {last_build}
                         <br />
-                        Build id: {last_build_id}
+                        {t('card.last_build.build_id')}: {last_build_id}
                         <br />
-                        Last build started: {LastStarted}
+                        {t('card.last_build.last_build_started')}: {LastStarted}
                         <br />
-                        Last status: {testStatusIcon}
+                        {t('card.last_build.last_status')}: {testStatusIcon}
                     </div>
                 </div>
             </div>
