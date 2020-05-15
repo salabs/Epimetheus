@@ -130,6 +130,8 @@ Status counts data
     Integer             response status     200
     Array               $.status_counts     minItems=1
     Integer             $.status_counts[*].build_number
+    String              $.status_counts[*].build_id
+    String              $.status_counts[*].build_start_time
     Integer             $.status_counts[*].suites_total
     Integer             $.status_counts[*].suites_passed
     Integer             $.status_counts[*].suites_failed

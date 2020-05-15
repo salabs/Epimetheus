@@ -172,6 +172,8 @@ SELECT sum(total)::int as tests_total,
        count(nullif(status !~ '^FAIL', true)) as suites_failed,
        count(nullif(status !~ '^SKIP', true)) as suites_skipped,
        count(nullif(status ~ '^((SKIP)|(PASS)|(FAIL))', true)) as suites_other,
+       build_start_time,
+       build_id,
        build_number
 FROM (
     SELECT
@@ -181,25 +183,35 @@ FROM (
         count(nullif(status !~ '^SKIP', true)) as skipped,
         count(nullif(status ~ '^((SKIP)|(PASS)|(FAIL))', true)) as other,
         min(status) as status,
+        min(test_run_start_time) as build_start_time,
+        build_id,
         build_number
     FROM (
         SELECT DISTINCT ON (test_case.id, build_number)
             test_case.suite_id,
             test_result.test_id,
             test_result.status,
+            test_run_times.start_time as test_run_start_time,
+            CASE WHEN build_id IS NULL THEN build_number::text ELSE build_id END as build_id,
             build_number
         FROM test_result
         JOIN test_case ON test_case.id=test_result.test_id
         JOIN test_run ON test_run.id=test_result.test_run_id
+        JOIN (
+            SELECT min(start_time) as start_time, test_run_id
+            FROM suite_result
+            WHERE test_run_id IN ({test_run_ids})
+            GROUP BY test_run_id
+        ) AS test_run_times ON test_run_times.test_run_id=test_result.test_run_id
         JOIN test_series_mapping as tsm ON test_run.id=tsm.test_run_id
                                        AND tsm.series={series}
         WHERE NOT test_run.ignored
           AND test_run.id IN ({test_run_ids})
         ORDER BY test_case.id, build_number, test_result.start_time DESC, test_result.test_run_id DESC
     ) AS status_per_test
-    GROUP BY suite_id, build_number
+    GROUP BY suite_id, build_number, build_id
 ) AS status_per_suite
-GROUP BY build_number
+GROUP BY build_number, build_id, build_start_time
 ORDER BY build_number DESC
 """.format(series=int(series), # nosec
            test_run_ids=test_run_ids(series, start_from=start_from, last=last, offset=offset))
