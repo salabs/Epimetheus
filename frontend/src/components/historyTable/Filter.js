@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { css, jsx } from '@emotion/core';
 import { useStateValue } from '../../contexts/state';
 import { useHistory, useLocation } from 'react-router-dom';
+import { useQueryParams } from '../../hooks/useQuery';
 
 const Filter = () => {
     // eslint-disable-next-line
@@ -59,19 +60,27 @@ const FilterButton = ({ title }) => {
     const [{ amountOfBuilds, selectedBranchState }, dispatch] = useStateValue();
     const history = useHistory();
     const location = useLocation();
+    const queryParams = useQueryParams();
+
+    const updateTags = tag => {
+        queryParams.set('numberofbuilds', tag);
+        return queryParams.toString();
+    };
+
+    const handleFilterChange = e => {
+        dispatch({ type: 'setAmountOfBuilds', amountOfBuilds: title });
+        history.push({
+            pathname: `${location.pathname}`,
+            search: `?${updateTags(e.target.value)}`,
+            state: {}
+        });
+    };
 
     return (
         <input
             type="button"
             value={title}
-            onClick={() => {
-                dispatch({ type: 'setAmountOfBuilds', amountOfBuilds: title });
-                history.push({
-                    pathname: `/history/${selectedBranchState.id}/${title}`,
-                    search: location.search,
-                    state: {}
-                });
-            }}
+            onClick={e => handleFilterChange(e)}
             className={
                 title === parseInt(amountOfBuilds, 10) ? 'selected' : 'disabled'
             }

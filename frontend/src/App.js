@@ -83,14 +83,16 @@ const App = () => {
         input:focus {
             outline: 1px solid ${theme.testTheme.linkColor};
         }
-        `;
+    `;
 
     return (
         <ThemeContext.Provider value={theme}>
             <div id="main" css={appStyles}>
                 <Suspense fallback="loading">
                     <Router>
-                        <a className="skip-main" href="#main-content">Skip to main content</a>
+                        <a className="skip-main" href="#main-content">
+                            Skip to main content
+                        </a>
                         <MainNav />
                         <MainContent>
                             <Switch>
@@ -106,7 +108,7 @@ const App = () => {
                                 <Route exact path="/history">
                                     <History />
                                 </Route>
-                                <Route path="/history/:series/:builds">
+                                <Route path="/series/:seriesID/history/">
                                     <History />
                                 </Route>
                                 <Route exact path="/team">

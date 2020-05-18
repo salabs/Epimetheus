@@ -11,6 +11,7 @@ import { useStateValue } from '../contexts/state';
 import { useParams } from 'react-router';
 import BreadcrumbNav from '../components/BreadcrumbNav';
 import Loading from '../components/Loading';
+import { useQueryParams } from '../hooks/useQuery';
 
 const History = () => {
     const filterStyles = css`
@@ -40,10 +41,11 @@ const History = () => {
         },
         dispatch
     ] = useStateValue();
-    const { series, builds } = useParams();
-
-    const series_id = series || selectedBranchState.id || '1';
-    const number_of_builds = builds || amountOfBuilds || '30';
+    const { seriesID } = useParams();
+    const queryParams = useQueryParams();
+    const series_id = seriesID || selectedBranchState.id || '1';
+    const number_of_builds =
+        queryParams.get('numberofbuilds') || amountOfBuilds || '30';
 
     useEffect(() => {
         const url = `/data/series/${series_id}/history?builds=${number_of_builds}`;
@@ -91,7 +93,6 @@ const History = () => {
                 <Filter />
                 <Checkbox />
             </div>
-
             {!historyDataState || loadingState ? (
                 <Loading />
             ) : (
