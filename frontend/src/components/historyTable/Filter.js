@@ -69,7 +69,6 @@ const FilterButton = ({ title }) => {
 
     const handleFilterChange = e => {
         dispatch({ type: 'setAmountOfBuilds', amountOfBuilds: title });
-        console.log(updateTags);
         history.push({
             pathname: `${location.pathname}`,
             search: `?${updateTags(e.target.value)}`,
