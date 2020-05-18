@@ -56,7 +56,7 @@ const SelectedTeam = ({ selectedTeam }) => {
                 <div>
                     <div
                         className="series"
-                        onClick={() => history.push(`/series/${id}/history/10`)}
+                        onClick={() => history.push(`/series/${id}/history/`)}
                         role={'presentation'}
                     >
                         <h4>{t('card.series.title')}</h4>
