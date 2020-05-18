@@ -8,6 +8,7 @@ import ThemeContext from './contexts/themeContext';
 import MainContent from './components/MainContent';
 import MainNav from './components/MainNav';
 import History from './pages/History';
+import Dashboard from './pages/Dashboard';
 import Build from './pages/Build';
 import Frontpage from './pages/Frontpage';
 import Team from './pages/Team';
@@ -110,6 +111,12 @@ const App = () => {
                                 </Route>
                                 <Route path="/series/:seriesID/history/">
                                     <History />
+                                </Route>
+                                <Route path="/series/:seriesID/dashboard/">
+                                    <Dashboard />
+                                </Route>
+                                <Route path="/series/:seriesID/build/:buildId/dashboard">
+                                    <Dashboard />
                                 </Route>
                                 <Route exact path="/team">
                                     <Team />
