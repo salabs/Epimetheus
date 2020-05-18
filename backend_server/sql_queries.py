@@ -160,6 +160,61 @@ WHERE test_run_id IN ({test_run_ids})
 ORDER BY suite_metadata.name, suite_metadata.value, suite.full_name
 """.format(test_run_ids=test_run_ids(series, build_num=build_num)) # nosec
 
+def status_counts(series, start_from, last, offset=0):
+    return """
+SELECT sum(total)::int as tests_total,
+       sum(passed)::int as tests_passed,
+       sum(failed)::int as tests_failed,
+       sum(skipped)::int as tests_skipped,
+       sum(other)::int as tests_other,
+       count(*) as suites_total,
+       count(nullif(status !~ '^PASS', true)) as suites_passed,
+       count(nullif(status !~ '^FAIL', true)) as suites_failed,
+       count(nullif(status !~ '^SKIP', true)) as suites_skipped,
+       count(nullif(status ~ '^((SKIP)|(PASS)|(FAIL))', true)) as suites_other,
+       build_start_time,
+       build_id,
+       build_number
+FROM (
+    SELECT
+        count(*) as total,
+        count(nullif(status !~ '^PASS', true)) as passed,
+        count(nullif(status !~ '^FAIL', true)) as failed,
+        count(nullif(status !~ '^SKIP', true)) as skipped,
+        count(nullif(status ~ '^((SKIP)|(PASS)|(FAIL))', true)) as other,
+        min(status) as status,
+        min(test_run_start_time) as build_start_time,
+        build_id,
+        build_number
+    FROM (
+        SELECT DISTINCT ON (test_case.id, build_number)
+            test_case.suite_id,
+            test_result.test_id,
+            test_result.status,
+            test_run_times.start_time as test_run_start_time,
+            CASE WHEN build_id IS NULL THEN build_number::text ELSE build_id END as build_id,
+            build_number
+        FROM test_result
+        JOIN test_case ON test_case.id=test_result.test_id
+        JOIN test_run ON test_run.id=test_result.test_run_id
+        JOIN (
+            SELECT min(start_time) as start_time, test_run_id
+            FROM suite_result
+            WHERE test_run_id IN ({test_run_ids})
+            GROUP BY test_run_id
+        ) AS test_run_times ON test_run_times.test_run_id=test_result.test_run_id
+        JOIN test_series_mapping as tsm ON test_run.id=tsm.test_run_id
+                                       AND tsm.series={series}
+        WHERE NOT test_run.ignored
+          AND test_run.id IN ({test_run_ids})
+        ORDER BY test_case.id, build_number, test_result.start_time DESC, test_result.test_run_id DESC
+    ) AS status_per_test
+    GROUP BY suite_id, build_number, build_id
+) AS status_per_suite
+GROUP BY build_number, build_id, build_start_time
+ORDER BY build_number DESC
+""".format(series=int(series), # nosec
+           test_run_ids=test_run_ids(series, start_from=start_from, last=last, offset=offset))
 
 def history_page_data(series, start_from, last, offset=0):
     return """
@@ -244,7 +299,7 @@ FROM (
 ) AS results
 ORDER BY suite_full_name, full_name, build_number DESC;
 """.format(array_literal='{}', # nosec
-           series=series,
+           series=int(series),
            test_run_ids=test_run_ids(series, start_from=start_from, last=last, offset=offset))
 
 
@@ -330,3 +385,46 @@ ORDER BY timestamp, id
 """.format(test_run_id=int(test_run_id), # nosec
            suite_filter="AND suite_id={}".format(int(suite_id)) if suite_id else '',
            test_filter="test_id={}".format(int(test_id)) if test_id else 'test_id IS NULL')
+
+def most_stable_tests(series, start_from, last, offset, limit, limit_offset, stable):
+    return """
+SELECT suite_id, suite_name, suite_full_name,
+       test_id, test_name, test_full_name,
+       count(nullif(status !~ '^FAIL', true)) as fails_in_window,
+       sum(failiness) as instability
+FROM (
+    SELECT *,
+        CASE WHEN status = 'FAIL'
+            THEN 1.0/sqrt(ROW_NUMBER() OVER (PARTITION BY test_id ORDER BY build_number DESC))
+            ELSE 0
+        END as failiness
+
+    FROM (
+        SELECT DISTINCT ON (test_case.id, build_number)
+            suite.id as suite_id,
+            suite.name as suite_name,
+            suite.full_name as suite_full_name,
+            test_case.id as test_id,
+            test_case.name as test_name,
+            test_case.full_name as test_full_name,
+            test_result.status,
+            build_number
+        FROM test_result
+        JOIN test_case ON test_case.id=test_result.test_id
+        JOIN suite ON suite.id=test_case.suite_id
+        JOIN test_run ON test_run.id=test_result.test_run_id
+        JOIN test_series_mapping as tsm ON test_run.id=tsm.test_run_id
+                                       AND tsm.series={series}
+        WHERE NOT test_run.ignored
+          AND test_run.id IN ({test_run_ids})
+        ORDER BY test_case.id, build_number, test_result.start_time DESC, test_result.test_run_id DESC
+    ) AS last_results
+) AS failiness_contributions
+GROUP BY suite_id, suite_name, suite_full_name, test_id, test_name, test_full_name
+ORDER BY instability {order}
+LIMIT {limit} OFFSET {limit_offset};
+""".format(series=int(series), # nosec
+           test_run_ids=test_run_ids(series, start_from=start_from, last=last, offset=offset),
+           limit=int(limit),
+           limit_offset=int(limit_offset),
+           order="ASC" if stable else "DESC")

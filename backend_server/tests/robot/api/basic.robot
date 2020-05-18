@@ -21,6 +21,7 @@ API documentation page
 
 Teams data
     GET                 /data/teams
+    Integer             response status     200
     String              $.teams[*].name
     Integer             $.teams[*].series_count
 
@@ -40,26 +41,31 @@ Teams data
 
 Series data
     GET                     /data/series
+    Integer                 response status     200
     Array                   $.series     minItems=1
     Valid series object     $.series[*]
 
 Series info data
     GET                     /data/series/${FIXTURE_SERIES_ID}/info
+    Integer                 response status     200
     Valid series object     $.series
     Valid build object      $.last_build
     Valid build object      $.first_build
 
 Builds data
     GET                     /data/series/${FIXTURE_SERIES_ID}/builds/
+    Integer                 response status     200
     Valid build object      $.builds[*]
 
 Build info data
     GET                     /data/series/${FIXTURE_SERIES_ID}/builds/1/info
+    Integer                 response status     200
     Valid series object     $.series
     Valid build object      $.build
 
 Suite result info data
     GET                         /data/series/${FIXTURE_SERIES_ID}/builds/1/suites/3/info
+    Integer                     response status     200
     Valid series object         $.series
     Valid build object          $.build
     Object                      $.suite
@@ -78,6 +84,7 @@ Suite result info data
 History data
     # GET                 /data/history?series=1 Depricated
     GET                 /data/series/${FIXTURE_SERIES_ID}/history
+    Integer             response status     200
     Array               $.history     minItems=1
 
     Integer             $.history[*].id
@@ -105,9 +112,40 @@ History data
     Array               $.history[*].test_cases[*].builds[*].tags
     Array               $.history[*].test_cases[*].builds[*].messages
 
+Most stable tests data
+    GET                 /data/series/${FIXTURE_SERIES_ID}/most_stable_tests
+    Integer             response status     200
+    Array               $.tests     minItems=1
+    Integer             $.tests[*].test_id
+    String              $.tests[*].test_name
+    String              $.tests[*].test_full_name
+    Integer             $.tests[*].suite_id
+    String              $.tests[*].suite_name
+    String              $.tests[*].suite_full_name
+    Integer             $.tests[*].fails_in_window
+    Number              $.tests[*].instability
+
+Status counts data
+    GET                 /data/series/${FIXTURE_SERIES_ID}/status_counts
+    Integer             response status     200
+    Array               $.status_counts     minItems=1
+    Integer             $.status_counts[*].build_number
+    String              $.status_counts[*].build_id
+    String              $.status_counts[*].build_start_time
+    Integer             $.status_counts[*].suites_total
+    Integer             $.status_counts[*].suites_passed
+    Integer             $.status_counts[*].suites_failed
+    Integer             $.status_counts[*].suites_skipped
+    Integer             $.status_counts[*].suites_other
+    Integer             $.status_counts[*].tests_passed
+    Integer             $.status_counts[*].tests_failed
+    Integer             $.status_counts[*].tests_skipped
+    Integer             $.status_counts[*].tests_other
+
 Build metadata
     #GET                 /data/metadata?series=1&build_number=1 Depricated
     GET                 /data/series/${FIXTURE_SERIES_ID}/builds/1/metadata
+    Integer             response status     200
     Array               $.metadata     minItems=1
 
     Integer             $.metadata[*].suite_id
@@ -117,6 +155,7 @@ Build metadata
 
 Suite result data
     GET                         /data/series/${FIXTURE_SERIES_ID}/builds/1/suites/3/
+    Integer                     response status     200
     Object                      $.suite
     Integer                     $.suite.id
     String                      $.suite.name
@@ -147,18 +186,21 @@ Suite result data
 Suite log message data
     [Setup]     Get last fixture test run id
     GET                 /data/test_runs/${LAST_FIXTURE_TEST_RUN}/suites/1/log_messages
+    Integer             response status     200
     Array               $.log_messages     minItems=1
     Valid log message object    $.log_messages[*]
 
 Test case log message data
     [Setup]     Get last fixture test run id
     GET                 /data/test_runs/${LAST_FIXTURE_TEST_RUN}/test_cases/1/log_messages
+    Integer             response status     200
     Array               $.log_messages     minItems=1
     Valid log message object    $.log_messages[*]
 
 Keyword tree data
     # Actual keyword as root
     GET                         /data/keyword_tree/b635250f3188478654825cb08c0c4e0547f81be6/
+    Integer                     response status     200
     String                      $.fingerprint      b635250f3188478654825cb08c0c4e0547f81be6
     String                      $.keyword          Log
     String                      $.library          BuiltIn
@@ -168,6 +210,7 @@ Keyword tree data
 
     # Test execution with virtual keyword as root
     GET                         /data/keyword_tree/b38e47f8530f32669f42ebda3170fae067dc64bb/
+    Integer                     response status     200
     String                      $.fingerprint      b38e47f8530f32669f42ebda3170fae067dc64bb
     Null                        $.keyword
     Null                        $.library
