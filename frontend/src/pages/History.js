@@ -4,6 +4,7 @@ import React, { Fragment, useEffect } from 'react';
 import { css, jsx } from '@emotion/core';
 import Filter from '../components/historyTable/Filter';
 import Table from '../components/historyTable/Table';
+import ParentHistory from '../components/parentData/ParentHistory';
 import Checkbox from '../components/Checkbox';
 import { useStateValue } from '../contexts/state';
 // import BranchFilter from '../components/BranchFilter';
@@ -15,10 +16,19 @@ import { useQueryParams } from '../hooks/useQuery';
 const History = () => {
     const filterStyles = css`
         position: relative;
-        .filter-container {
+
+        .filter-container,
+        .parentInfo-container {
             display: flex;
             flex-flow: row wrap;
+        }
+
+        .filter-container {
             max-width: 800px;
+        }
+
+        .parentInfo-container {
+            padding: 20px 0;
         }
     `;
     const [
@@ -74,6 +84,11 @@ const History = () => {
     return (
         <main id="history" css={filterStyles}>
             <BreadcrumbNav status={'series'} />
+            {!loadingState && (
+                <div className="parentInfo-container">
+                    <ParentHistory />
+                </div>
+            )}
             <div className="filter-container">
                 <Filter />
                 <Checkbox />

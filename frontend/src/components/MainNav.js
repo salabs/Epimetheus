@@ -5,9 +5,11 @@ import { NavLink } from 'react-router-dom';
 import { css, jsx } from '@emotion/core';
 import ThemeContext from '../contexts/themeContext';
 import packageJson from '../../package.json';
+import { useTranslation } from 'react-i18next';
 
 const MainNav = () => {
     const theme = useContext(ThemeContext);
+    const [t] = useTranslation(['mainnav']);
     const mainNavStyles = css`
         flex: 0 0 280px;
         @media only screen and (max-width: 999px) {
@@ -82,30 +84,30 @@ const MainNav = () => {
     `;
     return (
         <nav id="main-nav" css={mainNavStyles}>
-            <h2 className="logo">Epimetheus</h2>
+            <h2 className="logo">{t('logo')}</h2>
             <ul>
                 <li>
                     <NavLink exact activeClassName="active" to="/">
-                        Help
+                        {t('help')}
                     </NavLink>
                 </li>
                 <li>
                     <NavLink activeClassName="active" to="/history/">
-                        History
+                        {t('history')}
                     </NavLink>
                 </li>
                 <li>
                     <NavLink activeClassName="active" to="/team/">
-                        Team
+                        {t('team')}
                     </NavLink>
                 </li>
                 <li className="nav-github">
-                    <a href="https://github.com/salabs/Epimetheus">GitHub</a>
+                    <a href="https://github.com/salabs/Epimetheus">{t('github')}</a>
                 </li>
             </ul>
             <p>
                 {/* TODO: needs better design!*/}
-                Version {packageJson.version}
+                {t('version')} {packageJson.version}
             </p>
         </nav>
     );

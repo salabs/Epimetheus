@@ -206,7 +206,7 @@ class Application(tornado.web.Application):
         setup_swagger(handlers,
                       swagger_url="/data/doc",
                       description='Project repo at https://github.com/salabs/Epimetheus',
-                      api_version='0.1.0',
+                      api_version='0.3.0',
                       title='Epimetheus backend API')
         tornado.web.Application.__init__(self, handlers, **settings)
 

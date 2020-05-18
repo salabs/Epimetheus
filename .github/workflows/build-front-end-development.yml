@@ -1,9 +1,11 @@
-name: deploy-front-end-container
+name: deploy-development-front-end-container
 on:
   pull_request:
     types: [closed]
     branches:
-      - master
+      - develop
+    paths:
+      - "frontend/src/**"
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -21,5 +23,6 @@ jobs:
           repository: ${{ secrets.repository }}
           image: front-end
           folder: frontend
-          tag: stable
-          dockerfile: ./Dockerfile-prod
+          tag: development
+          dockerfile: ./Docerfile-prod
+

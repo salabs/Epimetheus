@@ -67,7 +67,7 @@ const FilterButton = ({ title }) => {
             onClick={() => {
                 dispatch({ type: 'setAmountOfBuilds', amountOfBuilds: title });
                 history.push({
-                    pathname: `/history/${selectedBranchState.id}/${title}`,
+                    pathname: `/series/${selectedBranchState.id}/history/?NumberOfBuilds=${title}`,
                     search: location.search,
                     state: {}
                 });

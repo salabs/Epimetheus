@@ -1,0 +1,60 @@
+{
+    "title": "Welcome",
+    "opening_paragraph": "Welcome to Epimetheus. It is a frontend for your test results.",
+    "section": {
+        "roadmap": {
+            "title": "Roadmap",
+            "opening_paragraph": "Items that are on short-term roadmap:",
+            "ms_202002": "Open source release: February 2020",
+            "ms_202003_1": "Support for multiple projects: March/April 2020",
+            "ms_202003_2": "Test-level view: March/April 2020"
+        },
+        "terminology": {
+            "title": "Terminology",
+            "opening_paragraph": "We understand terminology can be daunting in tech world. Core terms used in this project are:",
+            "series": "Series/branch: Test runs that have close relation to each other. For example tests that are run in the same source control branch. Can be set in TestArchiver.",
+            "suite": "Suite: Collection of individual cases. For example 4 tests that test login form with different cases. Specified in test files.",
+            "test": "Test: Individual test case. For example test that tries the login form with valid user. Specified in test files.",
+            "team": "Team: Specifies the project in multiple project setup. Can be set in TestArchiver. Default is \"No team\".",
+            "testarchiver": {
+                "link_url": "https://github.com/salabs/TestArchiver",
+                "link_text": "TestArhiver",
+                "description": ": Tool that saves test result data from xml files to database."
+            },
+            "chage_engine": {
+                "link_url": "https://github.com/salabs/ChangeEngine",
+                "link_text": "ChangeEngine",
+                "description": ": Tool that uses test result history stored in database to calculate which tests should run against certain code"
+            }
+        },
+        "icons": {
+            "title": "Icons",
+            "opening_paragraph": "Icons to indicate test status use green/red/grey coloring combined with helping shapes. If you have trouble viewing the results, please create an accessibility issue in the repository. Our goal is to make this project accessible for everyone."
+        },
+        "views": {
+            "title": "Different Views",
+            "history": "History: Shows how the recent test runs have executed. Amount of visible runs can be 5-30 (default 10).",
+            "team": "Team: Display all series related to a single team.",
+            "suite": "Suite: Collection of different test cases. Open different test cases and see related results, log messages and metadata."
+
+        },
+        "feedback": {
+            "title": "How to give feedback?",
+            "text": "Feedback can be given using GitHub issues or with ",
+            "link_url": "https://www.siili.com/salabs",
+            "link_text": "SALabs contact form"
+        },
+        "contribute": {
+            "title": "How to Contribute?",
+            "text": "Collaboration is welcome, see contribution instructions in ",
+            "link_url": "https://github.com/salabs/Epimetheus",
+            "link_text": "GitHub"
+        },
+        "licence": {
+            "title": "License",
+            "text": "Epimetheus is licensed under ",
+            "link_url": "https://choosealicense.com/licenses/apache-2.0/",
+            "link_text": "Apache 2.0 license"
+        }
+    }
+}
