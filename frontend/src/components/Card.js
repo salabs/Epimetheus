@@ -1,9 +1,12 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import theme from '../styles/theme';
+import { useTranslation } from 'react-i18next';
 
 const Card = ({ team, numberOfSeries }) => {
+    const [t] = useTranslation(['team']);
     let history = useHistory();
+
     return (
         <div
             style={theme.flexItem}
@@ -11,7 +14,9 @@ const Card = ({ team, numberOfSeries }) => {
             role={'presentation'}
         >
             <h3>{team}</h3>
-            <div>Number of series: {numberOfSeries}</div>
+            <div>
+                {t('series')}: {numberOfSeries}
+            </div>
         </div>
     );
 };
