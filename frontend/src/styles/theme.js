@@ -13,7 +13,8 @@ const theme = {
         boxShadow: '0 3px 4px rgba(0,0,0,0.16), 0 3px 4px rgba(0,0,0,0.23)',
         margin: '10px',
         padding: '10px',
-        minHeight: '20vh'
+        minHeight: '20vh',
+        backgroundColor: '#fafafa'
     },
     baseTableStyle: `
       table {
