@@ -45,7 +45,7 @@ const History = () => {
     const queryParams = useQueryParams();
     const series_id = seriesID || selectedBranchState.id || '1';
     const number_of_builds =
-        queryParams.get('NumberOfBuilds') || amountOfBuilds || '30';
+        queryParams.get('numberofbuilds') || amountOfBuilds || '30';
 
     useEffect(() => {
         const url = `/data/series/${series_id}/history?builds=${number_of_builds}`;
@@ -93,9 +93,6 @@ const History = () => {
                 <Filter />
                 <Checkbox />
             </div>
-            {console.log(queryParams.get('NumberOfBuilds'))}
-            {console.log(number_of_builds)}
-
             {!historyDataState || loadingState ? (
                 <Loading />
             ) : (
