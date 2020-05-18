@@ -106,7 +106,7 @@ const App = () => {
                             <Route exact path="/history">
                                 <History />
                             </Route>
-                            <Route path="/history/:series/:builds">
+                            <Route path="/series/:seriesID/history/:builds">
                                 <History />
                             </Route>
                             <Route exact path="/team">

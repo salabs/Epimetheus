@@ -10,6 +10,7 @@ import { useStateValue } from '../contexts/state';
 import { useParams } from 'react-router';
 import BreadcrumbNav from '../components/BreadcrumbNav';
 import Loading from '../components/Loading';
+import { useQueryParams } from '../hooks/useQuery';
 
 const History = () => {
     const filterStyles = css`
@@ -30,18 +31,18 @@ const History = () => {
         },
         dispatch
     ] = useStateValue();
-    const { series, builds } = useParams();
+    const { seriesID } = useParams();
+    const queryParams = useQueryParams();
+    const series_id = seriesID || selectedBranchState.id || '1';
+    const number_of_builds =
+        queryParams.get('NumberOfBuilds') || amountOfBuilds || '30';
 
-    const series_id = series || selectedBranchState.id || '1';
-    const number_of_builds = builds || amountOfBuilds || '30';
-
-
-  useEffect(() => {
-    const url = `/data/series/${series_id}/history?builds=${number_of_builds}`;
-    if (branchesState) {
-      const branch = branchesState.series?.find(
-        ({ id: serie_id }) => serie_id === parseInt(series_id, 10)
-      );
+    useEffect(() => {
+        const url = `/data/series/${series_id}/history?builds=${number_of_builds}`;
+        if (branchesState) {
+            const branch = branchesState.series?.find(
+                ({ id: serie_id }) => serie_id === parseInt(series_id, 10)
+            );
             const fetchData = async () => {
                 dispatch({ type: 'setLoadingState', loadingState: true });
                 dispatch({
@@ -77,6 +78,8 @@ const History = () => {
                 <Filter />
                 <Checkbox />
             </div>
+            {console.log(queryParams.get('NumberOfBuilds'))}
+            {console.log(number_of_builds)}
 
             {!historyDataState || loadingState ? (
                 <Loading />
