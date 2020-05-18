@@ -102,7 +102,9 @@ const MainNav = () => {
                     </NavLink>
                 </li>
                 <li className="nav-github">
-                    <a href="https://github.com/salabs/Epimetheus">{t('github')}</a>
+                    <a href="https://github.com/salabs/Epimetheus">
+                        {t('github')}
+                    </a>
                 </li>
             </ul>
             <p>
