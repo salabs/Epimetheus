@@ -12,8 +12,6 @@ jobs:
     if: github.event.pull_request.merged
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
       - name: ACR build back-end
         id: acr-back-end
         uses: ams0/acr-task-github-action@master
@@ -23,6 +21,7 @@ jobs:
           tenant: ${{ secrets.tenant }}
           registry: ${{ secrets.registry }}
           repository: ${{ secrets.repository }}
+          branch: master
           image: back-end
           folder: backend_server
           tag: stable
