@@ -10,6 +10,8 @@ jobs:
     if: github.event.pull_request.merged
 
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
       - name: ACR build
         id: acr
         uses: ams0/acr-task-github-action@master
