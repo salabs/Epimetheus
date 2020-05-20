@@ -19,7 +19,8 @@ jobs:
           tenant: ${{ secrets.tenant }}
           registry: ${{ secrets.registry }}
           repository: ${{ secrets.repository }}
+          branch: develop
           image: front-end
           folder: frontend
-          tag: stable
+          tag: development
           dockerfile: ./Dockerfile-prod

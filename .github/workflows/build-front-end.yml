@@ -19,6 +19,7 @@ jobs:
           tenant: ${{ secrets.tenant }}
           registry: ${{ secrets.registry }}
           repository: ${{ secrets.repository }}
+          branch: master
           image: front-end
           folder: frontend
           tag: stable
