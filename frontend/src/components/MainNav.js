@@ -1,6 +1,7 @@
 // eslint-disable-next-line
 import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
+import { useStateValue } from '../contexts/state';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
 import ThemeContext from '../contexts/themeContext';
@@ -10,6 +11,9 @@ import { useTranslation } from 'react-i18next';
 const MainNav = () => {
     const theme = useContext(ThemeContext);
     const [t] = useTranslation(['mainnav']);
+
+    const [{ selectedTeam }] = useStateValue();
+
     const mainNavStyles = css`
         flex: 0 0 280px;
         @media only screen and (max-width: 999px) {
@@ -92,15 +96,24 @@ const MainNav = () => {
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink activeClassName="active" to="/history/">
-                        {t('history')}
-                    </NavLink>
-                </li>
-                <li>
                     <NavLink activeClassName="active" to="/team/">
                         {t('team')}
                     </NavLink>
                 </li>
+                {selectedTeam && (
+                    <div>
+                        <li>
+                            <NavLink activeClassName="active" to="/history/">
+                                {t('history')}
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink activeClassName="active" to="/history/">
+                                Dashboard
+                            </NavLink>
+                        </li>
+                    </div>
+                )}
                 <li className="nav-github">
                     <a href="https://github.com/salabs/Epimetheus">
                         {t('github')}

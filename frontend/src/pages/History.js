@@ -42,6 +42,7 @@ const History = () => {
         dispatch
     ] = useStateValue();
     const { seriesID } = useParams();
+    console.log('SeriesID history sivulla on', seriesID);
     const queryParams = useQueryParams();
     const series_id = seriesID || selectedBranchState.id || '1';
     const number_of_builds =

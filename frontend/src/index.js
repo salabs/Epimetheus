@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { StateProvider } from './contexts/state';
-import reducer from './utils/reducer';
+import reducer from './contexts/reducer';
 import './index.css';
 
 ReactDOM.render(
