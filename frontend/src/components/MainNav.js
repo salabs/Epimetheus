@@ -1,6 +1,6 @@
 // eslint-disable-next-line
 import React, { useContext } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
 import ThemeContext from '../contexts/themeContext';
@@ -10,6 +10,19 @@ import { useTranslation } from 'react-i18next';
 const MainNav = () => {
     const theme = useContext(ThemeContext);
     const [t] = useTranslation(['mainnav']);
+
+    const pathname = useLocation().pathname;
+
+    const seriesUrl = pathname.includes('series');
+
+    const correctUrl = prop => {
+        if (pathname.includes(prop)) {
+            return pathname;
+        }
+        const beginningUrl = pathname.substring(0, pathname.lastIndexOf('/'));
+        return beginningUrl.concat('/' + prop);
+    };
+
     const mainNavStyles = css`
         flex: 0 0 280px;
         @media only screen and (max-width: 999px) {
@@ -81,6 +94,9 @@ const MainNav = () => {
                 background-color: #ccc;
             }
         }
+        .sub-url {
+            padding-left: 5%;
+        }
     `;
     return (
         <nav id="main-nav" css={mainNavStyles}>
@@ -92,15 +108,30 @@ const MainNav = () => {
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink activeClassName="active" to="/history/">
-                        {t('history')}
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink activeClassName="active" to="/team/">
+                    <NavLink activeClassName="active" to="/team">
                         {t('team')}
                     </NavLink>
                 </li>
+                {seriesUrl && (
+                    <div>
+                        <li className="sub-url">
+                            <NavLink
+                                activeClassName="active"
+                                to={correctUrl('history')}
+                            >
+                                {t('history')}
+                            </NavLink>
+                        </li>
+                        <li className="sub-url">
+                            <NavLink
+                                activeClassName="active"
+                                to={correctUrl('dashboard')}
+                            >
+                                Dashboard
+                            </NavLink>
+                        </li>
+                    </div>
+                )}
                 <li className="nav-github">
                     <a href="https://github.com/salabs/Epimetheus">
                         {t('github')}
