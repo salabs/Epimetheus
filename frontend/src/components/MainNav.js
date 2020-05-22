@@ -117,7 +117,6 @@ const MainNav = () => {
                         <li className="sub-url">
                             <NavLink
                                 activeClassName="active"
-                                // to={`${pathname}/history`}
                                 to={correctUrl('history')}
                             >
                                 {t('history')}
