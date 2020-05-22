@@ -100,19 +100,16 @@ const App = () => {
                                 <Route path="/series/:seriesId/build/:buildId/suite/:suiteId/test/:testId">
                                     <Suite />
                                 </Route>
-                                <Route path="/series/:seriesId/build/:buildId/suite/:suiteId/">
+                                <Route path="/series/:seriesId/build/:buildId/suite/:suiteId">
                                     <Suite />
                                 </Route>
                                 <Route path="/series/:seriesId/build/:buildId">
                                     <Build />
                                 </Route>
-                                {/* <Route exact path="/history">
-                                    <History />
-                                </Route> */}
-                                <Route path="/series/:seriesID/history/">
+                                <Route path="/series/:seriesID/history">
                                     <History />
                                 </Route>
-                                <Route path="/series/:seriesID/dashboard/">
+                                <Route path="/series/:seriesID/dashboard">
                                     <Dashboard />
                                 </Route>
                                 <Route path="/series/:seriesID/build/:buildId/dashboard">

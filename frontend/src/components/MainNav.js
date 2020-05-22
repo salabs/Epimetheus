@@ -1,7 +1,6 @@
 // eslint-disable-next-line
 import React, { useContext } from 'react';
-import { NavLink } from 'react-router-dom';
-import { useStateValue } from '../contexts/state';
+import { NavLink, useLocation } from 'react-router-dom';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
 import ThemeContext from '../contexts/themeContext';
@@ -12,7 +11,17 @@ const MainNav = () => {
     const theme = useContext(ThemeContext);
     const [t] = useTranslation(['mainnav']);
 
-    const [{ selectedTeam }] = useStateValue();
+    const pathname = useLocation().pathname;
+
+    const seriesUrl = pathname.includes('series');
+
+    const correctUrl = prop => {
+        if (pathname.includes(prop)) {
+            return pathname;
+        }
+        const beginningUrl = pathname.substring(0, pathname.lastIndexOf('/'));
+        return beginningUrl.concat('/' + prop);
+    };
 
     const mainNavStyles = css`
         flex: 0 0 280px;
@@ -85,6 +94,9 @@ const MainNav = () => {
                 background-color: #ccc;
             }
         }
+        .sub-url {
+            padding-left: 5%;
+        }
     `;
     return (
         <nav id="main-nav" css={mainNavStyles}>
@@ -96,19 +108,26 @@ const MainNav = () => {
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink activeClassName="active" to="/team/">
+                    <NavLink activeClassName="active" to="/team">
                         {t('team')}
                     </NavLink>
                 </li>
-                {selectedTeam && (
+                {seriesUrl && (
                     <div>
-                        <li>
-                            <NavLink activeClassName="active" to="/history/">
+                        <li className="sub-url">
+                            <NavLink
+                                activeClassName="active"
+                                // to={`${pathname}/history`}
+                                to={correctUrl('history')}
+                            >
                                 {t('history')}
                             </NavLink>
                         </li>
-                        <li>
-                            <NavLink activeClassName="active" to="/history/">
+                        <li className="sub-url">
+                            <NavLink
+                                activeClassName="active"
+                                to={correctUrl('dashboard')}
+                            >
                                 Dashboard
                             </NavLink>
                         </li>

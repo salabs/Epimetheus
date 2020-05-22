@@ -23,8 +23,7 @@ const initialState = {
     parentData: {
         seriesData: null,
         buildData: null
-    },
-    selectedTeam: ''
+    }
 };
 
 export const StateProvider = ({ reducer, children }) => {

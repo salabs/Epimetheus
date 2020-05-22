@@ -1,9 +1,7 @@
-/* eslint-disable no-empty-pattern */
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { useStateValue } from '../contexts/state';
 import NotFound from './NotFound';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import theme from '../styles/theme';
 import BreadcrumbNav from './BreadcrumbNav';
 import { pickIcon } from './TestIcon';
@@ -14,13 +12,6 @@ import { css, jsx } from '@emotion/core';
 
 const SelectedTeam = ({ selectedTeam }) => {
     const [t] = useTranslation(['team']);
-
-    const { name } = useParams();
-    const [{}, dispatch] = useStateValue();
-
-    useEffect(() => {
-        dispatch({ type: 'setSelectedTeam', selectedTeam: name });
-    }, [dispatch, name]);
 
     const cardStyles = css`
         background-color: #fafafa;
@@ -65,7 +56,7 @@ const SelectedTeam = ({ selectedTeam }) => {
                 <div>
                     <div
                         className="series"
-                        onClick={() => history.push(`/series/${id}/history/`)}
+                        onClick={() => history.push(`/series/${id}/history`)}
                         role={'presentation'}
                     >
                         <h4>{t('card.series.title')}</h4>
