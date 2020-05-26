@@ -1,11 +1,11 @@
-FROM python:3.6
+FROM python:3.7
 
 RUN groupadd -rf robot && useradd -g robot --create-home --shell /bin/bash robot
 
 WORKDIR /home/robot/test
 
-ADD robot_tests/ .
-ADD resources/ .
+ADD robot_tests ./robot_tests
+ADD resources ./resources
 ADD requirements.txt .
 ADD run-e2e-tests.sh .
 ADD wait-for-selenium.sh .

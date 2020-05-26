@@ -5,10 +5,12 @@ services:
     image: elgalu/selenium:latest
     ports:
       - 4444:4444
+      - 5900:25900
     environment:
       VNC_PASSWORD: "no"
       SCREEN_WIDTH: "1920"
       SCREEN_HEIGHT: "1080"
+      SELENIUM_HUB_PORT: 4444
       CHROME: "true"
       VIDEO: "false"
     volumes:
@@ -22,9 +24,7 @@ services:
       context: ./end_to_end_tests
       dockerfile: ./resources/Dockerfile
     volumes:
-      - ./robot/test/robot:/home/robot/test/robot
       - ./end_to_end_tests/logs:/home/robot/test/logs
-      - ./end_to_end_tests/variables.py:/home/robot/test/variables.py
     depends_on:
       - seleniumgrid
       #- front-end
