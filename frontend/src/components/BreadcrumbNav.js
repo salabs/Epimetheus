@@ -21,7 +21,7 @@ const BreadcrumbItemSeries = () => {
     return (
         <div>
             <BreadcrumbItem />>
-            <Link to={`/history/${seriesId}/10`}>
+            <Link to={`/series/${seriesId}/history`}>
                 {selectedBranchState.name}
             </Link>
         </div>

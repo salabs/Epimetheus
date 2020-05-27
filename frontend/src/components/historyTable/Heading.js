@@ -66,7 +66,7 @@ const Heading = () => {
             >
                 <Link
                     className="run-link"
-                    to={`/series/${id}/build/${buildNumber}`}
+                    to={`/series/${id}/build/${buildNumber}/history`}
                 >
                     <span className="sr-show">Build </span>
                     {buildNumber}

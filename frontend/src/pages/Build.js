@@ -28,7 +28,7 @@ const Build = () => {
         dispatch
     ] = useStateValue();
     let { buildId, seriesId } = useParams();
-    //console.log(options.series);
+
     const branch_id = seriesId || selectedBranchState;
 
     useEffect(() => {
