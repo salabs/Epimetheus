@@ -20,7 +20,7 @@ const BreadcrumbItemSeries = () => {
     const seriesId = series || selectedBranchState.id;
     return (
         <div>
-            <BreadcrumbItem />>
+            <BreadcrumbItem /> &gt;
             <Link to={`/series/${seriesId}/history`}>
                 {selectedBranchState.name}
             </Link>
@@ -32,8 +32,10 @@ const BreadcrumbItemBuild = () => {
     const { buildId, seriesId } = useParams();
     return (
         <div>
-            <BreadcrumbItemSeries />>
-            <Link to={`/series/${seriesId}/build/${buildId}`}>{buildId}</Link>
+            <BreadcrumbItemSeries /> &gt;
+            <Link to={`/series/${seriesId}/build/${buildId}/history`}>
+                {buildId}
+            </Link>
         </div>
     );
 };
@@ -42,7 +44,7 @@ const BreadcrumbItemSuite = () => {
     const { suiteId } = useParams();
     return (
         <div>
-            <BreadcrumbItemBuild /> > {suiteId}
+            <BreadcrumbItemBuild /> &gt; {suiteId}
         </div>
     );
 };

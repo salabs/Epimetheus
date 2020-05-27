@@ -106,13 +106,13 @@ const App = () => {
                                 <Route path="/series/:seriesId/build/:buildId/history">
                                     <Build />
                                 </Route>
-                                <Route path="/series/:seriesID/history">
+                                <Route path="/series/:seriesId/history">
                                     <History />
                                 </Route>
-                                <Route path="/series/:seriesID/dashboard">
+                                <Route path="/series/:seriesId/dashboard">
                                     <Dashboard />
                                 </Route>
-                                <Route path="/series/:seriesID/build/:buildId/dashboard">
+                                <Route path="/series/:seriesId/build/:buildId/dashboard">
                                     <Dashboard />
                                 </Route>
                                 <Route exact path="/team">

@@ -41,9 +41,9 @@ const History = () => {
         },
         dispatch
     ] = useStateValue();
-    const { seriesID } = useParams();
+    const { seriesId } = useParams();
     const queryParams = useQueryParams();
-    const series_id = seriesID || selectedBranchState.id || '1';
+    const series_id = seriesId || selectedBranchState.id || '1';
     const number_of_builds =
         queryParams.get('numberofbuilds') || amountOfBuilds || '30';
 
