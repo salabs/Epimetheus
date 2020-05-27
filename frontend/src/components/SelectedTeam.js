@@ -66,7 +66,9 @@ const SelectedTeam = ({ selectedTeam }) => {
                     <div
                         className="builds"
                         onClick={() =>
-                            history.push(`/series/${id}/build/${last_build}`)
+                            history.push(
+                                `/series/${id}/build/${last_build}/history`
+                            )
                         }
                         role={'presentation'}
                     >

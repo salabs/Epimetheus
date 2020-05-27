@@ -1,7 +1,18 @@
 ﻿import React from 'react';
+import { useParams } from 'react-router';
+import BreadcrumbNav from '../components/BreadcrumbNav';
 
 const Dashboard = () => {
-    return <div>Dashboard</div>;
+    const { buildId } = useParams();
+
+    const correctStatus = () => (buildId ? 'build' : 'series');
+
+    return (
+        <div>
+            <BreadcrumbNav status={correctStatus()} />
+            Dashboard
+        </div>
+    );
 };
 
 export default Dashboard;
