@@ -1,4 +1,4 @@
-FROM python:3.7
+FROM python:3.8
 
 RUN groupadd -rf robot && useradd -g robot --create-home --shell /bin/bash robot
 
@@ -12,6 +12,8 @@ ADD wait-for-selenium.sh .
 ADD variables.py .
 
 RUN pip install -r requirements.txt
+
+RUN pip install -i https://test.pypi.org/simple/ testarchiver
 
 RUN chown -R robot:robot /home/robot
 RUN mkdir /home/robot/test/logs
