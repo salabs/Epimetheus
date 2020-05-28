@@ -5,7 +5,7 @@ import { buildTypes, suiteTypes } from '../../utils/parentDataTypes';
 
 import ParentTable from './ParentTable';
 
-const ParentHistory = () => {
+const ParentSeries = () => {
     const { seriesId, buildId, testId } = useParams();
     const [
         {
@@ -37,4 +37,4 @@ const ParentHistory = () => {
     return <ParentTable data={buildData} types={types} />;
 };
 
-export default ParentHistory;
+export default ParentSeries;

@@ -1,14 +1,13 @@
 import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const TestCase = ({ testCases, index, suiteId, testId }) => {
     const testCase = testCases[index].test_case;
-    const history = useHistory();
+    const pathname = useLocation().pathname;
+    const correctUrl = pathname.substring(0, pathname.lastIndexOf('/'));
     return (
         <td>
-            <Link
-                to={`${history.location.pathname}/suite/${suiteId}/test/${testId}`}
-            >
+            <Link to={`${correctUrl}/suite/${suiteId}/test/${testId}/history`}>
                 {testCase}
             </Link>
         </td>

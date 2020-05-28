@@ -4,7 +4,7 @@ import React, { Fragment, useEffect } from 'react';
 import { css, jsx } from '@emotion/core';
 import Filter from '../components/historyTable/Filter';
 import Table from '../components/historyTable/Table';
-import ParentHistory from '../components/parentData/ParentHistory';
+import ParentSeries from '../components/parentData/ParentSeries';
 import Checkbox from '../components/Checkbox';
 import { useStateValue } from '../contexts/state';
 // import BranchFilter from '../components/BranchFilter';
@@ -41,9 +41,9 @@ const History = () => {
         },
         dispatch
     ] = useStateValue();
-    const { seriesID } = useParams();
+    const { seriesId } = useParams();
     const queryParams = useQueryParams();
-    const series_id = seriesID || selectedBranchState.id || '1';
+    const series_id = seriesId || selectedBranchState.id || '1';
     const number_of_builds =
         queryParams.get('numberofbuilds') || amountOfBuilds || '30';
 
@@ -86,7 +86,7 @@ const History = () => {
             <BreadcrumbNav status={'series'} />
             {!loadingState && (
                 <div className="parentInfo-container">
-                    <ParentHistory />
+                    <ParentSeries />
                 </div>
             )}
             <div className="filter-container">

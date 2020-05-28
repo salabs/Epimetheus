@@ -14,7 +14,6 @@ import Frontpage from './pages/Frontpage';
 import Team from './pages/Team';
 import Suite from './pages/Suite';
 import { useStateValue } from './contexts/state';
-//import { useParams } from 'react-router';
 import './utils/i118n';
 
 import 'normalize.css';
@@ -97,22 +96,22 @@ const App = () => {
                         <MainNav />
                         <MainContent>
                             <Switch>
-                                <Route path="/series/:seriesId/build/:buildId/suite/:suiteId/test/:testId">
+                                <Route path="/series/:seriesId/build/:buildId/suite/:suiteId/test/:testId/history">
                                     <Suite />
                                 </Route>
-                                <Route path="/series/:seriesId/build/:buildId/suite/:suiteId">
+                                <Route path="/series/:seriesId/build/:buildId/suite/:suiteId/history">
                                     <Suite />
                                 </Route>
                                 <Route path="/series/:seriesId/build/:buildId/history">
                                     <Build />
                                 </Route>
-                                <Route path="/series/:seriesID/history">
+                                <Route path="/series/:seriesId/history">
                                     <History />
                                 </Route>
-                                <Route path="/series/:seriesID/dashboard">
+                                <Route path="/series/:seriesId/dashboard">
                                     <Dashboard />
                                 </Route>
-                                <Route path="/series/:seriesID/build/:buildId/dashboard">
+                                <Route path="/series/:seriesId/build/:buildId/dashboard">
                                     <Dashboard />
                                 </Route>
                                 <Route exact path="/team">

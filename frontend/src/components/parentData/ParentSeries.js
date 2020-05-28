@@ -5,8 +5,8 @@ import { seriesTypes } from '../../utils/parentDataTypes';
 
 import ParentTable from './ParentTable';
 
-const ParentHistory = () => {
-    const { seriesID } = useParams();
+const ParentSeries = () => {
+    const { seriesId } = useParams();
 
     const [
         {
@@ -16,7 +16,7 @@ const ParentHistory = () => {
     ] = useStateValue();
 
     useEffect(() => {
-        const url = `/data/series/${seriesID}/info?`;
+        const url = `/data/series/${seriesId}/info?`;
 
         const fetchData = async () => {
             try {
@@ -29,9 +29,9 @@ const ParentHistory = () => {
             }
         };
         fetchData();
-    }, [seriesID, dispatch]);
+    }, [seriesId, dispatch]);
 
     return <ParentTable data={seriesData} types={seriesTypes} />;
 };
 
-export default ParentHistory;
+export default ParentSeries;

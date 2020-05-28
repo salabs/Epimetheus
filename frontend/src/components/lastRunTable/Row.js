@@ -7,12 +7,11 @@ import Status from './Status';
 import Error from './Error';
 import TestCase from './TestCase';
 import { dashify } from '../../utils/helpers';
-import { useHistory } from 'react-router';
+import { useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
 
 const Row = ({ test_cases, suite, id, suiteId }) => {
     const tableRowStyles = css`
-        cursor: pointer;
         .test-time-row {
             text-align: right;
         }
@@ -76,7 +75,8 @@ export default Row;
 
 // Show suite name separated on different lines with dots showing depth level
 const LinksSuiteName = ({ tableCellHeight, suiteName, suiteId }) => {
-    const history = useHistory();
+    const pathname = useLocation().pathname;
+    const correctUrl = pathname.substring(0, pathname.lastIndexOf('/'));
     let tempSuiteName = suiteName.split('.');
     let splitSuiteName = [];
     for (var index = 0; index < tempSuiteName.length; index++) {
@@ -88,9 +88,10 @@ const LinksSuiteName = ({ tableCellHeight, suiteName, suiteId }) => {
             </Fragment>
         );
     }
+
     return (
         <td rowSpan={tableCellHeight} data-ta={`suite-${dashify(suiteName)}`}>
-            <Link to={`${history.location.pathname}/suite/${suiteId}`}>
+            <Link to={`${correctUrl}/suite/${suiteId}/history`}>
                 <span className="sr-show">Build </span>
                 {splitSuiteName}
             </Link>
