@@ -19,7 +19,7 @@ Test CheckBoxes
 
 Open a build
   [Arguments]  ${series}  ${build}
-  ${str}=   Catenate  SEPARATOR=  ${url}  series/    ${series}    /build/    ${build}
+  ${str}=   Catenate  SEPARATOR=  ${url}  series/    ${series}    /build/    ${build}    /history
   Go To  ${str}
 
 Hide Tests
