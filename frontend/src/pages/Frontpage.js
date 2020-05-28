@@ -13,9 +13,7 @@ const Frontpage = () => {
     return (
         <main id="frontpage" css={frontpageStyles}>
             <h1>{t('title')}</h1>
-            <p>
-                {t('opening_paragraph')}
-            </p>
+            <p>{t('opening_paragraph')}</p>
 
             <h2>{t('section.roadmap.title')}</h2>
             <p>{t('section.roadmap.opening_paragraph')}</p>
@@ -26,9 +24,7 @@ const Frontpage = () => {
             </ul>
 
             <h2>{t('section.terminology.title')}</h2>
-            <p>
-                {t('section.terminology.opening_paragraph')}
-            </p>
+            <p>{t('section.terminology.opening_paragraph')}</p>
             <ul>
                 <li>{t('section.terminology.series')}</li>
                 <li>{t('section.terminology.suite')}</li>
@@ -49,9 +45,7 @@ const Frontpage = () => {
             </ul>
 
             <h2>{t('section.icons.title')}</h2>
-            <p>
-                {t('section.icons.opening_paragraph')}
-            </p>
+            <p>{t('section.icons.opening_paragraph')}</p>
             <img src="/img/testicons.png" alt="icon legend" />
 
             <h2>{t('section.views.title')}</h2>
@@ -64,18 +58,27 @@ const Frontpage = () => {
             <h2>{t('section.feedback.title')}</h2>
             <p>
                 {t('section.feedback.text')}
-                <a href={t('section.feedback.link_url')}>{t('section.feedback.link_text')}</a>.
+                <a href={t('section.feedback.link_url')}>
+                    {t('section.feedback.link_text')}
+                </a>
+                .
             </p>
 
             <h2>{t('section.contribute.title')}</h2>
             <p>
                 {t('section.contribute.text')}
-                <a href={t('section.contribute.link_url')}>{t('section.contribute.link_text')}</a>.
+                <a href={t('section.contribute.link_url')}>
+                    {t('section.contribute.link_text')}
+                </a>
+                .
             </p>
             <h2>{t('section.licence.title')}</h2>
             <p>
                 {t('section.licence.text')}
-                <a href={t('section.licence.link_url')}>{t('section.licence.link_text')}</a>.
+                <a href={t('section.licence.link_url')}>
+                    {t('section.licence.link_text')}
+                </a>
+                .
             </p>
         </main>
     );
