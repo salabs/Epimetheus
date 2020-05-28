@@ -22,7 +22,7 @@ Log Amount of Series of team in API
 
 UI displays correct amount of series for
   [Arguments]   ${team}
-  ${urli} =   Sum Strings   ${team_url}    ${team}
+  ${urli} =   Catenate  SEPARATOR=    ${team_url}    ${team}    
   Go To   ${urli}
   Wait Until Element Is Enabled   //*[@id="selectedTeam"]/div[2]/div
   ${elements}=    Get Element Count   //*[@id="selectedTeam"]/div[2]/div
