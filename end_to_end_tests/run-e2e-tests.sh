@@ -13,8 +13,8 @@ EXITVAL=$?
 echo "---------------------------------------------"
 echo " Archiving reports from ./logs -directory"
 echo "---------------------------------------------"
-find ./logs -name \*.xml -type f -print0 | xargs -0 -n1 testarchiver --dbengine postgresql --database $DATABASE --host $HOST \
-                                            --user $USER --pw $PASSWORD  \
+find ./logs -name \*.xml -type f -print0 | xargs -0 -n1 testarchiver --dbengine postgresql --database "$DATABASE" --host "$HOST" \
+                                            --user "$USER" --pw "$PASSWORD"  \
                                             --team Epimetheus --series e2e_test --format robotframework
 
 
