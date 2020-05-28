@@ -8,17 +8,17 @@ from robot.api.deco import keyword, library
 class Helper:
 
     ROBOT_LIBRARY_SCOPE = 'TEST SUITE'
-    
+
     def __init__(self, host):
         self.host = host
-        self.value=0
+        self.value = 0
         print(self.host)
-    
+
     @keyword
     def get_team_number(self):
         r = requests.get(self.host+"data/teams")
         print(r.json())
-        return (len(r.json()["teams"]))
+        return len(r.json()["teams"])
 
     @keyword
     def get_series_number(self, team):
@@ -27,7 +27,7 @@ class Helper:
         series_array = r.json()["series"]
         series_amount = 0
         for series in series_array:
-            if(series["team"] == team):
+            if series["team"] == team:
                 series_amount += 1
         return series_amount
 

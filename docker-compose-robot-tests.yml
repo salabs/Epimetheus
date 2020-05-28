@@ -37,6 +37,7 @@ services:
       - ./frontend/src:/app/src
     container_name: frontend-server
     tty: true
+    stdin_open: false
     networks:
       - local
 

@@ -7,4 +7,4 @@ cat > database_information.env << ENDOFFILE
 $secret
 ENDOFFILE
 export ENV_FILE=database_information.env
-docker-compose -f docker-compose-robot-tests.yml up --build
+docker-compose -f docker-compose-robot-tests.yml up --build --abort-on-container-exit
