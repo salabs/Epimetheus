@@ -1,5 +1,4 @@
 import requests
-import json
 
 from robot.api.deco import keyword, library
 
