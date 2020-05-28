@@ -15,4 +15,5 @@ remote_url= 'epimetheus_seleniumgrid_1:4444/wd/hub'
 #remote_url=''
 dir_path = os.path.dirname(os.path.realpath(__file__))
 Backend= 'http://backend-server'
+#Backend= 'http://localhost'
 RESOURCES = os.path.join(dir_path, 'robot', 'resources')

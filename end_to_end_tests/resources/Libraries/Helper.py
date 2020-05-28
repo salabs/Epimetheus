@@ -22,18 +22,37 @@ class Helper:
         return (len(r.json()["teams"]))
 
     @keyword
-    def get_series_number(self, teami):
-        r = requests.get(self.host+"data/teams")
+    def get_series_number(self, team):
+        r = requests.get(self.host+"data/series")
         print(r.json())
-        team_array = r.json()["teams"]
-        series = 0
-        for team in team_array:
-            if(team["name"] == teami):
-                series += team["series_count"]
-                if(team["all_builds"]):
-                    series = series +1
-        
-        return series
+        series_array = r.json()["series"]
+        series_amount = 0
+        for series in series_array:
+            if(series["team"] == team):
+                series_amount += 1
+        return series_amount
+
+    @keyword
+    def get_amount_of_builds(self, series, team):
+        r = requests.get(self.host+"data/series")
+        print(r.json())
+        series_array = r.json()["series"]
+        amount = 0
+        for series in series_array:
+            if(series["name"] == series and series["team"] == team):
+                amount = series["builds"]
+        return amount
+
+    @keyword
+    def get_latest_build(self, series, team):
+        r = requests.get(self.host+"data/series")
+        print(r.json())
+        series_array = r.json()["series"]
+        last_build = 0
+        for series in series_array:
+            if(series["name"] == series and series["team"] == team):
+                last_build = series["last_build"]
+        return last_build
 
     @keyword
     def set_number(self, number):

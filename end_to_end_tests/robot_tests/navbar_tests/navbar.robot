@@ -1,6 +1,5 @@
 ***Settings***
 Resource                ../../resources/resource.robot
-nav_id = 'main-nav'
 
 ***Variable***
 
