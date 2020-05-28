@@ -7,8 +7,6 @@ const Dashboard = () => {
 
     const correctStatus = () => (buildId ? 'build' : 'series');
 
-    console.log('Correctstatus on', correctStatus());
-
     return (
         <div>
             <BreadcrumbNav status={correctStatus()} />
