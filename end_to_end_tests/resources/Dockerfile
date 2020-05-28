@@ -1,17 +1,19 @@
-FROM python:3.6
+FROM python:3.8
 
 RUN groupadd -rf robot && useradd -g robot --create-home --shell /bin/bash robot
 
 WORKDIR /home/robot/test
 
-ADD robot_tests/ .
-ADD resources/ .
+ADD robot_tests ./robot_tests
+ADD resources ./resources
 ADD requirements.txt .
 ADD run-e2e-tests.sh .
 ADD wait-for-selenium.sh .
 ADD variables.py .
 
 RUN pip install -r requirements.txt
+
+RUN pip install -i https://test.pypi.org/simple/ testarchiver==0.0.4
 
 RUN chown -R robot:robot /home/robot
 RUN mkdir /home/robot/test/logs

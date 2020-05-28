@@ -5,27 +5,58 @@ services:
     image: elgalu/selenium:latest
     ports:
       - 4444:4444
+      - 5900:25900
     environment:
       VNC_PASSWORD: "no"
       SCREEN_WIDTH: "1920"
       SCREEN_HEIGHT: "1080"
+      SELENIUM_HUB_PORT: 4444
       CHROME: "true"
       VIDEO: "false"
     volumes:
       - ./end_to_end_tests/logs/videos:/home/seluser/videos
     privileged: true
+    networks:
+      - local
 
+  back-end:
+    build: ./backend_server
+    ports:
+    - "5000:5000"
+    env_file:
+    - ${ENV_FILE}
+    container_name: backend-server
+    networks:
+      - local
+
+  front-end:
+    build: ./frontend
+    ports:
+    - "3000:3000"
+    volumes:
+      - ./frontend/src:/app/src
+    container_name: frontend-server
+    tty: true
+    stdin_open: false
+    networks:
+      - local
 
   robot:
     user: root
     build:
       context: ./end_to_end_tests
       dockerfile: ./resources/Dockerfile
+    env_file:
+    - ${ENV_FILE}
     volumes:
-      - ./robot/test/robot:/home/robot/test/robot
       - ./end_to_end_tests/logs:/home/robot/test/logs
-      - ./end_to_end_tests/variables.py:/home/robot/test/variables.py
     depends_on:
       - seleniumgrid
-      #- front-end
-      #- back-end
+      - front-end
+      - back-end
+    networks:
+      - local
+
+networks:
+  local:
+    driver: bridge

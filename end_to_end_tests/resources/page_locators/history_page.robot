@@ -1,2 +1,2 @@
 ***Variables***
-${FOO}                                  bar
+${table_header_xpath}   //*[@id="history-table-head"]/tr/th
