@@ -14,6 +14,7 @@ const MainNav = () => {
     const pathname = useLocation().pathname;
 
     const seriesUrl = pathname.includes('series');
+    const suiteUrl = pathname.includes('suite');
 
     const correctUrl = prop => {
         if (pathname.includes(prop)) {
@@ -122,14 +123,16 @@ const MainNav = () => {
                                 {t('history')}
                             </NavLink>
                         </li>
-                        <li className="sub-url">
-                            <NavLink
-                                activeClassName="active"
-                                to={correctUrl('dashboard')}
-                            >
-                                Dashboard
-                            </NavLink>
-                        </li>
+                        {!suiteUrl && (
+                            <li className="sub-url">
+                                <NavLink
+                                    activeClassName="active"
+                                    to={correctUrl('dashboard')}
+                                >
+                                    Dashboard
+                                </NavLink>
+                            </li>
+                        )}
                     </div>
                 )}
                 <li className="nav-github">

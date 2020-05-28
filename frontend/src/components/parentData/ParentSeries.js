@@ -5,7 +5,7 @@ import { seriesTypes } from '../../utils/parentDataTypes';
 
 import ParentTable from './ParentTable';
 
-const ParentHistory = () => {
+const ParentSeries = () => {
     const { seriesId } = useParams();
 
     const [
@@ -34,4 +34,4 @@ const ParentHistory = () => {
     return <ParentTable data={seriesData} types={seriesTypes} />;
 };
 
-export default ParentHistory;
+export default ParentSeries;

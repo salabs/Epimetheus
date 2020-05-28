@@ -140,7 +140,7 @@ const Suite = () => {
                                 return (
                                     <div key={i}>
                                         <NavLink
-                                            to={`/series/${seriesId}/build/${buildId}/suite/${suiteId}/test/${test.id}`}
+                                            to={`/series/${seriesId}/build/${buildId}/suite/${suiteId}/test/${test.id}/history`}
                                         >
                                             {pickIcon(test.status)}
                                             {test.name}
