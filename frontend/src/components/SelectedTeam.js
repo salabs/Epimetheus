@@ -35,6 +35,13 @@ const SelectedTeam = ({ selectedTeam }) => {
         h3 {
             margin-top: 0;
         }
+        .cardInfoContainer:hover {
+            background-color: var(--mithril-grey);
+        }
+
+        .cardValue {
+            color: var(--pirlo-blue);
+        }
     `;
 
     let history = useHistory();
@@ -71,8 +78,9 @@ const SelectedTeam = ({ selectedTeam }) => {
                         role={'presentation'}
                     >
                         <h4>{t('card.series.title')}</h4>
-                        <div className="cardInfo">
-                            {t('card.series.builds')}: {builds}
+                        <div className="cardInfoContainer">
+                            {t('card.series.builds')}:{' '}
+                            <span className="cardValue">{builds}</span>
                         </div>
                     </div>
                     <div
@@ -85,18 +93,21 @@ const SelectedTeam = ({ selectedTeam }) => {
                         role={'presentation'}
                     >
                         <h4>{t('card.last_build.title')}</h4>
-                        <div className="cardInfo">
-                            {t('card.last_build.build_number')}: {last_build}{' '}
+                        <div className="cardInfoContainer">
+                            {t('card.last_build.build_number')}:{' '}
+                            <span className="cardValue">{last_build}</span>
                         </div>
-                        <div className="cardInfo">
-                            {t('card.last_build.build_id')}: {last_build_id}
+                        <div className="cardInfoContainer">
+                            {t('card.last_build.build_id')}:{' '}
+                            <span className="cardValue">{last_build_id}</span>
                         </div>
-                        <div className="cardInfo">
+                        <div className="cardInfoContainer">
                             {t('card.last_build.last_build_started')}:{' '}
-                            {LastStarted}
+                            <span className="cardValue">{LastStarted}</span>
                         </div>
-                        <div className="cardInfo">
-                            {t('card.last_build.last_status')}: {testStatusIcon}
+                        <div className="cardInfoContainer">
+                            {t('card.last_build.last_status')}:{' '}
+                            <span className="cardValue">{testStatusIcon}</span>
                         </div>
                     </div>
                 </div>

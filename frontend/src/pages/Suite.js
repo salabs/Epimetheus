@@ -12,6 +12,7 @@ import Notfound from '../components/NotFound';
 import { NavLink } from 'react-router-dom';
 import { pickIcon } from '../components/TestIcon';
 import ParentBuild from '../components/parentData/ParentBuild';
+import Loading from '../components/Loading';
 
 const Suite = () => {
     const { suiteId, buildId, seriesId, testId } = useParams();
@@ -26,6 +27,7 @@ const Suite = () => {
     ] = useStateValue();
     const branch_id = seriesId || selectedBranchState;
     const container = css`
+        font-size: 12px;
         .parentInfo-container {
             display: flex;
             padding: 20px 0;
@@ -69,7 +71,6 @@ const Suite = () => {
         .suiteMain {
             flex-grow: 2;
             padding: 10px;
-            font-size: 1em;
         }
     `;
     useEffect(() => {
@@ -117,7 +118,7 @@ const Suite = () => {
                     aria-label="Loading"
                     aria-relevant="all"
                 >
-                    Loading
+                    <Loading />
                 </div>
             ) : selectedSuiteState.suite ? (
                 <div>
@@ -189,6 +190,7 @@ const Suite = () => {
 
 const SelectedTest = ({ test }) => {
     const selectedTestStyles = css`
+        font-size: 12px;
         .flex-grow {
             flex-grow: 1;
         }
@@ -208,7 +210,6 @@ const SelectedTest = ({ test }) => {
         margin-top: 5px;
         padding: 5px;
         border-radius: 5px;
-        font-size: 1rem;
         display: flex;
         flex-direction: row;
         table {
