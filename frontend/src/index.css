@@ -41,15 +41,9 @@ h2,
 h3,
 h4 {
     font-family: 'Noto Serif Semibold';
-    /* margin-left: -2px; */
-    /* padding: 0;
-    margin-top: 0; */
-    /* line-height: 2.5rem; */
-    /* letter-spacing: -0.05rem; */
 }
 h1 {
     font-size: 40px;
-    /* letter-spacing: -0.1rem; */
 }
 h2 {
     font-size: 30px;
