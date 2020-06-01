@@ -14,7 +14,8 @@ const theme = {
         margin: '10px',
         padding: '10px',
         minHeight: '20vh',
-        backgroundColor: '#fafafa'
+        backgroundColor: '#fafafa',
+        cursor: 'pointer'
     },
     baseTableStyle: `
       table {

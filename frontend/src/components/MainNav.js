@@ -29,7 +29,7 @@ const MainNav = () => {
         @media only screen and (max-width: 999px) {
             flex: 0 0 120px;
         }
-        h2 {
+        h1 {
             padding: 20px 20px 0px 20px;
             @media only screen and (max-width: 999px) {
                 display: block;
@@ -101,7 +101,7 @@ const MainNav = () => {
     `;
     return (
         <nav id="main-nav" css={mainNavStyles}>
-            <h2 className="logo">{t('logo')}</h2>
+            <h1 className="logo">{t('logo')}</h1>
             <ul>
                 <li>
                     <NavLink exact activeClassName="active" to="/">

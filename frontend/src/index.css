@@ -1,54 +1,57 @@
-/* Box-sizing 
+/* Box-sizing
 ----------------------*/
 html {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 *,
 *:before,
 *:after {
-  box-sizing: inherit;
+    box-sizing: inherit;
 }
 
-/* Fonts 
+/* Fonts
 ----------------------*/
 
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
 @import url('https://fonts.googleapis.com/css?family=Cantarell');
+@import url('https://fonts.googleapis.com/css?family=Space+Mono');
+@import url('https://fonts.googleapis.com/css?family=Noto+Serif');
 
 /** Basics **/
 
 body {
-  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
-  font-size: 18px;
-  line-height: 140%;
+    font-family: 'Space Mono';
+    font-size: 14px;
+    /* line-height: 140%; */
 }
 h1,
 h2,
-h3 {
-  font-family: 'Cantarell', Helvetica, Arial, sans-serif;
-  margin-left: -2px;
-  padding: 0;
-  margin-top: 0;
-  line-height: 2.5rem;
-  letter-spacing: -0.05rem;
+h3,
+h4 {
+    font-family: 'Noto Serif Semibold';
+    /* margin-left: -2px; */
+    padding: 0;
+    margin-top: 0;
+    line-height: 2.5rem;
+    /* letter-spacing: -0.05rem; */
 }
 h1 {
-  font-size: 3rem;
-  letter-spacing: -0.1rem;
+    font-size: '40px';
+    /* letter-spacing: -0.1rem; */
 }
 h2 {
-  font-size: 1.75rem;
+    font-size: '40px';
 }
 
 /** a11y **/
 
 .sr-show {
-  clip-path: inset(100%);
-  clip: rect(1px 1px 1px 1px); /* IE 6/7 */
-  clip: rect(1px, 1px, 1px, 1px);
-  height: 1px;
-  overflow: hidden;
-  position: absolute;
-  white-space: nowrap; /* added line */
-  width: 1px;
+    clip-path: inset(100%);
+    clip: rect(1px 1px 1px 1px); /* IE 6/7 */
+    clip: rect(1px, 1px, 1px, 1px);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap; /* added line */
+    width: 1px;
 }

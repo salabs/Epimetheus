@@ -20,9 +20,16 @@ const SelectedTeam = ({ selectedTeam }) => {
         margin: 10px;
         padding: 10px;
 
+        h3 {
+            line-height: 0;
+        }
+
         .series:hover,
         .builds:hover {
             cursor: pointer;
+        }
+        .cardInfo {
+            padding: 5px 0px;
         }
     `;
 
@@ -30,7 +37,8 @@ const SelectedTeam = ({ selectedTeam }) => {
 
     const flexContainer = {
         display: 'flex',
-        flexWrap: 'wrap'
+        flexWrap: 'wrap',
+        paddingTop: '20px'
     };
 
     const TeamCard = ({ data }) => {
@@ -50,7 +58,7 @@ const SelectedTeam = ({ selectedTeam }) => {
         return (
             <div css={cardStyles}>
                 <div>
-                    <h3>{name}</h3>
+                    <h2>{name}</h2>
                 </div>
                 <hr />
                 <div>
@@ -59,8 +67,10 @@ const SelectedTeam = ({ selectedTeam }) => {
                         onClick={() => history.push(`/series/${id}/history`)}
                         role={'presentation'}
                     >
-                        <h4>{t('card.series.title')}</h4>
-                        {t('card.series.builds')}: {builds}
+                        <h3>{t('card.series.title')}</h3>
+                        <div className="cardInfo">
+                            {t('card.series.builds')}: {builds}
+                        </div>
                     </div>
                     <hr />
                     <div
@@ -72,14 +82,23 @@ const SelectedTeam = ({ selectedTeam }) => {
                         }
                         role={'presentation'}
                     >
-                        <h4>{t('card.last_build.title')}</h4>
-                        {t('card.last_build.build_number')}: {last_build}
-                        <br />
-                        {t('card.last_build.build_id')}: {last_build_id}
-                        <br />
-                        {t('card.last_build.last_build_started')}: {LastStarted}
-                        <br />
-                        {t('card.last_build.last_status')}: {testStatusIcon}
+                        <h3>{t('card.last_build.title')}</h3>
+                        <div className="cardInfo">
+                            {t('card.last_build.build_number')}: {last_build}{' '}
+                        </div>
+                        {/* <br /> */}
+                        <div className="cardInfo">
+                            {t('card.last_build.build_id')}: {last_build_id}
+                        </div>
+                        {/* <br /> */}
+                        <div className="cardInfo">
+                            {t('card.last_build.last_build_started')}:{' '}
+                            {LastStarted}
+                        </div>
+                        {/* <br /> */}
+                        <div className="cardInfo">
+                            {t('card.last_build.last_status')}: {testStatusIcon}
+                        </div>
                     </div>
                 </div>
             </div>

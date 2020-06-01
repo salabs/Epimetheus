@@ -41,6 +41,10 @@ const Filter = () => {
             background-color: white;
             padding: 5px;
             margin: 5px;
+            cursor: pointer;
+        }
+        label {
+            padding-left: 5px;
         }
     `;
 
@@ -57,7 +61,7 @@ const Filter = () => {
 };
 
 const FilterButton = ({ title }) => {
-    const [{ amountOfBuilds, selectedBranchState }, dispatch] = useStateValue();
+    const [{ amountOfBuilds }, dispatch] = useStateValue();
     const history = useHistory();
     const location = useLocation();
     const queryParams = useQueryParams();

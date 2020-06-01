@@ -16,6 +16,7 @@ const Checkbox = () => {
             background-color: white;
             padding: 5px;
             margin: 5px;
+            cursor: pointer;
         }
         .selected {
             background-color: transparent;
