@@ -4,6 +4,7 @@ import Card from '../components/Card';
 import { useParams } from 'react-router';
 import SelectedTeam from '../components/SelectedTeam';
 import Loading from '../components/Loading';
+/** @jsx jsx */
 import { css, jsx } from '@emotion/core';
 import { useTranslation } from 'react-i18next';
 

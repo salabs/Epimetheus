@@ -76,7 +76,9 @@ const Build = () => {
                         type: 'updateHistory',
                         historyData: json
                     });
-                } catch (error) {}
+                } catch (error) {
+                    dispatch({ type: 'setErrorState', errorState: error });
+                }
             }
         };
         if (branchesState) {

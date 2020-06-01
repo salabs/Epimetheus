@@ -1,6 +1,5 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import theme from '../styles/theme';
 import { useTranslation } from 'react-i18next';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
