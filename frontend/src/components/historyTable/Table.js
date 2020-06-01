@@ -11,6 +11,7 @@ const Table = () => {
     const tableStyles = css`
         overflow: auto;
         clear: both;
+        font-size: 12px;
 
         table {
             border-collapse: collapse;

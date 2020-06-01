@@ -50,13 +50,17 @@ const BreadcrumbItemSuite = () => {
 };
 const BreadcrumbNav = ({ status }) => {
     const breadCrumbNavStyles = css`
+        font-size: 14px;
         a {
-            padding: 5px;
+            padding: 5px 5px 5px 10px;
             &:hover,
             &:active {
                 background-color: #ccc;
                 transition: 0.1s background-color;
             }
+        }
+        a:first-child {
+            padding-left: 0;
         }
         div {
             display: inline;

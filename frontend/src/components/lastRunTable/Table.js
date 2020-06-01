@@ -11,6 +11,7 @@ const Table = ({ id }) => {
     const tableStyles = css`
         ${theme.baseTableStyle}
         overflow: auto;
+        font-size: 12px;
 
         table {
             table-layout: fixed;

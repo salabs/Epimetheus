@@ -14,15 +14,33 @@ const SelectedTeam = ({ selectedTeam }) => {
     const [t] = useTranslation(['team']);
 
     const cardStyles = css`
-        background-color: #fafafa;
+        background-color: var(--powder-white);
         box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 4px,
             rgba(0, 0, 0, 0.23) 0px 3px 4px;
         margin: 10px;
         padding: 10px;
+        line-height: 16px;
+        font-size: 12px;
 
         .series:hover,
         .builds:hover {
             cursor: pointer;
+        }
+
+        h3,
+        h4 {
+            font-size: 14px;
+            line-height: 20px;
+        }
+        h3 {
+            margin-top: 0;
+        }
+        .cardInfoContainer:hover {
+            background-color: var(--mithril-grey);
+        }
+
+        .cardValue {
+            color: var(--pirlo-blue);
         }
     `;
 
@@ -30,7 +48,8 @@ const SelectedTeam = ({ selectedTeam }) => {
 
     const flexContainer = {
         display: 'flex',
-        flexWrap: 'wrap'
+        flexWrap: 'wrap',
+        paddingTop: '20px'
     };
 
     const TeamCard = ({ data }) => {
@@ -52,7 +71,6 @@ const SelectedTeam = ({ selectedTeam }) => {
                 <div>
                     <h3>{name}</h3>
                 </div>
-                <hr />
                 <div>
                     <div
                         className="series"
@@ -60,9 +78,11 @@ const SelectedTeam = ({ selectedTeam }) => {
                         role={'presentation'}
                     >
                         <h4>{t('card.series.title')}</h4>
-                        {t('card.series.builds')}: {builds}
+                        <div className="cardInfoContainer">
+                            {t('card.series.builds')}:{' '}
+                            <span className="cardValue">{builds}</span>
+                        </div>
                     </div>
-                    <hr />
                     <div
                         className="builds"
                         onClick={() =>
@@ -73,13 +93,22 @@ const SelectedTeam = ({ selectedTeam }) => {
                         role={'presentation'}
                     >
                         <h4>{t('card.last_build.title')}</h4>
-                        {t('card.last_build.build_number')}: {last_build}
-                        <br />
-                        {t('card.last_build.build_id')}: {last_build_id}
-                        <br />
-                        {t('card.last_build.last_build_started')}: {LastStarted}
-                        <br />
-                        {t('card.last_build.last_status')}: {testStatusIcon}
+                        <div className="cardInfoContainer">
+                            {t('card.last_build.build_number')}:{' '}
+                            <span className="cardValue">{last_build}</span>
+                        </div>
+                        <div className="cardInfoContainer">
+                            {t('card.last_build.build_id')}:{' '}
+                            <span className="cardValue">{last_build_id}</span>
+                        </div>
+                        <div className="cardInfoContainer">
+                            {t('card.last_build.last_build_started')}:{' '}
+                            <span className="cardValue">{LastStarted}</span>
+                        </div>
+                        <div className="cardInfoContainer">
+                            {t('card.last_build.last_status')}:{' '}
+                            <span className="cardValue">{testStatusIcon}</span>
+                        </div>
                     </div>
                 </div>
             </div>

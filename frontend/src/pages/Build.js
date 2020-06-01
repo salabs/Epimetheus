@@ -9,6 +9,7 @@ import { useParams } from 'react-router';
 import { css, jsx } from '@emotion/core';
 import BreadcrumbNav from '../components/BreadcrumbNav';
 import ParentBuild from '../components/parentData/ParentBuild';
+import Loading from '../components/Loading';
 
 const Build = () => {
     const buildStyles = css`
@@ -75,7 +76,9 @@ const Build = () => {
                         type: 'updateHistory',
                         historyData: json
                     });
-                } catch (error) {}
+                } catch (error) {
+                    dispatch({ type: 'setErrorState', errorState: error });
+                }
             }
         };
         if (branchesState) {
@@ -95,7 +98,7 @@ const Build = () => {
                     aria-label="Loading"
                     aria-relevant="all"
                 >
-                    Loading
+                    <Loading />
                 </div>
             ) : (
                 <Fragment>

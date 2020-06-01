@@ -10,7 +10,7 @@ const ParentTable = props => {
 
     const tableStyles = css`
         ${theme.baseTableStyle}
-
+        font-size: 12px;
         table {
             border-collapse: collapse;
             table-layout: auto;

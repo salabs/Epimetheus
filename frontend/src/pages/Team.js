@@ -4,9 +4,15 @@ import Card from '../components/Card';
 import { useParams } from 'react-router';
 import SelectedTeam from '../components/SelectedTeam';
 import Loading from '../components/Loading';
+/** @jsx jsx */
+import { css, jsx } from '@emotion/core';
 import { useTranslation } from 'react-i18next';
 
 const Team = () => {
+    const TeamContainer = css`
+        padding-top: 20px;
+    `;
+
     const [t] = useTranslation(['team']);
     const [{ loadingState, teamsState }, dispatch] = useStateValue();
 
@@ -39,8 +45,8 @@ const Team = () => {
                     )}
                 />
             ) : (
-                <div>
-                    <h1>{t('title')}</h1>
+                <div css={TeamContainer}>
+                    <h2>{t('title')}</h2>
                     {teamsState.map(({ name, series_count }, i) => {
                         return (
                             <Card

@@ -19,7 +19,7 @@ const Checkbox = () => {
             input {
                 margin-left: 8px;
                 position: relative;
-                top: -2.5px;
+                top: 1.5px;
                 display: inline-block;
                 transform: scale(1.2);
             }

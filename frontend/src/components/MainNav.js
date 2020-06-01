@@ -30,8 +30,8 @@ const MainNav = () => {
             flex: 0 0 120px;
         }
         h2 {
-            padding: 20px 20px 0px 20px;
-            @media only screen and (max-width: 999px) {
+            padding: 0px 20px 0px 20px;
+            @media only screen and (max-width: 768px) {
                 display: block;
                 width: 0;
                 height: 40px;
@@ -50,7 +50,7 @@ const MainNav = () => {
         }
         p {
             padding: 20px 20px 0px 20px;
-            @media only screen and (max-width: 999px) {
+            @media only screen and (max-width: 768px) {
                 display: block;
                 width: 0;
                 height: 40px;

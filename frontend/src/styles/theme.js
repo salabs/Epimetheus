@@ -14,9 +14,12 @@ const theme = {
         margin: '10px',
         padding: '10px',
         minHeight: '20vh',
-        backgroundColor: '#fafafa'
+        backgroundColor: '#ffffff',
+        cursor: 'pointer',
+        fontSize: '12px'
     },
     baseTableStyle: `
+      fontSize: 12px;
       table {
         table-layout: fixed;
         width: 100%;
@@ -68,7 +71,7 @@ const theme = {
         linkColor: '#003399',
         activeLinkColor: '#001155',
         container: `
-        background-color: #eee;
+        background-color: #e9e8e8;
         color: #222;
         border: 1px solid #ccc;
         p { line-height: 1.6 }
