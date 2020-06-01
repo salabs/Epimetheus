@@ -23,6 +23,9 @@ const Checkbox = () => {
             border: 2px solid #243b53;
             color: #243b53;
         }
+        h3 {
+            padding-left: 7px;
+        }
     `;
     const history = useHistory();
     const location = useLocation();
@@ -48,7 +51,7 @@ const Checkbox = () => {
 
     return (
         <div id="history-checkbox-container" css={filterStyles}>
-            <h4>Hide tests</h4>
+            <h3>Hide tests</h3>
             <input
                 type="button"
                 value={'Passing'}

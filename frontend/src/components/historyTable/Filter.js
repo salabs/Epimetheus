@@ -44,7 +44,7 @@ const Filter = () => {
             cursor: pointer;
         }
         label {
-            padding-left: 5px;
+            padding-left: 7px;
         }
     `;
 
@@ -52,9 +52,9 @@ const Filter = () => {
 
     return (
         <div id="history-filter-container" css={filterStyles}>
-            <h4>
+            <h3>
                 <label htmlFor="history-filter">Display builds</label>
-            </h4>
+            </h3>
             <ButtonGroup options={options} />
         </div>
     );

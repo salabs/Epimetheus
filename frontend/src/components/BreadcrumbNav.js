@@ -50,6 +50,7 @@ const BreadcrumbItemSuite = () => {
 };
 const BreadcrumbNav = ({ status }) => {
     const breadCrumbNavStyles = css`
+        font-size: 14px;
         a {
             padding: 5px 5px 5px 10px;
             &:hover,

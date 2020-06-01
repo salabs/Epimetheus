@@ -14,22 +14,26 @@ const SelectedTeam = ({ selectedTeam }) => {
     const [t] = useTranslation(['team']);
 
     const cardStyles = css`
-        background-color: #fafafa;
+        background-color: var(--powder-white);
         box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 4px,
             rgba(0, 0, 0, 0.23) 0px 3px 4px;
         margin: 10px;
         padding: 10px;
-
-        h3 {
-            line-height: 0;
-        }
+        line-height: 16px;
+        font-size: 12px;
 
         .series:hover,
         .builds:hover {
             cursor: pointer;
         }
-        .cardInfo {
-            padding: 5px 0px;
+
+        h3,
+        h4 {
+            font-size: 14px;
+            line-height: 20px;
+        }
+        h3 {
+            margin-top: 0;
         }
     `;
 
@@ -58,21 +62,19 @@ const SelectedTeam = ({ selectedTeam }) => {
         return (
             <div css={cardStyles}>
                 <div>
-                    <h2>{name}</h2>
+                    <h3>{name}</h3>
                 </div>
-                <hr />
                 <div>
                     <div
                         className="series"
                         onClick={() => history.push(`/series/${id}/history`)}
                         role={'presentation'}
                     >
-                        <h3>{t('card.series.title')}</h3>
+                        <h4>{t('card.series.title')}</h4>
                         <div className="cardInfo">
                             {t('card.series.builds')}: {builds}
                         </div>
                     </div>
-                    <hr />
                     <div
                         className="builds"
                         onClick={() =>
@@ -82,20 +84,17 @@ const SelectedTeam = ({ selectedTeam }) => {
                         }
                         role={'presentation'}
                     >
-                        <h3>{t('card.last_build.title')}</h3>
+                        <h4>{t('card.last_build.title')}</h4>
                         <div className="cardInfo">
                             {t('card.last_build.build_number')}: {last_build}{' '}
                         </div>
-                        {/* <br /> */}
                         <div className="cardInfo">
                             {t('card.last_build.build_id')}: {last_build_id}
                         </div>
-                        {/* <br /> */}
                         <div className="cardInfo">
                             {t('card.last_build.last_build_started')}:{' '}
                             {LastStarted}
                         </div>
-                        {/* <br /> */}
                         <div className="cardInfo">
                             {t('card.last_build.last_status')}: {testStatusIcon}
                         </div>
