@@ -2,7 +2,6 @@
 
 Resource                            ../../../resources/resource.robot
 
-
 *** Test Cases ***
 
 Test Buttons
@@ -15,9 +14,7 @@ Test Buttons
   Click Button		100
   Table should be limited to    number=100
 
-
 *** Keywords ***
-
 
 Browser is on a history page of series
   [Arguments]    ${series}
