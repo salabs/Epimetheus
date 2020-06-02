@@ -10,7 +10,6 @@ const ParentTable = props => {
 
     const tableStyles = css`
         ${theme.baseTableStyle}
-        font-size: 12px;
         table {
             border-collapse: collapse;
             table-layout: auto;
@@ -22,13 +21,18 @@ const ParentTable = props => {
         th {
             vertical-align: middle;
         }
+        td:first-of-type {
+            vertical-align: middle;
+        }
     `;
 
     const { data, types } = props;
 
     const headerRow = () => {
         return types.map(name => {
-            return <th key={name}>{name}</th>;
+            const CapitalCaseInitial =
+                name.charAt(0).toUpperCase() + name.slice(1);
+            return <th key={name}>{CapitalCaseInitial}</th>;
         });
     };
 

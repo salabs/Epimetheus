@@ -48,6 +48,12 @@ h1 {
 h2 {
     font-size: 30px;
 }
+h3 {
+    font-size: 18px;
+}
+h4 {
+    font-size: 16px;
+}
 
 /** a11y **/
 

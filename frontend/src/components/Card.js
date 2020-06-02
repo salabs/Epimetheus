@@ -15,13 +15,17 @@ const Card = ({ team, numberOfSeries }) => {
         margin: 10px;
         padding: 10px;
         line-height: 16px;
-        font-size: 12px;
         min-height: 120px;
         width: 250px;
         cursor: pointer;
 
         span {
             color: var(--pirlo-blue);
+        }
+
+        @media only screen and (min-width: 1024px) {
+            width: 400px;
+            height: 200px;
         }
     `;
 
