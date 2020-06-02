@@ -3,19 +3,81 @@
 python -m robot --outputdir ./logs/ \
                 --variablefile variables.py \
                 --metadata "version:0.1.0" \
+                --include Backend \
                 ./robot_tests
-EXITVAL=$?
+BACKEND=$?
+
 #Testarchiver data storing can be added here,
 #Important to exit with the right exit value from the test execution,
 #not with the exitvalue from data storing. 
 
-
 echo "---------------------------------------------"
-echo " Archiving reports from ./logs -directory"
+echo " Archiving Backend reports from ./logs -directory"
 echo "---------------------------------------------"
 find ./logs -name \*.xml -type f -print0 | xargs -0 -n1 testarchiver --dbengine postgresql --database "$DATABASE" --host "$HOST" \
                                             --user "$USER" --pw "$PASSWORD"  \
-                                            --team Epimetheus --series e2e_test --format robotframework
+                                            --team Epimetheus --series ci_backend#${BUILD_NUMBER} --format robotframework
 
 
+
+python -m robot --outputdir ./logs/ \
+                --variablefile variables.py \
+                --metadata "version:0.1.0" \
+                --include History \
+                ./robot_tests
+HISTORY=$?
+
+echo "---------------------------------------------"
+echo " Archiving History Page reports from ./logs -directory"
+echo "---------------------------------------------"
+find ./logs -name \*.xml -type f -print0 | xargs -0 -n1 testarchiver --dbengine postgresql --database "$DATABASE" --host "$HOST" \
+                                            --user "$USER" --pw "$PASSWORD"  \
+                                            --team Epimetheus --series ci_history_page#${BUILD_NUMBER} --format robotframework
+
+python -m robot --outputdir ./logs/ \
+                --variablefile variables.py \
+                --metadata "version:0.1.0" \
+                --include NavBar \
+                ./robot_tests
+
+NAVBAR=$?
+
+echo "---------------------------------------------"
+echo " Archiving Navigation Bar reports from ./logs -directory"
+echo "---------------------------------------------"
+find ./logs -name \*.xml -type f -print0 | xargs -0 -n1 testarchiver --dbengine postgresql --database "$DATABASE" --host "$HOST" \
+                                            --user "$USER" --pw "$PASSWORD"  \
+                                            --team Epimetheus --series ci_navigation_bar#${BUILD_NUMBER} --format robotframework
+
+python -m robot --outputdir ./logs/ \
+                --variablefile variables.py \
+                --metadata "version:0.1.0" \
+                --include Team \
+                ./robot_tests
+
+TEAM=$?
+
+echo "---------------------------------------------"
+echo " Archiving Team Page reports from ./logs -directory"
+echo "---------------------------------------------"
+find ./logs -name \*.xml -type f -print0 | xargs -0 -n1 testarchiver --dbengine postgresql --database "$DATABASE" --host "$HOST" \
+                                            --user "$USER" --pw "$PASSWORD"  \
+                                            --team Epimetheus --series ci_team_page#${BUILD_NUMBER} --format robotframework
+
+python -m robot --outputdir ./logs/ \
+                --variablefile variables.py \
+                --metadata "version:0.1.0" \
+                --include Series \
+                ./robot_tests
+
+SERIES=$?
+
+echo "---------------------------------------------"
+echo " Archiving Series Page reports from ./logs -directory"
+echo "---------------------------------------------"
+find ./logs -name \*.xml -type f -print0 | xargs -0 -n1 testarchiver --dbengine postgresql --database "$DATABASE" --host "$HOST" \
+                                            --user "$USER" --pw "$PASSWORD"  \
+                                            --team Epimetheus --series ci_series_page#${BUILD_NUMBER} --format robotframework
+
+EXITVAL=$((SERIES+TEAM+NAVBAR+HISTORY+BACKEND))
 exit $EXITVAL
