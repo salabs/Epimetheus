@@ -66,6 +66,7 @@ const MainNav = () => {
             list-style-type: none;
             padding: 0;
             li {
+                font-size: 16px;
                 padding: & + li {
                     padding-top: ${theme.spacing.xs / 2}px;
                 }
