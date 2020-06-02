@@ -1,2 +1,2 @@
 ***Variables***
-${HELP_PAGE_WELCOME_ELEMENT}                                //*[@id="frontpage"]/h1 
+${HELP_PAGE_WELCOME_ELEMENT}    xpath://*[@id="frontpage"]/h1 

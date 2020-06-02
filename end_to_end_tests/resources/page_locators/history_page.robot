@@ -1,2 +1,2 @@
 ***Variables***
-${table_header_xpath}   //*[@id="history-table-head"]/tr/th
+${table_header_xpath}        xpath://*[@id="history-table-head"]/tr/th

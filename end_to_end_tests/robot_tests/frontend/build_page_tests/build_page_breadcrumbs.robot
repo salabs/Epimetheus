@@ -1,10 +1,6 @@
 ***Settings***
 Resource                ../../../resources/resource.robot
 
-***Variables***
-${stored_team}
-${stored_series}
-
 *** Test Cases ***
 
 Test Breadcrumbs
@@ -19,18 +15,25 @@ Test Breadcrumbs
 *** Keywords ***
     
 Store the team and series of current page
-    ${stored_team}=    Get Text    ${team_identifier}
-    ${stored_series}=    Get Series    ${series_identifier}
+    Wait Until Element Is Enabled    ${build_page_info_table}
+    ${temp_stored_team}=    Get Text    ${team_identifier}
+    ${temp_stored_series}=    Get Text    ${series_identifier}
+
+    Set Suite Variable    ${stored_team}    ${temp_stored_team}
+    Set Suite Variable    ${stored_series}    ${temp_stored_series}
 
 Navigate to history page using breadcrumbs
+    Wait Until Element is Enabled    ${series_breadcrumb}
     Click Element    ${series_breadcrumb}
 
 History page should be of stored series
+    Wait Until Element Is Enabled    ${series_name}
     ${found_series}=    Get Text    ${series_name}
-    Should Be Equal As Text    ${found_series}    ${stored_series}
+    Should Be Equal As Strings    ${found_series}    ${stored_series}
     
 
 Navigate to team page using breadcrumbs
+    Wait Until Element is Enabled    ${team_breadcrumb} 
     Click Element    ${team_breadcrumb} 
     
 Team page should be of stored team

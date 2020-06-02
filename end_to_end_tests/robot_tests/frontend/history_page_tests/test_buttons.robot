@@ -5,7 +5,7 @@ Resource                            ../../../resources/resource.robot
 *** Test Cases ***
 
 Test Buttons
-  Browser is on a history page of series    3
+  Open history page of series    3
   Check history buttons
   Click Button		5
   Table should be limited to    number=5

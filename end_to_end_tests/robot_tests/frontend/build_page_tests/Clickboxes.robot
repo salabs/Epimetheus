@@ -17,11 +17,6 @@ Test CheckBoxes
 *** Keywords ***
 
 
-Open a build
-  [Arguments]  ${series}  ${build}
-  ${str}=   Catenate  SEPARATOR=  ${url}  series/    ${series}    /build/    ${build}    /history
-  Go To  ${str}
-
 Hide Tests
   [Arguments]   ${status}
   ${path}=  Set Variable If   '${status}' == 'Failing'  ${fail_checkbox_locator}  ${pass_checkbox_locator}
