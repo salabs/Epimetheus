@@ -25,7 +25,7 @@ const MainNav = () => {
     };
 
     const mainNavStyles = css`
-        flex: 0 0 280px;
+        flex: 0 0 240px;
         @media only screen and (max-width: 999px) {
             flex: 0 0 120px;
         }
@@ -66,6 +66,7 @@ const MainNav = () => {
             list-style-type: none;
             padding: 0;
             li {
+                font-size: 16px;
                 padding: & + li {
                     padding-top: ${theme.spacing.xs / 2}px;
                 }
@@ -85,7 +86,6 @@ const MainNav = () => {
                     }
                 }
                 &.nav-github {
-                    font-size: 1.2em;
                     margin-top: 1em;
                     font-weight: bold;
                 }

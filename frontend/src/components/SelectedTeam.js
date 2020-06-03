@@ -20,7 +20,6 @@ const SelectedTeam = ({ selectedTeam }) => {
         margin: 10px;
         padding: 10px;
         line-height: 16px;
-        font-size: 12px;
 
         .series:hover,
         .builds:hover {
@@ -29,7 +28,7 @@ const SelectedTeam = ({ selectedTeam }) => {
 
         h3,
         h4 {
-            font-size: 14px;
+            font-size: 16px;
             line-height: 20px;
         }
         h3 {
@@ -41,6 +40,13 @@ const SelectedTeam = ({ selectedTeam }) => {
 
         .cardValue {
             color: var(--pirlo-blue);
+        }
+
+        @media only screen and (min-width: 1024px) {
+            .card {
+                min-width: 440px;
+                min-height: 220px;
+            }
         }
     `;
 
@@ -71,7 +77,7 @@ const SelectedTeam = ({ selectedTeam }) => {
                 <div>
                     <h3>{name}</h3>
                 </div>
-                <div>
+                <div className="card">
                     <div
                         className="series"
                         onClick={() => history.push(`/series/${id}/history`)}

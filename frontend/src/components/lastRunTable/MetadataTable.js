@@ -14,7 +14,6 @@ const MetadataTable = () => {
         overflow: auto;
         margin-bottom: 10px;
         margin-top: 20px;
-        font-size: 12px;
     `;
 
     const metadata = metadataState.metadata

@@ -27,8 +27,8 @@ const Filter = () => {
         }
         .selected {
             background-color: transparent;
-            border: 2px solid #243b53;
-            color: #243b53;
+            border: 2px solid var(--revolution-black);
+            color: var(--revolution-black);
         }
         .button-group {
             display: flex;
@@ -38,7 +38,7 @@ const Filter = () => {
             border: 1px solid #eee;
             width: 100px;
             border-radius: 10px;
-            background-color: white;
+            background-color: var(--powder-white);
             padding: 5px;
             margin: 5px;
             cursor: pointer;

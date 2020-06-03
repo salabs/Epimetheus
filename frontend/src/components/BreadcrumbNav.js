@@ -11,7 +11,11 @@ const BreadcrumbItem = () => {
     const [{ selectedBranchState }] = useStateValue();
     const teamName = name || selectedBranchState.team;
 
-    return <Link to={`/team/${teamName}`}>{teamName}</Link>;
+    return (
+        <Link to={`/team/${teamName}`} className="BreadCrumbSeries">
+            {teamName}
+        </Link>
+    );
 };
 
 const BreadcrumbItemSeries = () => {
@@ -59,7 +63,7 @@ const BreadcrumbNav = ({ status }) => {
                 transition: 0.1s background-color;
             }
         }
-        a:first-child {
+        .BreadCrumbSeries {
             padding-left: 0;
         }
         div {

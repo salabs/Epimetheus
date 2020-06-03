@@ -27,7 +27,6 @@ const Suite = () => {
     ] = useStateValue();
     const branch_id = seriesId || selectedBranchState;
     const container = css`
-        font-size: 12px;
         .parentInfo-container {
             display: flex;
             padding: 20px 0;
@@ -190,7 +189,6 @@ const Suite = () => {
 
 const SelectedTest = ({ test }) => {
     const selectedTestStyles = css`
-        font-size: 12px;
         .flex-grow {
             flex-grow: 1;
         }
@@ -219,7 +217,6 @@ const SelectedTest = ({ test }) => {
         }
         thead {
             color: grey;
-            font-size: 12px;
             text-align: left;
             border-bottom: 1px solid grey;
         }

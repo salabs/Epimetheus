@@ -5,7 +5,6 @@ import { css, jsx } from '@emotion/core';
 
 const Loading = () => {
     const loadingStyles = css`
-        font-size: 14px;
         height: 30px;
         line-height: 30px;
         padding: 0;

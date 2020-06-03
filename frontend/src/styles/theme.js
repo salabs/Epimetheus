@@ -32,7 +32,7 @@ const theme = {
         padding: 10px 10px;
         border: 1px solid black;
         text-align: left;
-        vertical-align: top;
+        vertical-align: middle;
         word-wrap: break-word;
       }
       .centerTableCellContent {
@@ -40,7 +40,7 @@ const theme = {
         vertical-align: middle;
       }
       .test-time-row {
-        text-align: right;
+        text-align: center;
       }
       table,
       th,
@@ -48,13 +48,16 @@ const theme = {
         padding: 10px;
         border: 1px solid black;
         text-align: left;
-        vertical-align: top;
+        vertical-align: middle;
+      }
+      td:first-of-type {
+          vertical-align: top;
       }
       th {
         background: #ddd;
       }
       td {
-        background: #fafafa;
+        background: #ffffff;
       }
 
       td.test-result-undefined {
