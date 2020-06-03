@@ -21,6 +21,7 @@ jobs:
           tenant: ${{ secrets.tenant }}
           registry: ${{ secrets.registry }}
           repository: ${{ secrets.repository }}
+          branch: master
           image: back-end
           folder: backend_server
           tag: stable

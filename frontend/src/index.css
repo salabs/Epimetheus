@@ -1,54 +1,73 @@
-/* Box-sizing 
+/* Box-sizing
 ----------------------*/
 html {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 *,
 *:before,
 *:after {
-  box-sizing: inherit;
+    box-sizing: inherit;
 }
 
-/* Fonts 
+/* Fonts
 ----------------------*/
 
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
 @import url('https://fonts.googleapis.com/css?family=Cantarell');
+@import url('https://fonts.googleapis.com/css?family=Space+Mono');
+@import url('https://fonts.googleapis.com/css?family=Noto+Serif');
+
+/* Colors
+----------------------*/
+:root {
+    --nelson-purple: #b8557b;
+    --whipped-red: #c63757;
+    --pirlo-blue: #56a2c3;
+    --revolution-black: #141312;
+    --dove-grey: #7b756f;
+    --mithril-grey: #e9e8e8;
+    --powder-white: #ffffff;
+}
 
 /** Basics **/
 
 body {
-  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
-  font-size: 18px;
-  line-height: 140%;
+    font-family: 'Space Mono';
+    font-size: 14px;
+    line-height: 24px;
 }
 h1,
 h2,
-h3 {
-  font-family: 'Cantarell', Helvetica, Arial, sans-serif;
-  margin-left: -2px;
-  padding: 0;
-  margin-top: 0;
-  line-height: 2.5rem;
-  letter-spacing: -0.05rem;
+h3,
+h4 {
+    font-family: 'Noto Serif Semibold';
 }
+
 h1 {
-  font-size: 3rem;
-  letter-spacing: -0.1rem;
+    font-size: 40px;
 }
+
 h2 {
-  font-size: 1.75rem;
+    font-size: 30px;
+}
+
+h3 {
+    font-size: 18px;
+}
+
+h4 {
+    font-size: 16px;
 }
 
 /** a11y **/
 
 .sr-show {
-  clip-path: inset(100%);
-  clip: rect(1px 1px 1px 1px); /* IE 6/7 */
-  clip: rect(1px, 1px, 1px, 1px);
-  height: 1px;
-  overflow: hidden;
-  position: absolute;
-  white-space: nowrap; /* added line */
-  width: 1px;
+    clip-path: inset(100%);
+    clip: rect(1px 1px 1px 1px); /* IE 6/7 */
+    clip: rect(1px, 1px, 1px, 1px);
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap; /* added line */
+    width: 1px;
 }

@@ -13,12 +13,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Testing Docker-Compose execution
+    - name: Run End-to-End Testing
       env: # Env variable from Github Secrets
         TEST_DATABASE: ${{ secrets.Test_Database }}
       run: |
         ./run-docker.sh
-    - name: Stop Docker
+    - name: Stop End-to-End tests
       env: # Env variable from Github Secrets
         TEST_DATABASE: ${{ secrets.Test_Database }}
       run: |

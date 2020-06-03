@@ -1,0 +1,26 @@
+name: deploy-development-front-end-container
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - develop
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged
+
+    steps:
+      - name: ACR build
+        id: acr
+        uses: ams0/acr-task-github-action@master
+        with:
+          service_principal: ${{ secrets.service_principal }}
+          service_principal_password: ${{ secrets.service_principal_password }}
+          tenant: ${{ secrets.tenant }}
+          registry: ${{ secrets.registry }}
+          repository: ${{ secrets.repository }}
+          branch: develop
+          image: front-end
+          folder: frontend
+          tag: development
+          dockerfile: ./Dockerfile-prod

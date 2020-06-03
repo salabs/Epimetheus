@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { css, jsx } from '@emotion/core';
 import { useStateValue } from '../../contexts/state';
 import { useHistory, useLocation } from 'react-router-dom';
+import { useQueryParams } from '../../hooks/useQuery';
 
 const Filter = () => {
     // eslint-disable-next-line
@@ -26,8 +27,8 @@ const Filter = () => {
         }
         .selected {
             background-color: transparent;
-            border: 2px solid #243b53;
-            color: #243b53;
+            border: 2px solid var(--revolution-black);
+            color: var(--revolution-black);
         }
         .button-group {
             display: flex;
@@ -37,9 +38,13 @@ const Filter = () => {
             border: 1px solid #eee;
             width: 100px;
             border-radius: 10px;
-            background-color: white;
+            background-color: var(--powder-white);
             padding: 5px;
             margin: 5px;
+            cursor: pointer;
+        }
+        label {
+            padding-left: 7px;
         }
     `;
 
@@ -47,31 +52,39 @@ const Filter = () => {
 
     return (
         <div id="history-filter-container" css={filterStyles}>
-            <h4>
+            <h3>
                 <label htmlFor="history-filter">Display builds</label>
-            </h4>
+            </h3>
             <ButtonGroup options={options} />
         </div>
     );
 };
 
 const FilterButton = ({ title }) => {
-    const [{ amountOfBuilds, selectedBranchState }, dispatch] = useStateValue();
+    const [{ amountOfBuilds }, dispatch] = useStateValue();
     const history = useHistory();
     const location = useLocation();
+    const queryParams = useQueryParams();
+
+    const updateTags = tag => {
+        queryParams.set('numberofbuilds', tag);
+        return queryParams.toString();
+    };
+
+    const handleFilterChange = e => {
+        dispatch({ type: 'setAmountOfBuilds', amountOfBuilds: title });
+        history.push({
+            pathname: `${location.pathname}`,
+            search: `?${updateTags(e.target.value)}`,
+            state: {}
+        });
+    };
 
     return (
         <input
             type="button"
             value={title}
-            onClick={() => {
-                dispatch({ type: 'setAmountOfBuilds', amountOfBuilds: title });
-                history.push({
-                    pathname: `/history/${selectedBranchState.id}/${title}`,
-                    search: location.search,
-                    state: {}
-                });
-            }}
+            onClick={e => handleFilterChange(e)}
             className={
                 title === parseInt(amountOfBuilds, 10) ? 'selected' : 'disabled'
             }

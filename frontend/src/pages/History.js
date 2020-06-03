@@ -4,133 +4,113 @@ import React, { Fragment, useEffect } from 'react';
 import { css, jsx } from '@emotion/core';
 import Filter from '../components/historyTable/Filter';
 import Table from '../components/historyTable/Table';
+import ParentSeries from '../components/parentData/ParentSeries';
 import Checkbox from '../components/Checkbox';
 import { useStateValue } from '../contexts/state';
 // import BranchFilter from '../components/BranchFilter';
 import { useParams } from 'react-router';
 import BreadcrumbNav from '../components/BreadcrumbNav';
+import Loading from '../components/Loading';
+import { useQueryParams } from '../hooks/useQuery';
 
 const History = () => {
-  const filterStyles = css`
-    position: relative;
-    .filter-container {
-      display: flex;
-      flex-flow: row wrap;
-      max-width: 800px;
-    }
-    .loading-state {
-      height: 30px;
-      line-height: 30px;
-      padding: 0;
-      &:after {
-        margin: 0;
-        padding: 0;
-        line-height: 30px;
-        font-size: 1rem;
-        content: '...';
-        vertical-align: bottom;
-        display: inline-block;
-        width: 0px;
-        height: 30px;
-        animation-name: history-loader;
-        animation-duration: 1.5s;
-        animation-iteration-count: infinite;
-        overflow: hidden;
-      }
-      @keyframes history-loader {
-        from {
-          width: 0;
+    const filterStyles = css`
+        position: relative;
+
+        .filter-container,
+        .parentInfo-container {
+            display: flex;
+            flex-flow: row wrap;
         }
-        to {
-          width: 140px;
+
+        .filter-container {
+            max-width: 800px;
         }
-      }
-    }
-  `;
-  const [
-    {
-      loadingState,
-      historyDataState,
-      selectedBranchState,
-      amountOfBuilds,
-      branchesState
-    },
-    dispatch
-  ] = useStateValue();
-  const { series, builds } = useParams();
 
-  const series_id = series || selectedBranchState.id || '1';
-  const number_of_builds = builds || amountOfBuilds || '30';
-
-  useEffect(() => {
-    const url = `/data/history?builds=${number_of_builds}&series=${series_id}`;
-    if (branchesState) {
-      const branch = branchesState.series?.find(
-        ({ id: serie_id }) => serie_id === parseInt(series_id, 10)
-      );
-
-      const fetchData = async () => {
-        dispatch({ type: 'setLoadingState', loadingState: true });
-        dispatch({
-          type: 'setAmountOfBuilds',
-          amountOfBuilds: number_of_builds
-        });
-        dispatch({
-          type: 'setSelectedBranch',
-          name: branch?.name || ' ',
-          id: series_id,
-          team: branch?.team || ' '
-        });
-        try {
-          const res = await fetch(url, {});
-          const json = await res.json();
-          dispatch({
-            type: 'updateHistory',
-            historyData: json
-          });
-          dispatch({ type: 'setLoadingState', loadingState: false });
-        } catch (error) {
-          dispatch({ type: 'setErrorState', errorState: error });
+        .parentInfo-container {
+            padding: 20px 0;
         }
-      };
-      fetchData();
-    }
-  }, [dispatch, series_id, number_of_builds, branchesState]);
+    `;
+    const [
+        {
+            loadingState,
+            historyDataState,
+            selectedBranchState,
+            amountOfBuilds,
+            branchesState
+        },
+        dispatch
+    ] = useStateValue();
+    const { seriesId } = useParams();
+    const queryParams = useQueryParams();
+    const series_id = seriesId || selectedBranchState.id || '1';
+    const number_of_builds =
+        queryParams.get('numberofbuilds') || amountOfBuilds || '30';
 
-  return (
-    <main id="history" css={filterStyles}>
-      <BreadcrumbNav status={'series'} />
-      <div className="filter-container">
-        <Filter />
-        <Checkbox />
-      </div>
+    useEffect(() => {
+        const url = `/data/series/${series_id}/history?builds=${number_of_builds}`;
+        if (branchesState) {
+            const branch = branchesState.series?.find(
+                ({ id: serie_id }) => serie_id === parseInt(series_id, 10)
+            );
+            const fetchData = async () => {
+                dispatch({ type: 'setLoadingState', loadingState: true });
+                dispatch({
+                    type: 'setAmountOfBuilds',
+                    amountOfBuilds: number_of_builds
+                });
+                dispatch({
+                    type: 'setSelectedBranch',
+                    name: branch?.name || ' ',
+                    id: series_id,
+                    team: branch?.team || ' '
+                });
+                try {
+                    const res = await fetch(url, {});
+                    const json = await res.json();
+                    dispatch({
+                        type: 'updateHistory',
+                        historyData: json
+                    });
+                    dispatch({ type: 'setLoadingState', loadingState: false });
+                } catch (error) {
+                    dispatch({ type: 'setErrorState', errorState: error });
+                }
+            };
+            fetchData();
+        }
+    }, [dispatch, series_id, number_of_builds, branchesState]);
 
-      {!historyDataState || loadingState ? (
-        <div
-          className="loading-state"
-          role="status"
-          aria-live="polite"
-          aria-label="Loading"
-          aria-relevant="all"
-        >
-          Loading
-        </div>
-      ) : (
-        <Fragment>
-          <div
-            className="sr-show"
-            role="status"
-            aria-live="polite"
-            aria-relevant="all"
-            aria-label="Content loaded."
-          >
-            Content loaded.
-          </div>
-          <Table />
-        </Fragment>
-      )}
-    </main>
-  );
+    return (
+        <main id="history" css={filterStyles}>
+            <BreadcrumbNav status={'series'} />
+            {!loadingState && (
+                <div className="parentInfo-container">
+                    <ParentSeries />
+                </div>
+            )}
+            <div className="filter-container">
+                <Filter />
+                <Checkbox />
+            </div>
+            {!historyDataState || loadingState ? (
+                <Loading />
+            ) : (
+                <Fragment>
+                    <div
+                        className="sr-show"
+                        role="status"
+                        aria-live="polite"
+                        aria-relevant="all"
+                        aria-label="Content loaded."
+                    >
+                        Content loaded.
+                    </div>
+                    <Table />
+                </Fragment>
+            )}
+        </main>
+    );
 };
 
 export default History;

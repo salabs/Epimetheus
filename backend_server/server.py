@@ -40,6 +40,9 @@ class SeriesModel:
         last_build:
             type: integer
             description: Latest build number for the series.
+        last_build_id:
+            type: string
+            description: Latest build id for the series.
         last_generated:
             type: string
             format: date-time
@@ -52,6 +55,9 @@ class SeriesModel:
             type: string
             format: date-time
             description: The last build starting time i.e. the first timestamp in the last build.
+        last_status:
+            type: string
+            description: The last build status (for so far archived results).
         sorting_value:
             type: string
             format: date-time
@@ -173,23 +179,19 @@ class Application(tornado.web.Application):
             url(r"/data/series/?$", SeriesDataHandler),
             url(r"/data/series/(?P<series>[0-9]+)/info?$", SeriesInfoDataHandler),
             url(r"/data/series/(?P<series>[0-9]+)/builds/?$", BuildsDataHandler),
-            url(r"/data/series/(?P<series>[0-9]+)/builds/(?P<build_number>[0-9]+)/info?$",
-                BuildInfoDataHandler),
-            url(r"/data/series/(?P<series>[0-9]+)/builds/(?P<build_number>[0-9]+)/suites/(?P<suite>[0-9]+)/?$",
-                SuiteResultDataHandler),
-            url(r"/data/series/(?P<series>[0-9]+)/builds/(?P<build_number>[0-9]+)/suites/(?P<suite>[0-9]+)/info?$",
-                SuiteResultInfoDataHandler),
+            url(r"/data/series/(?P<series>[0-9]+)/builds/(?P<build_number>[0-9]+)/info?$", BuildInfoDataHandler),
+            url(r"/data/series/(?P<series>[0-9]+)/builds/(?P<build_number>[0-9]+)/suites/(?P<suite>[0-9]+)/?$", SuiteResultDataHandler),
+            url(r"/data/series/(?P<series>[0-9]+)/builds/(?P<build_number>[0-9]+)/suites/(?P<suite>[0-9]+)/info?$", SuiteResultInfoDataHandler),
             url(r"/data/series/(?P<series>[0-9]+)/history/?$", HistoryDataHandler),
-            url(r"/data/series/(?P<series>[0-9]+)/builds/(?P<build_number>[0-9]+)/metadata/?$",
-                MetaDataHandler),
-            url(r"/data/test_runs/(?P<test_run>[0-9]+)/suites/(?P<suite>[0-9]+)/log_messages?$",
-                SuiteLogMessageDataHandler),
-            url(r"/data/test_runs/(?P<test_run>[0-9]+)/test_cases/(?P<test>[0-9]+)/log_messages?$",
-                TestCaseLogMessageDataHandler),
+            url(r"/data/series/(?P<series>[0-9]+)/most_stable_tests/?$", MostStableTestsDataHandler),
+            url(r"/data/series/(?P<series>[0-9]+)/status_counts/?$", SeriesStatusCountsDataHandler),
+            url(r"/data/series/(?P<series>[0-9]+)/builds/(?P<build_number>[0-9]+)/metadata/?$", MetaDataHandler),
+            url(r"/data/test_runs/(?P<test_run>[0-9]+)/suites/(?P<suite>[0-9]+)/log_messages?$", SuiteLogMessageDataHandler),
+            url(r"/data/test_runs/(?P<test_run>[0-9]+)/test_cases/(?P<test>[0-9]+)/log_messages?$", TestCaseLogMessageDataHandler),
             url(r"/data/keyword_tree/(?P<fingerprint>[0-9a-fA-F]{40})/?$", KeywordTreeDataHandler),
 
-            url(r"/data/history/?$", OldHistoryDataHandler), # Depricated see HistoryDataHandler
-            url(r"/data/metadata/?$", OldMetaDataHandler), # Depricated see MetaDataHandler
+            #url(r"/data/history/?$", OldHistoryDataHandler), # Depricated see HistoryDataHandler
+            #url(r"/data/metadata/?$", OldMetaDataHandler), # Depricated see MetaDataHandler
 
             # For query testing purposes only
             url(r"/data/foo/?$", FooDataHandler)
@@ -200,9 +202,14 @@ class Application(tornado.web.Application):
         setup_swagger(handlers,
                       swagger_url="/data/doc",
                       description='Project repo at https://github.com/salabs/Epimetheus',
-                      api_version='0.1.0',
+                      api_version='0.3.0',
                       title='Epimetheus backend API')
         tornado.web.Application.__init__(self, handlers, **settings)
+
+
+class InvalidArgumentError(ValueError):
+    """Exception for communicating an invalid user argument was suplied"""
+    pass
 
 
 def free_connection(connections):
@@ -211,14 +218,6 @@ def free_connection(connections):
             conn.free()
     else:
         connections.free()
-
-def values_are_integers(self, *values):
-    """Checks that given values can be casted to int. None value is considered valid."""
-    try:
-        [int(val) for val in values if val]
-    except ValueError:
-        return False
-    return True
 
 @tornado.gen.coroutine
 def coroutine_query(querer, *args, **kwargs):
@@ -239,6 +238,23 @@ class BaseHandler(tornado.web.RequestHandler):
 
     def data_received(self, chunk):
         pass
+
+    def get_int_argument(self, name, default=None):
+        value = self.get_argument(name, default)
+        try:
+            return None if value is None else int(value)
+        except ValueError:
+            self.send_error_response(400, "Bad request. Argument '{}' should be an integer".format(name))
+            raise InvalidArgumentError()
+
+    def get_restricted_argument(self, name, options):
+        """The first option is considered the default option"""
+        value = self.get_argument(name, options[0])
+        if value not in options:
+            message = "Bad request. Argument '{}' should be one of {}".format(name, options)
+            self.send_error_response(400, message)
+            raise InvalidArgumentError()
+        return value
 
     def send_error_response(self, status, message=''):
         self.set_header('Content-Type', 'application/json')
@@ -383,6 +399,7 @@ class SeriesInfoDataHandler(BaseHandler):
         else:
             self.send_not_found_response()
 
+
 class BuildsDataHandler(BaseHandler):
     @tornado.gen.coroutine
     def get(self, series):
@@ -430,16 +447,16 @@ class BuildsDataHandler(BaseHandler):
                             items:
                                 $ref: '#/definitions/BuildModel'
         """
-        start_from = self.get_argument('start_from', None)
-        num_of_builds = self.get_argument('builds', 10)
-        offset = self.get_argument('offset', 0)
+        try:
+            start_from = self.get_int_argument('start_from', None)
+            num_of_builds = self.get_int_argument('builds', 10)
+            offset = self.get_int_argument('offset', 0)
 
-        if values_are_integers(series, start_from, num_of_builds, offset):
             builds = yield coroutine_query(self.database.builds, series, start_from=start_from,
-                                                num_of_builds=num_of_builds, offset=offset)
+                                           num_of_builds=num_of_builds, offset=offset)
             self.write({'builds': builds})
-        else:
-            self.send_bad_request_response()
+        except InvalidArgumentError:
+            pass
 
 
 class BuildInfoDataHandler(BaseHandler):
@@ -716,7 +733,7 @@ class SuiteResultInfoDataHandler(BaseHandler):
         series_info = yield coroutine_query(self.database.test_series, series_id=series)
         build_info = yield coroutine_query(self.database.builds, series, build_number=build_number)
         suite_result_info = yield coroutine_query(self.database.suite_result_info, series, build_number,
-                                                       suite)
+                                                  suite)
         if series_info and build_info and suite_result_info:
             self.write({'series': series_info[0], 'build': build_info[0], 'suite': suite_result_info})
         else:
@@ -858,16 +875,215 @@ class HistoryDataHandler(BaseHandler):
                                                                 items:
                                                                     type: object
         """
-        start_from = self.get_argument('start_from', None)
-        num_of_builds = self.get_argument('builds', 10)
-        offset = self.get_argument('offset', 0)
-
-        if values_are_integers(series, start_from, num_of_builds, offset):
+        try:
+            start_from = self.get_int_argument('start_from', None)
+            num_of_builds = self.get_int_argument('builds', 10)
+            offset = self.get_int_argument('offset', 0)
             history, max_build_num = yield coroutine_query(self.database.history_page_data, series,
-                                                                start_from, num_of_builds, offset)
+                                                           start_from, num_of_builds, offset)
             self.write({'max_build_num': max_build_num, 'history': history})
-        else:
-            self.send_bad_request_response()
+        except InvalidArgumentError:
+            pass
+
+
+class MostStableTestsDataHandler(BaseHandler):
+    @tornado.gen.coroutine
+    def get(self, series):
+        """
+        ---
+        tags:
+        - Series data
+        summary: Resently stable or unstable test cases
+        description: List the most stable or unstable (failing) test cases based on resent history
+        produces:
+        - application/json
+        parameters:
+        -   name: series
+            in: path
+            description: series id
+            required: true
+            type: integer
+        -   name: start_from
+            in: query
+            description: build number, history starting from this build (defaults to last build in series)
+            required: false
+            type: integer
+            allowEmptyValue: true
+        -   name: builds
+            in: query
+            description: number of builds, i.e. length of the history
+            required: false
+            type: integer
+            default: 10
+        -   name: offset
+            in: query
+            description: offset for the number of builds moving further in history
+            required: false
+            type: integer
+            default: 0
+        -   name: limit
+            in: query
+            description: limit for the number of test cases listed
+            required: false
+            type: integer
+            default: 10
+        -   name: limit_offset
+            in: query
+            description: offset for the limit of number of test cases listed
+            required: false
+            type: integer
+            default: 0
+        -   name: most
+            in: query
+            description: either 'stable' or 'unstable'
+            required: false
+            type: string
+            default: stable
+        responses:
+            200:
+                description: Recently stable or unstable tests
+                schema:
+                    type: object
+                    properties:
+                        tests:
+                            type: array
+                            description: List of test cases in order. Either stable or unstable first
+                            items:
+                                type: object
+                                description: Test object with stability info
+                                properties:
+                                    test_id:
+                                        type: integer
+                                        description: id of the test case
+                                    test_name:
+                                        type: string
+                                        description: name of the test case
+                                    test_full_name:
+                                        type: string
+                                        description: full name of the test case
+                                    suite_id:
+                                        type: integer
+                                        description: id of the suite the test case belongs to
+                                    suite_name:
+                                        type: string
+                                        description: name of the suite the test case belongs to
+                                    suite_full_name:
+                                        type: string
+                                        description: full name of the suite the test case belongs to
+                                    fails_in_window:
+                                        type: integer
+                                        description: number of times the test case has failed in the history window
+                                    instability:
+                                        type: number
+                                        description: instabilty measure for the test case, the more fails the more recently the higher the value
+        """
+        try:
+            start_from = self.get_int_argument('start_from', None)
+            num_of_builds = self.get_int_argument('builds', 10)
+            offset = self.get_int_argument('offset', 0)
+            limit = self.get_int_argument('limit', 10)
+            limit_offset = self.get_int_argument('limit_offset', 0)
+            most = self.get_restricted_argument('most', ('stable', 'unstable'))
+            stable = most == 'stable'
+            tests = yield coroutine_query(self.database.most_stable_tests, series, start_from,
+                                          num_of_builds, offset, limit, limit_offset, stable)
+            self.write({'tests': tests})
+        except InvalidArgumentError:
+            pass
+
+
+class SeriesStatusCountsDataHandler(BaseHandler):
+    @tornado.gen.coroutine
+    def get(self, series):
+        """
+        ---
+        tags:
+        - Series data
+        summary: Get status counts for builds series
+        description: PASS-FAIL-SKIPPED counts for tests and suites per build
+        produces:
+        - application/json
+        parameters:
+        -   name: series
+            in: path
+            description: series id
+            required: true
+            type: integer
+        -   name: start_from
+            in: query
+            description: build number, history starting from this build (defaults to last build in series)
+            required: false
+            type: integer
+            allowEmptyValue: true
+        -   name: builds
+            in: query
+            description: number of builds, i.e. length of the history
+            required: false
+            type: integer
+            default: 10
+        -   name: offset
+            in: query
+            description: offset for the number of builds moving further in history
+            required: false
+            type: integer
+            default: 0
+        responses:
+            200:
+                description: Status counts for a given series
+                schema:
+                    type: object
+                    properties:
+                        status_counts:
+                            type: array
+                            description: List of status count objects for builds in descending order
+                            items:
+                                type: object
+                                description: Status count object
+                                properties:
+                                    build_number:
+                                        type: integer
+                                        description: number of the build
+                                    suites_total:
+                                        type: integer
+                                        description: total number of suites in the build
+                                    suites_passed:
+                                        type: integer
+                                        description: number of suites in the build where all tests passed
+                                    suites_failed:
+                                        type: integer
+                                        description: number of suites in the build where some test failed
+                                    suites_skipped:
+                                        type: integer
+                                        description: number of suites in the build where all tests were skipped
+                                    suites_other:
+                                        type: integer
+                                        description: number of suites in the build where test had status other than PASS, FAIL or SKIPPED
+                                    tests_total:
+                                        type: integer
+                                        description: total number of tests in the build
+                                    tests_passed:
+                                        type: integer
+                                        description: number of tests in the build that passed
+                                    tests_failed:
+                                        type: integer
+                                        description: number of tests in the build that failed
+                                    tests_skipped:
+                                        type: integer
+                                        description: number of tests in the build where that were skipped
+                                    tests_other:
+                                        type: integer
+                                        description: number of tests in the build that had status other than PASS, FAIL or SKIPPED
+        """
+        try:
+            start_from = self.get_int_argument('start_from', None)
+            num_of_builds = self.get_int_argument('builds', 10)
+            offset = self.get_int_argument('offset', 0)
+
+            status_counts = yield coroutine_query(self.database.status_counts, series, start_from,
+                                                  num_of_builds, offset)
+            self.write({'status_counts': status_counts})
+        except InvalidArgumentError:
+            pass
 
 
 class MetaDataHandler(BaseHandler):
@@ -916,11 +1132,8 @@ class MetaDataHandler(BaseHandler):
                                         type: integer
                                         description: Target test run id for given metadata.
         """
-        if values_are_integers(series, build_number):
-            metadata = yield coroutine_query(self.database.build_metadata, series, build_number)
-            self.write({'metadata': metadata})
-        else:
-            self.send_bad_request_response()
+        metadata = yield coroutine_query(self.database.build_metadata, series, build_number)
+        self.write({'metadata': metadata})
 
 
 class SuiteLogMessageDataHandler(BaseHandler):
@@ -1026,209 +1239,6 @@ class KeywordTreeDataHandler(BaseHandler):
             self.write(keyword_tree)
         else:
             self.send_not_found_response()
-
-
-class OldHistoryDataHandler(BaseHandler):
-    @tornado.gen.coroutine
-    def get(self):
-        """
-        ---
-        tags:
-        - History
-        summary: (DEPRICATED) Get series history data
-        description: (DEPRICATED) Data for building the test history table
-        produces:
-        - application/json
-        parameters:
-        -   name: series
-            in: query
-            description: series id
-            required: true
-            type: integer
-        -   name: start_from
-            in: query
-            description: build number, history starting from this build (defaults to last build in series)
-            required: false
-            type: integer
-            allowEmptyValue: true
-        -   name: builds
-            in: query
-            description: number of builds, i.e. length of the history
-            required: false
-            type: integer
-            default: 10
-        -   name: offset for the number of builds moving further in history
-            in: query
-            description: offset
-            required: false
-            type: integer
-            default: 0
-        responses:
-            200:
-              description: History for a given series
-              schema:
-                    type: object
-                    properties:
-                        max_build_num:
-                            type: integer
-                            description: Largest build number in resulted history query
-                        history:
-                            type: array
-                            description: Set of suites with results
-                            items:
-                                type: object
-                                properties:
-                                    id:
-                                        type: integer
-                                        description: Suite id.
-                                    name:
-                                        type: string
-                                        description: Suite name.
-                                    full_name:
-                                        type: string
-                                        description: Suite identifying full name.
-                                    repository:
-                                        type: string
-                                        description: Repository that this suite belongs to.
-                                    suite:
-                                        type: string
-                                        description: Alias for name (TO BE DEPRICATED)
-                                    suite_full_name:
-                                        type: string
-                                        description: Alias for full_name (TO BE DEPRICATED)
-                                    suite_id:
-                                        type: integer
-                                        description: Alias for id (TO BE DEPRICATED)
-                                    test_cases:
-                                        type: array
-                                        description: Array of test cases and their build history
-                                        items:
-                                            type: object
-                                            properties:
-                                                test_id:
-                                                    type: integer
-                                                    description: Test case id.
-                                                name:
-                                                    type: string
-                                                    description: Test case name.
-                                                full_name:
-                                                    type: string
-                                                    description: Test case identifying full name.
-                                                test_case:
-                                                    type: string
-                                                    description: Alias for name (TO BE DEPRICATED)
-                                                builds:
-                                                    type: array
-                                                    description: list of test result objects in descending order
-                                                    items:
-                                                        type: object
-                                                        properties:
-                                                            build_number:
-                                                                type: integer
-                                                                description: Build number for the result.
-                                                            elapsed:
-                                                                type: integer
-                                                                description: Running time for the test case in millis.
-                                                            test_run_time:
-                                                                type: integer
-                                                                description: Alias for elapsed (TO BE DEPRICATED)
-                                                            test_run_id:
-                                                                type: integer
-                                                                description: Id of the actual test run this result belongs to.
-                                                            status:
-                                                                type: string
-                                                                description: Final status of the the test execution
-                                                            start_time:
-                                                                type: string
-                                                                format: date-time
-                                                                description: Timestamp for the test execution start
-                                                            failure_log_level:
-                                                                type: string
-                                                                description: Log level for the representative error message
-                                                            failure_message:
-                                                                type: string
-                                                                description: The representative error message
-                                                            failure_timestamp:
-                                                                type: string
-                                                                format: date-time
-                                                                description: Timestamp for the representative error message
-                                                            tags:
-                                                                type: array
-                                                                description: List of test tags associated with this test and its execution
-                                                                items:
-                                                                    type: string
-                                                            messages:
-                                                                type: array
-                                                                description: List of log message objects most likely to show the failure
-                                                                items:
-                                                                    type: object
-        """
-        test_series = self.get_argument('series', '')
-        start_from = self.get_argument('start_from', None)
-        num_of_builds = self.get_argument('builds', 10)
-        offset = self.get_argument('offset', 0)
-
-        if values_are_integers(test_series, start_from, num_of_builds, offset):
-            history, max_build_num = yield coroutine_query(self.database.history_page_data, test_series,
-                                                                start_from, num_of_builds, offset)
-            self.write({'max_build_num': max_build_num, 'history': history})
-        else:
-            self.send_bad_request_response()
-
-
-class OldMetaDataHandler(BaseHandler):
-    @tornado.gen.coroutine
-    def get(self):
-        """
-        ---
-        tags:
-        - Metadata
-        summary: (DEPRICATED) Get metadata for a specific build in a series
-        description: (DEPRICATED) metadata handler
-        produces:
-        - application/json
-        parameters:
-        -   name: series
-            in: query
-            description: series id
-            required: true
-            type: integer
-        -   name: build_number
-            in: query
-            description: build number
-            required: true
-            type: integer
-        responses:
-            200:
-                description: Array of metadata for a given build in a series
-                schema:
-                    type: object
-                    properties:
-                        metadata:
-                            type: array
-                            items:
-                                type: object
-                                properties:
-                                    metadata_name:
-                                        type: string
-                                        description: Metadata name.
-                                    metadata_value:
-                                        type: string
-                                        description: Metadata value.
-                                    suite_id:
-                                        type: integer
-                                        description: Target suite id for given metadata. Often links to root suite.
-                                    test_run_id:
-                                        type: integer
-                                        description: Target test run id for given metadata.
-        """
-        series = self.get_argument('series', '')
-        build_number = self.get_argument('build_number', None)
-        if values_are_integers(series, build_number):
-            metadata = yield coroutine_query(self.database.build_metadata, series, build_number)
-            self.write({'metadata': metadata})
-        else:
-            self.send_bad_request_response()
 
 
 class FooDataHandler(BaseHandler):

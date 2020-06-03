@@ -10,29 +10,21 @@ const Checkbox = () => {
         display: flex;
         flex-direction: column;
         padding: 20px 40px 20px 0px;
-        // label {
-        //   margin-right: 20px;
-        //   display: block;
-        //   float: left;
-        //   input {
-        //     margin-left: 8px;
-        //     position: relative;
-        //     top: -2.5px;
-        //     display: inline-block;
-        //     transform: scale(1.2);
-        //   }
-        // }
         input {
             border: 1px solid #eee;
             border-radius: 10px;
             background-color: white;
             padding: 5px;
             margin: 5px;
+            cursor: pointer;
         }
         .selected {
             background-color: transparent;
             border: 2px solid #243b53;
             color: #243b53;
+        }
+        h3 {
+            padding-left: 7px;
         }
     `;
     const history = useHistory();
@@ -49,15 +41,7 @@ const Checkbox = () => {
         return queryParams.toString();
     };
 
-    const handlePassFilterChange = e => {
-        history.push({
-            pathname: `${location.pathname}`,
-            search: `?${updateTags(e.target.value)}`,
-            state: {}
-        });
-    };
-
-    const handleFailFilterChange = e => {
+    const handleFilterChange = e => {
         history.push({
             pathname: `${location.pathname}`,
             search: `?${updateTags(e.target.value)}`,
@@ -67,7 +51,7 @@ const Checkbox = () => {
 
     return (
         <div id="history-checkbox-container" css={filterStyles}>
-            <h4>Hide tests</h4>
+            <h3>Hide tests</h3>
             <input
                 type="button"
                 value={'Passing'}
@@ -76,7 +60,7 @@ const Checkbox = () => {
                         ? 'selected'
                         : ' '
                 }
-                onClick={e => handlePassFilterChange(e)}
+                onClick={e => handleFilterChange(e)}
             />
             <input
                 type="button"
@@ -84,9 +68,9 @@ const Checkbox = () => {
                 className={
                     queryParams.getAll('tag').includes('Failing') === true
                         ? 'selected'
-                        : 'disabled'
+                        : ''
                 }
-                onClick={e => handleFailFilterChange(e)}
+                onClick={e => handleFilterChange(e)}
             />
         </div>
     );

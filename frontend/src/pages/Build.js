@@ -5,53 +5,32 @@ import LastRunCheckBox from '../components/LastRunCheckbox';
 import { useStateValue } from '../contexts/state';
 import MetadataTable from '../components/lastRunTable/MetadataTable';
 import { useParams } from 'react-router';
-import { css } from '@emotion/core';
+/** @jsx jsx */
+import { css, jsx } from '@emotion/core';
 import BreadcrumbNav from '../components/BreadcrumbNav';
+import ParentBuild from '../components/parentData/ParentBuild';
+import Loading from '../components/Loading';
 
 const Build = () => {
-    const filterStyles = css`
+    const buildStyles = css`
         position: relative;
         margin-top: 10px;
-        .filter-container {
+        .filter-container,
+        .parentInfo-container {
             display: flex;
         }
-        .loading-state {
-            height: 30px;
-            line-height: 30px;
-            padding: 0;
-            &:after {
-                margin: 0;
-                padding: 0;
-                line-height: 30px;
-                font-size: 1rem;
-                content: '...';
-                vertical-align: bottom;
-                display: inline-block;
-                width: 0px;
-                height: 30px;
-                animation-name: lastrun-loader;
-                animation-duration: 1.5s;
-                animation-iteration-count: infinite;
-                overflow: hidden;
-            }
-            @keyframes lastrun-loader {
-                from {
-                    width: 0;
-                }
-                to {
-                    width: 140px;
-                }
-            }
+
+        .parentInfo-container {
+            padding: 20px 0;
         }
     `;
     const [
         { loadingState, historyDataState, selectedBranchState, branchesState },
         dispatch
     ] = useStateValue();
-    let { buildId } = useParams();
-    //console.log(options.series);
-    let { id } = useParams();
-    const branch_id = id || selectedBranchState;
+    let { buildId, seriesId } = useParams();
+
+    const branch_id = seriesId || selectedBranchState;
 
     useEffect(() => {
         const fetchData = async () => {
@@ -59,7 +38,7 @@ const Build = () => {
             if (branch_id && buildId) {
                 try {
                     const res = await fetch(
-                        `/data/metadata?series=${branch_id}&build_number=${buildId}`,
+                        `/data/series/${branch_id}/builds/${buildId}/metadata`,
                         {}
                     );
                     const json = await res.json();
@@ -88,8 +67,7 @@ const Build = () => {
                 dispatch({ type: 'setSelectedBuild', selectedBuild: buildId });
                 try {
                     const res = await fetch(
-                        ///`/data/history?series=${id}&builds=30`,
-                        `/data/history?start_from=${buildId}&series=${branch_id}&builds=5`,
+                        `/data/series/${branch_id}/history?start_from=${buildId}&builds=5`,
                         {}
                     );
                     const json = await res.json();
@@ -98,18 +76,19 @@ const Build = () => {
                         type: 'updateHistory',
                         historyData: json
                     });
-                } catch (error) {}
+                } catch (error) {
+                    dispatch({ type: 'setErrorState', errorState: error });
+                }
             }
         };
         if (branchesState) {
             fetchHistoryData();
             fetchData();
         }
-
     }, [dispatch, branch_id, buildId, branchesState]);
 
     return (
-        <main id="last-run" css={filterStyles}>
+        <main id="last-run" css={buildStyles}>
             <div className="last-run-container"></div>
             {!historyDataState || loadingState ? (
                 <div
@@ -119,7 +98,7 @@ const Build = () => {
                     aria-label="Loading"
                     aria-relevant="all"
                 >
-                    Loading
+                    <Loading />
                 </div>
             ) : (
                 <Fragment>
@@ -133,6 +112,9 @@ const Build = () => {
                         Content loaded.
                     </div>
                     <BreadcrumbNav status={'build'} />
+                    <div className="parentInfo-container">
+                        <ParentBuild />
+                    </div>
                     <MetadataTable buildId={buildId} />
                     <LastRunCheckBox />
                     <Table id={branch_id} />
