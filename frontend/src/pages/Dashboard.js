@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import BreadcrumbNav from '../components/BreadcrumbNav';
 import { VegaLite } from 'react-vega';
@@ -9,6 +9,7 @@ const Dashboard = () => {
     const seriesId = 8;
     const numberOfBuilds = 10;
 
+    const [selectedSuite, setSelectedSuite] = useState(null);
     const [{ historyDataState, loadingState }, dispatch] = useStateValue();
 
     useEffect(() => {
@@ -21,7 +22,7 @@ const Dashboard = () => {
                 const json = await response.json();
                 dispatch({
                     type: 'updateHistory',
-                    historyData: json
+                    historyData: json,
                 });
                 dispatch({ type: 'setLoadingState', loadingState: false });
             } catch (error) {
@@ -35,44 +36,80 @@ const Dashboard = () => {
 
     const correctStatus = () => (buildId ? 'build' : 'series');
 
-    const spec = {
+    const barSpec = {
+        title: 'Suites with unstable tests',
         width: 400,
         height: 200,
-        mark: 'bar',
-        background: '#e9e8e8', // TODO: from variable
+        mark: {
+            type: 'bar',
+            stroke: '#141312', // TODO: from variable: --revolution-black
+        },
+        background: '#e9e8e8', // TODO: from variable: --mithril-grey
         actions: false,
+        selection: {
+            highlight: { type: 'single', empty: 'none', on: 'mouseover' },
+            select: {
+                type: 'single',
+                fields: ['id'],
+                encodings: ['x'],
+            },
+        },
         encoding: {
             x: {
-                field: 'a',
+                field: 'name',
                 type: 'ordinal',
                 sort: '-y',
-                axis: { title: 'Suite name' }
+                axis: { title: 'Suite name' },
             },
             y: {
-                field: 'b',
+                field: 'numberOfFailingTests',
                 type: 'quantitative',
-                axis: { title: 'Number of failing tests' }
+                axis: { title: 'Number of failing tests' },
+            },
+            tooltip: [
+                {
+                    field: 'stability',
+                    type: 'quantitative',
+                    title: 'Stability',
+                },
+            ],
+            fillOpacity: {
+                condition: {
+                    selection: 'select',
+                    value: 1,
+                },
+                value: 0.3,
+            },
+            strokeWidth: {
+                condition: [
+                    {
+                        selection: 'highlight',
+                        value: 1,
+                    },
+                    {
+                        test: {
+                            and: [
+                                {
+                                    selection: 'select',
+                                },
+                                "length(data('select_store'))",
+                            ],
+                        },
+                    },
+                ],
+                value: 0,
             },
             color: {
-                field: 'c',
+                field: 'stability',
                 type: 'quantitative',
                 sort: 'descending',
-                axis: { title: 'Stability (average)' }
+                axis: { title: 'Stability (average)' },
+                legend: {
+                    direction: 'horizontal',
+                },
             },
-            tooltip: { field: 'c', type: 'quantitative' }
         },
-        data: { name: 'table' }
-        // signals: [
-        //     {
-        //         name: 'tooltip',
-        //         value: {},
-        //         on: [
-        //             { events: 'rect:mouseover', update: 'datum' },
-        //             { events: 'rect:mouseout', update: {} }
-        //         ]
-        //     }
-        // ]
-        // Did not have time to figure this out yet
+        data: { name: 'failingSuites' },
     };
 
     const calculateTestStability = test => {
@@ -113,13 +150,14 @@ const Dashboard = () => {
 
             if (failingTests.length) {
                 suites.push({
+                    id: suite['suite_id'],
                     name: suite['name'],
-                    failingTests: failingTests
+                    failingTests: failingTests,
                 });
             }
         });
 
-        const table = suites.map(suite => {
+        const failingSuites = suites.map(suite => {
             const stability =
                 suite.failingTests.reduce(
                     (acc, test) => acc + test.stability,
@@ -127,27 +165,98 @@ const Dashboard = () => {
                 ) / suite.failingTests.length;
 
             return {
-                a: suite.name,
-                b: suite.failingTests.length,
-                c: stability
+                name: suite.name,
+                numberOfFailingTests: suite.failingTests.length,
+                stability: stability,
+                id: suite.id,
             };
         });
 
-        return {
-            table: table
-        };
+        return { failingSuites };
     };
 
     if (!historyDataState || loadingState) {
         return <Loading />;
     }
 
+    const selectSuite = id => {
+        const suite = historyDataState['history'].find(
+            suite => suite['suite_id'] === id
+        );
+
+        if (suite) {
+            setSelectedSuite(suite);
+        }
+    };
+
+    const deselectSuite = () => setSelectedSuite(null);
+
+    const handleBarChartClick = (_name, values) => {
+        if (values.id) {
+            selectSuite(values.id[0]);
+        } else {
+            deselectSuite();
+        }
+    };
+
+    const signalListeners = { select: handleBarChartClick };
+
     const barData = generateBarData(historyDataState);
+
+    const buildsInTotal = Math.min(
+        historyDataState['max_build_num'],
+        numberOfBuilds
+    );
+
+    const generateStatusRow = testCase => {
+        let statuses = [];
+
+        for (let i = 0; i < buildsInTotal; i++) {
+            const testStatus = testCase['builds'].find(build => {
+                return build['build_number'] === i + 1;
+            });
+
+            if (testStatus) {
+                if (testStatus['status'] === 'PASS') {
+                    statuses.push('x');
+                } else if (testStatus['status'] === 'FAIL') {
+                    statuses.push('o');
+                }
+            } else {
+                // Impute
+                statuses.push('_');
+            }
+        }
+
+        return statuses;
+    };
 
     return (
         <>
             <BreadcrumbNav status={correctStatus()} />
-            <VegaLite spec={spec} data={barData} />
+            <VegaLite
+                spec={barSpec}
+                data={barData}
+                signalListeners={signalListeners}
+            />
+            {selectedSuite && (
+                <table>
+                    <thead>
+                        <tr>
+                            <th>{selectedSuite.name}</th>
+                            <th>Test history</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {selectedSuite['test_cases'].map(testCase => (
+                            <tr key={testCase['test_id']}>
+                                <td>{testCase.name}</td>
+                                <td>{generateStatusRow(testCase)}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            )}
         </>
     );
 };
