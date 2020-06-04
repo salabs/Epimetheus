@@ -6,11 +6,15 @@ import { useStateValue } from '../contexts/state';
 import Loading from '../components/Loading';
 
 const Dashboard = () => {
-    const seriesId = 8;
-    const numberOfBuilds = 10;
-
     const [selectedSuite, setSelectedSuite] = useState(null);
-    const [{ historyDataState, loadingState }, dispatch] = useStateValue();
+    const [
+        { amountOfBuilds, historyDataState, loadingState },
+        dispatch,
+    ] = useStateValue();
+
+    const { seriesId } = useParams();
+
+    const numberOfBuilds = amountOfBuilds || 30; // FIXME: magic
 
     useEffect(() => {
         const url = `/data/series/${seriesId}/history?builds=${numberOfBuilds}`;
@@ -30,7 +34,7 @@ const Dashboard = () => {
             }
         };
         fetchData();
-    }, [dispatch]);
+    }, [dispatch, numberOfBuilds, seriesId]);
 
     const { buildId } = useParams();
 
