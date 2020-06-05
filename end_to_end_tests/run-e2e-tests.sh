@@ -2,7 +2,7 @@
 
 
 
-if [ ! -z ${CI_PIPELINE_ID} ]; then 
+if [ ! -z "${CI_PIPELINE_ID}" ]; then 
 
 python -m robot --outputdir ./logs/ \
                 --variablefile variables.py \
@@ -31,7 +31,7 @@ echo " Archiving Backend reports from ./logs -directory"
 echo "---------------------------------------------"
 find ./logs -name \*.xml -type f -print0 | xargs -0 -n1 testarchiver --dbengine postgresql --database "$DATABASE" --host "$HOST" \
                                             --user "$USER" --pw "$PASSWORD"  \
-                                            --team Epimetheus --series ci_backend#${CI_RUN_NUMBER} --format robotframework
+                                            --team Epimetheus --series ci_backend#"${CI_RUN_NUMBER}" --format robotframework
 
 python -m robot --outputdir ./logs/ \
                 --variablefile variables.py \
@@ -57,7 +57,7 @@ echo " Archiving Frontend Page reports from ./logs -directory"
 echo "---------------------------------------------"
 find ./logs -name \*.xml -type f -print0 | xargs -0 -n1 testarchiver --dbengine postgresql --database "$DATABASE" --host "$HOST" \
                                             --user "$USER" --pw "$PASSWORD"  \
-                                            --team Epimetheus --series ci_frontend#${CI_RUN_NUMBER} --format robotframework
+                                            --team Epimetheus --series ci_frontend#"${CI_RUN_NUMBER}" --format robotframework
 
 EXITVAL=$((FRONTEND+BACKEND))
 
@@ -80,7 +80,7 @@ echo " Archiving Backend reports from ./logs -directory"
 echo "---------------------------------------------"
 find ./logs -name \*.xml -type f -print0 | xargs -0 -n1 testarchiver --dbengine postgresql --database "$DATABASE" --host "$HOST" \
                                             --user "$USER" --pw "$PASSWORD"  \
-                                            --team Epimetheus --series ci_backend#${pipelineid} --format robotframework
+                                            --team Epimetheus --series ci_backend --format robotframework
 
 
 
@@ -97,7 +97,7 @@ echo " Archiving Frontend Page reports from ./logs -directory"
 echo "---------------------------------------------"
 find ./logs -name \*.xml -type f -print0 | xargs -0 -n1 testarchiver --dbengine postgresql --database "$DATABASE" --host "$HOST" \
                                             --user "$USER" --pw "$PASSWORD"  \
-                                            --team Epimetheus --series ci_frontend#${pipelineid} --format robotframework
+                                            --team Epimetheus --series ci_frontend --format robotframework
 
 EXITVAL=$((FRONTEND+BACKEND))
 

@@ -18,7 +18,7 @@ team_url = URL+'team/'
 nav_id = 'main-nav'
 if 'CI_PIPELINE_ID' in os.environ:
     remote_url= 'epimetheus_seleniumgrid_1:4444/wd/hub'
-else:   
+else:
     remote_url=''
 dir_path = os.path.dirname(os.path.realpath(__file__))
 if 'CI_PIPELINE_ID' in os.environ:
