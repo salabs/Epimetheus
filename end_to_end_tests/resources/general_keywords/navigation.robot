@@ -20,7 +20,6 @@ Open Series Page of Team
   ${url} =   Catenate  SEPARATOR=    ${team_url}    ${team}    
   Go To   ${url}
 
-
 Open a build
   [Arguments]  ${series}  ${build}
   ${str}=   Catenate  SEPARATOR=  ${url}  series/    ${series}    /build/    ${build}    /history
