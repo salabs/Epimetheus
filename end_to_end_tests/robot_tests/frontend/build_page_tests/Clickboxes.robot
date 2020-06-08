@@ -1,5 +1,5 @@
 ***Settings***
-Resource                ../../resources/resource.robot
+Resource                ../../../resources/resource.robot
 
 *** Test Cases ***
 
@@ -16,11 +16,6 @@ Test CheckBoxes
 
 *** Keywords ***
 
-
-Open a build
-  [Arguments]  ${series}  ${build}
-  ${str}=   Catenate  SEPARATOR=  ${url}  series/    ${series}    /build/    ${build}    /history
-  Go To  ${str}
 
 Hide Tests
   [Arguments]   ${status}

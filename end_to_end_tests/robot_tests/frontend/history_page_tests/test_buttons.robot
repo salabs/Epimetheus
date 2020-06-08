@@ -1,10 +1,11 @@
 ***Settings***
-Resource                ../../resources/resource.robot
+
+Resource                            ../../../resources/resource.robot
 
 *** Test Cases ***
 
 Test Buttons
-  Browser is on a history page of series    3
+  Open history page of series    3
   Check history buttons
   Click Button		5
   Table should be limited to    number=5
@@ -13,9 +14,7 @@ Test Buttons
   Click Button		100
   Table should be limited to    number=100
 
-
 *** Keywords ***
-
 
 Browser is on a history page of series
   [Arguments]    ${series}
