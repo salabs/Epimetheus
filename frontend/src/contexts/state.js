@@ -10,11 +10,11 @@ const initialState = {
     amountFilteredData: null,
     lastRunFilterFail: {
         isChecked: false,
-        filterType: ''
+        filterType: '',
     },
     lastRunFilterPass: {
         isChecked: false,
-        filterType: ''
+        filterType: '',
     },
     branchesState: null,
     selectedBranchState: { name: 'All builds', id: 1 },
@@ -22,8 +22,9 @@ const initialState = {
     selectedBuildState: {},
     parentData: {
         seriesData: null,
-        buildData: null
-    }
+        buildData: null,
+    },
+    statusCount: null,
 };
 
 export const StateProvider = ({ reducer, children }) => {
