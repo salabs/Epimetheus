@@ -5,12 +5,12 @@ export const buildTypes = [
     'build_number',
     'build_id',
     'status',
-    'start_time'
+    'start_time',
 ];
 export const suiteTypes = [
     'team',
     'name',
     'build_number',
     'build_id',
-    'start_time'
+    'start_time',
 ];

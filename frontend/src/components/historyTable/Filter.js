@@ -27,8 +27,8 @@ const Filter = () => {
         }
         .selected {
             background-color: transparent;
-            border: 2px solid var(--revolution-black);
-            color: var(--revolution-black);
+            border: 2px solid var(--gradient-black);
+            color: var(--gradient-black);
         }
         .button-group {
             display: flex;
@@ -38,7 +38,7 @@ const Filter = () => {
             border: 1px solid #eee;
             width: 100px;
             border-radius: 10px;
-            background-color: var(--powder-white);
+            background-color: var(--nero-white);
             padding: 5px;
             margin: 5px;
             cursor: pointer;
@@ -76,7 +76,7 @@ const FilterButton = ({ title }) => {
         history.push({
             pathname: `${location.pathname}`,
             search: `?${updateTags(e.target.value)}`,
-            state: {}
+            state: {},
         });
     };
 

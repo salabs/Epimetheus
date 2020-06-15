@@ -1,9 +1,11 @@
 ﻿import React, { useEffect } from 'react';
 import Chart from 'react-apexcharts';
 import { useParams } from 'react-router';
+import { pluck } from 'ramda';
 import { useStateValue } from '../../contexts/state';
+import { colorTypes } from '../../utils/colorTypes';
 
-const StatusCount = () => {
+const StatusCount = ({ labels }) => {
     const { seriesId, buildId } = useParams();
 
     const [{ statusCount }, dispatch] = useStateValue();
@@ -26,19 +28,18 @@ const StatusCount = () => {
         fetchData();
     }, [buildId, dispatch, seriesId]);
 
-    // const data =
+    const data =
+        statusCount && labels.map(label => pluck(label, statusCount)).flat();
 
-    const series = [44, 55, 41, 17, 15];
+    const series = data;
     const options = {
-        // chart: {
-        //     type: 'donut',
-        // },
-        // responsive: [
-        //     {
-        //         breakpoint: 480,
-        //         options: {},
-        //     },
-        // ],
+        labels: labels,
+        colors: [
+            colorTypes['semolina red'],
+            colorTypes['pirlo blue'],
+            colorTypes['titan green'],
+            colorTypes['kumpula yellow'],
+        ],
         plotOptions: {
             pie: {
                 expandOnClick: true,
@@ -55,13 +56,17 @@ const StatusCount = () => {
                 },
             },
         },
-        // dataLabels: {
-        //     enabled: true,
-        // },
     };
     return (
         <div>
-            <Chart options={options} series={series} type="donut" width="380" />
+            {statusCount && (
+                <Chart
+                    options={options}
+                    series={series}
+                    type="donut"
+                    width="380"
+                />
+            )}
         </div>
     );
 };

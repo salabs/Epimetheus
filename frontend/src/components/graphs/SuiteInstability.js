@@ -1,11 +1,11 @@
 ﻿import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-import BreadcrumbNav from '../../components/BreadcrumbNav';
+import BreadcrumbNav from '../BreadcrumbNav';
 import { VegaLite } from 'react-vega';
 import { useStateValue } from '../../contexts/state';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
-import Loading from '../../components/Loading';
+import Loading from '../Loading';
 
 const SuiteInstability = () => {
     const canvasStyles = css`
@@ -56,7 +56,7 @@ const SuiteInstability = () => {
             type: 'bar',
             stroke: '#141312', // TODO: from variable: --revolution-black
         },
-        background: '#e9e8e8', // TODO: from variable: --mithril-grey
+        background: '#e9e8e8', // TODO: from variable: --hermanni-grey
         actions: false,
         selection: {
             highlight: { type: 'single', empty: 'none', on: 'mouseover' },

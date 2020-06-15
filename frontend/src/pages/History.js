@@ -37,9 +37,9 @@ const History = () => {
             historyDataState,
             selectedBranchState,
             amountOfBuilds,
-            branchesState
+            branchesState,
         },
-        dispatch
+        dispatch,
     ] = useStateValue();
     const { seriesId } = useParams();
     const queryParams = useQueryParams();
@@ -57,20 +57,20 @@ const History = () => {
                 dispatch({ type: 'setLoadingState', loadingState: true });
                 dispatch({
                     type: 'setAmountOfBuilds',
-                    amountOfBuilds: number_of_builds
+                    amountOfBuilds: number_of_builds,
                 });
                 dispatch({
                     type: 'setSelectedBranch',
                     name: branch?.name || ' ',
                     id: series_id,
-                    team: branch?.team || ' '
+                    team: branch?.team || ' ',
                 });
                 try {
                     const res = await fetch(url, {});
                     const json = await res.json();
                     dispatch({
                         type: 'updateHistory',
-                        historyData: json
+                        historyData: json,
                     });
                     dispatch({ type: 'setLoadingState', loadingState: false });
                 } catch (error) {

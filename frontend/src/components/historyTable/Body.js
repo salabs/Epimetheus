@@ -7,8 +7,8 @@ const Body = () => {
     const [
         {
             historyDataState: { history },
-            amountOfBuilds
-        }
+            amountOfBuilds,
+        },
     ] = useStateValue();
     const queryParams = useQueryParams();
 
