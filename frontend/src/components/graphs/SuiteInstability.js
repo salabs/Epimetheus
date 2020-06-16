@@ -104,7 +104,7 @@ const SuiteInstability = () => {
                                 {
                                     selection: 'select',
                                 },
-                                "length(data('select_store'))",
+                                'length(data("select_store"))',
                             ],
                         },
                     },
