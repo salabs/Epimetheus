@@ -1,11 +1,11 @@
 ﻿import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-import BreadcrumbNav from '../BreadcrumbNav';
 import { VegaLite } from 'react-vega';
 import { useStateValue } from '../../contexts/state';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
 import Loading from '../Loading';
+import { colorTypes } from '../../utils/colorTypes';
 
 const SuiteInstability = () => {
     const canvasStyles = css`
@@ -54,9 +54,9 @@ const SuiteInstability = () => {
         height: 200,
         mark: {
             type: 'bar',
-            stroke: '#141312', // TODO: from variable: --revolution-black
+            stroke: colorTypes['gradient black'],
         },
-        background: '#e9e8e8', // TODO: from variable: --hermanni-grey
+        background: colorTypes['hermanni grey'],
         actions: false,
         selection: {
             highlight: { type: 'single', empty: 'none', on: 'mouseover' },
@@ -164,7 +164,7 @@ const SuiteInstability = () => {
                 suites.push({
                     id: suite['suite_id'],
                     name: suite['name'],
-                    failingTests: failingTests,
+                    failingTests,
                 });
             }
         });
@@ -179,7 +179,7 @@ const SuiteInstability = () => {
             return {
                 name: suite.name,
                 numberOfFailingTests: suite.failingTests.length,
-                stability: stability,
+                stability,
                 id: suite.id,
             };
         });
@@ -245,7 +245,6 @@ const SuiteInstability = () => {
 
     return (
         <React.Fragment>
-            <BreadcrumbNav status={correctStatus()} />
             <VegaLite
                 spec={barSpec}
                 data={barData}

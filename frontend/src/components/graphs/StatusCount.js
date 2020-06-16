@@ -33,7 +33,7 @@ const StatusCount = ({ labels }) => {
 
     const series = data;
     const options = {
-        labels: labels,
+        labels,
         colors: [
             colorTypes['semolina red'],
             colorTypes['pirlo blue'],

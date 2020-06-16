@@ -28,9 +28,9 @@ const Dashboard = () => {
                 <div className="pieContainer">
                     <StatusCount labels={suiteLabels} />{' '}
                     <StatusCount labels={testLabels} />
-                    {/* <SuiteInstability /> */}
                 </div>
             )}
+            <SuiteInstability />
         </main>
     );
 };
