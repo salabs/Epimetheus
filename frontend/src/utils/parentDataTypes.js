@@ -6,3 +6,11 @@
     'status',
     'start_time',
 ];
+
+export const compareTypes = [
+    'team2',
+    'name2',
+    'build_number2',
+    'build_id2',
+    'start_time2'
+]

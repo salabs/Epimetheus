@@ -1,5 +1,12 @@
 const reducer = (state, action) => {
     switch (action.type) {
+
+        case 'updateCompared':
+            return{
+                ...state,
+                comparedDataState: action.compareData
+            }
+
         case 'updateHistory':
             return {
                 ...state,
@@ -65,7 +72,22 @@ const reducer = (state, action) => {
                     isChecked: action.isChecked,
                 },
             };
-
+        case 'setCompareMatchFilter':
+            return {
+                ...state,
+                compareFilterMatch: {
+                    filterType: action.filterType,
+                    isChecked: action.isChecked
+                }
+            }
+        case 'setCompareMismatchFilter':
+            return {
+                ...state,
+                compareFilterMismatch: {
+                    filterType: action.filterType,
+                    isChecked: action.isChecked
+                }
+            }
         case 'setBranches':
             return {
                 ...state,
