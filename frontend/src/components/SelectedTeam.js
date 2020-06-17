@@ -71,15 +71,15 @@ const SelectedTeam = ({ selectedTeam }) => {
 
         const LastStarted = last_started.slice(0, 16);
         const testStatusIcon = pickIcon(last_status);
-
         return (
-            <div css={cardStyles}>
+            <div id={name+"_card"} css={cardStyles}>
                 <div>
                     <h3>{name}</h3>
                 </div>
                 <div className="card">
                     <div
                         className="series"
+                        id={name + "_series"}
                         onClick={() => history.push(`/series/${id}/history`)}
                         role={'presentation'}
                     >
@@ -91,6 +91,7 @@ const SelectedTeam = ({ selectedTeam }) => {
                     </div>
                     <div
                         className="builds"
+                        id={name + "_builds"}
                         onClick={() =>
                             history.push(
                                 `/series/${id}/build/${last_build}/history`
@@ -125,7 +126,7 @@ const SelectedTeam = ({ selectedTeam }) => {
         <main id="selectedTeam" css={theme.loadingState}>
             <BreadcrumbNav status={'team'} />
             {selectedTeam && selectedTeam.all_builds ? (
-                <div style={flexContainer}>
+                <div style={flexContainer} id= "series_card_container">
                     <TeamCard data={selectedTeam.all_builds} />
                     {selectedTeam.series.reverse().map((serie, i) => {
                         return <TeamCard key={i} data={serie} />;

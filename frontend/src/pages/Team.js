@@ -45,7 +45,7 @@ const Team = () => {
                     )}
                 />
             ) : (
-                <div css={TeamContainer}>
+                <div css={TeamContainer} id="team_container">
                     <h2>{t('title')}</h2>
                     {teamsState.map(({ name, series_count }, i) => {
                         return (

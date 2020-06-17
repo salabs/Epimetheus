@@ -34,6 +34,7 @@ const Card = ({ team, numberOfSeries }) => {
             css={Mongolia}
             onClick={() => history.push(`/team/${team}`)}
             role={'presentation'}
+            id={team + "_card"}
         >
             <h3>{team}</h3>
             <div>
