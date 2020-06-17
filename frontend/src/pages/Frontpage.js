@@ -4,6 +4,9 @@ import React from 'react';
 import { css, jsx } from '@emotion/core';
 import { useTranslation } from 'react-i18next';
 
+
+const sha = process.env.REACT_APP_GITHUB_SHA
+
 const Frontpage = () => {
     const frontpageStyles = css`
         max-width: 800px;
@@ -79,6 +82,10 @@ const Frontpage = () => {
                     {t('section.licence.link_text')}
                 </a>
                 .
+            </p>
+            <h4>{"Git Version"}</h4>
+            <p>
+                Built From Git Commit: {sha} 
             </p>
         </main>
     );

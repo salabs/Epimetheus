@@ -13,6 +13,7 @@ import Build from './pages/Build';
 import Frontpage from './pages/Frontpage';
 import Team from './pages/Team';
 import Suite from './pages/Suite';
+import Comparison from './pages/Comparison'
 import { useStateValue } from './contexts/state';
 import './utils/i118n';
 
@@ -119,6 +120,9 @@ const App = () => {
                                 </Route>
                                 <Route path="/team/:name">
                                     <Team />
+                                </Route>
+                                <Route path="/compare/:seriesId/:buildId/to/:seriesId2/:buildId2">
+                                    <Comparison />
                                 </Route>
                                 <Route path="/">
                                     <Frontpage />

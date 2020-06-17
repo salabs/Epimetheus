@@ -12,6 +12,7 @@ const Card = ({ team, numberOfSeries }) => {
             style={theme.flexItem}
             onClick={() => history.push(`/team/${team}`)}
             role={'presentation'}
+            id={team + "_card"}
         >
             <h3>{team}</h3>
             <div>
