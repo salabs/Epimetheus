@@ -109,10 +109,16 @@ const MainNav = () => {
                     </NavLink>
                 </li>
                 <li>
+                    <NavLink activeClassName="active" to="/compare">
+                        {t('compare')}
+                    </NavLink>
+                </li>
+                <li>
                     <NavLink activeClassName="active" to="/team">
                         {t('team')}
                     </NavLink>
                 </li>
+                
                 {seriesUrl && (
                     <div>
                         <li className="sub-url">

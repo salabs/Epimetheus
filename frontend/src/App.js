@@ -14,6 +14,7 @@ import Frontpage from './pages/Frontpage';
 import Team from './pages/Team';
 import Suite from './pages/Suite';
 import Comparison from './pages/Comparison'
+import Search from './pages/Search'
 import { useStateValue } from './contexts/state';
 import './utils/i118n';
 
@@ -124,9 +125,16 @@ const App = () => {
                                 <Route path="/compare/:seriesId/:buildId/to/:seriesId2/:buildId2">
                                     <Comparison />
                                 </Route>
+                                <Route path="/compare">
+                                    <Comparison />
+                                </Route>
+                                <Route path="/search">
+                                    <Search />
+                                </Route>
                                 <Route path="/">
                                     <Frontpage />
                                 </Route>
+                               
                             </Switch>
                         </MainContent>
                     </Router>

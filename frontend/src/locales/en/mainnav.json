@@ -4,5 +4,6 @@
     "history":  "History",
     "team":     "Team",
     "github":   "GitHub",
-    "version":  "Version"
+    "version":  "Version",
+    "compare":  "Compare"
 }

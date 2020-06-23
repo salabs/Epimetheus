@@ -52,6 +52,15 @@ const BreadcrumbItemSuite = () => {
         </div>
     );
 };
+
+const BreadcrumbCompare = () => {
+    return (
+        <Link to={'/compare'}>
+            Compare
+        </Link>
+    );
+}
+
 const BreadcrumbNav = ({ status }) => {
     const breadCrumbNavStyles = css`
         font-size: 14px;
@@ -84,5 +93,6 @@ const BREADCRUMB_STATUS = {
     team: <BreadcrumbItem />,
     series: <BreadcrumbItemSeries />,
     build: <BreadcrumbItemBuild />,
-    suite: <BreadcrumbItemSuite />
+    suite: <BreadcrumbItemSuite />,
+    compare: <BreadcrumbCompare />
 };

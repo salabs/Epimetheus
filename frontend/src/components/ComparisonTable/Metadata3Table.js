@@ -27,7 +27,7 @@ const Metadata3Table = () => {
       )
     : null;
 
-  console.log(buildData)
+  console.log(metadata)
   return (
     <div css={tableStyles}>
       <table id="metadata3-table">

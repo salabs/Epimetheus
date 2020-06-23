@@ -8,6 +8,7 @@ import { useParams } from 'react-router';
 import { css, jsx } from '@emotion/core';
 import BreadcrumbNav from '../components/BreadcrumbNav';
 import ParentBuildComparison from '../components/ComparisonTable/ParentBuildComparison';
+import ComparisonForm from '../components/ComparisonForm/ComparisonForm'
 
 const Build = () => {
     const buildStyles = css`
@@ -23,7 +24,7 @@ const Build = () => {
         }
     `;
     const [
-        { loadingState, historyDataState, selectedBranchState, branchesState },
+        { loadingState},
         dispatch
     ] = useStateValue();
     
@@ -114,11 +115,11 @@ const Build = () => {
                 } catch (error) {}
             }
         };
-        if (branchesState) {
+        if ((seriesId && buildId && seriesId2 && buildId2)) {
             fetchComparisonData();
             fetchData();
         }
-    }, [dispatch, seriesId, seriesId2, buildId2, buildId, branchesState]);
+    }, [dispatch, seriesId, seriesId2, buildId2, buildId]);
 
     return (
         <main id="last-run" css={buildStyles}>
@@ -133,7 +134,7 @@ const Build = () => {
                 >
                     Loading
                 </div>
-            ) : (
+            ) : (seriesId && buildId && seriesId2 && buildId2) ?  (
                 <Fragment>
                     <div
                         className="sr-show"
@@ -144,7 +145,7 @@ const Build = () => {
                     >
                         Content loaded.
                     </div>
-                    <BreadcrumbNav status={'build'} />
+                    <BreadcrumbNav status={'compare'} />
                     <div className="parentInfo-container">
                         <ParentBuildComparison />
                     </div>
@@ -153,7 +154,13 @@ const Build = () => {
                     <Table />
 
                 </Fragment>
-            )}
+            ) : (
+                <div>
+                    <ComparisonForm />
+                </div>
+            )
+            
+        }
         </main>
     );
 };
