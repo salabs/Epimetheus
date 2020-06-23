@@ -20,7 +20,6 @@ const Body = ({ id }) => {
 
     // Get result for this specific run , as well as parse the full name of a test case and the result of the test case.
     
-    console.log(comparedDataState)
     const firstBuildByBuildNumber = comparedDataState[0].filter(({ test_cases }) => {
         return test_cases.some(({ builds }) => {
             return builds.some(
@@ -40,8 +39,6 @@ const Body = ({ id }) => {
     }).flatMap(x => x.test_cases).map(test => {
         return {'full_name': test.full_name, 'status1': '', 'status2': test.builds[0].test_status}
     });
-
-    
 
     //We create an array of matching test cases
 
@@ -66,10 +63,6 @@ const Body = ({ id }) => {
         }))
     });
 
-    console.log(matching_array)
-    console.log(second_not_matching)
-    console.log(first_not_matching)
-
     //We now have 3 arrays, one with matching elements and 2 with unmatching elements
     let combined_json = []
     if(!compareFilterMatch.isChecked && !compareFilterMismatch.isChecked){
@@ -80,19 +73,10 @@ const Body = ({ id }) => {
         combined_json = matching_array
     }
 
-    console.log(combined_json)
-
-    //<Row
-    //                key={i}
-    //                test_cases={test_cases}
-    //                suite={suite_full_name}
-    //                id={buildNum}
-    //                suiteId={suite_id}
-    //            />  
     return combined_json.map(
-        ({ full_name, status1, status2 }, i) => {
+        ({ full_name, status1, status2 } ) => {
             return (
-                <Row full_name={full_name} status1={status1} status2={status2} />
+                <Row full_name={full_name} status1={status1} status2={status2} key={full_name} />
             );
         }
     );
