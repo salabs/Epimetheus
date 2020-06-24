@@ -26,7 +26,7 @@ const Build = () => {
     `;
     const [
         { loadingState, historyDataState, selectedBranchState, branchesState },
-        dispatch
+        dispatch,
     ] = useStateValue();
     let { buildId, seriesId } = useParams();
 
@@ -45,7 +45,7 @@ const Build = () => {
                     dispatch({ type: 'setLoadingState', loadingState: false });
                     dispatch({
                         type: 'setMetadata',
-                        metadata: json
+                        metadata: json,
                     });
                 } catch (error) {
                     //console.log(error);
@@ -62,7 +62,7 @@ const Build = () => {
                     type: 'setSelectedBranch',
                     name: branch?.name,
                     id: branch_id,
-                    team: branch?.team || ' '
+                    team: branch?.team || ' ',
                 });
                 dispatch({ type: 'setSelectedBuild', selectedBuild: buildId });
                 try {
@@ -74,7 +74,7 @@ const Build = () => {
                     dispatch({ type: 'setLoadingState', loadingState: false });
                     dispatch({
                         type: 'updateHistory',
-                        historyData: json
+                        historyData: json,
                     });
                 } catch (error) {
                     dispatch({ type: 'setErrorState', errorState: error });

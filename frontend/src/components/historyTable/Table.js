@@ -28,10 +28,10 @@ const Table = () => {
             background: #ddd;
         }
         td {
-            background: var(--powder-white);
+            background: var(--nero-white);
         }
         td.test-result-undefined {
-            background: var(--mithril-grey);
+            background: var(--hermanni-grey);
         }
         .centerTableCellContent {
             text-align: center;
@@ -40,8 +40,8 @@ const Table = () => {
     `;
     const [
         {
-            historyDataState: { max_build_num }
-        }
+            historyDataState: { max_build_num },
+        },
     ] = useStateValue();
 
     if (max_build_num > 0) {

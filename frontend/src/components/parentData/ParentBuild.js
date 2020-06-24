@@ -9,9 +9,9 @@ const ParentSeries = () => {
     const { seriesId, buildId, testId } = useParams();
     const [
         {
-            parentData: { buildData }
+            parentData: { buildData },
         },
-        dispatch
+        dispatch,
     ] = useStateValue();
 
     useEffect(() => {

@@ -9,7 +9,7 @@ const Card = ({ team, numberOfSeries }) => {
     let history = useHistory();
 
     const Mongolia = css`
-        background-color: var(--powder-white);
+        background-color: var(--nero-white);
         box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 4px,
             rgba(0, 0, 0, 0.23) 0px 3px 4px;
         margin: 10px;

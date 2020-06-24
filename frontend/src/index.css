@@ -21,12 +21,16 @@ html {
 ----------------------*/
 :root {
     --nelson-purple: #b8557b;
-    --whipped-red: #c63757;
+    --semolina-red: #c63757;
     --pirlo-blue: #56a2c3;
-    --revolution-black: #141312;
-    --dove-grey: #7b756f;
-    --mithril-grey: #e9e8e8;
-    --powder-white: #ffffff;
+    --titan-green: #2e8d6e;
+    --gradient-black: #141312;
+    --evidence-grey: #7b756f;
+    --hermanni-grey: #edecec;
+    --toukola-green: #e9f5e1;
+    --kumpula-yellow: #faf3e1;
+    --vallila-blue: #e1f1f7;
+    --nero-white: #ffffff;
 }
 
 /** Basics **/
