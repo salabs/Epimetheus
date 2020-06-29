@@ -2,6 +2,7 @@
 import React, { Fragment, useEffect } from 'react';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
+import { useTranslation } from 'react-i18next';
 import Filter from '../components/historyTable/Filter';
 import Table from '../components/historyTable/Table';
 import ParentSeries from '../components/parentData/ParentSeries';
@@ -13,6 +14,8 @@ import Loading from '../components/Loading';
 import { useQueryParams } from '../hooks/useQuery';
 
 const History = () => {
+    const [t] = useTranslation(['parentData']);
+
     const filterStyles = css`
         position: relative;
 
@@ -85,7 +88,7 @@ const History = () => {
         <main id="history" css={filterStyles}>
             <BreadcrumbNav status={'series'} />
             <div className="parentInfo-container">
-                <h3>Last Build Information</h3>
+                <h3>{t('title')}</h3>
                 <ParentSeries />
             </div>
             <div className="filter-container">
