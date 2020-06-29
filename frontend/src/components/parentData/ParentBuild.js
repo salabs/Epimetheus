@@ -16,7 +16,6 @@ const ParentSeries = () => {
 
     useEffect(() => {
         const url = `/data/series/${seriesId}/builds/${buildId}/info?`;
-        console.log('TULTIIN TÄNNE');
 
         const fetchData = async () => {
             // dispatch({ type: 'setLoadingState', loadingState: true });

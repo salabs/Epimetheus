@@ -2,6 +2,7 @@
 import { useLocation } from 'react-router-dom';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
+import { useTranslation } from 'react-i18next';
 import SuiteInstability from '../components/graphs/SuiteInstability';
 import StatusCount from '../components/graphs/StatusCount';
 import BreadcrumbNav from '../components/BreadcrumbNav';
@@ -11,6 +12,8 @@ import ParentSeries from '../components/parentData/ParentSeries';
 import ParentBuild from '../components/parentData/ParentBuild';
 
 const Dashboard = () => {
+    const [t] = useTranslation(['parentData']);
+
     const [{ loadingState }] = useStateValue();
 
     const pathname = useLocation().pathname;
@@ -44,7 +47,7 @@ const Dashboard = () => {
                     <div className="parentInfo-container">
                         {!buildUrl ? (
                             <div className="series-info-container">
-                                <h3>Last Build Information</h3>
+                                <h3>{t('title')}</h3>
                                 <ParentSeries />
                             </div>
                         ) : (
