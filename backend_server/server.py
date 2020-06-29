@@ -16,7 +16,7 @@ import database as db
 def load_config_file(file_name):
     with open(file_name, 'r') as file:
         return json.load(file)
-
+VERSION_NUMBER = "0.3.1"
 
 @register_swagger_model
 class SeriesModel:
@@ -202,7 +202,7 @@ class Application(tornado.web.Application):
         setup_swagger(handlers,
                       swagger_url="/data/doc",
                       description='Project repo at https://github.com/salabs/Epimetheus',
-                      api_version='0.3.0',
+                      api_version=VERSION_NUMBER,
                       title='Epimetheus backend API')
         tornado.web.Application.__init__(self, handlers, **settings)
 
