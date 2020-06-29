@@ -10,9 +10,9 @@ const ParentSeries = () => {
 
     const [
         {
-            parentData: { seriesData }
+            parentData: { seriesData },
         },
-        dispatch
+        dispatch,
     ] = useStateValue();
 
     useEffect(() => {
