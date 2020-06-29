@@ -1,7 +1,7 @@
 ﻿import React, { useEffect } from 'react';
 import { useParams } from 'react-router';
 import { useStateValue } from '../../contexts/state';
-import { seriesTypes } from '../../utils/parentDataTypes';
+import { buildTypes } from '../../utils/parentDataTypes';
 
 import ParentTable from './ParentTable';
 
@@ -10,7 +10,7 @@ const ParentSeries = () => {
 
     const [
         {
-            parentData: { seriesData },
+            parentData: { seriesData, buildData },
         },
         dispatch,
     ] = useStateValue();
@@ -18,7 +18,7 @@ const ParentSeries = () => {
     useEffect(() => {
         const url = `/data/series/${seriesId}/info?`;
 
-        const fetchData = async () => {
+        const fetchSeriesData = async () => {
             try {
                 const res = await fetch(url);
                 const json = await res.json();
@@ -28,10 +28,28 @@ const ParentSeries = () => {
                 dispatch({ type: 'setErrorState', errorState: error });
             }
         };
-        fetchData();
-    }, [seriesId, dispatch]);
 
-    return <ParentTable data={seriesData} types={seriesTypes} />;
+        fetchSeriesData();
+    }, [dispatch, seriesId]);
+
+    useEffect(() => {
+        const fetchBuildData = async () => {
+            const { last_build } = seriesData;
+            const buildUrl = `/data/series/${seriesId}/builds/${last_build}/info?`;
+            try {
+                const res = await fetch(buildUrl);
+                const json = await res.json();
+                const buildData = json.build;
+                dispatch({ type: 'setBuildData', buildData });
+            } catch (error) {
+                dispatch({ type: 'setErrorState', errorState: error });
+            }
+        };
+
+        seriesData && fetchBuildData();
+    }, [dispatch, seriesData, seriesId]);
+
+    return <ParentTable data={buildData} types={buildTypes} />;
 };
 
 export default ParentSeries;

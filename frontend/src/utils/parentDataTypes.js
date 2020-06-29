@@ -1,5 +1,4 @@
-﻿export const seriesTypes = ['team', 'name', 'builds'];
-export const buildTypes = [
+﻿export const buildTypes = [
     'team',
     'name',
     'build_number',

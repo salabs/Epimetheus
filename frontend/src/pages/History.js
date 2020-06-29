@@ -7,7 +7,6 @@ import Table from '../components/historyTable/Table';
 import ParentSeries from '../components/parentData/ParentSeries';
 import Checkbox from '../components/Checkbox';
 import { useStateValue } from '../contexts/state';
-// import BranchFilter from '../components/BranchFilter';
 import { useParams } from 'react-router';
 import BreadcrumbNav from '../components/BreadcrumbNav';
 import Loading from '../components/Loading';
@@ -29,6 +28,7 @@ const History = () => {
 
         .parentInfo-container {
             padding: 20px 0;
+            flex-direction: column;
         }
     `;
     const [
@@ -84,11 +84,10 @@ const History = () => {
     return (
         <main id="history" css={filterStyles}>
             <BreadcrumbNav status={'series'} />
-            {!loadingState && (
-                <div className="parentInfo-container">
-                    <ParentSeries />
-                </div>
-            )}
+            <div className="parentInfo-container">
+                <h3>Last Build Information</h3>
+                <ParentSeries />
+            </div>
             <div className="filter-container">
                 <Filter />
                 <Checkbox />

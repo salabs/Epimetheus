@@ -29,6 +29,10 @@ const Dashboard = () => {
             display: flex;
             flex-flow: row wrap;
             padding: 20px 0;
+
+            .series-info-container {
+                padding-bottom: 45px;
+            }
         }
     `;
 
@@ -38,7 +42,14 @@ const Dashboard = () => {
             <div>
                 {!loadingState && (
                     <div className="parentInfo-container">
-                        {buildUrl ? <ParentBuild /> : <ParentSeries />}
+                        {!buildUrl ? (
+                            <div className="series-info-container">
+                                <h3>Last Build Information</h3>
+                                <ParentSeries />
+                            </div>
+                        ) : (
+                            <ParentBuild />
+                        )}
                     </div>
                 )}
                 {buildUrl && (
