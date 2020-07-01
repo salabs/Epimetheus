@@ -5,6 +5,7 @@ import { css, jsx } from '@emotion/core';
 import { useTranslation } from 'react-i18next';
 import SuiteInstability from '../components/graphs/SuiteInstability';
 import StatusCount from '../components/graphs/StatusCount';
+import TimeLineChart from '../components/graphs/TimeLineChart';
 import BreadcrumbNav from '../components/BreadcrumbNav';
 import { suiteLabels, testLabels } from '../utils/graphTypes';
 import ParentSeries from '../components/parentData/ParentSeries';
@@ -56,6 +57,7 @@ const Dashboard = () => {
                         <StatusCount labels={testLabels} />
                     </div>
                 )}
+                <TimeLineChart />
                 <SuiteInstability />
             </div>
         </main>
