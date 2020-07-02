@@ -5,6 +5,7 @@ import { css, jsx } from '@emotion/core';
 import SuiteInstability from '../components/graphs/SuiteInstability';
 import StatusCount from '../components/graphs/StatusCount';
 import BreadcrumbNav from '../components/BreadcrumbNav';
+import DashboardList from '../components/dashlist/ListMain';
 import { suiteLabels, testLabels } from '../utils/graphTypes';
 
 const Dashboard = () => {
@@ -24,6 +25,12 @@ const Dashboard = () => {
     return (
         <main css={dashBoardStyles}>
             <BreadcrumbNav status={status} />
+            {!buildUrl && (
+                <div>
+                    <DashboardList />
+                </div>
+            )}
+
             {buildUrl && (
                 <div className="pieContainer">
                     <StatusCount labels={suiteLabels} />{' '}
