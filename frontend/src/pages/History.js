@@ -2,18 +2,20 @@
 import React, { Fragment, useEffect } from 'react';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
+import { useTranslation } from 'react-i18next';
 import Filter from '../components/historyTable/Filter';
 import Table from '../components/historyTable/Table';
 import ParentSeries from '../components/parentData/ParentSeries';
 import Checkbox from '../components/Checkbox';
 import { useStateValue } from '../contexts/state';
-// import BranchFilter from '../components/BranchFilter';
 import { useParams } from 'react-router';
 import BreadcrumbNav from '../components/BreadcrumbNav';
 import Loading from '../components/Loading';
 import { useQueryParams } from '../hooks/useQuery';
 
 const History = () => {
+    const [t] = useTranslation(['parentData']);
+
     const filterStyles = css`
         position: relative;
 
@@ -29,6 +31,7 @@ const History = () => {
 
         .parentInfo-container {
             padding: 20px 0;
+            flex-direction: column;
         }
     `;
     const [
@@ -84,11 +87,10 @@ const History = () => {
     return (
         <main id="history" css={filterStyles}>
             <BreadcrumbNav status={'series'} />
-            {!loadingState && (
-                <div className="parentInfo-container">
-                    <ParentSeries />
-                </div>
-            )}
+            <div className="parentInfo-container">
+                <h3>{t('title')}</h3>
+                <ParentSeries />
+            </div>
             <div className="filter-container">
                 <Filter />
                 <Checkbox />

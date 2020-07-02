@@ -64,7 +64,7 @@ const ParentTable = props => {
 
 ParentTable.propTypes = {
     data: PropTypes.object,
-    types: PropTypes.array.isRequired
+    types: PropTypes.array.isRequired,
 };
 
 export default ParentTable;
