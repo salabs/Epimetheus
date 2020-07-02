@@ -67,8 +67,7 @@ const DashboardList = () => {
         th:nth-of-type(3) {
             width: 10%;
         }
-        th,
-        td {
+        th, td {
             border-bottom: 1px solid #ddd;
             padding-left: 5px;
             padding-right: 5px;

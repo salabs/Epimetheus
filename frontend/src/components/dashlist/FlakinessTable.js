@@ -30,7 +30,7 @@ const DashboardList = () => {
                 onClick={() => {
                     dispatch({
                         type: 'setStabilityChecker',
-                        value: value,
+                        setStability: value,
                     });
                 }}
             >
