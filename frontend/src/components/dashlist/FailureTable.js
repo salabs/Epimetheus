@@ -28,11 +28,10 @@ const DashboardList = () => {
                             id: x.test_id,
                             failures: failure_count,
                         };
-                    });
-                const filterList3 = filterList2
+                    })
                     .sort((a, b) => b.failures - a.failures)
                     .slice(0, amountShown);
-                dispatch({ type: 'setFailureList', failures: filterList3 });
+                dispatch({ type: 'setFailureList', failures: filterList2 });
             } catch (error) {
                 dispatch({ type: 'setErrorState', errorState: error });
             }
