@@ -16,6 +16,7 @@ const DashboardList = () => {
             try {
                 const res = await fetch(url);
                 const json = await res.json();
+                //The amount of failures of a test in test_cases is counted and made into an object. The objects are then sorted and only the selected amount are shown.
                 const filterList2 = json.history
                     .filter(test => test.test_cases.length != 0)
                     .flatMap(x => x.test_cases)
