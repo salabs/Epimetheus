@@ -109,12 +109,12 @@ const reducer = (state, action) => {
         case 'setTestStabilityList':
             return {
                 ...state,
-                testStabilityList: action.setStability,
+                testStabilityList: action.data,
             };
         case 'setStabilityChecker':
             return {
                 ...state,
-                stabilityChecker: action.value,
+                stabilityChecker: action.setStability,
             };
         case 'setSeriesData':
             return {
