@@ -7,7 +7,6 @@ const initialState = {
     loadingState: false,
     errorState: null,
     amountOfBuilds: 10,
-    amountOfTests: 10,
     amountShown: 10,
     amountFilteredData: null,
     lastRunFilterFail: {
