@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router';
 import { useStateValue } from '../../contexts/state';
-import { Link } from 'react-router-dom';
 
 const DashboardList = () => {
     const { seriesId } = useParams();
