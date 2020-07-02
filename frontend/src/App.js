@@ -31,7 +31,7 @@ const App = () => {
                 dispatch({ type: 'setLoadingState', loadingState: false });
                 dispatch({
                     type: 'setBranches',
-                    branches: json
+                    branches: json,
                 });
             } catch (error) {
                 // console.log(error);

@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import SuiteInstability from '../components/graphs/SuiteInstability';
 import StatusCount from '../components/graphs/StatusCount';
 import BreadcrumbNav from '../components/BreadcrumbNav';
+import DashboardList from '../components/dashlist/ListMain';
 import { suiteLabels, testLabels } from '../utils/graphTypes';
 import ParentSeries from '../components/parentData/ParentSeries';
 import ParentBuild from '../components/parentData/ParentBuild';
@@ -46,10 +47,16 @@ const Dashboard = () => {
                             <h3>{t('title')}</h3>
                             <ParentSeries />
                         </div>
+                        
                     ) : (
                         <ParentBuild />
                     )}
                 </div>
+                {!buildUrl && (
+                    <div className="dashboard-list">
+                        <DashboardList />
+                    </div>
+                )}
                 {buildUrl && (
                     <div className="pieContainer">
                         <StatusCount labels={suiteLabels} />{' '}

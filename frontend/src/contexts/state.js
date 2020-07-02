@@ -7,6 +7,7 @@ const initialState = {
     loadingState: false,
     errorState: null,
     amountOfBuilds: 10,
+    amountShown: 10,
     amountFilteredData: null,
     lastRunFilterFail: {
         isChecked: false,
@@ -19,7 +20,10 @@ const initialState = {
     branchesState: null,
     selectedBranchState: { name: 'All builds', id: 1 },
     metadataState: [],
+    testStabilityList: [],
+    failureList: [],
     selectedBuildState: {},
+    stabilityChecker: 'stable',
     parentData: {
         seriesData: null,
         buildData: null,
