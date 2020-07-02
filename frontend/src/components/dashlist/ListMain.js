@@ -7,7 +7,7 @@ import { css, jsx } from '@emotion/core';
 const DashboardList = () => {
     const [{ amountShown }, dispatch] = useStateValue();
 
-    const [window, setWindow] = useState(true);
+    const [window, setWindow] = useState('flakiness');
 
     const headingStyles = css`
         .list-container {
@@ -94,19 +94,27 @@ const DashboardList = () => {
         );
     };
 
+    const ListSelector = () => {
+        if (window === 'failures') {
+            return <FailureTable />;
+        } else if (window === 'flakiness') {
+            return <FlakinessTable />;
+        }
+    };
+
     return (
         <div css={headingStyles}>
             <div className="list-container">
                 <div className="selector-buttons">
                     <button
                         className="selector-button"
-                        onClick={() => setWindow(true)}
+                        onClick={() => setWindow('flakiness')}
                     >
                         Flakiness
                     </button>
                     <button
                         className="selector-button"
-                        onClick={() => setWindow(false)}
+                        onClick={() => setWindow('failures')}
                     >
                         Failures
                     </button>
@@ -116,7 +124,7 @@ const DashboardList = () => {
                     <FilterButton title={30} />
                     <FilterButton title={50} />
                 </div>
-                {window ? <FlakinessTable /> : <FailureTable />}
+                {window === 'flakiness' ? <FlakinessTable /> : <FailureTable />}
             </div>
         </div>
     );

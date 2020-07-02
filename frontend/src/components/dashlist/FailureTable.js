@@ -6,7 +6,7 @@ const DashboardList = () => {
     const { seriesId } = useParams();
 
     const [
-        { amountOfBuilds, historyDataState, failureList, amountShown },
+        { amountOfBuilds, failureList, amountShown },
         dispatch,
     ] = useStateValue();
 
@@ -38,7 +38,7 @@ const DashboardList = () => {
             }
         };
         fetchData();
-    }, [dispatch, seriesId, historyDataState, amountOfBuilds, amountShown]);
+    }, [dispatch, seriesId, amountOfBuilds, amountShown]);
 
     return (
         <div className="failure-table">
