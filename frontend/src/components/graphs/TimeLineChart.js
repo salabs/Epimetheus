@@ -1,41 +1,44 @@
-﻿import React, { useEffect } from 'react';
-import { useParams } from 'react-router';
-import BreadcrumbNav from '../../components/BreadcrumbNav';
+﻿import React from 'react';
+import { isEmpty } from 'ramda';
 import { useStateValue } from '../../contexts/state';
-/** @jsx jsx */
-import { css, jsx } from '@emotion/core';
 
-const TimeLineChart = () => {
-    const { seriesId } = useParams();
+const TimeLineChart = ({ history }) => {
+    const [
+        {
+            parentData: { buildData },
+        },
+    ] = useStateValue();
 
-    const [{ historyDataState }, dispatch] = useStateValue();
+    const buildNumberList =
+        buildData &&
+        Array.from(Array(buildData.build_number), (_, i) => i + 1).reverse();
 
-    useEffect(() => {
-        const url = `/data/series/${seriesId}/history/`;
-        const fetchData = async () => {
-            // dispatch({ type: 'setLoadingState', loadingState: true });
-            try {
-                const res = await fetch(url);
-                const json = await res.json();
-                dispatch({
-                    type: 'updateHistory',
-                    historyData: json,
-                });
-                // dispatch({ type: 'setLoadingState', loadingState: false });
-            } catch (error) {
-                dispatch({ type: 'setErrorState', errorState: error });
-            }
-        };
+    const testList =
+        history &&
+        history.history
+            .flatMap(data => data.test_cases)
+            .filter(build => !isEmpty(build))
+            .flatMap(x => x.builds);
+    console.log('testList', testList);
 
-        fetchData();
-    }, [dispatch, seriesId]);
+    const numberOfTestsWithStatus = status => {
+        return (
+            buildNumberList &&
+            testList &&
+            buildNumberList.map(buildNumber => {
+                const tests = testList.filter(
+                    t => t.build_number === buildNumber && t.status === status
+                );
 
-    console.log('HistoryDataState', historyDataState);
+                return tests.length;
+            }, [])
+        );
+    };
 
-    const kek =
-        historyDataState &&
-        historyDataState.history.map(data => data.test_cases);
-    console.log('kek', kek);
+    const passed = numberOfTestsWithStatus('PASS');
+    console.log('passed', passed);
+    const failed = numberOfTestsWithStatus('FAIL');
+    console.log('failed', failed);
 
     return <div>TimeLineChart</div>;
 };

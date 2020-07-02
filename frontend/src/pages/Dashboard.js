@@ -3,11 +3,9 @@ import { useLocation } from 'react-router-dom';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
 import { useTranslation } from 'react-i18next';
-import SuiteInstability from '../components/graphs/SuiteInstability';
-import StatusCount from '../components/graphs/StatusCount';
-import TimeLineChart from '../components/graphs/TimeLineChart';
 import BreadcrumbNav from '../components/BreadcrumbNav';
-import { suiteLabels, testLabels } from '../utils/graphTypes';
+import Build from '../components/dashboard/Build';
+import Series from '../components/dashboard/Series';
 import ParentSeries from '../components/parentData/ParentSeries';
 import ParentBuild from '../components/parentData/ParentBuild';
 
@@ -51,14 +49,17 @@ const Dashboard = () => {
                         <ParentBuild />
                     )}
                 </div>
-                {buildUrl && (
+                {buildUrl ? (
                     <div className="pieContainer">
-                        <StatusCount labels={suiteLabels} />{' '}
-                        <StatusCount labels={testLabels} />
+                        <Build />
+                    </div>
+                ) : (
+                    <div>
+                        <Series />
                     </div>
                 )}
-                <TimeLineChart />
-                <SuiteInstability />
+                {/* <TimeLineChart />
+                <SuiteInstability /> */}
             </div>
         </main>
     );

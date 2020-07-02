@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useState } from 'react';
+﻿import React, { useState } from 'react';
 import { useParams } from 'react-router';
 import { VegaLite } from 'react-vega';
 import { useStateValue } from '../../contexts/state';
@@ -7,7 +7,7 @@ import { css, jsx } from '@emotion/core';
 import Loading from '../Loading';
 import { colorTypes } from '../../utils/colorTypes';
 
-const SuiteInstability = () => {
+const SuiteInstability = ({ history }) => {
     const canvasStyles = css`
         summary {
             display: none;
@@ -15,34 +15,9 @@ const SuiteInstability = () => {
     `;
 
     const [selectedSuite, setSelectedSuite] = useState(null);
-    const [
-        { amountOfBuilds, historyDataState, loadingState },
-        dispatch,
-    ] = useStateValue();
-
-    const { seriesId } = useParams();
+    const [{ amountOfBuilds, loadingState }] = useStateValue();
 
     const numberOfBuilds = amountOfBuilds || 30; // FIXME: magic
-
-    useEffect(() => {
-        const url = `/data/series/${seriesId}/history?builds=${numberOfBuilds}`;
-
-        const fetchData = async () => {
-            dispatch({ type: 'setLoadingState', loadingState: true });
-            try {
-                const response = await fetch(url, {});
-                const json = await response.json();
-                dispatch({
-                    type: 'updateHistory',
-                    historyData: json,
-                });
-                dispatch({ type: 'setLoadingState', loadingState: false });
-            } catch (error) {
-                dispatch({ type: 'setErrorState', errorState: error });
-            }
-        };
-        fetchData();
-    }, [dispatch, numberOfBuilds, seriesId]);
 
     const { buildId } = useParams();
 
@@ -144,10 +119,10 @@ const SuiteInstability = () => {
         return passes / states / test['builds'].length;
     };
 
-    const generateBarData = historyDataState => {
+    const generateBarData = history => {
         const suites = [];
 
-        historyDataState['history'].forEach(suite => {
+        history['history'].forEach(suite => {
             const failingTests = [];
 
             suite['test_cases'].forEach(testCase => {
@@ -187,12 +162,12 @@ const SuiteInstability = () => {
         return { failingSuites };
     };
 
-    if (!historyDataState || loadingState) {
+    if (!history || loadingState) {
         return <Loading />;
     }
 
     const selectSuite = id => {
-        const suite = historyDataState['history'].find(
+        const suite = history['history'].find(
             suite => suite['suite_id'] === id
         );
 
@@ -213,12 +188,9 @@ const SuiteInstability = () => {
 
     const signalListeners = { select: handleBarChartClick };
 
-    const barData = generateBarData(historyDataState);
+    const barData = generateBarData(history);
 
-    const buildsInTotal = Math.min(
-        historyDataState['max_build_num'],
-        numberOfBuilds
-    );
+    const buildsInTotal = Math.min(history['max_build_num'], numberOfBuilds);
 
     const generateStatusRow = testCase => {
         let statuses = [];
