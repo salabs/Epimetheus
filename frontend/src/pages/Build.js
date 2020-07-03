@@ -85,6 +85,10 @@ const Build = () => {
             fetchHistoryData();
             fetchData();
         }
+        // returned function will be called on component unmount
+        return () => {
+            dispatch({ type: 'updateHistory', undefined });
+        };
     }, [dispatch, branch_id, buildId, branchesState]);
 
     return (

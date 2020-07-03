@@ -18,12 +18,6 @@ const Dashboard = () => {
     const status = buildUrl ? 'build' : 'series';
 
     const dashBoardStyles = css`
-        .pieContainer {
-            padding: 20px;
-            display: flex;
-            flex-wrap: wrap;
-        }
-
         .parentInfo-container {
             display: flex;
             flex-flow: row wrap;
@@ -50,13 +44,13 @@ const Dashboard = () => {
                     )}
                 </div>
                 {buildUrl ? (
-                    <div className="pieContainer">
+                    <React.Fragment>
                         <Build />
-                    </div>
+                    </React.Fragment>
                 ) : (
-                    <div>
+                    <React.Fragment>
                         <Series />
-                    </div>
+                    </React.Fragment>
                 )}
             </div>
         </main>
