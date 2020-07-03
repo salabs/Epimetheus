@@ -33,7 +33,7 @@ const ParentSeries = () => {
 
         // returned function will be called on component unmount
         return () => {
-            dispatch({ type: 'setSeriesData', undefined });
+            dispatch({ type: 'flushParentData' });
         };
     }, [dispatch, seriesId]);
 
@@ -52,11 +52,6 @@ const ParentSeries = () => {
         };
 
         seriesData && fetchBuildData();
-
-        // returned function will be called on component unmount
-        return () => {
-            dispatch({ type: 'setBuildData', undefined });
-        };
     }, [dispatch, seriesData, seriesId]);
 
     return <ParentTable data={buildData} types={buildTypes} />;

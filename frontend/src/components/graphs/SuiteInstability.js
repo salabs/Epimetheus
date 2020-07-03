@@ -46,7 +46,7 @@ const SuiteInstability = () => {
 
         // returned function will be called on component unmount
         return () => {
-            dispatch({ type: 'updateHistory', undefined });
+            dispatch({ type: 'flushHistory' });
         };
     }, [dispatch, numberOfBuilds, seriesId]);
 

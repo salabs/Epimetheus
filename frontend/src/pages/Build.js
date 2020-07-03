@@ -87,7 +87,7 @@ const Build = () => {
         }
         // returned function will be called on component unmount
         return () => {
-            dispatch({ type: 'updateHistory', undefined });
+            dispatch({ type: 'flushHistory' });
         };
     }, [dispatch, branch_id, buildId, branchesState]);
 
