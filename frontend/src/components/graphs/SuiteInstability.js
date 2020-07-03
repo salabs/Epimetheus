@@ -9,6 +9,7 @@ import { colorTypes } from '../../utils/colorTypes';
 
 const SuiteInstability = () => {
     const canvasStyles = css`
+        padding: 20px 0px;
         summary {
             display: none;
         }
@@ -42,6 +43,11 @@ const SuiteInstability = () => {
             }
         };
         fetchData();
+
+        // returned function will be called on component unmount
+        return () => {
+            dispatch({ type: 'flushHistory' });
+        };
     }, [dispatch, numberOfBuilds, seriesId]);
 
     const { buildId } = useParams();

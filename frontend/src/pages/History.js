@@ -81,6 +81,11 @@ const History = () => {
                 }
             };
             fetchData();
+
+            // returned function will be called on component unmount
+            return () => {
+                dispatch({ type: 'flushHistory' });
+            };
         }
     }, [dispatch, series_id, number_of_builds, branchesState]);
 

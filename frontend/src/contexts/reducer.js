@@ -132,11 +132,20 @@ const reducer = (state, action) => {
                     buildData: action.buildData,
                 },
             };
-        case 'setStatusCount':
+        case 'flushHistory':
             return {
                 ...state,
-                statusCount: action.statusCount,
+                historyDataState: null,
             };
+        case 'flushParentData':
+            return {
+                ...state,
+                parentData: {
+                    buildData: null,
+                    seriesData: null,
+                },
+            };
+
         default:
             return state;
     }

@@ -3,11 +3,9 @@ import { useLocation } from 'react-router-dom';
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core';
 import { useTranslation } from 'react-i18next';
-import SuiteInstability from '../components/graphs/SuiteInstability';
-import StatusCount from '../components/graphs/StatusCount';
 import BreadcrumbNav from '../components/BreadcrumbNav';
-import DashboardList from '../components/dashlist/ListMain';
-import { suiteLabels, testLabels } from '../utils/graphTypes';
+import Build from '../components/dashboard/Build';
+import Series from '../components/dashboard/Series';
 import ParentSeries from '../components/parentData/ParentSeries';
 import ParentBuild from '../components/parentData/ParentBuild';
 
@@ -20,12 +18,6 @@ const Dashboard = () => {
     const status = buildUrl ? 'build' : 'series';
 
     const dashBoardStyles = css`
-        .pieContainer {
-            padding: 20px;
-            display: flex;
-            flex-wrap: wrap;
-        }
-
         .parentInfo-container {
             display: flex;
             flex-flow: row wrap;
@@ -47,23 +39,19 @@ const Dashboard = () => {
                             <h3>{t('title')}</h3>
                             <ParentSeries />
                         </div>
-                        
                     ) : (
                         <ParentBuild />
                     )}
                 </div>
-                {!buildUrl && (
-                    <div className="dashboard-list">
-                        <DashboardList />
-                    </div>
+                {buildUrl ? (
+                    <React.Fragment>
+                        <Build />
+                    </React.Fragment>
+                ) : (
+                    <React.Fragment>
+                        <Series />
+                    </React.Fragment>
                 )}
-                {buildUrl && (
-                    <div className="pieContainer">
-                        <StatusCount labels={suiteLabels} />{' '}
-                        <StatusCount labels={testLabels} />
-                    </div>
-                )}
-                <SuiteInstability />
             </div>
         </main>
     );
