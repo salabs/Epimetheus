@@ -24,7 +24,6 @@ const initialState = {
         seriesData: null,
         buildData: null,
     },
-    statusCount: null,
 };
 
 export const StateProvider = ({ reducer, children }) => {

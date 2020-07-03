@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+﻿import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { VegaLite } from 'react-vega';
 import { useStateValue } from '../../contexts/state';
@@ -7,17 +7,48 @@ import { css, jsx } from '@emotion/core';
 import Loading from '../Loading';
 import { colorTypes } from '../../utils/colorTypes';
 
-const SuiteInstability = ({ history }) => {
+const SuiteInstability = () => {
     const canvasStyles = css`
+        padding: 20px 0px;
         summary {
             display: none;
         }
     `;
 
     const [selectedSuite, setSelectedSuite] = useState(null);
-    const [{ amountOfBuilds, loadingState }] = useStateValue();
+    const [
+        { amountOfBuilds, historyDataState, loadingState },
+        dispatch,
+    ] = useStateValue();
+
+    const { seriesId } = useParams();
 
     const numberOfBuilds = amountOfBuilds || 30; // FIXME: magic
+
+    useEffect(() => {
+        const url = `/data/series/${seriesId}/history?builds=${numberOfBuilds}`;
+
+        const fetchData = async () => {
+            dispatch({ type: 'setLoadingState', loadingState: true });
+            try {
+                const response = await fetch(url, {});
+                const json = await response.json();
+                dispatch({
+                    type: 'updateHistory',
+                    historyData: json,
+                });
+                dispatch({ type: 'setLoadingState', loadingState: false });
+            } catch (error) {
+                dispatch({ type: 'setErrorState', errorState: error });
+            }
+        };
+        fetchData();
+
+        // returned function will be called on component unmount
+        return () => {
+            dispatch({ type: 'updateHistory', undefined });
+        };
+    }, [dispatch, numberOfBuilds, seriesId]);
 
     const { buildId } = useParams();
 
@@ -119,10 +150,10 @@ const SuiteInstability = ({ history }) => {
         return passes / states / test['builds'].length;
     };
 
-    const generateBarData = history => {
+    const generateBarData = historyDataState => {
         const suites = [];
 
-        history['history'].forEach(suite => {
+        historyDataState['history'].forEach(suite => {
             const failingTests = [];
 
             suite['test_cases'].forEach(testCase => {
@@ -162,12 +193,12 @@ const SuiteInstability = ({ history }) => {
         return { failingSuites };
     };
 
-    if (!history || loadingState) {
+    if (!historyDataState || loadingState) {
         return <Loading />;
     }
 
     const selectSuite = id => {
-        const suite = history['history'].find(
+        const suite = historyDataState['history'].find(
             suite => suite['suite_id'] === id
         );
 
@@ -188,9 +219,12 @@ const SuiteInstability = ({ history }) => {
 
     const signalListeners = { select: handleBarChartClick };
 
-    const barData = generateBarData(history);
+    const barData = generateBarData(historyDataState);
 
-    const buildsInTotal = Math.min(history['max_build_num'], numberOfBuilds);
+    const buildsInTotal = Math.min(
+        historyDataState['max_build_num'],
+        numberOfBuilds
+    );
 
     const generateStatusRow = testCase => {
         let statuses = [];

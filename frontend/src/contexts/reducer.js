@@ -111,11 +111,6 @@ const reducer = (state, action) => {
                     buildData: action.buildData,
                 },
             };
-        case 'setStatusCount':
-            return {
-                ...state,
-                statusCount: action.statusCount,
-            };
         default:
             return state;
     }
