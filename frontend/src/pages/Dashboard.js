@@ -58,8 +58,6 @@ const Dashboard = () => {
                         <Series />
                     </div>
                 )}
-                {/* <TimeLineChart />
-                <SuiteInstability /> */}
             </div>
         </main>
     );

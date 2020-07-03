@@ -10,6 +10,16 @@ const reducer = (state, action) => {
                 ...state,
                 amountOfBuilds: action.amountOfBuilds,
             };
+        case 'setAmountShown':
+            return {
+                ...state,
+                amountShown: action.amount,
+            };
+        case 'setFailureList':
+            return {
+                ...state,
+                failureList: action.failures,
+            };
         case 'setLoadingState':
             return {
                 ...state,
@@ -94,6 +104,17 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 selectedSuiteState: action.suite,
+            };
+
+        case 'setTestStabilityList':
+            return {
+                ...state,
+                testStabilityList: action.data,
+            };
+        case 'setStabilityChecker':
+            return {
+                ...state,
+                stabilityChecker: action.setStability,
             };
         case 'setSeriesData':
             return {
