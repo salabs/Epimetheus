@@ -5,10 +5,9 @@ import Loading from '../../components/Loading';
 import { colorTypes } from '../../utils/colorTypes';
 
 const StatusCount = ({ labels, statusCount }) => {
-    const data =
+    const series =
         statusCount && labels.flatMap(label => pluck(label, statusCount));
 
-    const series = data;
     const options = {
         labels,
         colors: [
