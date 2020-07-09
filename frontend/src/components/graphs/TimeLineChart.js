@@ -5,18 +5,17 @@ import { props } from 'ramda';
 import Loading from '../../components/Loading';
 import { useStateValue } from '../../contexts/state';
 import { colorTypes } from '../../utils/colorTypes';
-/** @jsx jsx */
-import { css, jsx } from '@emotion/core';
+import styled from 'styled-components';
+
+const ChartDiv = styled.div`
+    padding: 20px 0px;
+    h3 {
+        text-align: center;
+        width: 768px;
+    }
+`;
 
 const TimeLineChart = () => {
-    const chartStyles = css`
-        padding: 20px 0px;
-        h3 {
-            text-align: center;
-            width: 768px;
-        }
-    `;
-
     const { seriesId } = useParams();
 
     const [
@@ -109,7 +108,7 @@ const TimeLineChart = () => {
     };
 
     return (
-        <div css={chartStyles}>
+        <ChartDiv>
             {buildNumberList && statusCount ? (
                 <React.Fragment>
                     <h3>All build history</h3>
@@ -123,7 +122,7 @@ const TimeLineChart = () => {
             ) : (
                 <Loading />
             )}
-        </div>
+        </ChartDiv>
     );
 };
 

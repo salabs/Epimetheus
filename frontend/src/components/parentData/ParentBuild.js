@@ -32,9 +32,9 @@ const ParentSeries = () => {
         fetchData();
 
         // returned function will be called on component unmount
-        return () => {
-            dispatch({ type: 'flushParentData' });
-        };
+        //return () => {
+        //    dispatch({ type: 'flushParentData' });
+        //};
     }, [dispatch, seriesId, buildId]);
 
     const types = testId ? suiteTypes : buildTypes;

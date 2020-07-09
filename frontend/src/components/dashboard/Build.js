@@ -4,16 +4,14 @@ import StatusCount from '../../components/graphs/StatusCount';
 import { suiteLabels, testLabels } from '../../utils/graphTypes';
 import Loading from '../../components/Loading';
 import { useStateValue } from '../../contexts/state';
-/** @jsx jsx */
-import { css, jsx } from '@emotion/core';
+import styled from 'styled-components';
+const FlexDiv = styled.div`
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+`;
 
 const Build = () => {
-    const buildStyles = css`
-        padding: 20px;
-        display: flex;
-        flex-wrap: wrap;
-    `;
-
     const { seriesId, buildId } = useParams();
 
     const [{}, dispatch] = useStateValue();
@@ -38,7 +36,7 @@ const Build = () => {
     return (
         <React.Fragment>
             {statusCount ? (
-                <div css={buildStyles}>
+                <FlexDiv>
                     <StatusCount
                         labels={suiteLabels}
                         statusCount={statusCount}
@@ -47,7 +45,7 @@ const Build = () => {
                         labels={testLabels}
                         statusCount={statusCount}
                     />
-                </div>
+                </FlexDiv>
             ) : (
                 <Loading />
             )}

@@ -1,13 +1,21 @@
 ﻿import React from 'react';
 import { useLocation } from 'react-router-dom';
-/** @jsx jsx */
-import { css, jsx } from '@emotion/core';
 import { useTranslation } from 'react-i18next';
 import BreadcrumbNav from '../components/BreadcrumbNav';
 import Build from '../components/dashboard/Build';
 import Series from '../components/dashboard/Series';
 import ParentSeries from '../components/parentData/ParentSeries';
 import ParentBuild from '../components/parentData/ParentBuild';
+import styled from 'styled-components';
+
+const ParentInfo = styled.div`
+    display: flex;
+    flex-flow: row wrap;
+    padding: 20px 0;
+`;
+const SeriesInfo = styled.div`
+    padding-bottom: 45px;
+`;
 
 const Dashboard = () => {
     const [t] = useTranslation(['parentData']);
@@ -17,32 +25,20 @@ const Dashboard = () => {
 
     const status = buildUrl ? 'build' : 'series';
 
-    const dashBoardStyles = css`
-        .parentInfo-container {
-            display: flex;
-            flex-flow: row wrap;
-            padding: 20px 0;
-
-            .series-info-container {
-                padding-bottom: 45px;
-            }
-        }
-    `;
-
     return (
-        <main css={dashBoardStyles}>
+        <main>
             <BreadcrumbNav status={status} />
             <div>
-                <div className="parentInfo-container">
+                <ParentInfo id="parentInfo-container">
                     {!buildUrl ? (
-                        <div className="series-info-container">
+                        <SeriesInfo id="series-info-container">
                             <h3>{t('title')}</h3>
                             <ParentSeries />
-                        </div>
+                        </SeriesInfo>
                     ) : (
                         <ParentBuild />
                     )}
-                </div>
+                </ParentInfo>
                 {buildUrl ? (
                     <React.Fragment>
                         <Build />

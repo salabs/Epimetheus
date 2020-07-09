@@ -1,41 +1,37 @@
+import React from 'react';
 import { useStateValue } from '../../contexts/state';
 import { Link } from 'react-router-dom';
-/** @jsx jsx */
-
-import { css, jsx } from '@emotion/core';
+import styled from 'styled-components';
 
 // helper for build number sorting
 function compareNumbers(a, b) {
     return a - b;
 }
 
+const StyledLink = styled(Link)`
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 0px;
+    text-align: center;
+    vertical-align: middle;
+    height: 100%;
+    transition: 0.33s background-color;
+    &:hover,
+    &:active {
+        background-color: #ccc;
+        transition: 0.1s background-color;
+    }
+`;
+
 const Heading = () => {
-    const headingStyles = css`
-        background: blue;
-        .run-link-wrapper {
-            padding: 0;
-        }
-        .run-link {
-            display: block;
-            width: 100%;
-            margin: 0;
-            padding: 10px;
-            height: 100%;
-            transition: 0.33s background-color;
-            &:hover,
-            &:active {
-                background-color: #ccc;
-                transition: 0.1s background-color;
-            }
-        }
-    `;
     const [
         {
             historyDataState: { max_build_num },
             amountOfBuilds,
-            selectedBranchState
+            selectedBranchState,
         },
-        dispatch
+        dispatch,
     ] = useStateValue();
     let { id } = selectedBranchState;
     let headingBuildNumbers = [];
@@ -50,7 +46,7 @@ const Heading = () => {
         const selectedBuild = e.target.innerText.slice(6);
         dispatch({
             type: 'setSelectedBuild',
-            selectedBuild
+            selectedBuild,
         });
     };
 
@@ -59,22 +55,15 @@ const Heading = () => {
         .sort(compareNumbers)
         .reverse()
         .map(buildNumber => (
-            <th
-                className="run-link-wrapper centerTableCellContent"
-                key={buildNumber}
-                onClick={e => handleBuildClick(e)}
-            >
-                <Link
-                    className="run-link"
-                    to={`/series/${id}/build/${buildNumber}/history`}
-                >
+            <th key={buildNumber} onClick={e => handleBuildClick(e)}>
+                <StyledLink to={`/series/${id}/build/${buildNumber}/history`}>
                     <span className="sr-show">Build </span>
                     {buildNumber}
-                </Link>
+                </StyledLink>
             </th>
         ));
     return (
-        <thead id="history-table-head" css={headingStyles}>
+        <thead className="history-table-head">
             <tr>
                 <th>Suite</th>
                 <th>Test</th>

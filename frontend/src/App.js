@@ -15,7 +15,6 @@ import Team from './pages/Team';
 import Suite from './pages/Suite';
 import { useStateValue } from './contexts/state';
 import './utils/i118n';
-
 import 'normalize.css';
 import './index.css';
 

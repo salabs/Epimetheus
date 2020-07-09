@@ -1,10 +1,30 @@
 // eslint-disable-next-line
 import React from 'react';
-/** @jsx jsx */
-import { css, jsx } from '@emotion/core';
 import { useStateValue } from '../contexts/state';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+
+const BreadcrumbContainer = styled.div`
+    font-size: 14px;
+`;
+
+const StyledInnerDiv = styled.div`
+    display: inline;
+`;
+
+const StyledLink = styled(Link)`
+    padding: 5px 5px 5px 10px;
+    &:hover,
+    &:active {
+        background-color: #ccc;
+        transition: 0.1s background-color;
+    }
+`;
+
+const SeriesLink = styled(StyledLink)`
+    padding-left: 0 !important;
+`;
 
 const BreadcrumbItem = () => {
     const { name } = useParams();
@@ -12,9 +32,9 @@ const BreadcrumbItem = () => {
     const teamName = name || selectedBranchState.team;
 
     return (
-        <Link to={`/team/${teamName}`} className="BreadCrumbSeries">
+        <SeriesLink to={`/team/${teamName}`} className="BreadCrumbSeries">
             {teamName}
-        </Link>
+        </SeriesLink>
     );
 };
 
@@ -23,58 +43,40 @@ const BreadcrumbItemSeries = () => {
     const [{ selectedBranchState }] = useStateValue();
     const seriesId = series || selectedBranchState.id;
     return (
-        <div>
+        <StyledInnerDiv>
             <BreadcrumbItem /> &gt;
-            <Link to={`/series/${seriesId}/history`}>
+            <StyledLink to={`/series/${seriesId}/history`}>
                 {selectedBranchState.name}
-            </Link>
-        </div>
+            </StyledLink>
+        </StyledInnerDiv>
     );
 };
 
 const BreadcrumbItemBuild = () => {
     const { buildId, seriesId } = useParams();
     return (
-        <div>
+        <StyledInnerDiv>
             <BreadcrumbItemSeries /> &gt;
-            <Link to={`/series/${seriesId}/build/${buildId}/history`}>
+            <StyledLink to={`/series/${seriesId}/build/${buildId}/history`}>
                 {buildId}
-            </Link>
-        </div>
+            </StyledLink>
+        </StyledInnerDiv>
     );
 };
 
 const BreadcrumbItemSuite = () => {
     const { suiteId } = useParams();
     return (
-        <div>
+        <StyledInnerDiv>
             <BreadcrumbItemBuild /> &gt; {suiteId}
-        </div>
+        </StyledInnerDiv>
     );
 };
 const BreadcrumbNav = ({ status }) => {
-    const breadCrumbNavStyles = css`
-        font-size: 14px;
-        a {
-            padding: 5px 5px 5px 10px;
-            &:hover,
-            &:active {
-                background-color: #ccc;
-                transition: 0.1s background-color;
-            }
-        }
-        .BreadCrumbSeries {
-            padding-left: 0;
-        }
-        div {
-            display: inline;
-        }
-    `;
-
     return (
-        <div css={breadCrumbNavStyles}>
-            <div>{BREADCRUMB_STATUS[`${status}`]}</div>
-        </div>
+        <BreadcrumbContainer>
+            <StyledInnerDiv>{BREADCRUMB_STATUS[`${status}`]}</StyledInnerDiv>
+        </BreadcrumbContainer>
     );
 };
 
@@ -84,5 +86,5 @@ const BREADCRUMB_STATUS = {
     team: <BreadcrumbItem />,
     series: <BreadcrumbItemSeries />,
     build: <BreadcrumbItemBuild />,
-    suite: <BreadcrumbItemSuite />
+    suite: <BreadcrumbItemSuite />,
 };

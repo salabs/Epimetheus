@@ -1,43 +1,41 @@
 // eslint-disable-next-line
 import React, { useContext } from 'react';
-/** @jsx jsx */
-import { css, jsx } from '@emotion/core';
+
 import Heading from './Heading';
 import Body from './Body';
 import NotFound from '../NotFound';
 import { useStateValue } from '../../contexts/state';
+import styled from 'styled-components';
+
+const TableStyled = styled.table`
+    overflow: auto;
+    clear: both;
+    border-collapse: collapse;
+    table-layout: fixed;
+    padding: 10px;
+    border: 1px solid black;
+    text-align: left;
+    vertical-align: top;
+
+    thead {
+        background: blue;
+    }
+
+    th {
+        background: #ddd;
+        padding: 10px;
+        border: 1px solid black;
+        text-align: left;
+        vertical-align: middle;
+    }
+
+    .centerTableCellContent {
+        text-align: center;
+        vertical-align: middle;
+    }
+`;
 
 const Table = () => {
-    const tableStyles = css`
-        overflow: auto;
-        clear: both;
-
-        table {
-            border-collapse: collapse;
-            table-layout: fixed;
-        }
-        table,
-        th,
-        td {
-            padding: 10px;
-            border: 1px solid black;
-            text-align: left;
-            vertical-align: top;
-        }
-        th {
-            background: #ddd;
-        }
-        td {
-            background: var(--nero-white);
-        }
-        td.test-result-undefined {
-            background: var(--hermanni-grey);
-        }
-        .centerTableCellContent {
-            text-align: center;
-            vertical-align: middle;
-        }
-    `;
     const [
         {
             historyDataState: { max_build_num },
@@ -46,13 +44,13 @@ const Table = () => {
 
     if (max_build_num > 0) {
         return (
-            <div css={tableStyles}>
-                <table id="history-table">
+            <div>
+                <TableStyled id="history-table">
                     <Heading />
                     <tbody id="history-table-body">
                         <Body />
                     </tbody>
-                </table>
+                </TableStyled>
             </div>
         );
     } else {

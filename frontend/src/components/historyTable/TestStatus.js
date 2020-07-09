@@ -1,13 +1,30 @@
 import React from 'react';
 import { useStateValue } from '../../contexts/state';
 import { pickIcon } from '../TestIcon';
+import styled from 'styled-components';
+
+const UndefinedData = styled.td`
+    background: var(--hermanni-grey);
+    padding: 10px;
+    border: 1px solid black;
+    text-align: center;
+    vertical-align: middle;
+`;
+
+const DefinedData = styled.td`
+    padding: 10px;
+    border: 1px solid black;
+    text-align: center;
+    vertical-align: middle;
+    background: var(--nero-white);
+`;
 
 const TableTestStatusCell = ({ builds }) => {
     const [
         {
             historyDataState: { max_build_num },
-            amountOfBuilds
-        }
+            amountOfBuilds,
+        },
     ] = useStateValue();
 
     // Creates correct length (amountOfBuilds) of array populated with empty values.
@@ -34,16 +51,27 @@ const TableTestStatusCell = ({ builds }) => {
             //console.error(error);
         }
         const testStatusIcon = pickIcon(test_status);
-
-        return (
-            <td
-                data-ta={`test-status-${i}`}
-                className={`centerTableCellContent test-result-${test_status}`}
-                key={i}
-            >
-                {testStatusIcon}
-            </td>
-        );
+        if (test_status === undefined) {
+            return (
+                <UndefinedData
+                    data-ta={`test-status-${i}`}
+                    className={`centerTableCellContent test-result-undefined`}
+                    key={i}
+                >
+                    {testStatusIcon}
+                </UndefinedData>
+            );
+        } else {
+            return (
+                <DefinedData
+                    data-ta={`test-status-${i}`}
+                    className={`centerTableCellContent test-result-${test_status}`}
+                    key={i}
+                >
+                    {testStatusIcon}
+                </DefinedData>
+            );
+        }
     });
 };
 

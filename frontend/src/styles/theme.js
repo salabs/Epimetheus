@@ -84,8 +84,8 @@ const theme = {
           background: #ddd;
           padding: 0;
         }
-      `
-    }
+      `,
+    },
 };
 
 export default theme;

@@ -2,10 +2,9 @@
 import { useParams } from 'react-router';
 import { VegaLite } from 'react-vega';
 import { useStateValue } from '../../contexts/state';
-/** @jsx jsx */
-import { css, jsx } from '@emotion/core';
 import Loading from '../Loading';
 import { colorTypes } from '../../utils/colorTypes';
+import { css } from 'styled-components';
 
 const SuiteInstability = () => {
     const canvasStyles = css`

@@ -18,6 +18,7 @@
         "react-router-dom": "^5.1.2",
         "react-scripts": "^3.3.0",
         "react-vega": "^7.3.0",
+        "styled-components": "^5.1.1",
         "vega": "^5.13.0",
         "vega-lite": "^4.13.0"
     },

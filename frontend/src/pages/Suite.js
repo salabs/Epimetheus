@@ -21,9 +21,9 @@ const Suite = () => {
             selectedSuiteState,
             loadingState,
             branchesState,
-            selectedBranchState
+            selectedBranchState,
         },
-        dispatch
+        dispatch,
     ] = useStateValue();
     const branch_id = seriesId || selectedBranchState;
     const container = css`

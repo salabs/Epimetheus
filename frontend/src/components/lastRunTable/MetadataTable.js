@@ -1,21 +1,17 @@
 // eslint-disable-next-line
 import React, { useContext } from 'react';
-/** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import ThemeContext from '../../contexts/themeContext';
 import { useStateValue } from '../../contexts/state';
+import styled from 'styled-components';
+import { baseTable } from '../../styles/baseComponents';
+
+const StyledTable = styled(baseTable)`
+    overflow: auto;
+    margin-bottom: 10px;
+    margin-top: 20px;
+`;
 
 const MetadataTable = () => {
     const [{ metadataState }] = useStateValue();
-    const theme = useContext(ThemeContext);
-
-    const tableStyles = css`
-        ${theme.baseTableStyle}
-        overflow: auto;
-        margin-bottom: 10px;
-        margin-top: 20px;
-    `;
-
     const metadata = metadataState.metadata
         ? metadataState.metadata.filter(
               ({ suite_id }) => suite_id === metadataState.metadata[0].suite_id
@@ -23,8 +19,8 @@ const MetadataTable = () => {
         : null;
 
     return (
-        <div css={tableStyles}>
-            <table id="metadata-table">
+        <div>
+            <StyledTable id="metadata-table">
                 <thead>
                     <tr>
                         <th>Metadata</th>
@@ -51,7 +47,7 @@ const MetadataTable = () => {
                             }
                         )}
                 </tbody>
-            </table>
+            </StyledTable>
         </div>
     );
 };
