@@ -1,7 +1,5 @@
 // eslint-disable-next-line
 import React, { useState, useEffect, Suspense } from 'react';
-/** @jsx jsx */
-import { css, jsx } from '@emotion/core';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import theme from './styles/theme';
 import ThemeContext from './contexts/themeContext';
@@ -17,6 +15,61 @@ import { useStateValue } from './contexts/state';
 import './utils/i118n';
 import 'normalize.css';
 import './index.css';
+import styled from 'styled-components';
+
+const StyledApp = styled.div`
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+    background-color: #e9e8e8;
+    color: #222;
+    border: 1px solid #ccc;
+    p {
+        line-height: 1.6;
+    }
+
+    nav {
+        border-right: 1px solid darkgrey;
+        background: #ddd;
+        padding: 0;
+    }
+
+    a {
+        color: ${theme.testTheme.linkColor};
+    }
+    a:active,
+    a:hover {
+        color: ${theme.testTheme.linkColor};
+    }
+    select:focus,
+    input:focus {
+        outline: 1px solid ${theme.testTheme.linkColor};
+    }
+`;
+
+const SkipMain = styled.a`
+    left: -999px;
+    position: absolute;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    z-index: -999;
+    :focus,
+    :active {
+        background-color: #fff;
+        left: auto;
+        top: auto;
+        width: 30%;
+        height: auto;
+        overflow: auto;
+        margin: 10px 35%;
+        padding: 5px;
+        border: 1px solid black;
+        text-align: center;
+        z-index: 999;
+    }
+`;
 
 const App = () => {
     // eslint-disable-next-line
@@ -39,59 +92,14 @@ const App = () => {
         fetchData();
     }, [dispatch]);
 
-    const appStyles = css`
-        display: flex;
-        min-height: 100vh;
-        width: 100%;
-        ${theme.testTheme.container} .login-btn {
-            padding: 10px;
-            margin-bottom: 20px;
-        }
-        a {
-            color: ${theme.testTheme.linkColor};
-        }
-        a:active,
-        a:hover {
-            color: ${theme.testTheme.linkColor};
-        }
-        a.skip-main {
-            left: -999px;
-            position: absolute;
-            top: auto;
-            width: 1px;
-            height: 1px;
-            overflow: hidden;
-            z-index: -999;
-        }
-        a.skip-main:focus,
-        a.skip-main:active {
-            background-color: #fff;
-            left: auto;
-            top: auto;
-            width: 30%;
-            height: auto;
-            overflow: auto;
-            margin: 10px 35%;
-            padding: 5px;
-            border: 1px solid black;
-            text-align: center;
-            z-index: 999;
-        }
-        ,
-        select:focus,
-        input:focus {
-            outline: 1px solid ${theme.testTheme.linkColor};
-        }
-    `;
-
     return (
         <ThemeContext.Provider value={theme}>
-            <div id="main" css={appStyles}>
+            <StyledApp id="main">
                 <Suspense fallback="loading">
                     <Router>
-                        <a className="skip-main" href="#main-content">
+                        <SkipMain className="skip-main" href="#main-content">
                             Skip to main content
-                        </a>
+                        </SkipMain>
                         <MainNav />
                         <MainContent>
                             <Switch>
@@ -126,7 +134,7 @@ const App = () => {
                         </MainContent>
                     </Router>
                 </Suspense>
-            </div>
+            </StyledApp>
         </ThemeContext.Provider>
     );
 };
