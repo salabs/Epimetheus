@@ -1,11 +1,9 @@
 // eslint-disable-next-line
 import React from 'react';
-/** @jsx jsx */
 import { useEffect } from 'react';
 import { useParams } from 'react-router';
 import { useStateValue } from '../contexts/state';
 import theme from '../styles/theme';
-import { css, jsx } from '@emotion/core';
 import FA from 'react-fontawesome';
 import BreadcrumbNav from '../components/BreadcrumbNav';
 import Notfound from '../components/NotFound';

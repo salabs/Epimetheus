@@ -39,24 +39,4 @@ const baseTable = styled.table`
     }
 `;
 
-const baseTableHeader = styled.th`
-    border-collapse: collapse;
-    padding: 10px 10px;
-    border: 1px solid black;
-    text-align: left;
-    vertical-align: middle;
-    word-wrap: break-word;
-    background: #ddd;
-`;
-
-const baseTableData = styled.td`
-    border-collapse: collapse;
-    padding: 10px 10px;
-    border: 1px solid black;
-    text-align: left;
-    vertical-align: middle;
-    word-wrap: break-word;
-    background: #ffffff;
-`;
-
-export { baseTable, baseTableHeader, baseTableData };
+export { baseTable };
