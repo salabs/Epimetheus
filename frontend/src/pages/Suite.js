@@ -144,7 +144,7 @@ const Suite = () => {
                     type: 'setSelectedBranch',
                     name: branch?.name,
                     id: seriesId,
-                    team: branch?.team || ' '
+                    team: branch?.team || ' ',
                 });
                 dispatch({ type: 'setSelectedBuild', selectedBuild: buildId });
             }
@@ -320,6 +320,14 @@ const SelectedTest = ({ test }) => {
                                                     <div
                                                         className="table-item"
                                                         title={message}
+                                                        role="button"
+                                                        tabIndex="0"
+                                                        onClick={() =>
+                                                            alert(message)
+                                                        }
+                                                        onKeyDown={() =>
+                                                            alert(message)
+                                                        }
                                                     >
                                                         {message}
                                                     </div>

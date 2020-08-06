@@ -1,6 +1,20 @@
 import React from 'react';
 import FA from 'react-fontawesome';
 import theme from '../styles/theme';
+import styled from 'styled-components';
+
+const Fanner = styled(FA)`
+    ${props => props.type === 'clock-o' && 'margin-right: 8px'}
+`;
+
+const TestStatusIcon = ({ type, text, iconColor }) => {
+    return (
+        <>
+            <Fanner name={type} type={type} style={{ color: iconColor }} />
+            <span className="sr-show">{text}</span>
+        </>
+    );
+};
 
 export const pickIcon = test_status => {
     let result = '';
@@ -58,13 +72,5 @@ export const pickIcon = test_status => {
     return result;
 };
 
-const TestStatusIcon = ({ type, text, iconColor }) => {
-    return (
-        <>
-            <FA name={type} style={{ color: iconColor }} />
-            <span className="sr-show">{text}</span>
-        </>
-    );
-};
 
 export default TestStatusIcon;
