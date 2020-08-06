@@ -1,4 +1,5 @@
-﻿import React, { useState, useEffect } from 'react';
+﻿/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 import Chart from 'react-apexcharts';
 import { props } from 'ramda';
@@ -35,7 +36,7 @@ const TimeLineChart = () => {
             }
         };
         fetchData();
-    }, [dispatch, seriesId]);
+    }, [seriesId]);
 
     const numberOfTestsWithStatus = status => {
         return (
