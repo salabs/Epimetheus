@@ -18,7 +18,6 @@ const TimeLineChart = () => {
     `;
 
     const { seriesId } = useParams();
-
     const [dispatch] = useStateValue();
 
     const [statusCount, setStatusCount] = useState();
