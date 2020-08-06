@@ -63,7 +63,7 @@ const Heading = () => {
             </th>
         ));
     return (
-        <thead className="history-table-head">
+        <thead id="history-table-head">
             <tr>
                 <th>Suite</th>
                 <th>Test</th>
