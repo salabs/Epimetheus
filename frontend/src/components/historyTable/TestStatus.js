@@ -51,7 +51,7 @@ const TableTestStatusCell = ({ builds }) => {
             //console.error(error);
         }
         const testStatusIcon = pickIcon(test_status);
-        if (test_status === undefined) {
+        if (!test_status) {
             return (
                 <UndefinedData
                     data-ta={`test-status-${i}`}

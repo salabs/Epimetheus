@@ -1,7 +1,7 @@
 // eslint-disable-next-line
 import React from 'react';
 import { pickIcon } from '../TestIcon';
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const StyledRow = styled.td`
     text-align: center !important;

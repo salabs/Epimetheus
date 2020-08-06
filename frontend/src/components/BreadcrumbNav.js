@@ -72,6 +72,14 @@ const BreadcrumbItemSuite = () => {
         </StyledInnerDiv>
     );
 };
+
+const BREADCRUMB_STATUS = {
+    team: <BreadcrumbItem />,
+    series: <BreadcrumbItemSeries />,
+    build: <BreadcrumbItemBuild />,
+    suite: <BreadcrumbItemSuite />,
+};
+
 const BreadcrumbNav = ({ status }) => {
     return (
         <BreadcrumbContainer>
@@ -81,10 +89,3 @@ const BreadcrumbNav = ({ status }) => {
 };
 
 export default BreadcrumbNav;
-
-const BREADCRUMB_STATUS = {
-    team: <BreadcrumbItem />,
-    series: <BreadcrumbItemSeries />,
-    build: <BreadcrumbItemBuild />,
-    suite: <BreadcrumbItemSuite />,
-};
