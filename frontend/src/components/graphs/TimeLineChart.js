@@ -1,4 +1,5 @@
-﻿import React, { useState, useEffect } from 'react';
+﻿/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 import Chart from 'react-apexcharts';
 import { props } from 'ramda';
@@ -18,13 +19,7 @@ const TimeLineChart = () => {
     `;
 
     const { seriesId } = useParams();
-
-    const [
-        {
-            parentData: { buildData },
-        },
-        dispatch,
-    ] = useStateValue();
+    const [dispatch] = useStateValue();
 
     const [statusCount, setStatusCount] = useState();
 
@@ -41,28 +36,16 @@ const TimeLineChart = () => {
             }
         };
         fetchData();
-    }, [dispatch, seriesId]);
-
-    const buildNumberList =
-        buildData &&
-        Array.from(Array(buildData.build_number), (_, i) => i + 1).reverse();
+    }, [seriesId]);
 
     const numberOfTestsWithStatus = status => {
         return (
-            buildNumberList &&
-            statusCount &&
-            buildNumberList.map(buildNumber => {
-                return statusCount
-                    .filter(t => t.build_number === buildNumber)
-                    .flatMap(t => props([status], t))
-                    .pop();
-            })
+            statusCount && statusCount.flatMap(build => props([status], build))
         );
     };
 
     const namedBuildNumberList =
-        buildNumberList &&
-        buildNumberList.map(buildNumber => 'Build: ' + buildNumber);
+        statusCount && statusCount.map(build => 'Build: ' + build.build_number);
 
     const series = [
         {
@@ -110,7 +93,7 @@ const TimeLineChart = () => {
 
     return (
         <div css={chartStyles}>
-            {buildNumberList && statusCount ? (
+            {namedBuildNumberList && statusCount ? (
                 <React.Fragment>
                     <h3>All build history</h3>
                     <Chart
