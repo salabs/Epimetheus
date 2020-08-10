@@ -1,84 +1,86 @@
 // eslint-disable-next-line
 import React, { useState, useEffect, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
-/** @jsx jsx */
-import { css, jsx } from '@emotion/core';
 import { useStateValue } from '../contexts/state';
 import theme from '../styles/theme';
+import styled from 'styled-components';
 
+const Container = styled.div`
+    padding: 20px 40px 20px 0px;
+    width: 50%;
+    min-width: 250px;
+`;
+
+const Input = styled.input`
+    width: 200px;
+    padding: 10px 10px;
+    margin: 0;
+    border: 1px solid #333;
+    border-radius: 0;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    appearance: none;
+    background-size: 1.2em auto, 100%;
+    background-color: #fefefe;
+`;
+
+const SuggestionContainer = styled.div`
+    margin-left: 20px;
+    margin-top: 0px;
+    border: 1px solid #000;
+    border-top: 0;
+    border-bottom: 1;
+    background-color: #fafafa;
+    width: 200px;
+    max-height: 300px;
+    overflow: auto;
+    overflow-x: hidden;
+    z-index: 2;
+    position: absolute;
+    font-size: 14px;
+    div {
+        padding: 5px 10px;
+    }
+`;
+
+const SuggestionError = styled.div`
+    padding-left: 0px;
+    padding-top: 5px;
+    position: absolute;
+    font-size: 75%;
+    color: ${theme.colors.fail};
+    display: none;
+    font-weight: bold;
+    &.show {
+        display: block;
+    }
+`;
+
+const SuggestionItem = styled.div`
+    margin-top: 0;
+    border: 0;
+    border-top: 0;
+    background-color: #fafafa;
+    width: 200px;
+    padding-left: 20px;
+`;
+
+const ActiveSuggestionItem = styled(SuggestionItem)`
+    background-color: #0030bb;
+    border: 0px solid blue;
+    color: white;
+    cursor: pointer;
+`;
 const BranchFilter = () => {
-    const filterStyles = css`
-        padding: 20px 40px 20px 0px;
-
-        width: 50%;
-        min-width: 250px;
-        input {
-            width: 200px;
-            padding: 10px 10px;
-            margin: 0;
-            border: 1px solid #333;
-            border-radius: 0;
-            -moz-appearance: none;
-            -webkit-appearance: none;
-            appearance: none;
-            background-size: 1.2em auto, 100%;
-            background-color: #fefefe;
-        }
-        .suggestion-container {
-            margin-left: 20px;
-            margin-top: 0px;
-            border: 1px solid #000;
-            border-top: 0;
-            border-bottom: 1;
-            background-color: #fafafa;
-            width: 200px;
-            max-height: 300px;
-            overflow: auto;
-            overflow-x: hidden;
-            z-index: 2;
-            position: absolute;
-            font-size: 14px;
-            div {
-                padding: 5px 10px;
-            }
-        }
-        .suggestions-error {
-            padding-left: 0px;
-            padding-top: 5px;
-            position: absolute;
-            font-size: 75%;
-            color: ${theme.colors.fail};
-            display: none;
-            font-weight: bold;
-            &.show {
-                display: block;
-            }
-        }
-        .suggestion-item {
-            margin-top: 0;
-            border: 0;
-            border-top: 0;
-            background-color: #fafafa;
-            width: 200px;
-            padding-left: 20px;
-        }
-        .option-active {
-            background-color: #0030bb;
-            border: 0px solid blue;
-            color: white;
-            cursor: pointer;
-        }
-    `;
-
     // Global states from reducer
     const [
         {
             branchesState,
             selectedBranchState,
             amountOfBuilds,
-            selectedBuildState
+            selectedBuildState,
         },
-        dispatch
+        dispatch,
     ] = useStateValue();
     const options = branchesState;
     const selectedBuild = selectedBuildState.id;
@@ -203,7 +205,7 @@ const BranchFilter = () => {
         );
 
     return (
-        <div id="branch-filter-container" css={filterStyles}>
+        <Container id="branch-filter-container">
             <h2 id="branch-heading">
                 Series / Branch: {selectedBranchState.name}
             </h2>
@@ -212,7 +214,7 @@ const BranchFilter = () => {
                     <label htmlFor="search-branch" className="sr-show">
                         Series / Branch
                     </label>
-                    <input
+                    <Input
                         id="search-branch-field"
                         type="text"
                         name="search-branch"
@@ -224,7 +226,7 @@ const BranchFilter = () => {
                         onMouseDown={e => handleFocusChange(e)}
                         value={userInput}
                     />
-                    <div
+                    <SuggestionContainer
                         className="suggestion-container"
                         id="suggestions"
                         style={{ display: visible ? 'block' : 'none' }}
@@ -232,41 +234,60 @@ const BranchFilter = () => {
                     >
                         {suggestions &&
                             suggestions.map(({ id, name, team }, index) => {
-                                const cls =
-                                    index === activeOption
-                                        ? 'option-active'
-                                        : '';
-                                return (
-                                    <div
-                                        role="button"
-                                        tabIndex={id}
-                                        className={`suggestion - item ${cls}`}
-                                        name={name}
-                                        id={index}
-                                        key={id}
-                                        onMouseDown={e => handleClick(e)}
-                                        onMouseEnter={e =>
-                                            handleSuggestionItemHover(e)
-                                        }
-                                        onMouseLeave={e =>
-                                            handleSuggestionItemHover(e)
-                                        }
-                                        onKeyDown={() => handleKeyDown()}
-                                    >
-                                        {name} - {team}
-                                    </div>
-                                );
+                                if (index === activeOption) {
+                                    return (
+                                        <ActiveSuggestionItem
+                                            role="button"
+                                            tabIndex={id}
+                                            className={`suggestion - item`}
+                                            name={name}
+                                            id={index}
+                                            key={id}
+                                            onMouseDown={e => handleClick(e)}
+                                            onMouseEnter={e =>
+                                                handleSuggestionItemHover(e)
+                                            }
+                                            onMouseLeave={e =>
+                                                handleSuggestionItemHover(e)
+                                            }
+                                            onKeyDown={() => handleKeyDown()}
+                                        >
+                                            {name} - {team}
+                                        </ActiveSuggestionItem>
+                                    );
+                                } else {
+                                    return (
+                                        <SuggestionItem
+                                            role="button"
+                                            tabIndex={id}
+                                            className={`suggestion - item`}
+                                            name={name}
+                                            id={index}
+                                            key={id}
+                                            onMouseDown={e => handleClick(e)}
+                                            onMouseEnter={e =>
+                                                handleSuggestionItemHover(e)
+                                            }
+                                            onMouseLeave={e =>
+                                                handleSuggestionItemHover(e)
+                                            }
+                                            onKeyDown={() => handleKeyDown()}
+                                        >
+                                            {name} - {team}
+                                        </SuggestionItem>
+                                    );
+                                }
                             })}
-                    </div>
-                    <div
+                    </SuggestionContainer>
+                    <SuggestionError
                         className="suggestions-error"
                         style={{ display: suggestionError ? 'block' : 'none' }}
                     >
                         No branches matching text found
-                    </div>
+                    </SuggestionError>
                 </div>
             </form>
-        </div>
+        </Container>
     );
 };
 

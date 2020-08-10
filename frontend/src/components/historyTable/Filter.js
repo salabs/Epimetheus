@@ -1,62 +1,54 @@
 // eslint-disable-next-line
 import React, { useState } from 'react';
-/** @jsx jsx */
-import { css, jsx } from '@emotion/core';
 import { useStateValue } from '../../contexts/state';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useQueryParams } from '../../hooks/useQuery';
 
+import styled from 'styled-components';
+
+const FilterContainer = styled.div`
+    padding: 20px 40px 20px 0px;
+`;
+
+const StyledButtonGroup = styled.div`
+    display: flex;
+    flex-direction: column;
+`;
+
+const StyledInput = styled.input`
+    border: 1px solid #eee;
+    width: 100px;
+    border-radius: 10px;
+    background-color: var(--nero-white);
+    padding: 5px;
+    margin: 5px;
+    cursor: pointer;
+`;
+
+const SelectedInput = styled(StyledInput)`
+    background-color: transparent !important;
+    border: 2px solid var(--gradient-black) !important;
+    color: var(--gradient-black) !important;
+`;
+
+const StyledLabel = styled.label`
+    padding-left: 7px;
+`;
+
 const Filter = () => {
     // eslint-disable-next-line
-    const filterStyles = css`
-        padding: 20px 40px 20px 0px;
-        select {
-            width: 200px;
-            padding: 10px 10px;
-            margin: 0;
-            border: 1px solid #333;
-            border-radius: 0;
-            -moz-appearance: none;
-            -webkit-appearance: none;
-            appearance: none;
-            background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
-            background-repeat: no-repeat, repeat;
-            background-position: right 0.5em top 50%, 0 0;
-            background-size: 1.2em auto, 100%;
-            background-color: #fefefe;
-        }
-        .selected {
-            background-color: transparent;
-            border: 2px solid var(--gradient-black);
-            color: var(--gradient-black);
-        }
-        .button-group {
-            display: flex;
-            flex-direction: column;
-        }
-        input {
-            border: 1px solid #eee;
-            width: 100px;
-            border-radius: 10px;
-            background-color: var(--nero-white);
-            padding: 5px;
-            margin: 5px;
-            cursor: pointer;
-        }
-        label {
-            padding-left: 7px;
-        }
-    `;
 
     const options = [5, 10, 15, 30, 100];
 
     return (
-        <div id="history-filter-container" css={filterStyles}>
+        <FilterContainer id="history-filter-container">
             <h3>
-                <label htmlFor="history-filter">Display builds</label>
+                <StyledLabel htmlFor="history-filter">
+                    Display builds
+                </StyledLabel>
             </h3>
             <ButtonGroup options={options} />
-        </div>
+        </FilterContainer>
     );
 };
 
@@ -80,25 +72,34 @@ const FilterButton = ({ title }) => {
         });
     };
 
-    return (
-        <input
-            type="button"
-            value={title}
-            onClick={e => handleFilterChange(e)}
-            className={
-                title === parseInt(amountOfBuilds, 10) ? 'selected' : 'disabled'
-            }
-        />
-    );
+    if (title === parseInt(amountOfBuilds, 10)) {
+        return (
+            <SelectedInput
+                type="button"
+                value={title}
+                onClick={e => handleFilterChange(e)}
+                className={title === 'selected'}
+            />
+        );
+    } else {
+        return (
+            <StyledInput
+                type="button"
+                value={title}
+                onClick={e => handleFilterChange(e)}
+                className={title === 'disabled'}
+            />
+        );
+    }
 };
 
 const ButtonGroup = ({ options }) => {
     return (
-        <div className={'button-group'}>
+        <StyledButtonGroup id={'button-group'}>
             {options.map((i, index) => {
                 return <FilterButton title={i} key={index} />;
             })}
-        </div>
+        </StyledButtonGroup>
     );
 };
 export default Filter;

@@ -1,31 +1,24 @@
 ﻿import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-/** @jsx jsx */
-import { css, jsx } from '@emotion/core';
 import * as R from 'ramda';
-import ThemeContext from '../../contexts/themeContext';
+import { baseTable } from '../../styles/baseComponents';
+import styled from 'styled-components';
+const StyledTable = styled(baseTable)`
+    border-collapse: collapse;
+    table-layout: auto;
+    overflow: auto;
+    max-width: 400px;
+
+    td,
+    th {
+        vertical-align: middle;
+    }
+    td:first-of-type {
+        vertical-align: middle;
+    }
+`;
 
 const ParentTable = props => {
-    const theme = useContext(ThemeContext);
-
-    const tableStyles = css`
-        ${theme.baseTableStyle}
-        table {
-            border-collapse: collapse;
-            table-layout: auto;
-            overflow: auto;
-            max-width: 400px;
-        }
-
-        td,
-        th {
-            vertical-align: middle;
-        }
-        td:first-of-type {
-            vertical-align: middle;
-        }
-    `;
-
     const { data, types } = props;
 
     const headerRow = () => {
@@ -47,15 +40,15 @@ const ParentTable = props => {
     return (
         <React.Fragment>
             {data && (
-                <div css={tableStyles}>
-                    <table>
+                <div>
+                    <StyledTable>
                         <thead>
                             <tr>{headerRow()}</tr>
                         </thead>
                         <tbody>
                             <tr>{bodyRow()}</tr>
                         </tbody>
-                    </table>
+                    </StyledTable>
                 </div>
             )}
         </React.Fragment>

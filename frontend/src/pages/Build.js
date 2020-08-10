@@ -5,25 +5,21 @@ import LastRunCheckBox from '../components/LastRunCheckbox';
 import { useStateValue } from '../contexts/state';
 import MetadataTable from '../components/lastRunTable/MetadataTable';
 import { useParams } from 'react-router';
-/** @jsx jsx */
-import { css, jsx } from '@emotion/core';
 import BreadcrumbNav from '../components/BreadcrumbNav';
 import ParentBuild from '../components/parentData/ParentBuild';
 import Loading from '../components/Loading';
+import styled from 'styled-components';
+
+const ParentInfoContainer = styled.div`
+    display: flex;
+    padding: 20px 0;
+`;
+const LastRunContainer = styled.div`
+    position: relative;
+    margin-top: 10px;
+`;
 
 const Build = () => {
-    const buildStyles = css`
-        position: relative;
-        margin-top: 10px;
-        .filter-container,
-        .parentInfo-container {
-            display: flex;
-        }
-
-        .parentInfo-container {
-            padding: 20px 0;
-        }
-    `;
     const [
         { loadingState, historyDataState, selectedBranchState, branchesState },
         dispatch,
@@ -92,8 +88,8 @@ const Build = () => {
     }, [dispatch, branch_id, buildId, branchesState]);
 
     return (
-        <main id="last-run" css={buildStyles}>
-            <div className="last-run-container"></div>
+        <main id="last-run">
+            <LastRunContainer id="last-run-container"></LastRunContainer>
             {!historyDataState || loadingState ? (
                 <div
                     className="loading-state"
@@ -116,9 +112,9 @@ const Build = () => {
                         Content loaded.
                     </div>
                     <BreadcrumbNav status={'build'} />
-                    <div className="parentInfo-container">
+                    <ParentInfoContainer id="parentInfo-container">
                         <ParentBuild />
-                    </div>
+                    </ParentInfoContainer>
                     <MetadataTable buildId={buildId} />
                     <LastRunCheckBox />
                     <Table id={branch_id} />

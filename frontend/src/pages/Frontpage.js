@@ -1,17 +1,17 @@
 // eslint-disable-next-line
 import React from 'react';
-/** @jsx jsx */
-import { css, jsx } from '@emotion/core';
 import { useTranslation } from 'react-i18next';
+import styled from 'styled-components';
+
+const FrontPage = styled.main`
+    max-width: 800px;
+    width: 100%;
+`;
 
 const Frontpage = () => {
-    const frontpageStyles = css`
-        max-width: 800px;
-        width: 100%;
-    `;
     const [t] = useTranslation(['frontpage']);
     return (
-        <main id="frontpage" css={frontpageStyles}>
+        <FrontPage id="frontpage">
             <h1>{t('title')}</h1>
             <p>{t('opening_paragraph')}</p>
 
@@ -80,7 +80,7 @@ const Frontpage = () => {
                 </a>
                 .
             </p>
-        </main>
+        </FrontPage>
     );
 };
 

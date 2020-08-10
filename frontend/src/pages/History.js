@@ -1,7 +1,5 @@
 // eslint-disable-next-line
 import React, { Fragment, useEffect } from 'react';
-/** @jsx jsx */
-import { css, jsx } from '@emotion/core';
 import { useTranslation } from 'react-i18next';
 import Filter from '../components/historyTable/Filter';
 import Table from '../components/historyTable/Table';
@@ -12,28 +10,28 @@ import { useParams } from 'react-router';
 import BreadcrumbNav from '../components/BreadcrumbNav';
 import Loading from '../components/Loading';
 import { useQueryParams } from '../hooks/useQuery';
+import styled from 'styled-components';
+
+const RelativeMain = styled.main`
+    position: relative;
+`;
+
+const HeritanceContainer = styled.div`
+    display: flex;
+    flex-flow: row wrap;
+`;
+
+const FilterContainer = styled(HeritanceContainer)`
+    max-width: 800px;
+`;
+
+const ParentContainer = styled(HeritanceContainer)`
+    padding: 20px 0;
+    flex-direction: column;
+`;
 
 const History = () => {
     const [t] = useTranslation(['parentData']);
-
-    const filterStyles = css`
-        position: relative;
-
-        .filter-container,
-        .parentInfo-container {
-            display: flex;
-            flex-flow: row wrap;
-        }
-
-        .filter-container {
-            max-width: 800px;
-        }
-
-        .parentInfo-container {
-            padding: 20px 0;
-            flex-direction: column;
-        }
-    `;
     const [
         {
             loadingState,
@@ -90,16 +88,16 @@ const History = () => {
     }, [dispatch, series_id, number_of_builds, branchesState]);
 
     return (
-        <main id="history" css={filterStyles}>
+        <RelativeMain id="history">
             <BreadcrumbNav status={'series'} />
-            <div className="parentInfo-container">
+            <ParentContainer id="parentInfo-container">
                 <h3>{t('title')}</h3>
                 <ParentSeries />
-            </div>
-            <div className="filter-container">
+            </ParentContainer>
+            <FilterContainer id="filter-container">
                 <Filter />
                 <Checkbox />
-            </div>
+            </FilterContainer>
             {!historyDataState || loadingState ? (
                 <Loading />
             ) : (
@@ -116,7 +114,7 @@ const History = () => {
                     <Table />
                 </Fragment>
             )}
-        </main>
+        </RelativeMain>
     );
 };
 

@@ -2,10 +2,9 @@
 import { useParams } from 'react-router';
 import { VegaLite } from 'react-vega';
 import { useStateValue } from '../../contexts/state';
-/** @jsx jsx */
-import { css, jsx } from '@emotion/core';
 import Loading from '../Loading';
 import { colorTypes } from '../../utils/colorTypes';
+import { css } from 'styled-components';
 
 const SuiteInstability = () => {
     const canvasStyles = css`
@@ -55,9 +54,29 @@ const SuiteInstability = () => {
     const correctStatus = () => (buildId ? 'build' : 'series');
 
     const barSpec = {
-        title: 'Suites with unstable tests',
         width: 400,
         height: 200,
+        config: {
+            axis: {
+                labelFont: 'Space Mono',
+                titleFont: 'Space Mono',
+            },
+            legend: {
+                labelFont: 'Space Mono',
+                titleFont: 'Space Mono',
+            },
+            header: {
+                labelFont: 'Space Mono',
+                titleFont: 'Space Mono',
+            },
+            mark: {
+                font: 'Space Mono',
+            },
+            title: {
+                font: 'Space Mono',
+                subtitleFont: 'Space Mono',
+            },
+        },
         mark: {
             type: 'bar',
             stroke: colorTypes['gradient black'],

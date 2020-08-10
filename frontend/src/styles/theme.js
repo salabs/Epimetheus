@@ -74,18 +74,18 @@ const theme = {
         linkColor: '#003399',
         activeLinkColor: '#001155',
         container: `
-        background-color: #e9e8e8;
-        color: #222;
-        border: 1px solid #ccc;
-        p { line-height: 1.6 }
+          background-color: #e9e8e8;
+          color: #222;
+          border: 1px solid #ccc;
+          p { line-height: 1.6 }
 
-        nav {
-          border-right: 1px solid darkgrey;
-          background: #ddd;
-          padding: 0;
-        }
-      `
-    }
+          nav {
+            border-right: 1px solid darkgrey;
+            background: #ddd;
+            padding: 0;
+          }
+      `,
+    },
 };
 
 export default theme;

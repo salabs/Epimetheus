@@ -1,7 +1,5 @@
 // eslint-disable-next-line
 import React, { Fragment } from 'react';
-/** @jsx jsx */
-import { css, jsx } from '@emotion/core';
 import Flakiness from './Flakiness';
 import Status from './Status';
 import Error from './Error';
@@ -9,25 +7,13 @@ import TestCase from './TestCase';
 import { dashify } from '../../utils/helpers';
 import { useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+
+const StyledTestRow = styled.td`
+    text-align: right !important;
+`;
 
 const Row = ({ test_cases, suite, id, suiteId }) => {
-    const tableRowStyles = css`
-        .test-time-row {
-            text-align: right;
-        }
-
-        .flakiness-row {
-            font-size: 14px;
-            text-align: center;
-            span {
-                width: 13px;
-            }
-            span + span {
-                margin-left: 2px;
-            }
-        }
-    `;
-
     const tableRow = test_cases.map(({ builds, test_id }, index) => {
         let filteredBuilds = null;
         if (id) {
@@ -43,7 +29,7 @@ const Row = ({ test_cases, suite, id, suiteId }) => {
         const testRunTime = build ? build.test_run_time : 'ei ole';
 
         return (
-            <tr css={tableRowStyles} key={index}>
+            <tr key={index}>
                 {index === 0 && (
                     <LinksSuiteName
                         tableCellHeight={test_cases.length}
@@ -60,9 +46,9 @@ const Row = ({ test_cases, suite, id, suiteId }) => {
                 />
 
                 <Error build={build} />
-                <td className="test-time-row">
+                <StyledTestRow className="test-time-row">
                     {(testRunTime / 1000).toFixed(3)}s
-                </td>
+                </StyledTestRow>
                 <Flakiness builds={builds} id={id} />
             </tr>
         );

@@ -6,18 +6,8 @@ import { props } from 'ramda';
 import Loading from '../../components/Loading';
 import { useStateValue } from '../../contexts/state';
 import { colorTypes } from '../../utils/colorTypes';
-/** @jsx jsx */
-import { css, jsx } from '@emotion/core';
 
 const TimeLineChart = () => {
-    const chartStyles = css`
-        padding: 20px 0px;
-        h3 {
-            text-align: center;
-            width: 768px;
-        }
-    `;
-
     const { seriesId } = useParams();
     const [dispatch] = useStateValue();
 
@@ -92,10 +82,9 @@ const TimeLineChart = () => {
     };
 
     return (
-        <div css={chartStyles}>
+        <div>
             {namedBuildNumberList && statusCount ? (
                 <React.Fragment>
-                    <h3>All build history</h3>
                     <Chart
                         options={options}
                         series={series}

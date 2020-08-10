@@ -1,5 +1,17 @@
 import React from 'react';
 import { pickIcon } from '../TestIcon';
+import styled from 'styled-components';
+
+const StyledRow = styled.td`
+    font-size: 14px;
+    text-align: center !important;
+    span {
+        width: 13px;
+    }
+    span + span {
+        margin-left: 2px;
+    }
+`;
 
 const Flakiness = ({ builds, id }) => {
     const indexOfBuild = builds.findIndex(b => {
@@ -43,7 +55,7 @@ const Flakiness = ({ builds, id }) => {
     const flakinessIcons = flakinessData.map(({ test_status }, i) => {
         return <span key={i}>{pickIcon(test_status)}</span>;
     });
-    return <td className="flakiness-row">{flakinessIcons}</td>;
+    return <StyledRow className="flakiness-row">{flakinessIcons}</StyledRow>;
 };
 
 export default Flakiness;
