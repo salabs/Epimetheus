@@ -3,7 +3,7 @@ import SuiteInstability from '../../components/graphs/SuiteInstability';
 import TimeLineChart from '../../components/graphs/TimeLineChart';
 import DashboardList from '../dashlist/ListMain';
 import styled from 'styled-components';
-import { dashboardElement } from '../../styles/baseComponents'
+import { dashboardElement } from '../../styles/baseComponents';
 
 const TimeLineContainer = styled(dashboardElement)`
     margin: 10px;
