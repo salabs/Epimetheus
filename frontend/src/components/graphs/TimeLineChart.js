@@ -1,21 +1,15 @@
-﻿import React, { useState, useEffect } from 'react';
+﻿/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 import Chart from 'react-apexcharts';
 import { props } from 'ramda';
 import Loading from '../../components/Loading';
 import { useStateValue } from '../../contexts/state';
 import { colorTypes } from '../../utils/colorTypes';
-import styled from 'styled-components';
 
 const TimeLineChart = () => {
     const { seriesId } = useParams();
-
-    const [
-        {
-            parentData: { buildData },
-        },
-        dispatch,
-    ] = useStateValue();
+    const [dispatch] = useStateValue();
 
     const [statusCount, setStatusCount] = useState();
 
@@ -32,28 +26,16 @@ const TimeLineChart = () => {
             }
         };
         fetchData();
-    }, [dispatch, seriesId]);
-
-    const buildNumberList =
-        buildData &&
-        Array.from(Array(buildData.build_number), (_, i) => i + 1).reverse();
+    }, [seriesId]);
 
     const numberOfTestsWithStatus = status => {
         return (
-            buildNumberList &&
-            statusCount &&
-            buildNumberList.map(buildNumber => {
-                return statusCount
-                    .filter(t => t.build_number === buildNumber)
-                    .flatMap(t => props([status], t))
-                    .pop();
-            })
+            statusCount && statusCount.flatMap(build => props([status], build))
         );
     };
 
     const namedBuildNumberList =
-        buildNumberList &&
-        buildNumberList.map(buildNumber => 'Build: ' + buildNumber);
+        statusCount && statusCount.map(build => 'Build: ' + build.build_number);
 
     const series = [
         {
@@ -92,7 +74,6 @@ const TimeLineChart = () => {
         },
         chart: {
             type: 'area',
-            fontFamily: 'Space Mono',
             stacked: true,
             toolbar: {
                 show: false,
@@ -101,8 +82,8 @@ const TimeLineChart = () => {
     };
 
     return (
-        <>
-            {buildNumberList && statusCount ? (
+        <div>
+            {namedBuildNumberList && statusCount ? (
                 <React.Fragment>
                     <Chart
                         options={options}
@@ -114,7 +95,7 @@ const TimeLineChart = () => {
             ) : (
                 <Loading />
             )}
-        </>
+        </div>
     );
 };
 
