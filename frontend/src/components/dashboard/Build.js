@@ -5,6 +5,7 @@ import { suiteLabels, testLabels } from '../../utils/graphTypes';
 import Loading from '../../components/Loading';
 import { useStateValue } from '../../contexts/state';
 import styled from 'styled-components';
+
 const FlexDiv = styled.div`
     padding: 20px;
     display: flex;

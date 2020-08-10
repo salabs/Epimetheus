@@ -17,6 +17,12 @@ const SeriesInfo = styled.div`
     padding-bottom: 45px;
 `;
 
+const FlexDiv = styled.div`
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+`;
+
 const Dashboard = () => {
     const [t] = useTranslation(['parentData']);
 
@@ -39,15 +45,17 @@ const Dashboard = () => {
                         <ParentBuild />
                     )}
                 </ParentInfo>
-                {buildUrl ? (
-                    <React.Fragment>
-                        <Build />
-                    </React.Fragment>
-                ) : (
-                    <React.Fragment>
-                        <Series />
-                    </React.Fragment>
-                )}
+                <FlexDiv>
+                    {buildUrl ? (
+                        <React.Fragment>
+                            <Build />
+                        </React.Fragment>
+                    ) : (
+                        <React.Fragment>
+                            <Series />
+                        </React.Fragment>
+                    )}
+                </FlexDiv>
             </div>
         </main>
     );

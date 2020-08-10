@@ -32,9 +32,9 @@ const ParentSeries = () => {
         fetchSeriesData();
 
         // returned function will be called on component unmount
-        //return () => {
-        //    dispatch({ type: 'flushParentData' });
-        //};
+        return () => {
+            dispatch({ type: 'flushParentData' });
+        };
     }, [dispatch, seriesId]);
 
     useEffect(() => {

@@ -7,14 +7,6 @@ import { useStateValue } from '../../contexts/state';
 import { colorTypes } from '../../utils/colorTypes';
 import styled from 'styled-components';
 
-const ChartDiv = styled.div`
-    padding: 20px 0px;
-    h3 {
-        text-align: center;
-        width: 768px;
-    }
-`;
-
 const TimeLineChart = () => {
     const { seriesId } = useParams();
 
@@ -100,6 +92,7 @@ const TimeLineChart = () => {
         },
         chart: {
             type: 'area',
+            fontFamily: 'Space Mono',
             stacked: true,
             toolbar: {
                 show: false,
@@ -108,10 +101,9 @@ const TimeLineChart = () => {
     };
 
     return (
-        <ChartDiv>
+        <>
             {buildNumberList && statusCount ? (
                 <React.Fragment>
-                    <h3>All build history</h3>
                     <Chart
                         options={options}
                         series={series}
@@ -122,7 +114,7 @@ const TimeLineChart = () => {
             ) : (
                 <Loading />
             )}
-        </ChartDiv>
+        </>
     );
 };
 

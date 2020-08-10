@@ -75,7 +75,6 @@ const DashboardList = () => {
     };
     return (
         <TableContainer id="flakiness-table">
-            <p>Flakiness Table</p>
             <StabilityButton value={'stable'} text="Stable" />
             <StabilityButton value={'unstable'} text="Unstable" />
             <StyledTable>

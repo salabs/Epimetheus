@@ -39,4 +39,13 @@ const baseTable = styled.table`
     }
 `;
 
-export { baseTable };
+const dashboardElement = styled.div`
+    padding: 10px;
+    border-style: solid;
+    border-width: thin;
+    display: block;
+    margin: 20px;
+    height: 600px;
+`;
+
+export { baseTable, dashboardElement };
