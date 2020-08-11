@@ -36,7 +36,6 @@
             "history": "History: Shows how the recent test runs have executed. Amount of visible runs can be 5-30 (default 10).",
             "team": "Team: Display all series related to a single team.",
             "suite": "Suite: Collection of different test cases. Open different test cases and see related results, log messages and metadata."
-
         },
         "feedback": {
             "title": "How to give feedback?",

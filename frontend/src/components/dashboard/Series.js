@@ -3,6 +3,7 @@ import SuiteInstability from '../../components/graphs/SuiteInstability';
 import TimeLineChart from '../../components/graphs/TimeLineChart';
 import DashboardList from '../dashlist/ListMain';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import { dashboardElement } from '../../styles/baseComponents';
 
 const ChartContainer = styled(dashboardElement)`
@@ -17,18 +18,20 @@ const ElementHeader = styled.h3`
 `;
 
 const Series = () => {
+    const [t] = useTranslation(['dashboard']);
+
     return (
         <>
             <ChartContainer id="timeLineContainer">
-                <ElementHeader>All Build History</ElementHeader>
+                <ElementHeader>{t('series.all_builds')}</ElementHeader>
                 <TimeLineChart />
             </ChartContainer>
             <ChartContainer className="dashboard-list">
-                <ElementHeader>Stability Table</ElementHeader>
+                <ElementHeader>{t('series.stability_table')}</ElementHeader>
                 <DashboardList />
             </ChartContainer>
             <ChartContainer>
-                <ElementHeader>Suites with unstable tests</ElementHeader>
+                <ElementHeader>{t('series.unstable_tests')}</ElementHeader>
                 <SuiteInstability />
             </ChartContainer>
         </>
