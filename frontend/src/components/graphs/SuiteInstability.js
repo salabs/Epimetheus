@@ -81,7 +81,7 @@ const SuiteInstability = () => {
             type: 'bar',
             stroke: colorTypes['gradient black'],
         },
-        background: colorTypes['hermanni grey'],
+        background: colorTypes['nero white'],
         actions: false,
         selection: {
             highlight: { type: 'single', empty: 'none', on: 'mouseover' },

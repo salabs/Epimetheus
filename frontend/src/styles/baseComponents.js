@@ -45,7 +45,7 @@ const dashboardElement = styled.div`
     border-width: thin;
     display: block;
     margin: 20px;
-    height: 600px;
+    height: min-content;
 `;
 
 export { baseTable, dashboardElement };

@@ -3,18 +3,12 @@ import SuiteInstability from '../../components/graphs/SuiteInstability';
 import TimeLineChart from '../../components/graphs/TimeLineChart';
 import DashboardList from '../dashlist/ListMain';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import { dashboardElement } from '../../styles/baseComponents';
 
-const TimeLineContainer = styled(dashboardElement)`
-    margin: 10px;
-`;
-
-const ListContainer = styled(dashboardElement)`
-    margin: 10px;
-`;
-
-const SuiteInstabilityContainer = styled(dashboardElement)`
-    margin: 10px;
+const ChartContainer = styled(dashboardElement)`
+    margin: 20px 40px 40px 0;
+    background-color: var(--nero-white);
 `;
 
 const ElementHeader = styled.h3`
@@ -24,20 +18,22 @@ const ElementHeader = styled.h3`
 `;
 
 const Series = () => {
+    const [t] = useTranslation(['dashboard']);
+
     return (
         <>
-            <TimeLineContainer>
-                <ElementHeader>All Build History</ElementHeader>
+            <ChartContainer id="timeLineContainer">
+                <ElementHeader>{t('series.all_builds')}</ElementHeader>
                 <TimeLineChart />
-            </TimeLineContainer>
-            <ListContainer className="dashboard-list">
-                <ElementHeader>Stability Table</ElementHeader>
+            </ChartContainer>
+            <ChartContainer className="dashboard-list">
+                <ElementHeader>{t('series.stability_table')}</ElementHeader>
                 <DashboardList />
-            </ListContainer>
-            <SuiteInstabilityContainer>
-                <ElementHeader>Suites with unstable tests</ElementHeader>
+            </ChartContainer>
+            <ChartContainer>
+                <ElementHeader>{t('series.unstable_tests')}</ElementHeader>
                 <SuiteInstability />
-            </SuiteInstabilityContainer>
+            </ChartContainer>
         </>
     );
 };
