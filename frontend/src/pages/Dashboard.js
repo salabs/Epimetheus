@@ -18,7 +18,6 @@ const SeriesInfo = styled.div`
 `;
 
 const FlexDiv = styled.div`
-    padding: 20px;
     display: flex;
     flex-wrap: wrap;
 `;

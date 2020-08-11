@@ -9,8 +9,8 @@ const Body = ({ id }) => {
         {
             historyDataState: { history },
             lastRunFilterPass,
-            lastRunFilterFail
-        }
+            lastRunFilterFail,
+        },
     ] = useStateValue();
     let { buildId } = useParams();
     const buildNum = buildId;
@@ -45,7 +45,7 @@ const Body = ({ id }) => {
                         test_cases =>
                             test_cases.builds[0].test_status !==
                             lastRunFilterPass.filterType
-                    )
+                    ),
                 });
             });
     } else {
@@ -78,7 +78,7 @@ const Body = ({ id }) => {
                         test_cases =>
                             test_cases.builds[0].test_status !==
                             lastRunFilterFail.filterType
-                    )
+                    ),
                 });
             });
     } else {

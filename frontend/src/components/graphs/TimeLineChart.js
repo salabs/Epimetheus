@@ -35,7 +35,8 @@ const TimeLineChart = () => {
     };
 
     const namedBuildNumberList =
-        statusCount && statusCount.map(build => 'Build: ' + build.build_number);
+        statusCount &&
+        statusCount.map(build => 'Build: ' + build.build_number).reverse();
 
     const series = [
         {
@@ -78,6 +79,7 @@ const TimeLineChart = () => {
             toolbar: {
                 show: false,
             },
+            fontFamily: 'Space Mono',
         },
     };
 

@@ -5,16 +5,9 @@ import DashboardList from '../dashlist/ListMain';
 import styled from 'styled-components';
 import { dashboardElement } from '../../styles/baseComponents';
 
-const TimeLineContainer = styled(dashboardElement)`
-    margin: 10px;
-`;
-
-const ListContainer = styled(dashboardElement)`
-    margin: 10px;
-`;
-
-const SuiteInstabilityContainer = styled(dashboardElement)`
-    margin: 10px;
+const ChartContainer = styled(dashboardElement)`
+    margin: 20px 40px 40px 0;
+    background-color: var(--nero-white);
 `;
 
 const ElementHeader = styled.h3`
@@ -26,18 +19,18 @@ const ElementHeader = styled.h3`
 const Series = () => {
     return (
         <>
-            <TimeLineContainer>
+            <ChartContainer id="timeLineContainer">
                 <ElementHeader>All Build History</ElementHeader>
                 <TimeLineChart />
-            </TimeLineContainer>
-            <ListContainer className="dashboard-list">
+            </ChartContainer>
+            <ChartContainer className="dashboard-list">
                 <ElementHeader>Stability Table</ElementHeader>
                 <DashboardList />
-            </ListContainer>
-            <SuiteInstabilityContainer>
+            </ChartContainer>
+            <ChartContainer>
                 <ElementHeader>Suites with unstable tests</ElementHeader>
                 <SuiteInstability />
-            </SuiteInstabilityContainer>
+            </ChartContainer>
         </>
     );
 };
