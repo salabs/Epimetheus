@@ -12,7 +12,7 @@ const FilterContainer = styled.div`
 
 const StyledButtonGroup = styled.div`
     display: flex;
-    flex-direction: column;
+    flex-direction: ${props => props.direction};
 `;
 
 const StyledInput = styled.input`
@@ -35,9 +35,8 @@ const StyledLabel = styled.label`
     padding-left: 7px;
 `;
 
-const Filter = () => {
+const Filter = ({ direction }) => {
     // eslint-disable-next-line
-
     const options = [5, 10, 15, 30, 100];
 
     return (
@@ -47,7 +46,7 @@ const Filter = () => {
                     Display builds
                 </StyledLabel>
             </h3>
-            <ButtonGroup options={options} />
+            <ButtonGroup options={options} direction={direction} />
         </FilterContainer>
     );
 };
@@ -93,9 +92,9 @@ const FilterButton = ({ title }) => {
     }
 };
 
-const ButtonGroup = ({ options }) => {
+const ButtonGroup = ({ options, direction }) => {
     return (
-        <StyledButtonGroup id={'button-group'}>
+        <StyledButtonGroup id={'button-group'} direction={direction}>
             {options.map((i, index) => {
                 return <FilterButton title={i} key={index} />;
             })}

@@ -7,6 +7,7 @@ import Series from '../components/dashboard/Series';
 import ParentSeries from '../components/parentData/ParentSeries';
 import ParentBuild from '../components/parentData/ParentBuild';
 import styled from 'styled-components';
+import Filter from '../components/historyTable/Filter';
 
 const ParentInfo = styled.div`
     display: flex;
@@ -20,6 +21,11 @@ const SeriesInfo = styled.div`
 const FlexDiv = styled.div`
     display: flex;
     flex-wrap: wrap;
+`;
+
+const FlexColumn = styled.div`
+    display: flex;
+    flex-direction: column;
 `;
 
 const Dashboard = () => {
@@ -36,10 +42,13 @@ const Dashboard = () => {
             <div>
                 <ParentInfo id="parentInfo-container">
                     {!buildUrl ? (
-                        <SeriesInfo id="series-info-container">
-                            <h3>{t('title')}</h3>
-                            <ParentSeries />
-                        </SeriesInfo>
+                        <FlexColumn>
+                            <SeriesInfo id="series-info-container">
+                                <h3>{t('title')}</h3>
+                                <ParentSeries />
+                            </SeriesInfo>
+                            <Filter direction="row" />
+                        </FlexColumn>
                     ) : (
                         <ParentBuild />
                     )}

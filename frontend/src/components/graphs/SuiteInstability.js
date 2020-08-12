@@ -4,16 +4,27 @@ import { VegaLite } from 'react-vega';
 import { useStateValue } from '../../contexts/state';
 import Loading from '../Loading';
 import { colorTypes } from '../../utils/colorTypes';
-import { css } from 'styled-components';
+import styled, { css } from 'styled-components';
+import { baseTable } from '../../styles/baseComponents';
+
+const canvasStyles = css`
+    padding: 20px 0px;
+    summary {
+        display: none;
+    }
+`;
+
+const SuiteTable = styled(baseTable)`
+    width: 100%;
+    th {
+        font-family: 'Space Mono';
+    }
+    td {
+        font-family: 'Space Mono';
+    }
+`;
 
 const SuiteInstability = () => {
-    const canvasStyles = css`
-        padding: 20px 0px;
-        summary {
-            display: none;
-        }
-    `;
-
     const [selectedSuite, setSelectedSuite] = useState(null);
     const [
         { amountOfBuilds, historyDataState, loadingState },
@@ -82,7 +93,7 @@ const SuiteInstability = () => {
             stroke: colorTypes['gradient black'],
         },
         background: colorTypes['nero white'],
-        actions: false,
+        actions: 'FALSE',
         selection: {
             highlight: { type: 'single', empty: 'none', on: 'mouseover' },
             select: {
@@ -273,11 +284,12 @@ const SuiteInstability = () => {
             <VegaLite
                 spec={barSpec}
                 data={barData}
+                actions={false}
                 signalListeners={signalListeners}
                 css={canvasStyles}
             />
             {selectedSuite && (
-                <table>
+                <SuiteTable>
                     <thead>
                         <tr>
                             <th>{selectedSuite.name}</th>
@@ -292,7 +304,7 @@ const SuiteInstability = () => {
                             </tr>
                         ))}
                     </tbody>
-                </table>
+                </SuiteTable>
             )}
         </React.Fragment>
     );
