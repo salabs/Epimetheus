@@ -73,7 +73,7 @@ const TeamCard = ({ data }) => {
             <CardInfo className="card">
                 <HoverDiv
                     className="series"
-                    onClick={() => history.push(`/series/${id}/history`)}
+                    onClick={() => history.push(`/series/${id}/dashboard`)}
                     role={'presentation'}
                 >
                     <H4>{t('card.series.title')}</H4>
@@ -86,7 +86,7 @@ const TeamCard = ({ data }) => {
                     className="builds"
                     onClick={() =>
                         history.push(
-                            `/series/${id}/build/${last_build}/history`
+                            `/series/${id}/build/${last_build}/dashboard`
                         )
                     }
                     role={'presentation'}
