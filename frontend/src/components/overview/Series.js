@@ -44,7 +44,11 @@ const Series = () => {
             <ChartContainer>
                 <LastBuildElement />
             </ChartContainer>
+<<<<<<< HEAD:frontend/src/components/overview/Series.js
             <ChartContainer table width="40%" minWidth="610px">
+=======
+            <ChartContainer>
+>>>>>>> lastBuildElement initial commit:frontend/src/components/dashboard/Series.js
                 <ElementHeader>{t('series.unstable_tests')}</ElementHeader>
                 <SuiteInstability />
             </ChartContainer>
