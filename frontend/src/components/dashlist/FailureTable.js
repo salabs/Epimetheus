@@ -40,10 +40,7 @@ const StyledTable = styled.table`
 const DashboardList = () => {
     const { seriesId } = useParams();
 
-    const [
-        { amountOfBuilds, failureList, amountShown },
-        dispatch,
-    ] = useStateValue();
+    const [{ amountOfBuilds, failureList }, dispatch] = useStateValue();
 
     useEffect(() => {
         const url = `/data/series/${seriesId}/history?builds=${amountOfBuilds}`;
@@ -66,18 +63,17 @@ const DashboardList = () => {
                         };
                     })
                     .sort((a, b) => b.failures - a.failures)
-                    .slice(0, amountShown);
+                    .slice(0, amountOfBuilds);
                 dispatch({ type: 'setFailureList', failures: filterList2 });
             } catch (error) {
                 dispatch({ type: 'setErrorState', errorState: error });
             }
         };
         fetchData();
-    }, [dispatch, seriesId, amountOfBuilds, amountShown]);
+    }, [dispatch, seriesId, amountOfBuilds]);
 
     return (
         <TableContainer className="failure-table">
-            <p>Failure Table</p>
             <StyledTable>
                 <thead>
                     <tr>
