@@ -8,6 +8,7 @@ import { useParams } from 'react-router';
 import BreadcrumbNav from '../components/BreadcrumbNav';
 import ParentBuild from '../components/parentData/ParentBuild';
 import Loading from '../components/Loading';
+import Header from '../components/header/Header';
 import styled from 'styled-components';
 
 const ParentInfoContainer = styled.div`
@@ -112,6 +113,7 @@ const Build = () => {
                         Content loaded.
                     </div>
                     <BreadcrumbNav status={'build'} />
+                    <Header />
                     <ParentInfoContainer id="parentInfo-container">
                         <ParentBuild />
                     </ParentInfoContainer>

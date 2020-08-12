@@ -6,6 +6,7 @@ import Build from '../components/dashboard/Build';
 import Series from '../components/dashboard/Series';
 import ParentSeries from '../components/parentData/ParentSeries';
 import ParentBuild from '../components/parentData/ParentBuild';
+import Header from '../components/header/Header';
 import styled from 'styled-components';
 
 const ParentInfo = styled.div`
@@ -33,6 +34,7 @@ const Dashboard = () => {
     return (
         <main>
             <BreadcrumbNav status={status} />
+            <Header />
             <div>
                 <ParentInfo id="parentInfo-container">
                     {!buildUrl ? (

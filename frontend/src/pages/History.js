@@ -1,6 +1,7 @@
 // eslint-disable-next-line
 import React, { Fragment, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import styled from 'styled-components';
 import Filter from '../components/historyTable/Filter';
 import Table from '../components/historyTable/Table';
 import ParentSeries from '../components/parentData/ParentSeries';
@@ -10,7 +11,7 @@ import { useParams } from 'react-router';
 import BreadcrumbNav from '../components/BreadcrumbNav';
 import Loading from '../components/Loading';
 import { useQueryParams } from '../hooks/useQuery';
-import styled from 'styled-components';
+import Header from '../components/header/Header';
 
 const RelativeMain = styled.main`
     position: relative;
@@ -90,6 +91,7 @@ const History = () => {
     return (
         <RelativeMain id="history">
             <BreadcrumbNav status={'series'} />
+            <Header />
             <ParentContainer id="parentInfo-container">
                 <h3>{t('title')}</h3>
                 <ParentSeries />
