@@ -2,6 +2,7 @@
 import SuiteInstability from '../graphs/SuiteInstability';
 import TimeLineChart from '../graphs/TimeLineChart';
 import DashboardList from '../dashlist/ListMain';
+import LastBuildElement from '../lastBuildElement/LastBuild'
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { overviewElement } from '../../styles/baseComponents';
@@ -39,6 +40,9 @@ const Series = () => {
             >
                 <ElementHeader>{t('series.stability_table')}</ElementHeader>
                 <DashboardList />
+            </ChartContainer>
+            <ChartContainer>
+                <LastBuildElement />
             </ChartContainer>
             <ChartContainer table width="40%" minWidth="610px">
                 <ElementHeader>{t('series.unstable_tests')}</ElementHeader>
