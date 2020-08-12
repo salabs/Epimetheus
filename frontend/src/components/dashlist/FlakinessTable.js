@@ -6,8 +6,8 @@ import styled from 'styled-components';
 const TableContainer = styled.div`
     border-top: solid;
     border-color: #ddd;
-    max-width: 100%;
-    max-height: 100%;
+    width: 100%;
+    max-height: 400px;
     overflow-y: scroll;
     grid-area: table;
 `;
@@ -37,16 +37,44 @@ const StyledTable = styled.table`
     }
 `;
 
+const HighlightedButton = styled.button`
+    background-color: ${props => props.color};
+    color: var(--gradient-black);
+    border: 1px solid var(--gradient-black);
+    outline: none;
+`;
+
+const StabilityButton = ({ value, text }) => {
+    const [{ stabilityChecker }, dispatch] = useStateValue();
+    return (
+        <HighlightedButton
+            onClick={() => {
+                dispatch({
+                    type: 'setStabilityChecker',
+                    setStability: value,
+                });
+            }}
+            color={
+                stabilityChecker === value
+                    ? 'var(--evidence grey)'
+                    : 'var(--nero-white)'
+            }
+        >
+            {text}
+        </HighlightedButton>
+    );
+};
+
 const DashboardList = () => {
     const { seriesId } = useParams();
 
     const [
-        { testStabilityList, stabilityChecker, amountShown },
+        { testStabilityList, stabilityChecker, amountOfBuilds },
         dispatch,
     ] = useStateValue();
 
     useEffect(() => {
-        const url = `/data/series/${seriesId}/most_stable_tests/?limit=${amountShown}&most=${stabilityChecker}`;
+        const url = `/data/series/${seriesId}/most_stable_tests/?builds=${amountOfBuilds}&most=${stabilityChecker}`;
         const fetchData = async () => {
             try {
                 const res = await fetch(url);
@@ -57,26 +85,12 @@ const DashboardList = () => {
             }
         };
         fetchData();
-    }, [dispatch, seriesId, stabilityChecker, amountShown]);
+    }, [dispatch, seriesId, stabilityChecker, amountOfBuilds]);
 
-    const StabilityButton = ({ value, text }) => {
-        return (
-            <button
-                onClick={() => {
-                    dispatch({
-                        type: 'setStabilityChecker',
-                        setStability: value,
-                    });
-                }}
-            >
-                {text}
-            </button>
-        );
-    };
     return (
         <TableContainer id="flakiness-table">
-            <StabilityButton value={'stable'} text="Stable" />
             <StabilityButton value={'unstable'} text="Unstable" />
+            <StabilityButton value={'stable'} text="Stable" />
             <StyledTable>
                 <thead>
                     <tr>

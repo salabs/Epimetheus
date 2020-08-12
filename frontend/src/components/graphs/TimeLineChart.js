@@ -9,12 +9,12 @@ import { colorTypes } from '../../utils/colorTypes';
 
 const TimeLineChart = () => {
     const { seriesId } = useParams();
-    const [dispatch] = useStateValue();
+    const [{ amountOfBuilds }, dispatch] = useStateValue();
 
     const [statusCount, setStatusCount] = useState();
 
     useEffect(() => {
-        const url = `/data/series/${seriesId}/status_counts/?builds=0`;
+        const url = `/data/series/${seriesId}/status_counts/?builds=${amountOfBuilds}`;
 
         const fetchData = async () => {
             try {
@@ -26,7 +26,7 @@ const TimeLineChart = () => {
             }
         };
         fetchData();
-    }, [seriesId]);
+    }, [seriesId, amountOfBuilds]);
 
     const numberOfTestsWithStatus = status => {
         return (

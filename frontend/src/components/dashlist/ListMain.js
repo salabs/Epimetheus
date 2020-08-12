@@ -1,25 +1,13 @@
 import React, { useState } from 'react';
-import { useStateValue } from '../../contexts/state';
 import FlakinessTable from './FlakinessTable';
 import FailureTable from './FailureTable';
 import styled from 'styled-components';
 
-const FilterButton = ({ title }) => {
-    const [{ amountShown }, dispatch] = useStateValue();
-    return (
-        <input
-            type="button"
-            value={title}
-            onClick={() => dispatch({ type: 'setAmountShown', amount: title })}
-        />
-    );
-};
-
 const StyledListContainer = styled.div`
     padding: 10px;
     display: inline-grid;
-    width: 100%;
-    height: 100%;
+    min-width: 100%;
+    height: 500px;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 0.6fr 0.55fr 6fr;
     grid-template-areas:
@@ -37,42 +25,39 @@ const TableButtons = styled.button`
     margin-left: 4px;
     margin-right: 4px;
     margin-bottom: 2px;
+    background-color: ${props => props.color};
+    color: var(--gradient-black);
+    border: 1px solid var(--gradient-black);
+    outline: none;
 `;
-
-const AmountSelectors = styled.div`
-    grid-area: amount;
-`;
-
-const AmountButton = styled(FilterButton)`
-    padding: 5px;
-    margin-left: 4px;
-    margin-right: 4px;
-`;
-
 const DashboardList = () => {
     const [window, setWindow] = useState('flakiness');
-
     return (
         <StyledListContainer id="list-container">
             <TableSelectors id="selector-buttons">
                 <TableButtons
                     className="selector-button"
+                    color={
+                        window === 'flakiness'
+                            ? 'var(--evidence grey)'
+                            : 'var(--nero-white)'
+                    }
                     onClick={() => setWindow('flakiness')}
                 >
                     Stability
                 </TableButtons>
                 <TableButtons
                     className="selector-button"
+                    color={
+                        window === 'failures'
+                            ? 'var(--evidence grey)'
+                            : 'var(--nero-white)'
+                    }
                     onClick={() => setWindow('failures')}
                 >
                     Failures
                 </TableButtons>
             </TableSelectors>
-            <AmountSelectors className="amount-buttons">
-                <AmountButton title={10} />
-                <AmountButton title={30} />
-                <AmountButton title={50} />
-            </AmountSelectors>
             {window === 'flakiness' ? <FlakinessTable /> : <FailureTable />}
         </StyledListContainer>
     );

@@ -95,7 +95,7 @@ const History = () => {
                 <ParentSeries />
             </ParentContainer>
             <FilterContainer id="filter-container">
-                <Filter />
+                <Filter direction="column" />
                 <Checkbox />
             </FilterContainer>
             {!historyDataState || loadingState ? (

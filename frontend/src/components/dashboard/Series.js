@@ -9,6 +9,8 @@ import { dashboardElement } from '../../styles/baseComponents';
 const ChartContainer = styled(dashboardElement)`
     margin: 20px 40px 40px 0;
     background-color: var(--nero-white);
+    width: ${props => props.width};
+    min-width: ${props => props.minWidth};
 `;
 
 const ElementHeader = styled.h3`
@@ -22,15 +24,15 @@ const Series = () => {
 
     return (
         <>
-            <ChartContainer id="timeLineContainer">
+            <ChartContainer id="timeLineContainer" width="55%%" minWidth="790px">
                 <ElementHeader>{t('series.all_builds')}</ElementHeader>
                 <TimeLineChart />
             </ChartContainer>
-            <ChartContainer className="dashboard-list">
+            <ChartContainer className="dashboard-list" width="30%" minWidth="500px">
                 <ElementHeader>{t('series.stability_table')}</ElementHeader>
                 <DashboardList />
             </ChartContainer>
-            <ChartContainer>
+            <ChartContainer table width="40%" minWidth="610px">
                 <ElementHeader>{t('series.unstable_tests')}</ElementHeader>
                 <SuiteInstability />
             </ChartContainer>
