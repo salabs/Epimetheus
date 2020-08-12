@@ -5,7 +5,7 @@ import DashboardList from '../dashlist/ListMain';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { dashboardElement } from '../../styles/baseComponents';
-
+import LastBuildElement from '../lastBuildElement/LastBuild'
 const ChartContainer = styled(dashboardElement)`
     margin: 20px 40px 40px 0;
     background-color: var(--nero-white);
@@ -31,6 +31,9 @@ const Series = () => {
             <ChartContainer className="dashboard-list" width="30%" minWidth="500px">
                 <ElementHeader>{t('series.stability_table')}</ElementHeader>
                 <DashboardList />
+            </ChartContainer>
+            <ChartContainer>
+                <LastBuildElement />
             </ChartContainer>
             <ChartContainer table width="40%" minWidth="610px">
                 <ElementHeader>{t('series.unstable_tests')}</ElementHeader>
