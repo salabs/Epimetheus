@@ -26,7 +26,11 @@ const initialState = {
     selectedSuiteState: null,
     stabilityChecker: 'unstable',
     parentData: {
-        seriesData: null,
+        seriesData: {
+            last_build_id: '',
+            last_status: '',
+            last_started: '',
+        },
         buildData: null,
     },
 };
