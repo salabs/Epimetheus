@@ -8,7 +8,7 @@ const HeaderContainer = styled.div``;
 const Header = () => {
     const pathname = useLocation().pathname;
 
-    const dashboard = pathname.includes('dashboard');
+    const dashboardUrl = pathname.includes('dashboard');
     const buildUrl = pathname.includes('build');
 
     const [
@@ -29,8 +29,8 @@ const Header = () => {
         return `${view} build ${build_number} from ${name}`;
     };
 
-    const formHeader = buildUrl => {
-        const view = dashboard ? 'Overview of ' : 'History of ';
+    const formHeader = () => {
+        const view = dashboardUrl ? 'Overview of ' : 'History of ';
         return buildUrl ? formBuildHeader(view) : formSeriesHeader(view);
     };
 
@@ -38,7 +38,7 @@ const Header = () => {
         <>
             {(seriesData || buildData) && (
                 <HeaderContainer>
-                    <h1>{formHeader(buildUrl)}</h1>
+                    <h1>{formHeader()}</h1>
                     <div>Nappi</div>
                 </HeaderContainer>
             )}
