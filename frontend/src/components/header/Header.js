@@ -42,7 +42,6 @@ const Header = () => {
     const [t] = useTranslation(['header']);
 
     const pathname = useLocation().pathname;
-
     const dashboardUrl = pathname.includes('dashboard');
     const buildUrl = pathname.includes('build');
     const suiteUrl = pathname.includes('suite');
