@@ -1,5 +1,5 @@
-﻿﻿import { NavLink, useLocation } from 'react-router-dom';
-import React from 'react';
+﻿﻿import React from 'react';
+import { NavLink, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { useStateValue } from '../../contexts/state';
@@ -20,29 +20,29 @@ const StyledLink = styled(NavLink)`
     text-decoration: none;
 `;
 
-const DashBoardLink = styled(StyledLink)`
+const OverviewLink = styled(StyledLink)`
     border: ${props =>
-        props.dashboardurl
+        props.overview
             ? '2px solid var(--gradient-black) !important'
             : '1px solid #eee'};
     background-color: ${props =>
-        props.dashboardurl ? 'transparent !important' : 'var(--nero-white)'};
+        props.overview ? 'transparent !important' : 'var(--nero-white)'};
 `;
 
 const HistoryLink = styled(StyledLink)`
     border: ${props =>
-        props.dashboardurl
+        props.overview
             ? '1px solid #eee'
             : '2px solid var(--gradient-black) !important'};
     background-color: ${props =>
-        props.dashboardurl ? 'var(--nero-white)' : 'transparent !important'};
+        props.overview ? 'var(--nero-white)' : 'transparent !important'};
 `;
 
 const Header = () => {
     const [t] = useTranslation(['header']);
 
     const pathname = useLocation().pathname;
-    const dashboardUrl = pathname.includes('dashboard');
+    const overviewUrl = pathname.includes('overview');
     const buildUrl = pathname.includes('build');
     const suiteUrl = pathname.includes('suite');
 
@@ -76,7 +76,7 @@ const Header = () => {
     };
 
     const formHeader = () => {
-        const view = dashboardUrl ? `${t('overview')}` : `${t('history')}`;
+        const view = overviewUrl ? `${t('overview')}` : `${t('history')}`;
         return suiteUrl
             ? formSuiteHeader()
             : buildUrl
@@ -99,17 +99,17 @@ const Header = () => {
                     <h1>{formHeader()}</h1>
                     {!selectedSuiteState && (
                         <LinkContainer>
-                            <DashBoardLink
-                                to={correctUrl('dashboard')}
-                                dashboardurl={dashboardUrl}
+                            <OverviewLink
+                                to={correctUrl('overview')}
+                                overview={overviewUrl}
                             >
-                                Dashboard
-                            </DashBoardLink>
+                                {t('buttons.overview')}
+                            </OverviewLink>
                             <HistoryLink
                                 to={correctUrl('history')}
-                                dashboardurl={dashboardUrl}
+                                overview={overviewUrl}
                             >
-                                History
+                                {t('buttons.history')}
                             </HistoryLink>
                         </LinkContainer>
                     )}

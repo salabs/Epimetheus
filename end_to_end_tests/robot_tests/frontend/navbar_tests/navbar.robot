@@ -30,15 +30,15 @@ Test Navbar Links From History Page
   Open history page of series    3
   ${url}=    Get Location
   Test Page with Inner Nav    ${url}
-  
-  
+
+
 Test Navbar Links From Build Page
   Open a build    1    1
   ${url}=    Get Location
   Test Page with Inner Nav    ${url}
 
 Test Navbar links From Dashboard Page
-  Open dashboard page of series    3
+  Open overview page of series    3
   ${url}=    Get Location
   Test Page with Inner Nav    ${url}
 
@@ -51,7 +51,7 @@ Test page with inner nav
   Default navbar contains    ${default_nav}
   Inner navbar contains    ${inner_nav}
 
-  Test Dashboard Nav Link    
+  Test Dashboard Nav Link
   Current Page is    ${return_url}
 
   Test History Nav Link
@@ -88,16 +88,16 @@ Test History Nav Link
   Click Link    ${INNER_HISTORY}
 
 Test Dashboard Nav Link
-  Click Link    ${INNER_DASHBOARD}  
+  Click Link    ${INNER_DASHBOARD}
 
 
-Default navbar contains    
+Default navbar contains
   [Arguments]    ${navbar_content}
 
   ${0}=    Get From List    ${navbar_content}    0
   ${1}=    Get From List    ${navbar_content}    1
   ${2}=    Get From List    ${navbar_content}    2
-    
+
   Element Should Contain	${nav_id}	${0}
   Element Should Contain	${nav_id}	${1}
   Element Should Contain	${nav_id}	${2}

@@ -4,9 +4,9 @@ import TimeLineChart from '../../components/graphs/TimeLineChart';
 import DashboardList from '../dashlist/ListMain';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
-import { dashboardElement } from '../../styles/baseComponents';
+import { overviewElement } from '../../styles/baseComponents';
 
-const ChartContainer = styled(dashboardElement)`
+const ChartContainer = styled(overviewElement)`
     margin: 20px 40px 40px 0;
     background-color: var(--nero-white);
     width: ${props => props.width};
@@ -20,7 +20,7 @@ const ElementHeader = styled.h3`
 `;
 
 const Series = () => {
-    const [t] = useTranslation(['dashboard']);
+    const [t] = useTranslation(['overview']);
 
     return (
         <>
@@ -33,7 +33,7 @@ const Series = () => {
                 <TimeLineChart />
             </ChartContainer>
             <ChartContainer
-                className="dashboard-list"
+                className="overview-list"
                 width="30%"
                 minWidth="500px"
             >

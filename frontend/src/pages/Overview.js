@@ -29,7 +29,7 @@ const FlexColumn = styled.div`
     flex-direction: column;
 `;
 
-const Dashboard = () => {
+const Overview = () => {
     const [t] = useTranslation(['parentData']);
 
     const pathname = useLocation().pathname;
@@ -71,4 +71,4 @@ const Dashboard = () => {
     );
 };
 
-export default Dashboard;
+export default Overview;

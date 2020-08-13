@@ -5,5 +5,9 @@
     "series": "series",
     "from": "from",
     "suite": "suite",
-    "in": "in"
+    "in": "in",
+    "buttons": {
+        "overview": "Overview",
+        "history": "History"
+    }
 }

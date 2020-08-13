@@ -39,7 +39,7 @@ const baseTable = styled.table`
     }
 `;
 
-const dashboardElement = styled.div`
+const overviewElement = styled.div`
     padding: 10px;
     border-style: solid;
     border-width: thin;
@@ -48,4 +48,4 @@ const dashboardElement = styled.div`
     height: min-content;
 `;
 
-export { baseTable, dashboardElement };
+export { baseTable, overviewElement };
