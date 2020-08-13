@@ -142,7 +142,11 @@ const reducer = (state, action) => {
                 ...state,
                 parentData: {
                     buildData: null,
-                    seriesData: null,
+                    seriesData: {
+                        last_build_id: '',
+                        last_status: '',
+                        last_started: '',
+                    },
                 },
             };
         case 'flushSuiteState':
