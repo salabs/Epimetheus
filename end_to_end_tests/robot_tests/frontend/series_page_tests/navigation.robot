@@ -50,7 +50,7 @@ Test Last Builds of All Stored Series
     Wait Until Element is Enabled   ${series_list}
     FOR    ${header}    IN    @{series_names}
       Click Element     //h3[.="${header}"]/ancestor-or-self::div[2]/div[2]/div[2]
-      Wait Until Element is Enabled    ${last_run_table}
+      Wait Until Element is Enabled    ${buildOverviewContainer}
       Go Back 
       Wait Until Element is Enabled   ${series_list}
     END

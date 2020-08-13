@@ -27,7 +27,7 @@ Navigate to history page using breadcrumbs
     Click Element    ${series_breadcrumb}
 
 History page should be of stored series
-    Wait Until Element Is Enabled    ${series_name}
+    Wait Until Element Is Enabled    ${series_identifier}
     ${found_series}=    Get Text    ${series_identifier}
     Should Be Equal As Strings    ${found_series}    ${stored_series}
     
