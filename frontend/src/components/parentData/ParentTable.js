@@ -41,7 +41,7 @@ const ParentTable = props => {
         <React.Fragment>
             {data && (
                 <div>
-                    <StyledTable>
+                    <StyledTable id="LastRunTable">
                         <thead>
                             <tr>{headerRow()}</tr>
                         </thead>
