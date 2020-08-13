@@ -28,7 +28,7 @@ Navigate to history page using breadcrumbs
 
 History page should be of stored series
     Wait Until Element Is Enabled    ${series_name}
-    ${found_series}=    Get Text    ${series_name}
+    ${found_series}=    Get Text    ${series_identifier}
     Should Be Equal As Strings    ${found_series}    ${stored_series}
     
 

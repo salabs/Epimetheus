@@ -10,10 +10,10 @@ Library                             Collections
 
 *** Test Cases ***
 
-Test Navigation to History Pages
+Test Navigation to Overview Pages
     Open Series Page of Team    Epimetheus
     Store Series Headers
-    Test History of All Stored Series
+    Test Overview of All Stored Series
 
 
 Test Navigation to Last Builds
@@ -35,12 +35,12 @@ Store Series Headers
       Append To List    ${series_names}    ${header_text}
   END
 
-Test History of All Stored Series
+Test Overview of All Stored Series
     Wait Until Element is Enabled   ${series_list}
     
     FOR    ${header}    IN    @{series_names}
       Click Element     //h3[.="${header}"]/ancestor-or-self::div[2]/div[2]/div[1]
-      Wait Until Element is Enabled    ${table_header_xpath}
+      Wait Until Element is Enabled    ${timeline_locator}
       Go Back 
       Wait Until Element is Enabled   ${series_list}
     END
@@ -50,7 +50,7 @@ Test Last Builds of All Stored Series
     Wait Until Element is Enabled   ${series_list}
     FOR    ${header}    IN    @{series_names}
       Click Element     //h3[.="${header}"]/ancestor-or-self::div[2]/div[2]/div[2]
-      Wait Until Element is Enabled    ${build_page_info_table}
+      Wait Until Element is Enabled    ${last_run_table}
       Go Back 
       Wait Until Element is Enabled   ${series_list}
     END
