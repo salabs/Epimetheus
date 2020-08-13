@@ -37,7 +37,7 @@ const Build = () => {
     return (
         <React.Fragment>
             {statusCount ? (
-                <FlexDiv>
+                <FlexDiv id="buildGraphDiv">
                     <StatusCount
                         labels={suiteLabels}
                         statusCount={statusCount}

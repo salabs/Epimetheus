@@ -32,7 +32,11 @@ const BreadcrumbItem = () => {
     const teamName = name || selectedBranchState.team;
 
     return (
-        <SeriesLink to={`/team/${teamName}`} className="BreadCrumbSeries">
+        <SeriesLink
+            to={`/team/${teamName}`}
+            className="BreadCrumbSeries"
+            id="TeamBreadCrumb"
+        >
             {teamName}
         </SeriesLink>
     );
@@ -45,7 +49,10 @@ const BreadcrumbItemSeries = () => {
     return (
         <StyledInnerDiv>
             <BreadcrumbItem /> &gt;
-            <StyledLink to={`/series/${seriesId}/overview`}>
+            <StyledLink
+                to={`/series/${seriesId}/overview`}
+                id="SeriesBreadCrumb"
+            >
                 {selectedBranchState.name}
             </StyledLink>
         </StyledInnerDiv>
@@ -57,7 +64,10 @@ const BreadcrumbItemBuild = () => {
     return (
         <StyledInnerDiv>
             <BreadcrumbItemSeries /> &gt;
-            <StyledLink to={`/series/${seriesId}/build/${buildId}/overview`}>
+            <StyledLink
+                to={`/series/${seriesId}/build/${buildId}/overview`}
+                id="BuildBreadCrumb"
+            >
                 {buildId}
             </StyledLink>
         </StyledInnerDiv>

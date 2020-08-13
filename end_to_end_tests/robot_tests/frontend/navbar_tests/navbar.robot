@@ -29,18 +29,17 @@ Test Navbar Links From Series Page
 Test Navbar Links From History Page
   Open history page of series    3
   ${url}=    Get Location
-  Test Page with Inner Nav    ${url}
-
+  Test Page without Inner Nav    ${url}
 
 Test Navbar Links From Build Page
   Open a build    1    1
   ${url}=    Get Location
-  Test Page with Inner Nav    ${url}
+  Test Page without Inner Nav    ${url}
 
 Test Navbar links From Dashboard Page
   Open overview page of series    3
   ${url}=    Get Location
-  Test Page with Inner Nav    ${url}
+  Test Page without Inner Nav    ${url}
 
 *** Keywords ***
 
