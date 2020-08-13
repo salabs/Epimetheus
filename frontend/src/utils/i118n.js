@@ -5,6 +5,7 @@ import mainnav from '../locales/en/mainnav.json';
 import team from '../locales/en/team.json';
 import parentData from '../locales/en/parentData.json';
 import dashboard from '../locales/en/dashboard.json';
+import header from '../locales/en/header.json';
 
 const resources = {
     en: {
@@ -13,6 +14,7 @@ const resources = {
         team,
         parentData,
         dashboard,
+        header,
     },
 };
 

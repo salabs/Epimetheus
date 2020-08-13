@@ -145,6 +145,11 @@ const reducer = (state, action) => {
                     seriesData: null,
                 },
             };
+        case 'flushSuiteState':
+            return {
+                ...state,
+                selectedSuiteState: null,
+            };
 
         default:
             return state;

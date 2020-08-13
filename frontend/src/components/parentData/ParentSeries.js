@@ -1,4 +1,5 @@
-﻿import React, { useEffect } from 'react';
+﻿/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router';
 import { useStateValue } from '../../contexts/state';
 import { buildTypes } from '../../utils/parentDataTypes';
@@ -35,7 +36,7 @@ const ParentSeries = () => {
         return () => {
             dispatch({ type: 'flushParentData' });
         };
-    }, [dispatch, seriesId]);
+    }, [seriesId]);
 
     useEffect(() => {
         const fetchBuildData = async () => {
@@ -52,7 +53,7 @@ const ParentSeries = () => {
         };
 
         seriesData && fetchBuildData();
-    }, [dispatch, seriesData, seriesId]);
+    }, [seriesData, seriesId]);
 
     return <ParentTable data={buildData} types={buildTypes} />;
 };
