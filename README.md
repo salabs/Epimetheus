@@ -2,15 +2,15 @@
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/2540205769b54d6ab25426c2158a2f70)](https://app.codacy.com/gh/salabs/Epimetheus?utm_source=github.com&utm_medium=referral&utm_content=salabs/Epimetheus&utm_campaign=Badge_Grade_Dashboard)
 
-Epimetheus offers a overview/UI to visualize data from [TestArchiver](https://github.com/salabs/TestArchiver).
+Epimetheus offers a dashboard/UI to visualize data from [TestArchiver](https://github.com/salabs/TestArchiver).
 
 ## Installation
 
 ### Requirements
 
-1. PostgreSQL database with archived result data
-2. `Python v3+`
-3. `Node.js v10+`
+        1. PostgreSQL database with archived result data
+        2. `Python v3+`
+        3. `Node.js v10+`
 
 ### Database
 
