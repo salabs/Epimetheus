@@ -14,7 +14,6 @@ Test Navigation to Overview Pages
     Open Series Page of Team    Epimetheus
     Store Series Headers
     Test Overview of All Stored Series
-
 Test Navigation to Last Builds
     Open Series Page of Team    Epimetheus
     Store Series Headers
@@ -35,7 +34,7 @@ Store Series Headers
   END
 
 Test Overview of All Stored Series
-    Wait Until Element is Enabled   ${series_list}
+   Wait Until Element is Enabled   ${series_list}
     
     FOR    ${header}    IN    @{series_names}
       Click Element     //h3[.="${header}"]/ancestor-or-self::div[2]/div[2]/div[1]
