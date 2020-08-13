@@ -7,5 +7,6 @@ Resource                            page_locators/help_page.robot
 Resource                            page_locators/series_page.robot
 Resource                            page_locators/team_page.robot
 Resource                            page_locators/build_page.robot
+Resource                            page_locators/dashboard.robot
 Resource                            general_keywords/initialisation_keywords.robot
 Resource                            general_keywords/navigation.robot
