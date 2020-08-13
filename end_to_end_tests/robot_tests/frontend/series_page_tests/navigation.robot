@@ -15,7 +15,6 @@ Test Navigation to Overview Pages
     Store Series Headers
     Test Overview of All Stored Series
 
-
 Test Navigation to Last Builds
     Open Series Page of Team    Epimetheus
     Store Series Headers
