@@ -14,7 +14,7 @@ const StyledLink = styled(NavLink)`
     border-radius: 10px;
     background-color: var(--nero-white);
     padding: 5px;
-    margin: 5px;
+    margin: 5px 10px 5px 0;
     cursor: pointer;
     color: var(--gradient-black) !important;
     text-decoration: none;
@@ -22,20 +22,20 @@ const StyledLink = styled(NavLink)`
 
 const DashBoardLink = styled(StyledLink)`
     border: ${props =>
-        props.dashboardUrl
+        props.dashboardurl
             ? '2px solid var(--gradient-black) !important'
             : '1px solid #eee'};
     background-color: ${props =>
-        props.dashboardUrl ? 'transparent !important' : 'var(--nero-white)'};
+        props.dashboardurl ? 'transparent !important' : 'var(--nero-white)'};
 `;
 
 const HistoryLink = styled(StyledLink)`
     border: ${props =>
-        props.dashboardUrl
+        props.dashboardurl
             ? '1px solid #eee'
             : '2px solid var(--gradient-black) !important'};
     background-color: ${props =>
-        props.dashboardUrl ? 'var(--nero-white)' : 'transparent !important'};
+        props.dashboardurl ? 'var(--nero-white)' : 'transparent !important'};
 `;
 
 const Header = () => {
@@ -45,12 +45,24 @@ const Header = () => {
 
     const dashboardUrl = pathname.includes('dashboard');
     const buildUrl = pathname.includes('build');
+    const suiteUrl = pathname.includes('suite');
 
     const [
         {
             parentData: { seriesData, buildData },
+            selectedSuiteState,
         },
     ] = useStateValue();
+
+    const formSuiteHeader = () => {
+        const {
+            suite: { name },
+        } = selectedSuiteState;
+
+        return `${t('history')} ${t('suite')} ${name} ${t('in')} ${t(
+            'build'
+        )} ${buildData.build_number} ${t('from')} ${buildData.name}`;
+    };
 
     const formSeriesHeader = view => {
         if (seriesData) {
@@ -66,7 +78,11 @@ const Header = () => {
 
     const formHeader = () => {
         const view = dashboardUrl ? `${t('overview')}` : `${t('history')}`;
-        return buildUrl ? formBuildHeader(view) : formSeriesHeader(view);
+        return suiteUrl
+            ? formSuiteHeader()
+            : buildUrl
+            ? formBuildHeader(view)
+            : formSeriesHeader(view);
     };
 
     const correctUrl = prop => {
@@ -82,20 +98,22 @@ const Header = () => {
             {(seriesData || buildData) && (
                 <>
                     <h1>{formHeader()}</h1>
-                    <LinkContainer>
-                        <DashBoardLink
-                            to={correctUrl('dashboard')}
-                            dashboardUrl={dashboardUrl}
-                        >
-                            Dashboard
-                        </DashBoardLink>
-                        <HistoryLink
-                            to={correctUrl('history')}
-                            dashboardUrl={dashboardUrl}
-                        >
-                            History
-                        </HistoryLink>
-                    </LinkContainer>
+                    {!selectedSuiteState && (
+                        <LinkContainer>
+                            <DashBoardLink
+                                to={correctUrl('dashboard')}
+                                dashboardurl={dashboardUrl}
+                            >
+                                Dashboard
+                            </DashBoardLink>
+                            <HistoryLink
+                                to={correctUrl('history')}
+                                dashboardurl={dashboardUrl}
+                            >
+                                History
+                            </HistoryLink>
+                        </LinkContainer>
+                    )}
                 </>
             )}
         </>

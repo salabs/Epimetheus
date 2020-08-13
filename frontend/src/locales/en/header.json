@@ -3,5 +3,7 @@
     "history": "History of ",
     "build": "build",
     "series": "series",
-    "from": "from"
+    "from": "from",
+    "suite": "suite",
+    "in": "in"
 }

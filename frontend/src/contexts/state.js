@@ -23,6 +23,7 @@ const initialState = {
     testStabilityList: [],
     failureList: [],
     selectedBuildState: {},
+    selectedSuiteState: null,
     stabilityChecker: 'unstable',
     parentData: {
         seriesData: null,

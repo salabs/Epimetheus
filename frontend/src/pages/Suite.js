@@ -12,6 +12,7 @@ import { pickIcon } from '../components/TestIcon';
 import ParentBuild from '../components/parentData/ParentBuild';
 import Loading from '../components/Loading';
 import styled from 'styled-components';
+import Header from '../components/header/Header';
 
 const ParentInfoContainer = styled.div`
     display: flex;
@@ -167,6 +168,10 @@ const Suite = () => {
             fetchHistoryData();
             fetchSuiteData();
         }
+
+        return () => {
+            dispatch({ type: 'flushSuiteState' });
+        };
     }, [dispatch, branch_id, suiteId, buildId, seriesId, branchesState]);
 
     return (
@@ -193,6 +198,7 @@ const Suite = () => {
                         Content loaded.
                     </div>
                     <BreadcrumbNav status={'suite'} />
+                    <Header />
                     <ParentInfoContainer className="parentInfo-container">
                         <ParentBuild />
                     </ParentInfoContainer>
