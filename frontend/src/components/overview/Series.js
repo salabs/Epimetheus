@@ -1,6 +1,6 @@
 ﻿import React from 'react';
-import SuiteInstability from '../../components/graphs/SuiteInstability';
-import TimeLineChart from '../../components/graphs/TimeLineChart';
+import SuiteInstability from '../graphs/SuiteInstability';
+import TimeLineChart from '../graphs/TimeLineChart';
 import DashboardList from '../dashlist/ListMain';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
