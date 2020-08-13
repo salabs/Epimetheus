@@ -1,7 +1,6 @@
 // eslint-disable-next-line
 import React, { useContext } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
-import ThemeContext from '../contexts/themeContext';
+import { NavLink } from 'react-router-dom';
 import packageJson from '../../package.json';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
@@ -94,21 +93,7 @@ const ListElement = styled.li`
 `;
 
 const MainNav = () => {
-    const theme = useContext(ThemeContext);
     const [t] = useTranslation(['mainnav']);
-
-    const pathname = useLocation().pathname;
-
-    const seriesUrl = pathname.includes('series');
-    const suiteUrl = pathname.includes('suite');
-
-    const correctUrl = prop => {
-        if (pathname.includes(prop)) {
-            return pathname;
-        }
-        const beginningUrl = pathname.substring(0, pathname.lastIndexOf('/'));
-        return beginningUrl.concat('/' + prop);
-    };
 
     return (
         <Sidebar id="main-nav">
@@ -124,28 +109,6 @@ const MainNav = () => {
                         {t('team')}
                     </StyledLink>
                 </ListElement>
-                {seriesUrl && (
-                    <div>
-                        <ListElement suburl>
-                            <StyledLink
-                                activeClassName="active"
-                                to={correctUrl('history')}
-                            >
-                                {t('history')}
-                            </StyledLink>
-                        </ListElement>
-                        {!suiteUrl && (
-                            <ListElement suburl>
-                                <StyledLink
-                                    activeClassName="active"
-                                    to={correctUrl('dashboard')}
-                                >
-                                    Dashboard
-                                </StyledLink>
-                            </ListElement>
-                        )}
-                    </div>
-                )}
                 <ListElement className="nav-github">
                     <GithubLink href="https://github.com/salabs/Epimetheus">
                         {t('github')}

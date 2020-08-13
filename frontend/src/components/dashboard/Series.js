@@ -24,11 +24,19 @@ const Series = () => {
 
     return (
         <>
-            <ChartContainer id="timeLineContainer" width="55%%" minWidth="790px">
+            <ChartContainer
+                id="timeLineContainer"
+                width="55%%"
+                minWidth="790px"
+            >
                 <ElementHeader>{t('series.all_builds')}</ElementHeader>
                 <TimeLineChart />
             </ChartContainer>
-            <ChartContainer className="dashboard-list" width="30%" minWidth="500px">
+            <ChartContainer
+                className="dashboard-list"
+                width="30%"
+                minWidth="500px"
+            >
                 <ElementHeader>{t('series.stability_table')}</ElementHeader>
                 <DashboardList />
             </ChartContainer>
