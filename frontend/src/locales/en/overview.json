@@ -4,5 +4,8 @@
         "stability_table": "Stability Table",
         "unstable_tests": "Suites with unstable tests"
     },
-    "build": {}
+    "build": {
+        "test": "Test status",
+        "suite": "Suite status"
+    }
 }

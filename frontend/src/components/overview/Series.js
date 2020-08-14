@@ -24,11 +24,7 @@ const Series = () => {
 
     return (
         <>
-            <ChartContainer
-                id="timeLineContainer"
-                width="55%%"
-                minWidth="790px"
-            >
+            <ChartContainer id="timeLineContainer" width="55%" minWidth="790px">
                 <ElementHeader>{t('series.all_builds')}</ElementHeader>
                 <TimeLineChart />
             </ChartContainer>
