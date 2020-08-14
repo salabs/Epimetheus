@@ -33,6 +33,9 @@ const Series = () => {
                 <ElementHeader>{t('series.all_builds')}</ElementHeader>
                 <TimeLineChart />
             </ChartContainer>
+            <ChartContainer width="30%" minWidth="300px">
+                <LastBuildElement />
+            </ChartContainer>
             <ChartContainer
                 className="overview-list"
                 width="30%"
@@ -41,14 +44,7 @@ const Series = () => {
                 <ElementHeader>{t('series.stability_table')}</ElementHeader>
                 <DashboardList />
             </ChartContainer>
-            <ChartContainer>
-                <LastBuildElement />
-            </ChartContainer>
-<<<<<<< HEAD:frontend/src/components/overview/Series.js
             <ChartContainer table width="40%" minWidth="610px">
-=======
-            <ChartContainer>
->>>>>>> lastBuildElement initial commit:frontend/src/components/dashboard/Series.js
                 <ElementHeader>{t('series.unstable_tests')}</ElementHeader>
                 <SuiteInstability />
             </ChartContainer>
