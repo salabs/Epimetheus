@@ -35,7 +35,7 @@ Store Series Headers
   END
 
 Test Overview of All Stored Series
-   Wait Until Element is Enabled   ${series_list}
+    Wait Until Element is Enabled   ${series_list}
     
     FOR    ${header}    IN    @{series_names}
       Click Element     //h3[.="${header}"]/ancestor-or-self::div[2]/div[2]/div[1]
