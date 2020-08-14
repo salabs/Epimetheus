@@ -2,6 +2,7 @@
 import SuiteInstability from '../graphs/SuiteInstability';
 import TimeLineChart from '../graphs/TimeLineChart';
 import DashboardList from '../dashlist/ListMain';
+import LastBuildElement from '../lastBuildElement/LastBuild'
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import { overviewElement } from '../../styles/baseComponents';
@@ -31,6 +32,9 @@ const Series = () => {
             >
                 <ElementHeader>{t('series.all_builds')}</ElementHeader>
                 <TimeLineChart />
+            </ChartContainer>
+            <ChartContainer width="30%" minWidth="300px">
+                <LastBuildElement />
             </ChartContainer>
             <ChartContainer
                 className="overview-list"
