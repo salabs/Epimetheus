@@ -5,7 +5,6 @@ import DashboardList from '../dashlist/ListMain';
 import LastBuildElement from '../lastBuildElement/LastBuild'
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
-<<<<<<< HEAD:frontend/src/components/overview/Series.js
 import { overviewElement } from '../../styles/baseComponents';
 
 const ChartContainer = styled(overviewElement)`
