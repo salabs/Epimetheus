@@ -33,8 +33,7 @@ const Build = () => {
 
     const { seriesId, buildId } = useParams();
 
-    const [{}, dispatch] = useStateValue();
-
+    const [dispatch] = useStateValue();
     const [statusCount, setStatusCount] = useState();
 
     useEffect(() => {
