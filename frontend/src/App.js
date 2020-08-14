@@ -6,7 +6,7 @@ import ThemeContext from './contexts/themeContext';
 import MainContent from './components/MainContent';
 import MainNav from './components/MainNav';
 import History from './pages/History';
-import Dashboard from './pages/Dashboard';
+import Overview from './pages/Overview';
 import Build from './pages/Build';
 import Frontpage from './pages/Frontpage';
 import Team from './pages/Team';
@@ -115,11 +115,11 @@ const App = () => {
                                 <Route path="/series/:seriesId/history">
                                     <History />
                                 </Route>
-                                <Route path="/series/:seriesId/dashboard">
-                                    <Dashboard />
+                                <Route path="/series/:seriesId/overview">
+                                    <Overview />
                                 </Route>
-                                <Route path="/series/:seriesId/build/:buildId/dashboard">
-                                    <Dashboard />
+                                <Route path="/series/:seriesId/build/:buildId/overview">
+                                    <Overview />
                                 </Route>
                                 <Route exact path="/team">
                                     <Team />

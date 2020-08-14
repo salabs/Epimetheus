@@ -8,9 +8,9 @@ Epimetheus offers a dashboard/UI to visualize data from [TestArchiver](https://g
 
 ### Requirements
 
-1) PostgreSQL database with archived result data
-2) `Python v3+`
-3) `Node.js v10+`
+        1. PostgreSQL database with archived result data
+        2. `Python v3+`
+        3. `Node.js v10+`
 
 ### Database
 
@@ -19,7 +19,7 @@ Currently the only supported database engine is PostgreSQL. It can be local or c
 ### Backend
 
 If you have multiple python installations on your machine, remember to use the 'python3' postfix,
-also with pip you might need to use 'pip3' to make sure the requirements get installed with the right python. 
+also with pip you might need to use 'pip3' to make sure the requirements get installed with the right python.
 
 ```
 cd backend-server

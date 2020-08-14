@@ -2,8 +2,8 @@
 import { useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import BreadcrumbNav from '../components/BreadcrumbNav';
-import Build from '../components/dashboard/Build';
-import Series from '../components/dashboard/Series';
+import Build from '../components/overview/Build';
+import Series from '../components/overview/Series';
 import ParentSeries from '../components/parentData/ParentSeries';
 import ParentBuild from '../components/parentData/ParentBuild';
 import Header from '../components/header/Header';
@@ -29,7 +29,7 @@ const FlexColumn = styled.div`
     flex-direction: column;
 `;
 
-const Dashboard = () => {
+const Overview = () => {
     const [t] = useTranslation(['parentData']);
 
     const pathname = useLocation().pathname;
@@ -71,4 +71,4 @@ const Dashboard = () => {
     );
 };
 
-export default Dashboard;
+export default Overview;

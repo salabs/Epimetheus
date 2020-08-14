@@ -50,7 +50,7 @@ const BreadcrumbItemSeries = () => {
         <StyledInnerDiv>
             <BreadcrumbItem /> &gt;
             <StyledLink
-                to={`/series/${seriesId}/dashboard`}
+                to={`/series/${seriesId}/overview`}
                 id="SeriesBreadCrumb"
             >
                 {selectedBranchState.name}
@@ -65,7 +65,7 @@ const BreadcrumbItemBuild = () => {
         <StyledInnerDiv>
             <BreadcrumbItemSeries /> &gt;
             <StyledLink
-                to={`/series/${seriesId}/build/${buildId}/dashboard`}
+                to={`/series/${seriesId}/build/${buildId}/overview`}
                 id="BuildBreadCrumb"
             >
                 {buildId}

@@ -1,6 +1,6 @@
 *** Keywords ***
 
-Current Page Is 
+Current Page Is
   [Arguments]	${url}
   Go To     ${url}
 
@@ -17,7 +17,7 @@ Open Index Page
 
 Open Series Page of Team
   [Arguments]    ${team}
-  ${url} =   Catenate  SEPARATOR=    ${team_url}    ${team}    
+  ${url} =   Catenate  SEPARATOR=    ${team_url}    ${team}
   Go To   ${url}
 
 Open a build
@@ -32,9 +32,9 @@ Open history page of series
   ${url}=   Get Location
   Should be equal as Strings   ${url}   ${str}
 
-Open dashboard page of series
+Open overview page of series
   [Arguments]    ${series}
-  ${str}=   Catenate  SEPARATOR=    ${history_url}    ${series}    /dashboard
+  ${str}=   Catenate  SEPARATOR=    ${history_url}    ${series}    /overview
   Current Page Is     url=${str}
   ${url}=   Get Location
   Should be equal as Strings   ${url}   ${str}
