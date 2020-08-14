@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useStateValue } from '../../contexts/state';
 
@@ -18,13 +18,7 @@ const LastBuildTable = styled.table`
     }
 `;
 
-const FailuresTable = () => {
-    const [
-        {
-            parentData: { seriesData, buildData },
-        },
-    ] = useStateValue();
-
+const FailuresTable = ({ failures }) => {
     return (
         <LastBuildTable>
             <thead>
@@ -34,14 +28,14 @@ const FailuresTable = () => {
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>SuiteX</td>
-                    <td>testi</td>
-                </tr>
-                <tr>
-                    <td>SuiteY</td>
-                    <td>testi2</td>
-                </tr>
+                {failures.map(x => {
+                    return (
+                        <tr key={x.id}>
+                            <td>{x.suite}</td>
+                            <td>{x.name}</td>
+                        </tr>
+                    );
+                })}
             </tbody>
         </LastBuildTable>
     );

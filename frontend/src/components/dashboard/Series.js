@@ -32,6 +32,9 @@ const Series = () => {
                 <ElementHeader>{t('series.all_builds')}</ElementHeader>
                 <TimeLineChart />
             </ChartContainer>
+            <ChartContainer width="30%" minWidth="300px">
+                <LastBuildElement />
+            </ChartContainer>
             <ChartContainer
                 className="dashboard-list"
                 width="30%"
@@ -39,9 +42,6 @@ const Series = () => {
             >
                 <ElementHeader>{t('series.stability_table')}</ElementHeader>
                 <DashboardList />
-            </ChartContainer>
-            <ChartContainer>
-                <LastBuildElement />
             </ChartContainer>
             <ChartContainer table width="40%" minWidth="610px">
                 <ElementHeader>{t('series.unstable_tests')}</ElementHeader>
