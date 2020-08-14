@@ -89,10 +89,6 @@ const Overview = () => {
                 <ParentInfo id="parentInfo-container">
                     {!buildUrl ? (
                         <FlexColumn>
-                            <SeriesInfo id="series-info-container">
-                                <h3>{t('title')}</h3>
-                                <ParentSeries />
-                            </SeriesInfo>
                             <Filter direction="row" />
                         </FlexColumn>
                     ) : (
