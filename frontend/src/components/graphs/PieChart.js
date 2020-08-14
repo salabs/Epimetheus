@@ -1,10 +1,10 @@
 ﻿import React from 'react';
 import Chart from 'react-apexcharts';
 import { pluck } from 'ramda';
-import Loading from '../../components/Loading';
+import Loading from '../Loading';
 import { colorTypes } from '../../utils/colorTypes';
 
-const StatusCount = ({ labels, statusCount }) => {
+const PieChart = ({ labels, statusCount }) => {
     const series =
         statusCount && labels.flatMap(label => pluck(label, statusCount));
 
@@ -48,4 +48,4 @@ const StatusCount = ({ labels, statusCount }) => {
     );
 };
 
-export default StatusCount;
+export default PieChart;
