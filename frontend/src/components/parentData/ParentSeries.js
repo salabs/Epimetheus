@@ -12,48 +12,43 @@ const ParentSeries = () => {
     const [
         {
             parentData: { seriesData, buildData },
+            branchesState,
         },
         dispatch,
     ] = useStateValue();
 
     useEffect(() => {
-        const url = `/data/series/${seriesId}/info?`;
+        if (branchesState) {
+            const branch = branchesState.series?.find(
+                ({ id: serie_id }) => serie_id === parseInt(seriesId, 10)
+            );
+            const fetchData = async () => {
+                dispatch({ type: 'setSeriesData', seriesData: branch });
+                dispatch({
+                    type: 'setSelectedBranch',
+                    name: branch.name || ' ',
+                    id: seriesId,
+                    team: branch.team || ' ',
+                });
+                try {
+                    const { last_build } = branch;
+                    const buildUrl = `/data/series/${seriesId}/builds/${last_build}/info?`;
+                    const res = await fetch(buildUrl);
+                    const json = await res.json();
+                    const buildData = json.build;
 
-        const fetchSeriesData = async () => {
-            try {
-                const res = await fetch(url);
-                const json = await res.json();
-                const seriesData = json.series;
-                dispatch({ type: 'setSeriesData', seriesData });
-            } catch (error) {
-                dispatch({ type: 'setErrorState', errorState: error });
-            }
-        };
+                    dispatch({ type: 'setBuildData', buildData });
+                } catch (error) {
+                    dispatch({ type: 'setErrorState', errorState: error });
+                }
+            };
 
-        fetchSeriesData();
-
-        // returned function will be called on component unmount
+            fetchData();
+        }
         return () => {
             dispatch({ type: 'flushParentData' });
         };
-    }, [seriesId]);
-
-    useEffect(() => {
-        const fetchBuildData = async () => {
-            const { last_build } = seriesData;
-            const buildUrl = `/data/series/${seriesId}/builds/${last_build}/info?`;
-            try {
-                const res = await fetch(buildUrl);
-                const json = await res.json();
-                const buildData = json.build;
-                dispatch({ type: 'setBuildData', buildData });
-            } catch (error) {
-                dispatch({ type: 'setErrorState', errorState: error });
-            }
-        };
-
-        seriesData && fetchBuildData();
-    }, [seriesData, seriesId]);
+    }, [dispatch, seriesId, branchesState]);
 
     return <ParentTable data={buildData} types={buildTypes} />;
 };

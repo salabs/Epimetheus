@@ -5,16 +5,24 @@ import { useStateValue } from '../../contexts/state';
 const LastBuildTable = styled.table`
     width: 100%;
     th {
-        margin: 30px;
+        margin: 20px;
         text-align: left;
         vertical-align: middle;
         border-bottom: 1px solid #ddd;
     }
 
     td {
-        margin: 20px;
+        padding-right: 5px;
+        margin: 20px
         text-align: left;
         vertical-align: middle;
+    }
+    thead th:nth-of-type(1) {
+        width: 40%;
+    }
+
+    thead th:nth-of-type(2) {
+        width: 50%;
     }
 `;
 

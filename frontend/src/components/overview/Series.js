@@ -29,7 +29,7 @@ const Series = () => {
                 <ElementHeader>{t('series.all_builds')}</ElementHeader>
                 <TimeLineChart />
             </ChartContainer>
-            <ChartContainer width="30%" minWidth="300px">
+            <ChartContainer width="30%" minWidth="400px">
                 <LastBuildElement />
             </ChartContainer>
             <ChartContainer

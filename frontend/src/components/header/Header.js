@@ -1,4 +1,4 @@
-﻿import React from 'react';
+﻿﻿import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
@@ -57,10 +57,11 @@ const Header = () => {
         const {
             suite: { name },
         } = selectedSuiteState;
-
-        return `${t('history')} ${t('suite')} ${name} ${t('in')} ${t(
-            'build'
-        )} ${buildData.build_number} ${t('from')} ${buildData.name}`;
+        if (buildData) {
+            return `${t('history')} ${t('suite')} ${name} ${t('in')} ${t(
+                'build'
+            )} ${buildData.build_number} ${t('from')} ${buildData.name}`;    
+        }
     };
 
     const formSeriesHeader = view => {
