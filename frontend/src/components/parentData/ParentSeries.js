@@ -48,7 +48,7 @@ const ParentSeries = () => {
         return () => {
             dispatch({ type: 'flushParentData' });
         };
-    }, [dispatch, seriesId, branchesState]);
+    }, [seriesId, branchesState]);
 
     return <ParentTable data={buildData} types={buildTypes} />;
 };

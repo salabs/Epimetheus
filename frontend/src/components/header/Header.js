@@ -99,7 +99,7 @@ const Header = () => {
         <>
             {(seriesData || buildData) && (
                 <>
-                    <h1>{formHeader()}</h1>
+                    <h1 id="siteHeader">{formHeader()}</h1>
                     {!selectedSuiteState && (
                         <LinkContainer>
                             <OverviewLink

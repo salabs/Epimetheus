@@ -1,9 +1,9 @@
-﻿import React, { useEffect } from 'react';
+﻿/* eslint-disable react-hooks/exhaustive-deps */
+import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import BreadcrumbNav from '../components/BreadcrumbNav';
-import { useParams } from 'react-router';
-import { useStateValue } from '../contexts/state';
+
 import Build from '../components/overview/Build';
 import Series from '../components/overview/Series';
 import ParentSeries from '../components/parentData/ParentSeries';
@@ -32,54 +32,10 @@ const FlexColumn = styled.div`
 `;
 
 const Overview = () => {
-    const [t] = useTranslation(['parentData']);
-    const { seriesId } = useParams();
-
-    const [
-        {
-            parentData: { seriesData, buildData },
-            branchesState,
-        },
-        dispatch,
-    ] = useStateValue();
-
     const pathname = useLocation().pathname;
     const buildUrl = pathname.includes('build');
 
     const status = buildUrl ? 'build' : 'series';
-
-    useEffect(() => {
-        if (branchesState) {
-            const branch = branchesState.series?.find(
-                ({ id: serie_id }) => serie_id === parseInt(seriesId, 10)
-            );
-            const fetchData = async () => {
-                dispatch({ type: 'setSeriesData', seriesData: branch });
-                dispatch({
-                    type: 'setSelectedBranch',
-                    name: branch.name || ' ',
-                    id: seriesId,
-                    team: branch.team || ' ',
-                });
-                try {
-                    const { last_build } = branch;
-                    const buildUrl = `/data/series/${seriesId}/builds/${last_build}/info?`;
-                    const res = await fetch(buildUrl);
-                    const json = await res.json();
-                    const buildData = json.build;
-
-                    dispatch({ type: 'setBuildData', buildData });
-                } catch (error) {
-                    dispatch({ type: 'setErrorState', errorState: error });
-                }
-            };
-
-            fetchData();
-        }
-        return () => {
-            dispatch({ type: 'flushParentData' });
-        };
-    }, [dispatch, seriesId, branchesState]);
 
     return (
         <main>
