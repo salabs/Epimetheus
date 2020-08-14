@@ -71,8 +71,10 @@ const Header = () => {
     };
 
     const formBuildHeader = view => {
-        const { name, build_number } = buildData;
-        return `${view} ${t('build')} ${build_number} ${t('from')} ${name}`;
+        if (buildData) {
+            const { name, build_number } = buildData;
+            return `${view} ${t('build')} ${build_number} ${t('from')} ${name}`;
+        }
     };
 
     const formHeader = () => {
