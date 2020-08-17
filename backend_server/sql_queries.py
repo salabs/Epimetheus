@@ -172,7 +172,7 @@ SELECT sum(total)::int as tests_total,
        count(nullif(status !~ '^FAIL', true)) as suites_failed,
        count(nullif(status !~ '^SKIP', true)) as suites_skipped,
        count(nullif(status ~ '^((SKIP)|(PASS)|(FAIL))', true)) as suites_other,
-       build_start_time,
+       min(build_start_time) as build_start_time,
        build_id,
        build_number
 FROM (
@@ -211,7 +211,7 @@ FROM (
     ) AS status_per_test
     GROUP BY suite_id, build_number, build_id
 ) AS status_per_suite
-GROUP BY build_number, build_id, build_start_time
+GROUP BY build_number, build_id
 ORDER BY build_number DESC
 """.format(series=int(series), # nosec
            test_run_ids=test_run_ids(series, start_from=start_from, last=last, offset=offset))
