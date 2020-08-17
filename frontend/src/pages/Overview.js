@@ -1,7 +1,9 @@
-﻿import React from 'react';
+﻿/* eslint-disable react-hooks/exhaustive-deps */
+import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import BreadcrumbNav from '../components/BreadcrumbNav';
+
 import Build from '../components/overview/Build';
 import Series from '../components/overview/Series';
 import ParentSeries from '../components/parentData/ParentSeries';
@@ -30,8 +32,6 @@ const FlexColumn = styled.div`
 `;
 
 const Overview = () => {
-    const [t] = useTranslation(['parentData']);
-
     const pathname = useLocation().pathname;
     const buildUrl = pathname.includes('build');
 
@@ -45,10 +45,6 @@ const Overview = () => {
                 <ParentInfo id="parentInfo-container">
                     {!buildUrl ? (
                         <FlexColumn>
-                            <SeriesInfo id="series-info-container">
-                                <h3>{t('title')}</h3>
-                                <ParentSeries />
-                            </SeriesInfo>
                             <Filter direction="row" />
                         </FlexColumn>
                     ) : (

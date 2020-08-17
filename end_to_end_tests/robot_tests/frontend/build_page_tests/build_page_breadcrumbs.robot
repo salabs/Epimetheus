@@ -6,8 +6,8 @@ Resource                ../../../resources/resource.robot
 Test Breadcrumbs
   Open a build  1   1
   Store the team and series of current page
-  Navigate to history page using breadcrumbs
-  History page should be of stored series
+  Navigate to overview page using breadcrumbs
+  Overview page should be of stored series
   Open a build    1    1
   Navigate to team page using breadcrumbs
   Team page should be of stored team
@@ -22,16 +22,14 @@ Store the team and series of current page
     Set Suite Variable    ${stored_team}    ${temp_stored_team}
     Set Suite Variable    ${stored_series}    ${temp_stored_series}
 
-Navigate to history page using breadcrumbs
+Navigate to overview page using breadcrumbs
     Wait Until Element is Enabled    ${series_breadcrumb}
     Click Element    ${series_breadcrumb}
 
-History page should be of stored series
-    Wait Until Element Is Enabled    ${series_identifier}
-    ${found_series}=    Get Text    ${series_identifier}
-    Should Be Equal As Strings    ${found_series}    ${stored_series}
+Overview page should be of stored series
+    Wait Until Element Is Enabled    ${timeline_locator}
+    Element Should Contain    ${siteHeader}    ${stored_series}
     
-
 Navigate to team page using breadcrumbs
     Wait Until Element is Enabled    ${team_breadcrumb} 
     Click Element    ${team_breadcrumb} 

@@ -12,9 +12,17 @@ const LastBuildTable = styled.table`
 
     td {
         margin: 20px;
-        padding-right: 20px;
+        padding-right: 5px;
         text-align: left;
         vertical-align: middle;
+    }
+
+    td:nth-of-type(1) {
+        width: 40%;
+    }
+
+    td:nth-of-type(2) {
+        width: 50%;
     }
 `;
 
