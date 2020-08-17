@@ -16,6 +16,13 @@ const StyledTable = styled(baseTable)`
     td:first-of-type {
         vertical-align: middle;
     }
+
+    @media only screen and (min-width: 1024px) {
+        td,
+        th {
+            min-width: 122px;
+        }
+    }
 `;
 
 const ParentTable = props => {
@@ -23,9 +30,10 @@ const ParentTable = props => {
 
     const headerRow = () => {
         return types.map(name => {
-            const CapitalCaseInitial =
+            const capitalCaseInitial =
                 name.charAt(0).toUpperCase() + name.slice(1);
-            return <th key={name}>{CapitalCaseInitial}</th>;
+            const cleanedHeader = capitalCaseInitial.replace(/_/g, ' ');
+            return <th key={name}>{cleanedHeader}</th>;
         });
     };
 
