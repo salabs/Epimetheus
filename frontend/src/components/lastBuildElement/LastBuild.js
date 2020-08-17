@@ -22,6 +22,7 @@ const LastBuildElement = () => {
     const [dispatch] = useStateValue();
 
     useEffect(() => {
+        let mounted = true;
         const fetchHistory = async () => {
             const url = `/data/series/${seriesId}/history?builds=1`;
             try {
@@ -44,12 +45,16 @@ const LastBuildElement = () => {
                         };
                     })
                     .filter(data => data.failures.length !== 0);
-                setFailures(filterList);
+                if (mounted) {
+                    setFailures(filterList);
+                }
             } catch (error) {
                 dispatch({ type: 'setErrorState', errorState: error });
             }
         };
         fetchHistory();
+
+        return () => (mounted = false);
     }, [seriesId]);
 
     return (

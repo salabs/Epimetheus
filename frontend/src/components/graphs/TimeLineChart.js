@@ -14,18 +14,22 @@ const TimeLineChart = () => {
     const [statusCount, setStatusCount] = useState();
 
     useEffect(() => {
+        let mounted = true;
         const url = `/data/series/${seriesId}/status_counts/?builds=${amountOfBuilds}`;
 
         const fetchData = async () => {
             try {
                 const res = await fetch(url);
                 const json = await res.json();
-                setStatusCount(json.status_counts);
+                if (mounted) {
+                    setStatusCount(json.status_counts);
+                }
             } catch (error) {
                 dispatch({ type: 'setErrorState', errorState: error });
             }
         };
         fetchData();
+        return () => (mounted = false);
     }, [seriesId, amountOfBuilds]);
 
     const numberOfTestsWithStatus = status => {
