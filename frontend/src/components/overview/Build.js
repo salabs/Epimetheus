@@ -53,11 +53,9 @@ const Build = () => {
     }, [buildId, seriesId]);
 
     const cleanseData = () => {
-        if (statusCount && statusCount.length > 1) {
-            return [last(statusCount)];
-        } else {
-            return statusCount;
-        }
+        return statusCount && statusCount.length > 1
+            ? [last(statusCount)]
+            : statusCount;
     };
 
     return (
