@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { useStateValue } from '../../contexts/state';
 
 const LastBuildTable = styled.table`
     width: 100%;
@@ -13,7 +12,7 @@ const LastBuildTable = styled.table`
 
     td {
         padding-right: 5px;
-        margin: 20px
+        margin: 20px;
         text-align: left;
         vertical-align: middle;
     }

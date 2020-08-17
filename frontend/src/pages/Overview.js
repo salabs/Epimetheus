@@ -1,12 +1,10 @@
 ﻿/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import BreadcrumbNav from '../components/BreadcrumbNav';
 
 import Build from '../components/overview/Build';
 import Series from '../components/overview/Series';
-import ParentSeries from '../components/parentData/ParentSeries';
 import ParentBuild from '../components/parentData/ParentBuild';
 import Header from '../components/header/Header';
 import styled from 'styled-components';
@@ -16,9 +14,6 @@ const ParentInfo = styled.div`
     display: flex;
     flex-flow: row wrap;
     padding: 20px 0;
-`;
-const SeriesInfo = styled.div`
-    padding-bottom: 45px;
 `;
 
 const FlexDiv = styled.div`

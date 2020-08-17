@@ -8,6 +8,7 @@ import { useStateValue } from '../../contexts/state';
 import { useTranslation } from 'react-i18next';
 import { overviewElement } from '../../styles/baseComponents';
 import styled from 'styled-components';
+import { last } from 'ramda';
 
 const FlexDiv = styled.div`
     display: flex;
@@ -51,6 +52,14 @@ const Build = () => {
         fetchData();
     }, [buildId, seriesId]);
 
+    const cleanseData = () => {
+        if (statusCount && statusCount.length > 1) {
+            return [last(statusCount)];
+        } else {
+            return statusCount;
+        }
+    };
+
     return (
         <React.Fragment>
             {statusCount ? (
@@ -59,14 +68,14 @@ const Build = () => {
                         <ElementHeader>{t('build.suite')}</ElementHeader>
                         <PieChart
                             labels={suiteLabels}
-                            statusCount={statusCount}
+                            statusCount={cleanseData()}
                         />
                     </ChartContainer>
                     <ChartContainer width="450px" height="300px">
                         <ElementHeader>{t('build.test')}</ElementHeader>
                         <PieChart
                             labels={testLabels}
-                            statusCount={statusCount}
+                            statusCount={cleanseData()}
                         />
                     </ChartContainer>
                 </FlexDiv>
