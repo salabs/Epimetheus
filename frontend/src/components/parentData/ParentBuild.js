@@ -10,6 +10,7 @@ const ParentSeries = () => {
     const [
         {
             parentData: { buildData },
+            branchesState,
         },
         dispatch,
     ] = useStateValue();
@@ -17,6 +18,17 @@ const ParentSeries = () => {
     useEffect(() => {
         const url = `/data/series/${seriesId}/builds/${buildId}/info?`;
 
+        if (branchesState) {
+            const branch = branchesState.series?.find(
+                ({ id: serie_id }) => serie_id === parseInt(seriesId, 10)
+            );
+            dispatch({
+                type: 'setSelectedBranch',
+                name: branch.name || ' ',
+                id: seriesId,
+                team: branch.team || ' ',
+            });
+        }
         const fetchData = async () => {
             // dispatch({ type: 'setLoadingState', loadingState: true });
             try {
@@ -35,7 +47,7 @@ const ParentSeries = () => {
         return () => {
             dispatch({ type: 'flushParentData' });
         };
-    }, [dispatch, seriesId, buildId]);
+    }, [seriesId, buildId, branchesState]);
 
     const types = testId ? suiteTypes : buildTypes;
 
