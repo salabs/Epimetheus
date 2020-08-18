@@ -28,13 +28,7 @@ const Series = () => {
 
     const { seriesId } = useParams();
 
-    const [
-        {
-            parentData: { seriesData, buildData },
-            branchesState,
-        },
-        dispatch,
-    ] = useStateValue();
+    const [{ branchesState }, dispatch] = useStateValue();
 
     useEffect(() => {
         if (branchesState) {
@@ -75,7 +69,7 @@ const Series = () => {
                 <ElementHeader>{t('series.all_builds')}</ElementHeader>
                 <TimeLineChart />
             </ChartContainer>
-            <ChartContainer width="30%" minWidth="400px">
+            <ChartContainer minWidth="400px">
                 <LastBuildElement />
             </ChartContainer>
             <ChartContainer

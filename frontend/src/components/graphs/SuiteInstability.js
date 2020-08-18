@@ -60,10 +60,6 @@ const SuiteInstability = () => {
         };
     }, [dispatch, numberOfBuilds, seriesId]);
 
-    const { buildId } = useParams();
-
-    const correctStatus = () => (buildId ? 'build' : 'series');
-
     const barSpec = {
         width: 400,
         height: 200,

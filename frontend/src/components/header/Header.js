@@ -1,4 +1,4 @@
-﻿﻿import React from 'react';
+﻿import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
@@ -8,7 +8,8 @@ const LinkContainer = styled.div`
     padding: 10px 0;
 `;
 
-const StyledLink = styled(NavLink)`
+// eslint-disable-next-line no-unused-vars
+const StyledLink = styled(({ overview, ...props }) => <NavLink {...props} />)`
     border: 1px solid #eee;
     width: 100px;
     border-radius: 10px;
@@ -60,7 +61,7 @@ const Header = () => {
         if (buildData) {
             return `${t('history')} ${t('suite')} ${name} ${t('in')} ${t(
                 'build'
-            )} ${buildData.build_number} ${t('from')} ${buildData.name}`;    
+            )} ${buildData.build_number} ${t('from')} ${buildData.name}`;
         }
     };
 

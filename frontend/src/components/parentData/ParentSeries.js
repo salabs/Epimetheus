@@ -11,7 +11,7 @@ const ParentSeries = () => {
 
     const [
         {
-            parentData: { seriesData, buildData },
+            parentData: { buildData },
             branchesState,
         },
         dispatch,
