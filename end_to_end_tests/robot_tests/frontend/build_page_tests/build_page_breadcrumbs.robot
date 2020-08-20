@@ -5,9 +5,9 @@ Resource                ../../../resources/resource.robot
 
 Test Breadcrumbs
   Open a build  1   1
-  Store the team and series of current page
-  Navigate to overview page using breadcrumbs
-  Overview page should be of stored series
+  Store the team, series and build of build page
+  Navigate to series overview page using breadcrumbs
+  Series overview page should be of stored series   ${stored_series}
   Open a build    1    1
   Navigate to team page using breadcrumbs
   Team page should be of stored team
