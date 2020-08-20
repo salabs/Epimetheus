@@ -38,3 +38,13 @@ Open overview page of series
   Current Page Is     url=${str}
   ${url}=   Get Location
   Should be equal as Strings   ${url}   ${str}
+
+Open overview page of build
+  [Arguments]   ${series}   ${build}
+  ${url}=   Catenate  SEPARATOR=  ${url}  series/   ${series}   /build/   ${build}    /overview
+  Go To   ${url}
+
+Open a suite 
+  [Arguments] ${series} ${build}  ${suite}
+  ${url}=   Catenate  SEPARATOR=  ${url}  series/   ${series}   /build/   ${build}    /suite/   ${suite}    /history
+  Go To   ${url}
