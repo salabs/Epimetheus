@@ -78,7 +78,7 @@ const BreadcrumbItemSuite = () => {
     const { suiteId } = useParams();
     return (
         <StyledInnerDiv>
-            <BreadcrumbItemBuild /> &gt; {suiteId}
+            <BreadcrumbItemBuild /> &gt; <span id="SuiteBreadCrumb">{suiteId}</span>
         </StyledInnerDiv>
     );
 };

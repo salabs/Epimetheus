@@ -12,5 +12,6 @@ ${series_breadcrumb}        //*[@id="SeriesBreadCrumb"]
 
 ${team_identifier}          xpath://*[@id="LastRunTable"]/tbody/tr/td[1]
 ${series_identifier}        xpath://*[@id="LastRunTable"]/tbody/tr/td[2]
+${build_identifier}         xpath://*[@id="LastRunTable"]/tbody/tr/td[3]
 
 ${build_page_info_table}    xpath://*[@id="LastRunTable"]/tbody
