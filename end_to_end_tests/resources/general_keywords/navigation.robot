@@ -6,7 +6,7 @@ Current Page Is
 
 Page contains id
   [Arguments]	${id}
-  Element should be Enabled	${id}
+  Element should be Enabled   ${id}
 
 Open Team Page
     Go To   url=${team_url}
@@ -26,6 +26,8 @@ Open a build
   Set Suite Variable    ${navigated_series}   ${series}
   Set Suite Variable    ${navigated_build}    ${build}
   Go To  ${str}
+  Wait Until Element is Enabled   ${build_page_info_table}
+
 
 Open history page of series
   [Arguments]    ${series}
@@ -34,6 +36,8 @@ Open history page of series
   ${url}=   Get Location
   Set Suite Variable    ${navigated_series}   ${series}
   Should be equal as Strings   ${url}   ${str}
+  Wait Until Element is Enabled   ${build_page_info_table}
+
 
 Open overview page of series
   [Arguments]    ${series}
@@ -43,12 +47,14 @@ Open overview page of series
   Set Suite Variable    ${navigated_series}   ${series}
   Should be equal as Strings   ${url}   ${str}
 
+
 Open overview page of build
   [Arguments]   ${series}   ${build}
   ${url}=   Catenate  SEPARATOR=  ${url}  series/   ${series}   /build/   ${build}    /overview
   Set Suite Variable    ${navigated_series}   ${series}
   Set Suite Variable    ${navigated_build}    ${build}
   Go To   ${url}
+  Wait Until Element is Enabled   ${build_page_info_table}
 
 Open a suite 
   [Arguments]   ${series}   ${build}    ${suite}
@@ -57,6 +63,8 @@ Open a suite
   Set Suite Variable    ${navigated_build}    ${build}
   Set Suite Variable    ${navigated_suite}    ${suite}
   Go To   ${url}
+    Wait Until Element is Enabled   ${build_page_info_table}
+
 
 Navigate to first suite of build
   [Arguments]   ${series}   ${build}
