@@ -63,7 +63,7 @@ Open a suite
   Set Suite Variable    ${navigated_build}    ${build}
   Set Suite Variable    ${navigated_suite}    ${suite}
   Go To   ${url}
-    Wait Until Element is Enabled   ${build_page_info_table}
+  Wait Until Element is Enabled   ${build_page_info_table}
 
 
 Navigate to first suite of build
@@ -72,4 +72,5 @@ Navigate to first suite of build
   Go To   ${url}
   Wait Until Element is Enabled   ${first_suite}
   Click Element     ${first_suite}
-  Wait Until Element is Enabled    ${suite_id_locator}
+  Wait Until Element is Enabled   ${suite_id_locator}
+  Wait Until Element is Enabled   ${build_page_info_table}
