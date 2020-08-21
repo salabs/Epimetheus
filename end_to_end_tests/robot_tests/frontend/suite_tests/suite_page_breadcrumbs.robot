@@ -18,5 +18,3 @@ Verify Last build info and Breadcrumb
     Navigate to team page using breadcrumbs
     Team page should be of stored team      ${stored_team}
     Team page breadcrumb should contain correct value   ${stored_team}
-
-*** Keywords ***
