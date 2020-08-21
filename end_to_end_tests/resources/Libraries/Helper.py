@@ -61,4 +61,15 @@ class Helper:
     def get_number(self):
         return self.value
 
-        
+    @keyword
+    def get_build_info(self, series, build):
+        r = requests.get(self.host+"data/series/" + series + "/builds/" + build + "/info?")
+        return r.json()["series"]
+
+    @keyword
+    def get_team_from_info(self, info):
+        return(info["team"])
+
+    @keyword
+    def get_series_from_info(self, info):
+        return(info["name"])

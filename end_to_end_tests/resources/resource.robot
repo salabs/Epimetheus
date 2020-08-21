@@ -9,6 +9,7 @@ Resource                            page_locators/team_page.robot
 Resource                            page_locators/build_page.robot
 Resource                            page_locators/overview.robot
 Resource                            page_locators/build_overview.robot
+Resource                            page_locators/suite_page.robot
 Resource                            general_keywords/initialisation_keywords.robot
 Resource                            general_keywords/navigation.robot
 Resource                            general_keywords/breadcrumbs.robot

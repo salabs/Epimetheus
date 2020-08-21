@@ -13,5 +13,7 @@ ${series_breadcrumb}        //*[@id="SeriesBreadCrumb"]
 ${team_identifier}          xpath://*[@id="LastRunTable"]/tbody/tr/td[1]
 ${series_identifier}        xpath://*[@id="LastRunTable"]/tbody/tr/td[2]
 ${build_identifier}         xpath://*[@id="LastRunTable"]/tbody/tr/td[3]
-
+${build_breadcrumb}         xpath://*[@id="BuildBreadCrumb"]
 ${build_page_info_table}    xpath://*[@id="LastRunTable"]/tbody
+
+${first_suite}              xpath://*[@id="last-run-table"]/tbody/tr[1]/td[1]/a

@@ -17,20 +17,24 @@ Navigate to build overview page using breadcrumbs
 
 Team page breadcrumb should contain correct value
     [Arguments]     ${team}
+    Wait Until Element Is Enabled   ${team_breadcrumb}
     Element Should Contain      ${team_breadcrumb}  ${team}
     
 Series page breadcrumbs should contain correct values
     [Arguments]     ${series}   ${team}
+    Wait Until Element Is Enabled   ${series_breadcrumb}
     Team page breadcrumb should contain correct value   ${team}
     Element Should Contain      ${series_breadcrumb}        ${series}
 
 Build page breadcrumbs should contain correct values
     [Arguments]     ${build}    ${series}   ${team}
+    Wait Until Element Is Enabled   ${build_breadcrumb}
     Series page breadcrumbs should contain correct values   ${series}   ${team}
     Element Should Contain      ${build_breadcrumb}     ${build}
 
 Suite page breadcrumbs should contain correct values
-    [Arguments]     ${suite}    ${build}    ${series}   ${team} 
+    [Arguments]     ${suite}    ${build}    ${series}   ${team}
+    Wait Until Element Is Enabled   ${suite_breadcrumb}
     Build page breadcrumbs should contain correct values    ${build}    ${series}   ${team}
     Element Should Contain      ${suite_breadcrumb}     ${suite}
 
@@ -49,17 +53,7 @@ Build overview page should be of stored build
 
 Team page should be of stored team
     [Arguments]     ${team}
-    Location should contain    ${stored_team}
-
-Store the team, series and build of build page
-    Wait Until Element Is Enabled    ${build_page_info_table}
-    ${temp_stored_team}=    Get Text    ${team_identifier}
-    ${temp_stored_series}=    Get Text    ${series_identifier}
-    ${temp_stored_build}=   Get Text    ${build_identifier}
-
-    Set Suite Variable      ${stored_team}      ${temp_stored_team}
-    Set Suite Variable      ${stored_series}        ${temp_stored_series}
-    Set Suite Variable      ${stored_build}     ${temp_stored_build}
+    Location should contain    ${team}
 
 Store team and series of series history page
     Wait Until Element Is Enabled    ${build_page_info_table}
@@ -68,3 +62,15 @@ Store team and series of series history page
 
     Set Suite Variable      ${stored_team}      ${temp_stored_team}
     Set Suite Variable      ${stored_series}        ${temp_stored_series}
+
+Store the team, series and build of build page
+    Store team and series of series history page
+    Wait Until Element Is Enabled    ${build_page_info_table}
+    ${temp_stored_build}=   Get Text    ${build_identifier}
+    Set Suite Variable      ${stored_build}     ${temp_stored_build}
+
+Store the team, series, build and suite of a suite page
+    Wait Until Element Is Enabled    ${suite_id_locator}
+    Store the team, series and build of build page
+    ${temp_stored_suite}=   Get Text    ${suite_id_locator}
+    Set Suite Variable      ${stored_suite}     ${temp_stored_suite}

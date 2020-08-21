@@ -1,3 +1,3 @@
 ***Variables***
-${build_breadcrumb} xpath://*[@id="BuildBreadCrumb"]
-${suite_breadcrumb} xpath://*[@id="SuiteBreadCrumb"]
+${suite_breadcrumb}     xpath://*[@id="SuiteBreadCrumb"]
+${suite_id_locator}     xpath://*[@id="suiteId"]
