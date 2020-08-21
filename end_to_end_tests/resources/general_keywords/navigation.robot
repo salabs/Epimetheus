@@ -54,7 +54,7 @@ Open overview page of build
   Set Suite Variable    ${navigated_series}   ${series}
   Set Suite Variable    ${navigated_build}    ${build}
   Go To   ${url}
-  Wait Until Element is Enabled   ${build_page_info_table}
+  Wait Until Element is Enabled   ${buildOverviewContainer}
 
 Open a suite 
   [Arguments]   ${series}   ${build}    ${suite}

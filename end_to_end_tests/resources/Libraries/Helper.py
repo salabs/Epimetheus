@@ -65,11 +65,13 @@ class Helper:
     def get_build_info(self, series, build):
         r = requests.get(self.host+"data/series/" + series + "/builds/" + build + "/info?")
         return r.json()["series"]
-
+    
+    @staticmethod
     @keyword
-    def get_team_from_info(self, info):
+    def get_team_from_info(info):
         return(info["team"])
-
+   
+    @staticmethod
     @keyword
-    def get_series_from_info(self, info):
+    def get_series_from_info(info):
         return(info["name"])

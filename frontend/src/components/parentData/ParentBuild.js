@@ -14,7 +14,7 @@ const ParentSeries = () => {
         },
         dispatch,
     ] = useStateValue();
-
+    
     useEffect(() => {
         if (branchesState) {
             const branch = branchesState.series?.find(
@@ -29,9 +29,8 @@ const ParentSeries = () => {
                     team: branch.team || ' ',
                 });
                 try {
-                    const { last_build } = branch;
-                    const buildUrl = `/data/series/${seriesId}/builds/${last_build}/info?`;
-                    const res = await fetch(buildUrl);
+                    const url = `/data/series/${seriesId}/builds/${buildId}/info?`;
+                    const res = await fetch(url);
                     const json = await res.json();
                     const buildData = json.build;
 
