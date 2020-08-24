@@ -1,5 +1,5 @@
 // eslint-disable-next-line
-import React from 'react';
+import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { useParams } from 'react-router';
 import { useStateValue } from '../contexts/state';
@@ -13,6 +13,7 @@ import ParentBuild from '../components/parentData/ParentBuild';
 import Loading from '../components/Loading';
 import styled from 'styled-components';
 import Header from '../components/header/Header';
+import SuiteLogMessage from '../components/SuiteLogMessage';
 
 const ParentInfoContainer = styled.div`
     display: flex;
@@ -105,10 +106,10 @@ const SelectedTestDiv = styled.div`
     }
     .table-item {
         padding: 0.25rem 0rem;
-        overflow: auto;
         white-space: nowrap;
         text-overflow: ellipsis;
     }
+
     tr {
         border-bottom: 1px solid #eee;
     }
@@ -218,7 +219,12 @@ const Suite = () => {
                             })}
                         </SuiteNav>
                         <SuiteMain className="suiteMain" id="suiteInfoList">
-                            <div>ID: <span id="suiteId">{selectedSuiteState.suite.id}</span></div>
+                            <div>
+                                ID:{' '}
+                                <span id="suiteId">
+                                    {selectedSuiteState.suite.id}
+                                </span>
+                            </div>
                             <div>Name: {selectedSuiteState.suite.name}</div>
                             <div>
                                 Fullname: {selectedSuiteState.suite.full_name}
@@ -323,20 +329,9 @@ const SelectedTest = ({ test }) => {
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <div
-                                                        className="table-item"
-                                                        title={message}
-                                                        role="button"
-                                                        tabIndex="0"
-                                                        onClick={() =>
-                                                            alert(message)
-                                                        }
-                                                        onKeyDown={() =>
-                                                            alert(message)
-                                                        }
-                                                    >
-                                                        {message}
-                                                    </div>
+                                                    <SuiteLogMessage
+                                                        message={message}
+                                                    />
                                                 </td>
                                                 <td>
                                                     <div
