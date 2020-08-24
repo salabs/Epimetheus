@@ -16,18 +16,14 @@ const TestMessage = styled.div`
 const SuiteLogMessage = ({ message }) => {
     const [isOpen, setIsopen] = useState(false);
 
-    const expandText = () => {
-        setIsopen(!isOpen);
-    };
-
     return (
         <div>
             <TestMessage
                 title={message}
                 role="button"
                 tabIndex="0"
-                onClick={() => expandText()}
-                onKeyDown={() => expandText()}
+                onClick={() => setIsopen(!isOpen)}
+                onKeyDown={() => setIsopen(!isOpen)}
                 open={isOpen}
             >
                 {message}
