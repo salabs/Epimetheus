@@ -14,35 +14,34 @@ const ParentSeries = () => {
         },
         dispatch,
     ] = useStateValue();
-
+    
     useEffect(() => {
-        const url = `/data/series/${seriesId}/builds/${buildId}/info?`;
-
         if (branchesState) {
             const branch = branchesState.series?.find(
                 ({ id: serie_id }) => serie_id === parseInt(seriesId, 10)
             );
-            dispatch({
-                type: 'setSelectedBranch',
-                name: branch.name || ' ',
-                id: seriesId,
-                team: branch.team || ' ',
-            });
-        }
-        const fetchData = async () => {
-            // dispatch({ type: 'setLoadingState', loadingState: true });
-            try {
-                const res = await fetch(url);
-                const json = await res.json();
-                const buildData = json.build;
-                dispatch({ type: 'setBuildData', buildData });
-                // dispatch({ type: 'setLoadingState', loadingState: false });
-            } catch (error) {
-                dispatch({ type: 'setErrorState', errorState: error });
-            }
-        };
-        fetchData();
+            const fetchData = async () => {
+                dispatch({ type: 'setSeriesData', seriesData: branch });
+                dispatch({
+                    type: 'setSelectedBranch',
+                    name: branch.name || ' ',
+                    id: seriesId,
+                    team: branch.team || ' ',
+                });
+                try {
+                    const url = `/data/series/${seriesId}/builds/${buildId}/info?`;
+                    const res = await fetch(url);
+                    const json = await res.json();
+                    const buildData = json.build;
 
+                    dispatch({ type: 'setBuildData', buildData });
+                } catch (error) {
+                    dispatch({ type: 'setErrorState', errorState: error });
+                }
+            };
+
+            fetchData();
+        }
         // returned function will be called on component unmount
         return () => {
             dispatch({ type: 'flushParentData' });

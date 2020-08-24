@@ -217,8 +217,8 @@ const Suite = () => {
                                 );
                             })}
                         </SuiteNav>
-                        <SuiteMain className="suiteMain">
-                            <div>ID: {selectedSuiteState.suite.id}</div>
+                        <SuiteMain className="suiteMain" id="suiteInfoList">
+                            <div>ID: <span id="suiteId">{selectedSuiteState.suite.id}</span></div>
                             <div>Name: {selectedSuiteState.suite.name}</div>
                             <div>
                                 Fullname: {selectedSuiteState.suite.full_name}
