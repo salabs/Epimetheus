@@ -93,10 +93,10 @@ const TimeLineChart = () => {
             fontFamily: 'Space Mono',
             events: {
                 markerClick(event, chartContext, { dataPointIndex }) {
+                    const statusCountIndex =
+                        statusCount[parseInt(dataPointIndex)];
                     history.push(
-                        `/series/${seriesId}/build/${
-                            statusCount[parseInt(dataPointIndex)].build_number
-                        }/overview`
+                        `/series/${seriesId}/build/${statusCountIndex.build_number}/overview`
                     );
                 },
             },
