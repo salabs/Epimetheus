@@ -15,12 +15,6 @@ const TimeLineChart = () => {
     const [{ amountOfBuilds }, dispatch] = useStateValue();
     const [statusCount, setStatusCount] = useState();
 
-    const LinktoBuildView = dataPointIndex => {
-        return history.push(
-            `/series/${seriesId}/build/${statusCount[dataPointIndex].build_number}/overview`
-        );
-    };
-
     useEffect(() => {
         let mounted = true;
         const url = `/data/series/${seriesId}/status_counts/?builds=${amountOfBuilds}`;
