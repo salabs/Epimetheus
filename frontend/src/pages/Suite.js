@@ -175,10 +175,6 @@ const Suite = () => {
         };
     }, [dispatch, branch_id, suiteId, buildId, seriesId, branchesState]);
 
-    if (selectedSuiteState) {
-        console.log('Logit on', selectedSuiteState.suite.tests);
-    }
-
     return (
         <main id="suite">
             {!selectedSuiteState || loadingState ? (
