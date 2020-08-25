@@ -6,6 +6,7 @@ import Loading from '../Loading';
 import { colorTypes } from '../../utils/colorTypes';
 import styled, { css } from 'styled-components';
 import { baseTable } from '../../styles/baseComponents';
+import { pickIcon } from '../TestIcon';
 
 const canvasStyles = css`
     padding: 20px 0px;
@@ -262,13 +263,13 @@ const SuiteInstability = () => {
 
             if (testStatus) {
                 if (testStatus['status'] === 'PASS') {
-                    statuses.push('x');
+                    statuses.push(pickIcon('PASS', i));
                 } else if (testStatus['status'] === 'FAIL') {
-                    statuses.push('o');
+                    statuses.push(pickIcon('FAIL', i));
                 }
             } else {
                 // Impute
-                statuses.push('_');
+                statuses.push(pickIcon('SKIPPED', i));
             }
         }
 

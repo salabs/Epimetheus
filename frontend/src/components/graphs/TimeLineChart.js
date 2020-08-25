@@ -3,15 +3,23 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 import Chart from 'react-apexcharts';
 import { props } from 'ramda';
+import { useHistory } from 'react-router-dom';
 import Loading from '../../components/Loading';
 import { useStateValue } from '../../contexts/state';
 import { colorTypes } from '../../utils/colorTypes';
 
 const TimeLineChart = () => {
     const { seriesId } = useParams();
-    const [{ amountOfBuilds }, dispatch] = useStateValue();
+    let history = useHistory();
 
+    const [{ amountOfBuilds }, dispatch] = useStateValue();
     const [statusCount, setStatusCount] = useState();
+
+    const LinktoBuildView = dataPointIndex => {
+        return history.push(
+            `/series/${seriesId}/build/${statusCount[dataPointIndex].build_number}/overview`
+        );
+    };
 
     useEffect(() => {
         let mounted = true;
@@ -39,8 +47,7 @@ const TimeLineChart = () => {
     };
 
     const namedBuildNumberList =
-        statusCount &&
-        statusCount.map(build => 'Build: ' + build.build_number).reverse();
+        statusCount && statusCount.map(build => 'Build: ' + build.build_number);
 
     const series = [
         {
@@ -84,6 +91,13 @@ const TimeLineChart = () => {
                 show: false,
             },
             fontFamily: 'Space Mono',
+            events: {
+                markerClick: function(event, chartContext, { dataPointIndex }) {
+                    history.push(
+                        `/series/${seriesId}/build/${statusCount[dataPointIndex].build_number}/overview`
+                    );
+                },
+            },
         },
     };
 

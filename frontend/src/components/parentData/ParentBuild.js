@@ -14,7 +14,7 @@ const ParentSeries = () => {
         },
         dispatch,
     ] = useStateValue();
-    
+
     useEffect(() => {
         if (branchesState) {
             const branch = branchesState.series?.find(
