@@ -16,13 +16,14 @@ const TestStatusIcon = ({ type, text, iconColor }) => {
     );
 };
 
-export const pickIcon = test_status => {
+export const pickIcon = (test_status, key) => {
     let result = '';
     // move to utils, copied in many places
     switch (test_status) {
         case 'PASS':
             result = (
                 <TestStatusIcon
+                    key={key}
                     text="Pass"
                     type="check"
                     iconColor={theme.colors.pass}
@@ -32,6 +33,7 @@ export const pickIcon = test_status => {
         case 'FAIL':
             result = (
                 <TestStatusIcon
+                    key={key}
                     text="Fail"
                     type="times"
                     iconColor={theme.colors.fail}
@@ -41,6 +43,7 @@ export const pickIcon = test_status => {
         case 'SKIPPED':
             result = (
                 <TestStatusIcon
+                    key={key}
                     text="Skipped"
                     type="circle"
                     iconColor={theme.colors.skipped}
@@ -50,6 +53,7 @@ export const pickIcon = test_status => {
         case 'EMPTY':
             result = (
                 <TestStatusIcon
+                    key={key}
                     text="Empty"
                     type="minus"
                     iconColor={theme.colors.skipped}
@@ -59,6 +63,7 @@ export const pickIcon = test_status => {
         case 'TIME':
             result = (
                 <TestStatusIcon
+                    key={key}
                     text="Time"
                     type="clock-o"
                     iconColor={theme.colors.skipped}
@@ -71,6 +76,5 @@ export const pickIcon = test_status => {
 
     return result;
 };
-
 
 export default TestStatusIcon;
