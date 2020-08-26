@@ -25,7 +25,6 @@ export const pickIcon = (test_status, key) => {
     // move to utils, copied in many places
     switch (test_status) {
         case 'PASS':
-<<<<<<< HEAD
             result = <Pass />;
             break;
         case 'FAIL':
@@ -36,46 +35,6 @@ export const pickIcon = (test_status, key) => {
             break;
         case 'EMPTY':
             result = <NotFound />;
-=======
-            result = (
-                <TestStatusIcon
-                    key={key}
-                    text="Pass"
-                    type="check"
-                    iconColor={theme.colors.pass}
-                />
-            );
-            break;
-        case 'FAIL':
-            result = (
-                <TestStatusIcon
-                    key={key}
-                    text="Fail"
-                    type="times"
-                    iconColor={theme.colors.fail}
-                />
-            );
-            break;
-        case 'SKIPPED':
-            result = (
-                <TestStatusIcon
-                    key={key}
-                    text="Skipped"
-                    type="circle"
-                    iconColor={theme.colors.skipped}
-                />
-            );
-            break;
-        case 'EMPTY':
-            result = (
-                <TestStatusIcon
-                    key={key}
-                    text="Empty"
-                    type="minus"
-                    iconColor={theme.colors.skipped}
-                />
-            );
->>>>>>> develop
             break;
         case 'TIME':
             result = (
