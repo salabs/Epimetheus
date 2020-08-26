@@ -19,6 +19,7 @@ import styled from 'styled-components';
 
 const StyledApp = styled.div`
     display: flex;
+    flex-direction: column;
     min-height: 100vh;
     width: 100%;
     background-color: #e9e8e8;
@@ -28,19 +29,13 @@ const StyledApp = styled.div`
         line-height: 1.6;
     }
 
-    nav {
-        border-right: 1px solid darkgrey;
-        background: #ddd;
-        padding: 0;
-    }
-
-    a {
+    /* a {
         color: ${theme.testTheme.linkColor};
     }
     a:active,
     a:hover {
         color: ${theme.testTheme.linkColor};
-    }
+    } */
     select:focus,
     input:focus {
         outline: 1px solid ${theme.testTheme.linkColor};

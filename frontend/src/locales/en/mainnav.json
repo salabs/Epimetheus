@@ -1,8 +1,8 @@
 {
-    "logo":     "Epimetheus",
-    "help":     "Help",
-    "history":  "History",
-    "team":     "Team",
-    "github":   "GitHub",
-    "version":  "Version"
+    "logo": "EPIMETHEUS",
+    "help": "About",
+    "history": "History",
+    "team": "Teams",
+    "github": "GitHub",
+    "version": "Version"
 }
