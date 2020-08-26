@@ -10,7 +10,7 @@ import { colorTypes } from '../../utils/colorTypes';
 
 const TimeLineChart = () => {
     const { seriesId } = useParams();
-    let history = useHistory();
+    const history = useHistory();
 
     const [{ amountOfBuilds }, dispatch] = useStateValue();
     const [statusCount, setStatusCount] = useState();
