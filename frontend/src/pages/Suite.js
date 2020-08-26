@@ -15,6 +15,10 @@ import styled from 'styled-components';
 import Header from '../components/header/Header';
 import SuiteLogMessage from '../components/SuiteLogMessage';
 
+const IconContainer = styled.span`
+    vertical-align: middle;
+`;
+
 const ParentInfoContainer = styled.div`
     display: flex;
     padding: 20px 0;
@@ -211,8 +215,10 @@ const Suite = () => {
                                         <StyledLink
                                             to={`/series/${seriesId}/build/${buildId}/suite/${suiteId}/test/${test.id}/history`}
                                         >
-                                            {pickIcon(test.status)}
                                             {test.name}
+                                            <IconContainer>
+                                                {pickIcon(test.status)}
+                                            </IconContainer>
                                         </StyledLink>
                                     </SuiteDiv>
                                 );

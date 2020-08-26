@@ -2,6 +2,10 @@ import React from 'react';
 import FA from 'react-fontawesome';
 import theme from '../styles/theme';
 import styled from 'styled-components';
+import { ReactComponent as Pass } from '../images/success.svg';
+import { ReactComponent as Fail } from '../images/fail.svg';
+import { ReactComponent as Skipped } from '../images/skip.svg';
+import { ReactComponent as NotFound } from '../images/not-found.svg';
 
 const Fanner = styled(FA)`
     ${props => props.type === 'clock-o' && 'margin-right: 8px'}
@@ -21,40 +25,16 @@ export const pickIcon = test_status => {
     // move to utils, copied in many places
     switch (test_status) {
         case 'PASS':
-            result = (
-                <TestStatusIcon
-                    text="Pass"
-                    type="check"
-                    iconColor={theme.colors.pass}
-                />
-            );
+            result = <Pass />;
             break;
         case 'FAIL':
-            result = (
-                <TestStatusIcon
-                    text="Fail"
-                    type="times"
-                    iconColor={theme.colors.fail}
-                />
-            );
+            result = <Fail />;
             break;
         case 'SKIPPED':
-            result = (
-                <TestStatusIcon
-                    text="Skipped"
-                    type="circle"
-                    iconColor={theme.colors.skipped}
-                />
-            );
+            result = <Skipped />;
             break;
         case 'EMPTY':
-            result = (
-                <TestStatusIcon
-                    text="Empty"
-                    type="minus"
-                    iconColor={theme.colors.skipped}
-                />
-            );
+            result = <NotFound />;
             break;
         case 'TIME':
             result = (
@@ -71,6 +51,5 @@ export const pickIcon = test_status => {
 
     return result;
 };
-
 
 export default TestStatusIcon;

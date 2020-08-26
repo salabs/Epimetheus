@@ -14,7 +14,6 @@ const StyledLink = styled(Link)`
     margin: 0;
     padding: 0px;
     text-align: center;
-    vertical-align: middle;
     height: 100%;
     transition: 0.33s background-color;
     &:hover,

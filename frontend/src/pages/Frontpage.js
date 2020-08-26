@@ -22,7 +22,6 @@ const Frontpage = () => {
                 <li>{t('section.roadmap.ms_202003_1')}</li>
                 <li>{t('section.roadmap.ms_202003_2')}</li>
             </ul>
-
             <h2>{t('section.terminology.title')}</h2>
             <p>{t('section.terminology.opening_paragraph')}</p>
             <ul>
