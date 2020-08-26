@@ -96,6 +96,10 @@ const Header = () => {
         return beginningUrl.concat('/' + prop);
     };
 
+    console.log('tultiin tänne');
+    console.log('seriesData', seriesData);
+    console.log('buildData', buildData);
+
     return (
         <>
             {(seriesData || buildData) && (
