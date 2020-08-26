@@ -46,6 +46,7 @@ Open overview page of series
   ${url}=   Get Location
   Set Suite Variable    ${navigated_series}   ${series}
   Should be equal as Strings   ${url}   ${str}
+  Wait Until Element is Enabled   ${timeline_locator}
 
 
 Open overview page of build
