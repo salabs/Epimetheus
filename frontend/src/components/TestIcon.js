@@ -25,16 +25,36 @@ export const pickIcon = (test_status, key) => {
     // move to utils, copied in many places
     switch (test_status) {
         case 'PASS':
-            result = <Pass name="Pass" />;
+            result = (
+                <>
+                    <Pass />
+                    <span className="sr-show">Pass</span>
+                </>
+            );
             break;
         case 'FAIL':
-            result = <Fail name="Fail" />;
+            result = (
+                <>
+                    <Fail name="Fail" />
+                    <span className="sr-show">Fail</span>
+                </>
+            );
             break;
         case 'SKIPPED':
-            result = <Skipped text="Skipped" />;
+            result = (
+                <>
+                    <Skipped text="Skipped" />
+                    <span className="sr-show">Skipped</span>
+                </>
+            );
             break;
         case 'EMPTY':
-            result = <NotFound />;
+            result = (
+                <>
+                    <NotFound />
+                    <span className="sr-show">Empty</span>
+                </>
+            );
             break;
         case 'TIME':
             result = (
