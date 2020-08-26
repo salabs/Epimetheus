@@ -13,7 +13,6 @@ import { overviewElement } from '../../styles/baseComponents';
 const ChartContainer = styled(overviewElement)`
     margin: 20px 40px 40px 0;
     background-color: var(--nero-white);
-    width: ${props => props.width};
     min-width: ${props => props.minWidth};
 `;
 
@@ -65,22 +64,18 @@ const Series = () => {
 
     return (
         <>
-            <ChartContainer id="timeLineContainer" width="55%" minWidth="790px">
+            <ChartContainer id="timeLineContainer" minWidth="790px">
                 <ElementHeader>{t('series.all_builds')}</ElementHeader>
                 <TimeLineChart />
             </ChartContainer>
             <ChartContainer minWidth="400px">
                 <LastBuildElement />
             </ChartContainer>
-            <ChartContainer
-                className="overview-list"
-                width="30%"
-                minWidth="500px"
-            >
+            <ChartContainer className="overview-list" minWidth="500px">
                 <ElementHeader>{t('series.stability_table')}</ElementHeader>
                 <DashboardList />
             </ChartContainer>
-            <ChartContainer table width="40%" minWidth="610px">
+            <ChartContainer table minWidth="610px">
                 <ElementHeader>{t('series.unstable_tests')}</ElementHeader>
                 <SuiteInstability />
             </ChartContainer>
