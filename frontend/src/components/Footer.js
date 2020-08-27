@@ -15,7 +15,7 @@ const FooterContainer = styled.div`
         color: var(--nero-white) !important;
     }
 
-    tspan {
+    .underline {
         text-decoration: underline;
     }
 `;
@@ -41,10 +41,11 @@ const Footer = () => {
             <EpiIcon>{t('footer.E')}</EpiIcon>
             <TextStyles>
                 {t('footer.epimetheus')} {t('footer.version')}{' '}
-                <tspan>{packageJson.version}</tspan> {t('footer.powered')}{' '}
-                <tspan>
+                <span className="underline">{packageJson.version}</span>{' '}
+                {t('footer.powered')}{' '}
+                <span className="underline">
                     <a href="https://www.siili.com">{t('footer.siili')}</a>
-                </tspan>
+                </span>
                 .
             </TextStyles>
         </FooterContainer>

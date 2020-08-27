@@ -11,6 +11,10 @@ const TeamContainer = styled.div`
     padding-top: 20px;
 `;
 
+const LoadingContainer = styled.div`
+    min-height: 800px;
+`;
+
 const Team = () => {
     const [t] = useTranslation(['team']);
     const [{ loadingState, teamsState }, dispatch] = useStateValue();
@@ -36,7 +40,9 @@ const Team = () => {
     return (
         <main id="team">
             {!teamsState || loadingState ? (
-                <Loading />
+                <LoadingContainer>
+                    <Loading />
+                </LoadingContainer>
             ) : name ? (
                 <SelectedTeam
                     selectedTeam={teamsState.find(
