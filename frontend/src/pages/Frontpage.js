@@ -68,19 +68,19 @@ const Frontpage = () => {
                 <div>
                     {' '}
                     <Pass width="150" height="75" viewBox="0 0 60 55" />
-                    <span>Passed test</span>
+                    <span>{t('section.icons.pass')}</span>
                 </div>
                 <div>
                     <Fail width="150" height="75" viewBox="0 0 60 55" />
-                    <span>Failed test</span>
+                    <span>{t('section.icons.fail')}</span>
                 </div>
                 <div>
                     <Skipped width="150" height="75" viewBox="0 0 60 55" />
-                    <span>Skipped test (result file found)</span>
+                    <span>{t('section.icons.skipped')}</span>
                 </div>
                 <div>
                     <NotFound width="150" height="75" viewBox="0 0 60 55" />
-                    <span>Test not found in selected run</span>
+                    <span>{t('section.icons.not_found')}</span>
                 </div>
             </IconsContainer>
 
