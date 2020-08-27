@@ -4,5 +4,12 @@
     "history": "History",
     "team": "Teams",
     "github": "GitHub",
-    "version": "Version"
+    "version": "Version",
+    "footer": {
+        "E": "E",
+        "epimetheus": "Epimetheus",
+        "version": "Version",
+        "powered": "is powered by",
+        "siili": "Siili"
+    }
 }

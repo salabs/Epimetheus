@@ -10,12 +10,12 @@ const StyledDiv = styled.div`
     padding: 10px;
     line-height: 16px;
     min-height: 120px;
-    width: 250px;
+    width: 300px;
+    height: 200px;
     cursor: pointer;
 
     @media only screen and (min-width: 1024px) {
         width: 400px;
-        height: 200px;
     }
 `;
 

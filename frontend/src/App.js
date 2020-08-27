@@ -5,6 +5,7 @@ import theme from './styles/theme';
 import ThemeContext from './contexts/themeContext';
 import MainContent from './components/MainContent';
 import MainNav from './components/MainNav';
+import Footer from './components/Footer';
 import History from './pages/History';
 import Overview from './pages/Overview';
 import Build from './pages/Build';
@@ -22,20 +23,16 @@ const StyledApp = styled.div`
     flex-direction: column;
     min-height: 100vh;
     width: 100%;
-    background-color: #e9e8e8;
+    background-color: var(--nero-white);
     color: #222;
     border: 1px solid #ccc;
     p {
         line-height: 1.6;
     }
 
-    /* a {
-        color: ${theme.testTheme.linkColor};
+    a {
+        color: var(--titan-green);
     }
-    a:active,
-    a:hover {
-        color: ${theme.testTheme.linkColor};
-    } */
     select:focus,
     input:focus {
         outline: 1px solid ${theme.testTheme.linkColor};
@@ -127,6 +124,7 @@ const App = () => {
                                 </Route>
                             </Switch>
                         </MainContent>
+                        <Footer />
                     </Router>
                 </Suspense>
             </StyledApp>
