@@ -1,7 +1,7 @@
 ***Variables***
-${NAV_HOMEPAGE}                     xpath://*[@id="main-nav"]/ul/li[1]/a
-${NAV_TEAM}                         xpath://*[@id="main-nav"]/ul/li[2]/a
-${NAV_GITHUB}                       xpath://*[@id="main-nav"]/ul/li[3]/a
+${NAV_HOMEPAGE}                     xpath://*[@id="main-nav"]/div/a[1]
+${NAV_TEAM}                         xpath://*[@id="main-nav"]/div/a[2]
+${NAV_GITHUB}                       xpath://*[@id="main-nav"]/div/a[3]
 
 
 ${INNER_HISTORY}                    xpath://*[@id="main-nav"]/ul/div/li[1]/a
