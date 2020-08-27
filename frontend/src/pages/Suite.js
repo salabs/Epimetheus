@@ -211,8 +211,8 @@ const Suite = () => {
                                         <StyledLink
                                             to={`/series/${seriesId}/build/${buildId}/suite/${suiteId}/test/${test.id}/history`}
                                         >
-                                            {pickIcon(test.status)}
                                             {test.name}
+                                            <span>{pickIcon(test.status)}</span>
                                         </StyledLink>
                                     </SuiteDiv>
                                 );

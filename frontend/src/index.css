@@ -22,14 +22,15 @@ html {
 :root {
     --nelson-purple: #b8557b;
     --semolina-red: #c63757;
-    --pirlo-blue: #56a2c3;
-    --titan-green: #2e8d6e;
+    --pirlo-blue: #309dcd;
+    --titan-green: #258d6b;
     --gradient-black: #141312;
     --evidence-grey: #7b756f;
     --hermanni-grey: #edecec;
     --toukola-green: #e9f5e1;
     --kumpula-yellow: #faf3e1;
     --vallila-blue: #e1f1f7;
+    --arabia-red: #faecec;
     --nero-white: #ffffff;
 }
 
@@ -61,6 +62,10 @@ h3 {
 
 h4 {
     font-size: 16px;
+}
+
+svg {
+    vertical-align: middle;
 }
 
 /** a11y **/

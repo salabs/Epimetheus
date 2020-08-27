@@ -1,4 +1,5 @@
-﻿import React, { useEffect } from 'react';
+﻿/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router';
 import { useStateValue } from '../../contexts/state';
 import { buildTypes, suiteTypes } from '../../utils/parentDataTypes';
