@@ -41,6 +41,10 @@ body {
     font-size: 14px;
     line-height: 24px;
 }
+
+main {
+    min-height: 800px;
+}
 h1,
 h2,
 h3,
