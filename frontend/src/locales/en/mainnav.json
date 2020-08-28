@@ -1,8 +1,15 @@
 {
-    "logo":     "Epimetheus",
-    "help":     "Help",
-    "history":  "History",
-    "team":     "Team",
-    "github":   "GitHub",
-    "version":  "Version"
+    "logo": "EPIMETHEUS",
+    "help": "About",
+    "history": "History",
+    "team": "Teams",
+    "github": "GitHub",
+    "version": "Version",
+    "footer": {
+        "E": "E",
+        "epimetheus": "Epimetheus",
+        "version": "Version",
+        "powered": "is powered by",
+        "siili": "Siili"
+    }
 }

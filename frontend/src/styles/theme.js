@@ -1,12 +1,12 @@
 const theme = {
     spacing: {
-        xs: 20
+        xs: 20,
     },
     colors: {
         fail: '#F00',
         pass: '#008000',
         skipped: '#CCC',
-        siiliOrange: '#FF5200'
+        siiliOrange: '#FF5200',
     },
     flexItem: {
         flexBasis: '30%',
@@ -16,7 +16,7 @@ const theme = {
         minHeight: '20vh',
         backgroundColor: '#ffffff',
         cursor: 'pointer',
-        fontSize: '12px'
+        fontSize: '12px',
     },
     baseTableStyle: `
       fontSize: 12px;

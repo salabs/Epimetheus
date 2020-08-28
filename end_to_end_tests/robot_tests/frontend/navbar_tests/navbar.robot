@@ -6,7 +6,7 @@ Library                             Collections
 ***Variable***
 
 ${nav_id}=    'main-nav'
-@{default_nav}    Help    Team    GitHub
+@{default_nav}    About    Teams    GitHub
 @{inner_nav}    History    Dashboard
 
 ***Test Cases***

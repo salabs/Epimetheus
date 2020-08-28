@@ -18,6 +18,7 @@ Navigate to build overview page using breadcrumbs
 Team page breadcrumb should contain correct value
     [Arguments]     ${team}
     Wait Until Element Is Enabled   ${team_breadcrumb}
+    Wait Until Element Does Not Contain     ${team_breadcrumb}  "" 
     Element Should Contain      ${team_breadcrumb}  ${team}
     
 Series page breadcrumbs should contain correct values

@@ -2,10 +2,29 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
+import { ReactComponent as Pass } from '../images/success.svg';
+import { ReactComponent as Fail } from '../images/fail.svg';
+import { ReactComponent as Skipped } from '../images/skip.svg';
+import { ReactComponent as NotFound } from '../images/not-found.svg';
 
 const FrontPage = styled.main`
     max-width: 800px;
     width: 100%;
+    margin-left: 40px;
+`;
+
+const IconsContainer = styled.div`
+    display: flex;
+    justify-content: space-around;
+    padding-top: 20px;
+
+    div {
+        /* flex-direction: column;
+        overflow: hidden;
+        white-space: nowrap; */
+        min-height: 100px;
+        max-width: 150px;
+    }
 `;
 
 const Frontpage = () => {
@@ -45,7 +64,25 @@ const Frontpage = () => {
 
             <h2>{t('section.icons.title')}</h2>
             <p>{t('section.icons.opening_paragraph')}</p>
-            <img src="/img/testicons.png" alt="icon legend" />
+            <IconsContainer>
+                <div>
+                    {' '}
+                    <Pass width="150" height="75" viewBox="0 0 60 55" />
+                    <span>{t('section.icons.pass')}</span>
+                </div>
+                <div>
+                    <Fail width="150" height="75" viewBox="0 0 60 55" />
+                    <span>{t('section.icons.fail')}</span>
+                </div>
+                <div>
+                    <Skipped width="150" height="75" viewBox="0 0 60 55" />
+                    <span>{t('section.icons.skipped')}</span>
+                </div>
+                <div>
+                    <NotFound width="150" height="75" viewBox="0 0 60 55" />
+                    <span>{t('section.icons.not_found')}</span>
+                </div>
+            </IconsContainer>
 
             <h2>{t('section.views.title')}</h2>
             <ul>

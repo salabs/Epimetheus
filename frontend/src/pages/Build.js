@@ -20,6 +20,10 @@ const LastRunContainer = styled.div`
     margin-top: 10px;
 `;
 
+const LoadingContainer = styled.div`
+    min-height: 800px;
+`;
+
 const Build = () => {
     const [
         { loadingState, historyDataState, selectedBranchState, branchesState },
@@ -99,7 +103,9 @@ const Build = () => {
                     aria-label="Loading"
                     aria-relevant="all"
                 >
-                    <Loading />
+                    <LoadingContainer>
+                        <Loading />
+                    </LoadingContainer>
                 </div>
             ) : (
                 <Fragment>

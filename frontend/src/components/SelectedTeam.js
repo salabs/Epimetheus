@@ -10,7 +10,7 @@ import styled from 'styled-components';
 
 const CardStyles = styled.div`
     background-color: var(--nero-white);
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 4px, rgba(0, 0, 0, 0.23) 0px 3px 4px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 5px 7px, rgba(0, 0, 0, 0.23) 0px 5px 7px;
     margin: 10px;
     padding: 10px;
     line-height: 16px;

@@ -15,6 +15,10 @@ import styled from 'styled-components';
 import Header from '../components/header/Header';
 import SuiteLogMessage from '../components/SuiteLogMessage';
 
+const LoadingContainer = styled.div`
+    min-height: 800px;
+`;
+
 const ParentInfoContainer = styled.div`
     display: flex;
     padding: 20px 0;
@@ -185,7 +189,9 @@ const Suite = () => {
                     aria-label="Loading"
                     aria-relevant="all"
                 >
-                    <Loading />
+                    <LoadingContainer>
+                        <Loading />
+                    </LoadingContainer>
                 </div>
             ) : selectedSuiteState.suite ? (
                 <div>
