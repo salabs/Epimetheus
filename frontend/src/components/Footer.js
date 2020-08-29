@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import packageJson from '../../package.json';
 
 const FooterContainer = styled.div`
+    margin-top: auto;
     background: var(--titan-green);
     color: var(--nero-white);
     display: flex;
