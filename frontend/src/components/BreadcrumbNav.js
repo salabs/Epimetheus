@@ -7,6 +7,7 @@ import styled from 'styled-components';
 
 const BreadcrumbContainer = styled.div`
     font-size: 14px;
+    margin: 10px 0px;
 `;
 
 const StyledInnerDiv = styled.div`
@@ -22,9 +23,13 @@ const StyledLink = styled(Link)`
     }
 `;
 
-const SeriesLink = styled(StyledLink)`
+const TeamsLink = styled(StyledLink)`
     padding-left: 0 !important;
 `;
+
+const BreadcrumbTeams = () => {
+    return <TeamsLink to={`/team`}>Teams</TeamsLink>;
+};
 
 const BreadcrumbItem = () => {
     const { name } = useParams();
@@ -32,13 +37,16 @@ const BreadcrumbItem = () => {
     const teamName = name || selectedBranchState.team;
 
     return (
-        <SeriesLink
-            to={`/team/${teamName}`}
-            className="BreadCrumbSeries"
-            id="TeamBreadCrumb"
-        >
-            {teamName}
-        </SeriesLink>
+        <StyledInnerDiv>
+            <BreadcrumbTeams /> /
+            <StyledLink
+                to={`/team/${teamName}`}
+                className="BreadCrumbSeries"
+                id="TeamBreadCrumb"
+            >
+                {teamName}
+            </StyledLink>
+        </StyledInnerDiv>
     );
 };
 
@@ -48,7 +56,7 @@ const BreadcrumbItemSeries = () => {
     const seriesId = series || selectedBranchState.id;
     return (
         <StyledInnerDiv>
-            <BreadcrumbItem /> &gt;
+            <BreadcrumbItem /> /
             <StyledLink
                 to={`/series/${seriesId}/overview`}
                 id="SeriesBreadCrumb"
@@ -63,7 +71,7 @@ const BreadcrumbItemBuild = () => {
     const { buildId, seriesId } = useParams();
     return (
         <StyledInnerDiv>
-            <BreadcrumbItemSeries /> &gt;
+            <BreadcrumbItemSeries /> /
             <StyledLink
                 to={`/series/${seriesId}/build/${buildId}/overview`}
                 id="BuildBreadCrumb"
@@ -78,7 +86,8 @@ const BreadcrumbItemSuite = () => {
     const { suiteId } = useParams();
     return (
         <StyledInnerDiv>
-            <BreadcrumbItemBuild /> &gt; <span id="SuiteBreadCrumb">{suiteId}</span>
+            <BreadcrumbItemBuild /> /{' '}
+            <span id="SuiteBreadCrumb">{suiteId}</span>
         </StyledInnerDiv>
     );
 };

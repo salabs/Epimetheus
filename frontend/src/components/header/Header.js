@@ -6,37 +6,32 @@ import { useStateValue } from '../../contexts/state';
 
 const LinkContainer = styled.div`
     padding: 10px 0;
+
+    a:nth-child(2) {
+        margin-left: 10px;
+    }
 `;
 
 // eslint-disable-next-line no-unused-vars
 const StyledLink = styled(({ overview, ...props }) => <NavLink {...props} />)`
-    border: 1px solid #eee;
     width: 100px;
-    border-radius: 10px;
-    background-color: var(--nero-white);
-    padding: 5px;
-    margin: 5px 10px 5px 0;
+    margin: 10px 15px 10px 0;
     cursor: pointer;
-    color: var(--gradient-black) !important;
+    color: var(--titan-green);
     text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 24px;
 `;
 
 const OverviewLink = styled(StyledLink)`
-    border: ${props =>
-        props.overview
-            ? '2px solid var(--gradient-black) !important'
-            : '1px solid #eee'};
-    background-color: ${props =>
-        props.overview ? 'transparent !important' : 'var(--nero-white)'};
+    color: ${props => props.overview && 'var(--pirlo-blue) !important'};
+    border-bottom: ${props => props.overview && '4px solid var(--pirlo-blue)'};
 `;
 
 const HistoryLink = styled(StyledLink)`
-    border: ${props =>
-        props.overview
-            ? '1px solid #eee'
-            : '2px solid var(--gradient-black) !important'};
-    background-color: ${props =>
-        props.overview ? 'var(--nero-white)' : 'transparent !important'};
+    color: ${props => !props.overview && 'var(--pirlo-blue) !important'};
+    border-bottom: ${props => !props.overview && '4px solid var(--pirlo-blue)'};
 `;
 
 const Header = () => {
