@@ -49,9 +49,7 @@ const ParentSeries = () => {
         };
     }, [seriesId, buildId, branchesState]);
 
-    const types = testId ? suiteTypes : buildTypes;
-
-    return <ParentTable data={buildData} types={types} />;
+    return <ParentTable data={buildData} types={buildTypes} />;
 };
 
 export default ParentSeries;

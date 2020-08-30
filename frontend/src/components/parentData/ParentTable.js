@@ -1,64 +1,59 @@
 ﻿import React from 'react';
 import PropTypes from 'prop-types';
-import * as R from 'ramda';
-import { baseTable } from '../../styles/baseComponents';
+import { pick } from 'ramda';
 import styled from 'styled-components';
-const StyledTable = styled(baseTable)`
-    border-collapse: collapse;
-    table-layout: auto;
-    overflow: auto;
-    max-width: 400px;
 
-    td,
-    th {
-        vertical-align: middle;
-    }
-    td:first-of-type {
-        vertical-align: middle;
-    }
+const Container = styled.div`
+    background: var(--hermanni-grey);
+    padding: 40px 0px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    div {
+        display: flex;
+        padding: 0 10px;
 
-    @media only screen and (min-width: 1024px) {
-        td,
-        th {
-            min-width: 122px;
+        span:first-child {
+            padding-right: 10px;
+            font-weight: bolder;
         }
     }
+`;
+
+const StatusSpan = styled.span`
+    color: ${props =>
+        props.status === 'PASS' ? 'var(--pirlo-blue)' : 'var(--nelson-purple)'};
 `;
 
 const ParentTable = props => {
     const { data, types } = props;
 
-    const headerRow = () => {
-        return types.map(name => {
+    const cleansedData = data && pick(types, data);
+
+    const showData = () => {
+        return Object.entries(cleansedData).map(([key, value]) => {
             const capitalCaseInitial =
-                name.charAt(0).toUpperCase() + name.slice(1);
+                key.charAt(0).toUpperCase() + key.slice(1);
+
             const cleanedHeader = capitalCaseInitial.replace(/_/g, ' ');
-            return <th key={name}>{cleanedHeader}</th>;
-        });
-    };
 
-    const bodyRow = () => {
-        const bodyValues = R.props(types, data);
-
-        return bodyValues.map((value, index) => {
-            return <td key={index}>{value}</td>;
+            return (
+                <div key={key}>
+                    <span>{cleanedHeader}&#58;</span>
+                    {key.includes('status') ? (
+                        <StatusSpan status={value}>{value}</StatusSpan>
+                    ) : (
+                        <span>{value}</span>
+                    )}
+                </div>
+            );
         });
     };
 
     return (
         <React.Fragment>
-            {data && (
-                <div>
-                    <StyledTable id="LastRunTable">
-                        <thead>
-                            <tr>{headerRow()}</tr>
-                        </thead>
-                        <tbody>
-                            <tr>{bodyRow()}</tr>
-                        </tbody>
-                    </StyledTable>
-                </div>
-            )}
+            {data && <Container>{showData()}</Container>}
         </React.Fragment>
     );
 };

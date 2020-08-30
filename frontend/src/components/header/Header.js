@@ -54,33 +54,34 @@ const Header = () => {
             suite: { name },
         } = selectedSuiteState;
         if (buildData) {
-            return `${t('history')} ${t('suite')} ${name} ${t('in')} ${t(
-                'build'
-            )} ${buildData.build_number} ${t('from')} ${buildData.name}`;
+            return `${t('suite')} ${name} ${t('in')} ${t('build')} ${
+                buildData.build_number
+            } ${t('from')} ${t('series')} ${buildData.name}`;
         }
     };
 
-    const formSeriesHeader = view => {
+    const formSeriesHeader = () => {
         if (seriesData) {
             const { name } = seriesData;
-            return `${view} ${t('series')} ${name}`;
+            return `${t('Series')} ${name}`;
         }
     };
 
-    const formBuildHeader = view => {
+    const formBuildHeader = () => {
         if (buildData) {
             const { name, build_number } = buildData;
-            return `${view} ${t('build')} ${build_number} ${t('from')} ${name}`;
+            return `${t('Build')} ${build_number} ${t('from')} ${t(
+                'series'
+            )} ${name}`;
         }
     };
 
     const formHeader = () => {
-        const view = overviewUrl ? `${t('overview')}` : `${t('history')}`;
         return suiteUrl
             ? formSuiteHeader()
             : buildUrl
-            ? formBuildHeader(view)
-            : formSeriesHeader(view);
+            ? formBuildHeader()
+            : formSeriesHeader();
     };
 
     const correctUrl = prop => {
