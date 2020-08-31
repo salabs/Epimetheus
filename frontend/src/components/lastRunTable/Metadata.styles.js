@@ -30,6 +30,7 @@ export const HeaderContainer = styled.div`
     }
     p {
         font-size: 20px;
+        font-family: 'Noto Serif';
     }
 `;
 
