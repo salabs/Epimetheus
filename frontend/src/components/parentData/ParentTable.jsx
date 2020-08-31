@@ -14,14 +14,14 @@ const ParentTable = props => {
             const cleanedHeader = removeUnderscore(capitalCaseInitial(key));
 
             return (
-                <div key={key}>
+                <p key={key}>
                     <span>{cleanedHeader}&#58;</span>
                     {key.includes('status') ? (
                         <StatusSpan status={value}>{value}</StatusSpan>
                     ) : (
                         <span>{value}</span>
                     )}
-                </div>
+                </p>
             );
         });
     };

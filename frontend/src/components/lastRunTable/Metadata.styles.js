@@ -29,10 +29,8 @@ export const HeaderContainer = styled.div`
         cursor: pointer;
     }
 
-    p {
-        font-size: 20px;
-        font-family: 'Noto Serif';
-    }
+    font-size: 20px;
+    font-family: 'Noto Serif';
 `;
 
 export const SplitBorder = styled.div`

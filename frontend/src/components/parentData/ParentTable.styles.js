@@ -8,7 +8,7 @@ export const Container = styled.div`
     flex-wrap: wrap;
     width: 100%;
 
-    div {
+    p {
         display: flex;
         padding: 0 10px;
 
