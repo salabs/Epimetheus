@@ -9,6 +9,8 @@ import { useTranslation } from 'react-i18next';
 import { overviewElement } from '../../styles/baseComponents';
 import styled from 'styled-components';
 import { last } from 'ramda';
+import Metadata from '../lastRunTable/Metadata';
+import useMetaData from '../../hooks/useMetaData';
 
 const FlexDiv = styled.div`
     display: flex;
@@ -37,6 +39,8 @@ const Build = () => {
     const [dispatch] = useStateValue();
     const [statusCount, setStatusCount] = useState();
 
+    useMetaData();
+
     useEffect(() => {
         const url = `/data/series/${seriesId}/status_counts/?start_from=${buildId}&builds=1`;
 
@@ -60,6 +64,7 @@ const Build = () => {
 
     return (
         <React.Fragment>
+            <Metadata />
             {statusCount ? (
                 <FlexDiv id="buildGraphDiv">
                     <ChartContainer width="450px" height="300px">
