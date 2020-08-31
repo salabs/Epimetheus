@@ -26,7 +26,7 @@ Open a build
   Set Suite Variable    ${navigated_series}   ${series}
   Set Suite Variable    ${navigated_build}    ${build}
   Go To  ${str}
-  Wait Until Element is Enabled   ${build_page_info_table}
+  Wait Until Element is Enabled   ${lastRunInfo}
 
 
 Open history page of series
@@ -36,7 +36,7 @@ Open history page of series
   ${url}=   Get Location
   Set Suite Variable    ${navigated_series}   ${series}
   Should be equal as Strings   ${url}   ${str}
-  Wait Until Element is Enabled   ${build_page_info_table}
+  Wait Until Element is Enabled   ${lastRunInfo}
 
 
 Open overview page of series
@@ -64,7 +64,7 @@ Open a suite
   Set Suite Variable    ${navigated_build}    ${build}
   Set Suite Variable    ${navigated_suite}    ${suite}
   Go To   ${url}
-  Wait Until Element is Enabled   ${build_page_info_table}
+  Wait Until Element is Enabled   ${lastRunInfo}
 
 
 Navigate to first suite of build
@@ -74,4 +74,4 @@ Navigate to first suite of build
   Wait Until Element is Enabled   ${first_suite}
   Click Element     ${first_suite}
   Wait Until Element is Enabled   ${suite_id_locator}
-  Wait Until Element is Enabled   ${build_page_info_table}
+  Wait Until Element is Enabled   ${lastRunInfo}
