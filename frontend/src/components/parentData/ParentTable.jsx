@@ -2,7 +2,11 @@
 import PropTypes from 'prop-types';
 import { pick } from 'ramda';
 import { capitalCaseInitial, removeUnderscore } from '../../utils/helpers';
-import { Container, StatusSpan } from './ParentTable.styles';
+import {
+    Container,
+    ParagraphContainer,
+    StatusSpan,
+} from './ParentTable.styles';
 
 const ParentTable = props => {
     const { data, types } = props;
@@ -14,14 +18,14 @@ const ParentTable = props => {
             const cleanedHeader = removeUnderscore(capitalCaseInitial(key));
 
             return (
-                <p key={key}>
+                <ParagraphContainer key={key}>
                     <span>{cleanedHeader}&#58;</span>
                     {key.includes('status') ? (
                         <StatusSpan status={value}>{value}</StatusSpan>
                     ) : (
                         <span>{value}</span>
                     )}
-                </p>
+                </ParagraphContainer>
             );
         });
     };

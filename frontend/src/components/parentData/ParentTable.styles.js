@@ -7,15 +7,15 @@ export const Container = styled.div`
     flex-direction: row;
     flex-wrap: wrap;
     width: 100%;
+`;
 
-    p {
-        display: flex;
-        padding: 0 10px;
+export const ParagraphContainer = styled.p`
+    display: flex;
+    padding: 0 10px;
 
-        span:first-child {
-            padding-right: 10px;
-            font-weight: bolder;
-        }
+    span:first-child {
+        padding-right: 10px;
+        font-weight: bolder;
     }
 `;
 
