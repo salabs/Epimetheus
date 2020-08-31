@@ -2,30 +2,12 @@
 import React from 'react';
 import { useStateValue } from '../contexts/state';
 import { useParams } from 'react-router';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-
-const BreadcrumbContainer = styled.div`
-    font-size: 14px;
-    margin: 10px 0px;
-`;
-
-const StyledInnerDiv = styled.div`
-    display: inline;
-`;
-
-const StyledLink = styled(Link)`
-    padding: 5px 5px 5px 10px;
-    &:hover,
-    &:active {
-        background-color: #ccc;
-        transition: 0.1s background-color;
-    }
-`;
-
-const TeamsLink = styled(StyledLink)`
-    padding-left: 0 !important;
-`;
+import {
+    BreadcrumbContainer,
+    StyledInnerDiv,
+    StyledLink,
+    TeamsLink,
+} from './BreadcrumbNav.styles';
 
 const BreadcrumbTeams = () => {
     return <TeamsLink to={`/team`}>Teams</TeamsLink>;

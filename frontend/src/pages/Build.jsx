@@ -10,16 +10,7 @@ import ParentBuild from '../components/parentData/ParentBuild';
 import Loading from '../components/Loading';
 import Header from '../components/header/Header';
 import useMetaData from '../hooks/useMetaData';
-import styled from 'styled-components';
-
-const ParentInfoContainer = styled.div`
-    display: flex;
-    padding: 20px 0;
-`;
-const LastRunContainer = styled.div`
-    position: relative;
-    margin-top: 10px;
-`;
+import { ParentInfoContainer, LastRunContainer } from './Build.styles';
 
 const Build = () => {
     const [
