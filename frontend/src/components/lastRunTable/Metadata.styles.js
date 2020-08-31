@@ -28,6 +28,7 @@ export const HeaderContainer = styled.div`
     :hover {
         cursor: pointer;
     }
+
     p {
         font-size: 20px;
         font-family: 'Noto Serif';

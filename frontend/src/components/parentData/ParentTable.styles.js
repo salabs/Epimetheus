@@ -7,6 +7,7 @@ export const Container = styled.div`
     flex-direction: row;
     flex-wrap: wrap;
     width: 100%;
+
     div {
         display: flex;
         padding: 0 10px;
