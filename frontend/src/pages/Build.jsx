@@ -3,26 +3,14 @@ import React, { Fragment, useEffect } from 'react';
 import Table from '../components/lastRunTable/Table';
 import LastRunCheckBox from '../components/LastRunCheckbox';
 import { useStateValue } from '../contexts/state';
-import MetadataTable from '../components/lastRunTable/MetadataTable';
 import { useParams } from 'react-router';
 import BreadcrumbNav from '../components/BreadcrumbNav';
 import ParentBuild from '../components/parentData/ParentBuild';
 import Loading from '../components/Loading';
 import Header from '../components/header/Header';
-import styled from 'styled-components';
-
-const ParentInfoContainer = styled.div`
-    display: flex;
-    padding: 20px 0;
-`;
-const LastRunContainer = styled.div`
-    position: relative;
-    margin-top: 10px;
-`;
-
-const LoadingContainer = styled.div`
-    min-height: 800px;
-`;
+import Metadata from '../components/lastRunTable/Metadata';
+import useMetadata from '../hooks/useMetadata';
+import { ParentInfoContainer, LastRunContainer } from './Build.styles';
 
 const Build = () => {
     const [
@@ -34,25 +22,6 @@ const Build = () => {
     const branch_id = seriesId || selectedBranchState;
 
     useEffect(() => {
-        const fetchData = async () => {
-            dispatch({ type: 'setLoadingState', loadingState: true });
-            if (branch_id && buildId) {
-                try {
-                    const res = await fetch(
-                        `/data/series/${branch_id}/builds/${buildId}/metadata`,
-                        {}
-                    );
-                    const json = await res.json();
-                    dispatch({ type: 'setLoadingState', loadingState: false });
-                    dispatch({
-                        type: 'setMetadata',
-                        metadata: json,
-                    });
-                } catch (error) {
-                    //console.log(error);
-                }
-            }
-        };
         const fetchHistoryData = async () => {
             dispatch({ type: 'setLoadingState', loadingState: true });
             if (branch_id && buildId) {
@@ -84,13 +53,10 @@ const Build = () => {
         };
         if (branchesState) {
             fetchHistoryData();
-            fetchData();
         }
-        // returned function will be called on component unmount
-        return () => {
-            dispatch({ type: 'flushHistory' });
-        };
     }, [dispatch, branch_id, buildId, branchesState]);
+
+    useMetadata();
 
     return (
         <main id="last-run">
@@ -103,9 +69,7 @@ const Build = () => {
                     aria-label="Loading"
                     aria-relevant="all"
                 >
-                    <LoadingContainer>
-                        <Loading />
-                    </LoadingContainer>
+                    <Loading />
                 </div>
             ) : (
                 <Fragment>
@@ -123,7 +87,7 @@ const Build = () => {
                     <ParentInfoContainer id="parentInfo-container">
                         <ParentBuild />
                     </ParentInfoContainer>
-                    <MetadataTable buildId={buildId} />
+                    <Metadata />
                     <LastRunCheckBox />
                     <Table id={branch_id} />
                 </Fragment>

@@ -6,6 +6,10 @@ const StyledDiv = styled.div`
     padding: 20px;
     overflow: auto;
     width: 100%;
+
+    @media only screen and (min-width: 1024px) {
+        padding: 20px 40px;
+    }
 `;
 
 const MainContent = ({ children }) => {

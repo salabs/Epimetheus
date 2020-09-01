@@ -137,6 +137,11 @@ const reducer = (state, action) => {
                 ...state,
                 historyDataState: null,
             };
+        case 'flushMetadata':
+            return {
+                ...state,
+                metadataState: [],
+            };
         case 'flushParentData':
             return {
                 ...state,

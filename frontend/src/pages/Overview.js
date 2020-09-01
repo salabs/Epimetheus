@@ -2,7 +2,6 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import BreadcrumbNav from '../components/BreadcrumbNav';
-
 import Build from '../components/overview/Build';
 import Series from '../components/overview/Series';
 import ParentBuild from '../components/parentData/ParentBuild';

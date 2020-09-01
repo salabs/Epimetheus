@@ -1,10 +1,10 @@
 {
-    "overview": "Overview of ",
-    "history": "History of ",
+    "Build": "Build",
     "build": "build",
+    "Series": "Series",
     "series": "series",
     "from": "from",
-    "suite": "suite",
+    "suite": "Suite",
     "in": "in",
     "buttons": {
         "overview": "Overview",

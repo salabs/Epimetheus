@@ -31,10 +31,6 @@ const ParentContainer = styled(HeritanceContainer)`
     flex-direction: column;
 `;
 
-const LoadingContainer = styled.div`
-    min-height: 800px;
-`;
-
 const History = () => {
     const [t] = useTranslation(['parentData']);
     const [
@@ -105,9 +101,7 @@ const History = () => {
                 <Checkbox />
             </FilterContainer>
             {!historyDataState || loadingState ? (
-                <LoadingContainer>
-                    <Loading />
-                </LoadingContainer>
+                <Loading />
             ) : (
                 <Fragment>
                     <div

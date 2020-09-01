@@ -1,43 +1,8 @@
 ﻿import React from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
-import styled from 'styled-components';
+import { useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useStateValue } from '../../contexts/state';
-
-const LinkContainer = styled.div`
-    padding: 10px 0;
-`;
-
-// eslint-disable-next-line no-unused-vars
-const StyledLink = styled(({ overview, ...props }) => <NavLink {...props} />)`
-    border: 1px solid #eee;
-    width: 100px;
-    border-radius: 10px;
-    background-color: var(--nero-white);
-    padding: 5px;
-    margin: 5px 10px 5px 0;
-    cursor: pointer;
-    color: var(--gradient-black) !important;
-    text-decoration: none;
-`;
-
-const OverviewLink = styled(StyledLink)`
-    border: ${props =>
-        props.overview
-            ? '2px solid var(--gradient-black) !important'
-            : '1px solid #eee'};
-    background-color: ${props =>
-        props.overview ? 'transparent !important' : 'var(--nero-white)'};
-`;
-
-const HistoryLink = styled(StyledLink)`
-    border: ${props =>
-        props.overview
-            ? '1px solid #eee'
-            : '2px solid var(--gradient-black) !important'};
-    background-color: ${props =>
-        props.overview ? 'var(--nero-white)' : 'transparent !important'};
-`;
+import { LinkContainer, OverviewLink, HistoryLink } from './Header.styles';
 
 const Header = () => {
     const [t] = useTranslation(['header']);
@@ -59,33 +24,34 @@ const Header = () => {
             suite: { name },
         } = selectedSuiteState;
         if (buildData) {
-            return `${t('history')} ${t('suite')} ${name} ${t('in')} ${t(
-                'build'
-            )} ${buildData.build_number} ${t('from')} ${buildData.name}`;
+            return `${t('suite')} ${name} ${t('in')} ${t('build')} ${
+                buildData.build_number
+            } ${t('from')} ${t('series')} ${buildData.name}`;
         }
     };
 
-    const formSeriesHeader = view => {
+    const formSeriesHeader = () => {
         if (seriesData) {
             const { name } = seriesData;
-            return `${view} ${t('series')} ${name}`;
+            return `${t('Series')} ${name}`;
         }
     };
 
-    const formBuildHeader = view => {
+    const formBuildHeader = () => {
         if (buildData) {
             const { name, build_number } = buildData;
-            return `${view} ${t('build')} ${build_number} ${t('from')} ${name}`;
+            return `${t('Build')} ${build_number} ${t('from')} ${t(
+                'series'
+            )} ${name}`;
         }
     };
 
     const formHeader = () => {
-        const view = overviewUrl ? `${t('overview')}` : `${t('history')}`;
         return suiteUrl
             ? formSuiteHeader()
             : buildUrl
-            ? formBuildHeader(view)
-            : formSeriesHeader(view);
+            ? formBuildHeader()
+            : formSeriesHeader();
     };
 
     const correctUrl = prop => {

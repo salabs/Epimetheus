@@ -2,12 +2,12 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router';
 import { useStateValue } from '../../contexts/state';
-import { buildTypes, suiteTypes } from '../../utils/parentDataTypes';
+import { buildTypes } from '../../utils/parentDataTypes';
 
 import ParentTable from './ParentTable';
 
 const ParentSeries = () => {
-    const { seriesId, buildId, testId } = useParams();
+    const { seriesId, buildId } = useParams();
     const [
         {
             parentData: { buildData },
@@ -49,9 +49,7 @@ const ParentSeries = () => {
         };
     }, [seriesId, buildId, branchesState]);
 
-    const types = testId ? suiteTypes : buildTypes;
-
-    return <ParentTable data={buildData} types={types} />;
+    return <ParentTable data={buildData} types={buildTypes} />;
 };
 
 export default ParentSeries;
