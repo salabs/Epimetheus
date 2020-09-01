@@ -15,11 +15,13 @@ const Metadata = () => {
     const [{ metadataState }] = useStateValue();
     const [Open, setOpen] = useState(true);
 
-    const metadata = metadataState.metadata
-        ? metadataState.metadata.filter(
-              ({ suite_id }) => suite_id === metadataState.metadata[0].suite_id
-          )
-        : null;
+    const metadata =
+        metadataState && metadataState.metadata
+            ? metadataState.metadata.filter(
+                  ({ suite_id }) =>
+                      suite_id === metadataState.metadata[0].suite_id
+              )
+            : null;
 
     return (
         <Container id="metadata-table">
