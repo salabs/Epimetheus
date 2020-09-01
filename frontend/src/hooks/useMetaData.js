@@ -24,7 +24,7 @@ const useMetaData = () => {
                         metadata: json,
                     });
                 } catch (error) {
-                    //console.log(error);
+                    dispatch({ type: 'setErrorState', errorState: error });
                 }
             }
         };
@@ -35,7 +35,7 @@ const useMetaData = () => {
 
         // returned function will be called on component unmount
         return () => {
-            dispatch({ type: 'flushHistory' });
+            dispatch({ type: 'flushMetadata' });
         };
     }, [branch_id, branchesState, buildId, dispatch]);
 };
