@@ -28,7 +28,6 @@ const useMetadata = () => {
                 }
             }
         };
-
         if (branchesState) {
             fetchData();
         }
