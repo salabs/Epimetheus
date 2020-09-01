@@ -32,7 +32,7 @@ const ParentTable = props => {
 
     return (
         <React.Fragment>
-            {data && <Container>{showData()}</Container>}
+            {data && <Container id="lastRunInfo">{showData()}</Container>}
         </React.Fragment>
     );
 };

@@ -18,7 +18,7 @@ Navigate to build overview page using breadcrumbs
 Team page breadcrumb should contain correct value
     [Arguments]     ${team}
     Wait Until Element Is Enabled   ${team_breadcrumb}
-    Wait Until Element Does Not Contain     ${team_breadcrumb}  "" 
+    Wait Until Element Does Not Contain     ${team_breadcrumb}  ''
     Element Should Contain      ${team_breadcrumb}  ${team}
     
 Series page breadcrumbs should contain correct values
@@ -57,7 +57,7 @@ Team page should be of stored team
     Location should contain    ${team}
 
 Store team and series of series history page
-    Wait Until Element Is Enabled    ${build_page_info_table}
+    Wait Until Element Is Enabled    ${lastRunInfo}
     ${temp_stored_team}=    Get Text    ${team_identifier}
     ${temp_stored_series}=    Get Text    ${series_identifier}
 
@@ -66,7 +66,7 @@ Store team and series of series history page
 
 Store the team, series and build of build page
     Store team and series of series history page
-    Wait Until Element Is Enabled    ${build_page_info_table}
+    Wait Until Element Is Enabled    ${lastRunInfo}
     ${temp_stored_build}=   Get Text    ${build_identifier}
     Set Suite Variable      ${stored_build}     ${temp_stored_build}
 
