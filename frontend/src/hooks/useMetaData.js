@@ -2,7 +2,7 @@
 import { useParams } from 'react-router';
 import { useStateValue } from '../contexts/state';
 
-const useMetaData = () => {
+const useMetadata = () => {
     const [{ selectedBranchState, branchesState }, dispatch] = useStateValue();
     let { buildId, seriesId } = useParams();
 
@@ -40,4 +40,4 @@ const useMetaData = () => {
     }, [branch_id, branchesState, buildId, dispatch]);
 };
 
-export default useMetaData;
+export default useMetadata;

@@ -1,35 +1,15 @@
 ﻿/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
-import PieChart from '../../components/graphs/PieChart';
+import PieChart from '../graphs/PieChart';
 import { suiteLabels, testLabels } from '../../utils/graphTypes';
-import Loading from '../../components/Loading';
+import Loading from '../Loading';
 import { useStateValue } from '../../contexts/state';
 import { useTranslation } from 'react-i18next';
-import { overviewElement } from '../../styles/baseComponents';
-import styled from 'styled-components';
 import { last } from 'ramda';
 import Metadata from '../lastRunTable/Metadata';
-import useMetaData from '../../hooks/useMetaData';
-
-const FlexDiv = styled.div`
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-`;
-
-const ChartContainer = styled(overviewElement)`
-    margin: 20px 40px 40px 0;
-    background-color: var(--nero-white);
-    width: ${props => props.width};
-    height: ${props => props.height};
-`;
-
-const ElementHeader = styled.h3`
-    text-align: center;
-    margin: 10px;
-    font-family: 'Space Mono';
-`;
+import useMetadata from '../../hooks/useMetadata';
+import { FlexDiv, ChartContainer, ElementHeader } from './Build.styles';
 
 const Build = () => {
     const [t] = useTranslation(['overview']);
@@ -39,7 +19,7 @@ const Build = () => {
     const [dispatch] = useStateValue();
     const [statusCount, setStatusCount] = useState();
 
-    useMetaData();
+    useMetadata();
 
     useEffect(() => {
         const url = `/data/series/${seriesId}/status_counts/?start_from=${buildId}&builds=1`;

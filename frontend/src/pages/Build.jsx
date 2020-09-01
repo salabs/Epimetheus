@@ -3,13 +3,13 @@ import React, { Fragment, useEffect } from 'react';
 import Table from '../components/lastRunTable/Table';
 import LastRunCheckBox from '../components/LastRunCheckbox';
 import { useStateValue } from '../contexts/state';
-import Metadata from '../components/lastRunTable/Metadata';
 import { useParams } from 'react-router';
 import BreadcrumbNav from '../components/BreadcrumbNav';
 import ParentBuild from '../components/parentData/ParentBuild';
 import Loading from '../components/Loading';
 import Header from '../components/header/Header';
-import useMetaData from '../hooks/useMetaData';
+import Metadata from '../components/lastRunTable/Metadata';
+import useMetadata from '../hooks/useMetadata';
 import { ParentInfoContainer, LastRunContainer } from './Build.styles';
 
 const Build = () => {
@@ -56,7 +56,7 @@ const Build = () => {
         }
     }, [dispatch, branch_id, buildId, branchesState]);
 
-    useMetaData();
+    useMetadata();
 
     return (
         <main id="last-run">
