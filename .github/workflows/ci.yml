@@ -13,6 +13,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
+
     - name: Run End-to-End Testing
       env: # Env variable from Github Secrets
         TEST_DATABASE: ${{ secrets.Test_Database }}
