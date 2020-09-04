@@ -5,6 +5,6 @@ export const SuiteRow = styled.tr`
 `;
 
 export const StyledTestRow = styled.td`
-    text-align: right !important;
+    text-align: center !important;
     border-top: none;
 `;

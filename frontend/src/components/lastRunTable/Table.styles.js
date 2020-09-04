@@ -36,5 +36,7 @@ export const StyledTable = styled(baseTable)`
 `;
 
 export const Container = styled.div`
-    overflow: auto;
+    overflow: hidden;
+    border: 1px solid #e5e5e5;
+    border-radius: 4px 4px 0px 0px;
 `;
