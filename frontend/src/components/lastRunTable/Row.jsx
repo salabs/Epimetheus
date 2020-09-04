@@ -7,11 +7,7 @@ import TestCase from './TestCase';
 import { dashify } from '../../utils/helpers';
 import { useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-
-const StyledTestRow = styled.td`
-    text-align: right !important;
-`;
+import { SuiteRow, StyledTestRow } from './Row.styles';
 
 const Row = ({ test_cases, suite, id, suiteId }) => {
     const tableRow = test_cases.map(({ builds, test_id }, index) => {
@@ -29,7 +25,7 @@ const Row = ({ test_cases, suite, id, suiteId }) => {
         const testRunTime = build ? build.test_run_time : 'ei ole';
 
         return (
-            <tr key={index}>
+            <SuiteRow key={index} position={index}>
                 {index === 0 && (
                     <LinksSuiteName
                         tableCellHeight={test_cases.length}
@@ -50,7 +46,7 @@ const Row = ({ test_cases, suite, id, suiteId }) => {
                     {(testRunTime / 1000).toFixed(3)}s
                 </StyledTestRow>
                 <Flakiness builds={builds} id={id} />
-            </tr>
+            </SuiteRow>
         );
     });
 
