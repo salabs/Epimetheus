@@ -105,8 +105,16 @@ class Database:
         return self.session.query(sql, {'fingerprint': fingerprint}), single_dict
 
     def subtrees(self, fingerprint):
+
         return self.session.query(sql_queries.SUBTREES, {'fingerprint': fingerprint}), list_of_dicts
 
+    def tag_count(self, team):
+        sql = """select tag, count(tag) as tag_count from test_tag as tt
+            join test_series_mapping as tsm on tsm.test_run_id = tt.test_run_id
+            join test_series as ts on tsm.series = ts.id
+            WHERE ts.team =%(team_name)s
+            group by tag order by tag_count"""
+        return self.session.query(sql, {'team_name': team}), list_of_dicts
 
 def list_of_dicts(rows):
     results = []
