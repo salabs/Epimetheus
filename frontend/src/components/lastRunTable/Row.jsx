@@ -7,7 +7,7 @@ import TestCase from './TestCase';
 import { dashify } from '../../utils/helpers';
 import { useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
-import { SuiteRow, StyledTestRow } from './Row.styles';
+import { SuiteRow, StyledTestRow, LinkSuiteName } from './Row.styles';
 
 const Row = ({ test_cases, suite, id, suiteId }) => {
     const tableRow = test_cases.map(({ builds, test_id }, index) => {
@@ -65,18 +65,21 @@ const LinksSuiteName = ({ tableCellHeight, suiteName, suiteId }) => {
         let el = tempSuiteName[index];
         splitSuiteName.push(
             <Fragment key={index}>
-                .{el}
+                <span>.{el}</span>
                 <br />
             </Fragment>
         );
     }
 
     return (
-        <td rowSpan={tableCellHeight} data-ta={`suite-${dashify(suiteName)}`}>
+        <LinkSuiteName
+            rowSpan={tableCellHeight}
+            data-ta={`suite-${dashify(suiteName)}`}
+        >
             <Link to={`${correctUrl}/suite/${suiteId}/history`}>
-                <span className="sr-show">Build </span>
+                <div className="sr-show">Build </div>
                 {splitSuiteName}
             </Link>
-        </td>
+        </LinkSuiteName>
     );
 };

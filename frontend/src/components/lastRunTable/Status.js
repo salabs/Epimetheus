@@ -5,7 +5,6 @@ import styled from 'styled-components';
 
 const StyledRow = styled.td`
     text-align: center !important;
-    vertical-align: middle !important;
 `;
 
 const Status = ({ build, selectedBuild }) => {

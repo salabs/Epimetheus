@@ -13,8 +13,7 @@ const baseTable = styled.table`
         background: #f0f0f0;
     }
 
-    td:first-of-type {
-        vertical-align: top;
+    td {
     }
     td.test-result-undefined {
         background: #eee;
@@ -30,10 +29,14 @@ const baseTable = styled.table`
 
     td {
         background: #ffffff;
+        vertical-align: top;
     }
 
     tr {
         border-top: 1px solid #e5e5e5;
+    }
+    a {
+        text-decoration: none;
     }
 `;
 
