@@ -13,6 +13,12 @@ from tornado_swagger.model import register_swagger_model
 import database as db
 
 
+from wordcloud import WordCloud
+import matplotlib.pyplot as plt
+import io
+
+
+
 def load_config_file(file_name):
     with open(file_name, 'r') as file:
         return json.load(file)
@@ -194,7 +200,8 @@ class Application(tornado.web.Application):
             #url(r"/data/metadata/?$", OldMetaDataHandler), # Depricated see MetaDataHandler
 
             # For query testing purposes only
-            url(r"/data/foo/?$", FooDataHandler)
+            url(r"/data/foo/?$", FooDataHandler),
+            url(r"/experimental/tagcloud?$", TagWordCloud)
         ]
 
         settings = dict(debug=True)
@@ -1240,6 +1247,60 @@ class KeywordTreeDataHandler(BaseHandler):
         else:
             self.send_not_found_response()
 
+
+class TagWordCloud(BaseHandler):
+    @tornado.gen.coroutine
+    def get(self):
+        """
+        ---
+        tags:
+        - Experimental
+        summary: Returns word cloud image (PNG) of the team's test tags
+        description: Generates word cloud image from all the team's test tags from all the test runs. 
+                     Feature is experimental so it can be removed or moved in future releases.
+        produces:
+        -  image/png
+        parameters:
+        -   name: team
+            in: query
+            description: Name of the team
+            required: true
+            type: string
+        responses:
+            200:
+                description: Word cloud image
+            400:
+                description: Required query parameter team missing
+            404:
+                description: No tags found. Can be caused by unknown team or no test tags found
+        """
+
+        team_name = self.get_argument('team', None)
+
+        if not team_name:
+            self.send_bad_request_response()
+            return
+
+        tags = yield coroutine_query(self.database.tag_count, team_name)
+        
+        if not tags:
+            self.send_not_found_response()
+            return
+
+        tag_count = {}
+        for tag in tags:
+            tag_count[tag['tag']] = tag['tag_count']
+
+        cloud = WordCloud(background_color="white",width=1000,height=1000)
+        cloud.generate_from_frequencies(tag_count)
+        plt.imshow(cloud, interpolation="bilinear")
+        plt.axis("off")
+        image = io.BytesIO()
+        plt.savefig(image, format='png')
+        image.seek(0)  # rewind the data
+
+        self.set_header('Content-Type', 'image/png')
+        self.write(image.read())
 
 class FooDataHandler(BaseHandler):
     def get(self):
