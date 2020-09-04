@@ -8,7 +8,6 @@ python -m robot --outputdir ./logs/ \
                 --variablefile variables.py \
                 --metadata "version:0.3.0" \
                 --metadata "ci_pipeline_id:$CI_PIPELINE_ID" \
-                --metadata "series:$CI_COMMIT_REF_NAME" \
                 --metadata "branch:$CI_COMMIT_REF_NAME" \
                 --metadata "commit_sha:$CI_COMMIT_SHA" \
                 --metadata "job_url:https://github.com/$CI_REPOSITORY/actions/runs/$CI_RUN_ID" \
@@ -31,13 +30,12 @@ echo " Archiving Backend reports from ./logs -directory"
 echo "---------------------------------------------"
 find ./logs -name \*.xml -type f -print0 | xargs -0 -n1 testarchiver --dbengine postgresql --database "$DATABASE" --host "$HOST" \
                                             --user "$USER" --pw "$PASSWORD"  \
-                                            --team Epimetheus --series ci_backend#"${CI_RUN_NUMBER}" --format robotframework
+                                            --team Epimetheus --series ci_backend#"${CI_RUN_NUMBER}" --series "${CI_COMMIT_REF_NAME}"#"${CI_RUN_NUMBER}" --format robotframework
 
 python -m robot --outputdir ./logs/ \
                 --variablefile variables.py \
                 --metadata "version:0.3.0" \
                 --metadata "ci_pipeline_id:$CI_PIPELINE_ID" \
-                --metadata "series:$CI_COMMIT_REF_NAME" \
                 --metadata "branch:$CI_COMMIT_REF_NAME" \
                 --metadata "commit_sha:$CI_COMMIT_SHA" \
                 --metadata "job_url:https://github.com/$CI_REPOSITORY/actions/runs/$CI_RUN_ID" \
@@ -57,7 +55,7 @@ echo " Archiving Frontend Page reports from ./logs -directory"
 echo "---------------------------------------------"
 find ./logs -name \*.xml -type f -print0 | xargs -0 -n1 testarchiver --dbengine postgresql --database "$DATABASE" --host "$HOST" \
                                             --user "$USER" --pw "$PASSWORD"  \
-                                            --team Epimetheus --series ci_frontend#"${CI_RUN_NUMBER}" --format robotframework
+                                            --team Epimetheus --series ci_frontend#"${CI_RUN_NUMBER}" --series "${CI_COMMIT_REF_NAME}"#"${CI_RUN_NUMBER}" --format robotframework
 
 EXITVAL=$((FRONTEND+BACKEND))
 
