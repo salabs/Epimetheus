@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 export const StyledTable = styled(baseTable)`
     table-layout: fixed;
-    width: 100%;
     border-collapse: collapse;
     overflow: auto;
 
@@ -38,4 +37,8 @@ export const Container = styled.div`
     overflow: hidden;
     border: 1px solid #e5e5e5;
     border-radius: 4px 4px 0px 0px;
+`;
+
+export const HeaderRow = styled.tr`
+    border-top: none !important;
 `;

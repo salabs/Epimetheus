@@ -10,7 +10,11 @@ const Error = ({ build }) => {
             errorMessage.message.substring(0, CHARACTER_LIMIT) + '...';
     }
 
-    return <ErrorMsg build={build}>{errorMessage.message}</ErrorMsg>;
+    return (
+        <ErrorMsg build={build}>
+            <span>{errorMessage.message}</span>
+        </ErrorMsg>
+    );
 };
 
 export default Error;

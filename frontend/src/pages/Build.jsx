@@ -1,16 +1,20 @@
 // eslint-disable-next-line
 import React, { Fragment, useEffect } from 'react';
-import Table from '../components/lastRunTable/Table';
-import LastRunCheckBox from '../components/LastRunCheckbox';
+import Table from '../components/buildTable/Table';
+import LastRunCheckBox from '../components/buttons/LastRunCheckbox';
 import { useStateValue } from '../contexts/state';
 import { useParams } from 'react-router';
 import BreadcrumbNav from '../components/BreadcrumbNav';
 import ParentBuild from '../components/parentData/ParentBuild';
 import Loading from '../components/Loading';
 import Header from '../components/header/Header';
-import Metadata from '../components/lastRunTable/Metadata';
+import Metadata from '../components/buildTable/Metadata';
 import useMetadata from '../hooks/useMetadata';
-import { ParentInfoContainer, LastRunContainer } from './Build.styles';
+import {
+    ParentInfoContainer,
+    LastRunContainer,
+    TableHeader,
+} from './Build.styles';
 
 const Build = () => {
     const [
@@ -88,6 +92,7 @@ const Build = () => {
                         <ParentBuild />
                     </ParentInfoContainer>
                     <Metadata />
+                    <TableHeader>Test results for build {buildId}</TableHeader>
                     <LastRunCheckBox />
                     <Table id={branch_id} />
                 </Fragment>
