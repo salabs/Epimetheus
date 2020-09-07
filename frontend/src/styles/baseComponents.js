@@ -22,7 +22,7 @@ const baseTable = styled.table`
     td,
     th {
         padding: 5px 5px;
-        text-align: left;
+        text-align: center;
         vertical-align: middle;
         word-wrap: break-word;
     }

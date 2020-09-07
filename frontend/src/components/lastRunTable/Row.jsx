@@ -7,7 +7,7 @@ import TestCase from './TestCase';
 import { dashify } from '../../utils/helpers';
 import { useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
-import { SuiteRow, StyledTestRow, LinkSuiteName } from './Row.styles';
+import { SuiteRow, LinkSuiteName } from './Row.styles';
 
 const Row = ({ test_cases, suite, id, suiteId }) => {
     const tableRow = test_cases.map(({ builds, test_id }, index) => {
@@ -42,9 +42,9 @@ const Row = ({ test_cases, suite, id, suiteId }) => {
                 />
 
                 <Error build={build} />
-                <StyledTestRow className="test-time-row">
+                <td className="test-time-row">
                     {(testRunTime / 1000).toFixed(3)}s
-                </StyledTestRow>
+                </td>
                 <Flakiness builds={builds} id={id} />
             </SuiteRow>
         );

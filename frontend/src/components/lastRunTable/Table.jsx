@@ -1,5 +1,5 @@
 // eslint-disable-next-line
-import React, { useContext } from 'react';
+import React from 'react';
 import Body from './Body';
 import { StyledTable, Container } from './Table.styles';
 

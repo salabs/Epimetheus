@@ -4,12 +4,9 @@ export const SuiteRow = styled.tr`
     border-top: ${props => props.position !== 0 && 'none !important'};
 `;
 
-export const StyledTestRow = styled.td`
-    text-align: center !important;
-    border-top: none;
-`;
-
 export const LinkSuiteName = styled.td`
+    text-align: left !important;
+
     span:nth-child(4) {
         padding-left: 8px;
     }
