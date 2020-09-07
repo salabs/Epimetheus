@@ -31,4 +31,10 @@ export const LinkSuiteName = styled.td`
     span:nth-child(16) {
         padding-left: 56px;
     }
+    span:nth-child(18) {
+        padding-left: 64px;
+    }
+    span:nth-child(20) {
+        padding-left: 72px;
+    }
 `;
