@@ -7,6 +7,7 @@ import parentData from '../locales/en/parentData.json';
 import overview from '../locales/en/overview.json';
 import header from '../locales/en/header.json';
 import history from '../locales/en/history.json';
+import buttons from '../locales/en/buttons.json';
 
 const resources = {
     en: {
@@ -17,6 +18,7 @@ const resources = {
         overview,
         header,
         history,
+        buttons,
     },
 };
 

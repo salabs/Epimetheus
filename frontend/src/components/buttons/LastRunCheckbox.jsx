@@ -1,5 +1,6 @@
 // eslint-disable-next-line
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useStateValue } from '../../contexts/state';
 import { ReactComponent as Checked } from '../../images/checked.svg';
 import { ReactComponent as Unchecked } from '../../images/unchecked.svg';
@@ -16,6 +17,8 @@ const Checkbox = () => {
     const [{ lastRunFilterPass, lastRunFilterFail }, dispatch] = useStateValue();
     const [passFilter, setPassFilter] = useState(lastRunFilterPass.isChecked);
     const [failFilter, setFailFilter] = useState(lastRunFilterFail.isChecked);
+
+    const [t] = useTranslation(['buttons']);
 
     const handlePassFilterChange = e => {
         dispatch({
@@ -39,7 +42,7 @@ const Checkbox = () => {
 
     return (
         <CheckBoxContainer>
-            <Header>Hide tests that are</Header>
+            <Header>{t('hide_tests.header')}</Header>
             <StyledDiv id="last-run-checkbox-container">
                 <StyledLabel labelfor="filterPassed">
                     <StyledInput
@@ -50,7 +53,7 @@ const Checkbox = () => {
                         onChange={e => handlePassFilterChange(e)}
                     />
                     <span>{passFilter ? <Checked /> : <Unchecked />}</span>
-                    Passing
+                    {t('hide_tests.passing')}
                 </StyledLabel>
                 <StyledLabel labelfor="filterFailed">
                     <StyledInput
@@ -61,7 +64,7 @@ const Checkbox = () => {
                         onChange={e => handleFailFilterChange(e)}
                     />
                     <span>{failFilter ? <Checked /> : <Unchecked />}</span>
-                    Failing
+                    {t('hide_tests.failing')}
                 </StyledLabel>
             </StyledDiv>
         </CheckBoxContainer>
