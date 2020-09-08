@@ -6,6 +6,7 @@ import team from '../locales/en/team.json';
 import parentData from '../locales/en/parentData.json';
 import overview from '../locales/en/overview.json';
 import header from '../locales/en/header.json';
+import history from '../locales/en/history.json';
 
 const resources = {
     en: {
@@ -15,6 +16,7 @@ const resources = {
         parentData,
         overview,
         header,
+        history,
     },
 };
 

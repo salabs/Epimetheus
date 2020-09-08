@@ -1,20 +1,29 @@
 // eslint-disable-next-line
 import React from 'react';
 import Body from './Body';
+import { useTranslation } from 'react-i18next';
 import { StyledTable, HeaderRow, Container } from './Table.styles';
 
 const Table = ({ id }) => {
+    const [t] = useTranslation(['history']);
+
     return (
         <Container>
             <StyledTable id="last-run-table">
                 <thead>
                     <HeaderRow>
-                        <th>Suitename</th>
-                        <th className="centerTableCellContent">Status</th>
-                        <th>Test(s)</th>
-                        <th>Error messages</th>
-                        <th className="test-time-row">Time</th>
-                        <th className="centerTableCellContent">Flakiness</th>
+                        <th>{t('build.table.suite')}</th>
+                        <th className="centerTableCellContent">
+                            {t('build.table.status')}
+                        </th>
+                        <th>{t('build.table.test')}</th>
+                        <th>{t('build.table.suite')}</th>
+                        <th className="test-time-row">
+                            {t('build.table.time')}
+                        </th>
+                        <th className="centerTableCellContent">
+                            {t('build.table.flakiness')}
+                        </th>
                     </HeaderRow>
                 </thead>
                 <tbody>

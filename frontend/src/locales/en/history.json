@@ -1,0 +1,21 @@
+{
+    "series": {},
+    "build": {
+        "table": {
+            "suite": "Suitename",
+            "status": "Status",
+            "test": "Test(s)",
+            "error": "Error messages",
+            "time": "Time",
+            "flakiness": "Flakiness",
+            "row": {
+                "build": "build"
+            }
+        },
+        "metadata": {
+            "metadata": "Metadata",
+            "key": "Key",
+            "value": "Value"
+        }
+    }
+}

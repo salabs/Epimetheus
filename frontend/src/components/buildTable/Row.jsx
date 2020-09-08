@@ -7,6 +7,7 @@ import TestCase from './TestCase';
 import { dashify } from '../../utils/helpers';
 import { useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { SuiteRow, LinkSuiteName } from './Row.styles';
 
 const Row = ({ test_cases, suite, id, suiteId }) => {
@@ -57,6 +58,8 @@ export default Row;
 
 // Show suite name separated on different lines with dots showing depth level
 const LinksSuiteName = ({ tableCellHeight, suiteName, suiteId }) => {
+    const [t] = useTranslation(['history']);
+
     const pathname = useLocation().pathname;
     const correctUrl = pathname.substring(0, pathname.lastIndexOf('/'));
     let tempSuiteName = suiteName.split('.');
@@ -77,7 +80,7 @@ const LinksSuiteName = ({ tableCellHeight, suiteName, suiteId }) => {
             data-ta={`suite-${dashify(suiteName)}`}
         >
             <Link to={`${correctUrl}/suite/${suiteId}/history`}>
-                <div className="sr-show">Build </div>
+                <div className="sr-show">{t('build.table.row.build')}</div>
                 {splitSuiteName}
             </Link>
         </LinkSuiteName>
