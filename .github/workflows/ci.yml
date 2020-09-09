@@ -19,6 +19,7 @@ jobs:
       run: |
         ./run-docker.sh
     - uses: actions/upload-artifact@v2
+      if: ${{ failure() }}
       with:
         name: robot_logs
         path: /home/robot/test/logs
