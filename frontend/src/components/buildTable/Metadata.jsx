@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useStateValue } from '../../contexts/state';
 import { capitalCaseInitial, removeUnderscore } from '../../utils/helpers';
 import {
@@ -12,6 +13,7 @@ import { ReactComponent as Up } from '../../images/chevron-up.svg';
 import { ReactComponent as Down } from '../../images/chevron-down.svg';
 
 const Metadata = () => {
+    const [t] = useTranslation(['history']);
     const [{ metadataState }] = useStateValue();
     const [Open, setOpen] = useState(true);
 
@@ -31,13 +33,13 @@ const Metadata = () => {
                 role="button"
                 tabIndex="0"
             >
-                <p>Metadata</p>
+                <p>{t('build.metadata.metadata')}</p>
                 <span>{Open ? <Up /> : <Down />}</span>
             </HeaderContainer>
             <SplitBorder />
             <TableContainer>
                 <DataRow first={true} className={Open ? 'Open' : 'Close'}>
-                    <span>Key</span>
+                    <span>{t('build.metadata.key')}</span>
                     {metadata &&
                         metadata.map(({ metadata_name }, index) => (
                             <span key={index}>
@@ -48,7 +50,7 @@ const Metadata = () => {
                         ))}
                 </DataRow>
                 <DataRow className={Open ? 'Open' : 'Close'}>
-                    <span>Value</span>
+                    <span>{t('build.metadata.value')}</span>
                     {metadata &&
                         metadata.map(({ metadata_value }, index) =>
                             metadata_value.includes('http') ? (

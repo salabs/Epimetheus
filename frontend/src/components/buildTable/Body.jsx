@@ -4,7 +4,7 @@ import Row from './Row';
 import { useStateValue } from '../../contexts/state';
 import { useParams } from 'react-router';
 
-const Body = ({ id }) => {
+const Body = () => {
     const [
         {
             historyDataState: { history },

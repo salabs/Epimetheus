@@ -1,0 +1,7 @@
+{
+    "hide_tests": {
+        "header": "Hide tests that are",
+        "passing": "Passing",
+        "failing": "Failing"
+    }
+}

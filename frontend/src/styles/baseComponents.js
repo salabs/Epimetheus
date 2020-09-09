@@ -4,38 +4,39 @@ const baseTable = styled.table`
     table-layout: fixed;
     width: 100%;
     border-collapse: collapse;
-    border-collapse: collapse;
-    padding: 10px 10px;
-    border: 1px solid black;
+    padding: 5px 5px;
     text-align: left;
     vertical-align: middle;
     word-wrap: break-word;
 
-    td:first-of-type {
-        vertical-align: top;
+    thead {
+        background: #f0f0f0;
+    }
+
+    td {
     }
     td.test-result-undefined {
         background: #eee;
     }
 
-    td {
-        border-collapse: collapse;
-        padding: 10px 10px;
-        border: 1px solid black;
-        text-align: left;
+    td,
+    th {
+        padding: 5px 5px;
+        text-align: center;
         vertical-align: middle;
         word-wrap: break-word;
-        background: #ffffff;
     }
 
-    th {
-        border-collapse: collapse;
-        padding: 10px 10px;
-        border: 1px solid black;
-        text-align: left;
-        vertical-align: middle;
-        word-wrap: break-word;
-        background: #ddd;
+    td {
+        background: #ffffff;
+        vertical-align: top;
+    }
+
+    tr {
+        border-top: 1px solid #e5e5e5;
+    }
+    a {
+        text-decoration: none;
     }
 `;
 

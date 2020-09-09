@@ -7,11 +7,8 @@ import TestCase from './TestCase';
 import { dashify } from '../../utils/helpers';
 import { useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-
-const StyledTestRow = styled.td`
-    text-align: right !important;
-`;
+import { useTranslation } from 'react-i18next';
+import { SuiteRow, LinkSuiteName } from './Row.styles';
 
 const Row = ({ test_cases, suite, id, suiteId }) => {
     const tableRow = test_cases.map(({ builds, test_id }, index) => {
@@ -29,7 +26,7 @@ const Row = ({ test_cases, suite, id, suiteId }) => {
         const testRunTime = build ? build.test_run_time : 'ei ole';
 
         return (
-            <tr key={index}>
+            <SuiteRow key={index} position={index} build={build}>
                 {index === 0 && (
                     <LinksSuiteName
                         tableCellHeight={test_cases.length}
@@ -46,11 +43,11 @@ const Row = ({ test_cases, suite, id, suiteId }) => {
                 />
 
                 <Error build={build} />
-                <StyledTestRow className="test-time-row">
+                <td className="test-time-row">
                     {(testRunTime / 1000).toFixed(3)}s
-                </StyledTestRow>
+                </td>
                 <Flakiness builds={builds} id={id} />
-            </tr>
+            </SuiteRow>
         );
     });
 
@@ -61,6 +58,8 @@ export default Row;
 
 // Show suite name separated on different lines with dots showing depth level
 const LinksSuiteName = ({ tableCellHeight, suiteName, suiteId }) => {
+    const [t] = useTranslation(['history']);
+
     const pathname = useLocation().pathname;
     const correctUrl = pathname.substring(0, pathname.lastIndexOf('/'));
     let tempSuiteName = suiteName.split('.');
@@ -69,18 +68,21 @@ const LinksSuiteName = ({ tableCellHeight, suiteName, suiteId }) => {
         let el = tempSuiteName[index];
         splitSuiteName.push(
             <Fragment key={index}>
-                .{el}
+                <span>.{el}</span>
                 <br />
             </Fragment>
         );
     }
 
     return (
-        <td rowSpan={tableCellHeight} data-ta={`suite-${dashify(suiteName)}`}>
+        <LinkSuiteName
+            rowSpan={tableCellHeight}
+            data-ta={`suite-${dashify(suiteName)}`}
+        >
             <Link to={`${correctUrl}/suite/${suiteId}/history`}>
-                <span className="sr-show">Build </span>
+                <div className="sr-show">{t('build.table.row.build')}</div>
                 {splitSuiteName}
             </Link>
-        </td>
+        </LinkSuiteName>
     );
 };
