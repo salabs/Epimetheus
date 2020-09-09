@@ -22,7 +22,7 @@ jobs:
       if: ${{ failure() }}
       with:
         name: robot_logs
-        path: /home/robot/test/logs
+        path: ./end_to_end_tests/logs
     - name: Stop End-to-End tests
       env: # Env variable from Github Secrets
         TEST_DATABASE: ${{ secrets.Test_Database }}
