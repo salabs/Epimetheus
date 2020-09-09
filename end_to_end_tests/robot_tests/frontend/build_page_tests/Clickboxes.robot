@@ -21,8 +21,7 @@ Hide Tests
   [Arguments]   ${status}
   ${path}=  Set Variable If   '${status}' == 'Failing'  ${fail_checkbox_locator}  ${pass_checkbox_locator}
   Wait Until Element Is Enabled   ${fail_checkbox_locator}
-  Checkbox Should Not Be Selected   ${Path}
-  Select Checkbox   ${path}
+  Click Element   ${path}
 
 Build Should have test executions
   Wait Until Element Is Enabled     ${last_run_table}
@@ -35,8 +34,7 @@ Show Tests
   [Arguments]   ${status}
   ${path}=  Set Variable If   '${status}' == 'Failing'  ${fail_checkbox_locator}  ${pass_checkbox_locator}
   Wait Until Element Is Enabled   ${fail_checkbox_locator}
-  Checkbox Should Be Selected   ${path}
-  Unselect Checkbox   ${path}
+  Click Element   ${path}
 
 The status of all tests should be
   [Arguments]   ${status}
