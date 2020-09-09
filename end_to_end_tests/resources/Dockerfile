@@ -13,7 +13,7 @@ ADD variables.py .
 
 RUN pip install -r requirements.txt
 
-RUN pip install -i https://test.pypi.org/simple/ testarchiver==0.0.3
+RUN pip install testarchiver==2.0.0
 
 RUN chown -R robot:robot /home/robot
 RUN mkdir /home/robot/test/logs
