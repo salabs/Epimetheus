@@ -15,7 +15,7 @@ export const TableStyled = styled.table`
         background: var(--hermanni-grey);
     }
 
-    td {
+    tbody td {
         border-top: 1px solid #e5e5e5;
     }
 
