@@ -6,24 +6,8 @@ import Build from '../components/overview/Build';
 import Series from '../components/overview/Series';
 import ParentBuild from '../components/parentData/ParentBuild';
 import Header from '../components/header/Header';
-import styled from 'styled-components';
 import Filter from '../components/historyTable/Filter';
-
-const ParentInfo = styled.div`
-    display: flex;
-    flex-flow: row wrap;
-    padding: 20px 0;
-`;
-
-const FlexDiv = styled.div`
-    display: flex;
-    flex-wrap: wrap;
-`;
-
-const FlexColumn = styled.div`
-    display: flex;
-    flex-direction: column;
-`;
+import { ParentInfo, FlexDiv, FlexColumn } from './Overview.styles';
 
 const Overview = () => {
     const pathname = useLocation().pathname;

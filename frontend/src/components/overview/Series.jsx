@@ -1,26 +1,12 @@
 ﻿/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
-import SuiteInstability from '../graphs/SuiteInstability';
 import { useParams } from 'react-router';
 import { useStateValue } from '../../contexts/state';
 import TimeLineChart from '../graphs/TimeLineChart';
 import DashboardList from '../dashlist/ListMain';
 import LastBuildElement from '../lastBuildElement/LastBuild';
-import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
-import { overviewElement } from '../../styles/baseComponents';
-
-const ChartContainer = styled(overviewElement)`
-    margin: 20px 40px 40px 0;
-    background-color: var(--nero-white);
-    min-width: ${props => props.minWidth};
-`;
-
-const ElementHeader = styled.h3`
-    text-align: center;
-    margin: 10px;
-    font-family: 'Space Mono';
-`;
+import { ChartContainer, ElementHeader } from './Series.styles';
 
 const Series = () => {
     const [t] = useTranslation(['overview']);
@@ -74,10 +60,6 @@ const Series = () => {
             <ChartContainer className="overview-list" minWidth="500px">
                 <ElementHeader>{t('series.stability_table')}</ElementHeader>
                 <DashboardList />
-            </ChartContainer>
-            <ChartContainer table minWidth="610px">
-                <ElementHeader>{t('series.unstable_tests')}</ElementHeader>
-                <SuiteInstability />
             </ChartContainer>
         </>
     );
