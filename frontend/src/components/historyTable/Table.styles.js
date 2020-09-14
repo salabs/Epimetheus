@@ -15,14 +15,14 @@ export const TableStyled = styled.table`
         background: var(--hermanni-grey);
     }
 
-    tbody td {
-        border-top: 1px solid #e5e5e5;
-    }
-
-    th {
+    thead th {
         padding: 10px;
         text-align: left;
         vertical-align: middle;
+    }
+
+    tbody td {
+        border-top: 1px solid #e5e5e5;
     }
 
     .centerTableCellContent {
