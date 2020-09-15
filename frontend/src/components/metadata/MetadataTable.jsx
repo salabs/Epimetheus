@@ -25,7 +25,7 @@ const MetadataTable = ({ name, value }) => {
                 <p>{t('metadata')}</p>
                 <span>{Open ? <Up /> : <Down />}</span>
             </HeaderContainer>
-            <SplitBorder />
+            <SplitBorder open={Open} />
             <TableContainer>
                 <DataRow first={true} className={Open ? 'Open' : 'Close'}>
                     <span>{t('name')}</span>
