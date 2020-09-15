@@ -3,11 +3,15 @@ import logger from 'use-reducer-logger';
 export const StateContext = createContext();
 
 const initialState = {
-    historyDataState: null,
+    historyDataState: {
+        max_build_num: 0,
+        history: null,
+    },
     loadingState: false,
     errorState: null,
     amountOfBuilds: 10,
     amountShown: 10,
+    offset: 0,
     amountFilteredData: null,
     lastRunFilterFail: {
         isChecked: false,

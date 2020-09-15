@@ -1,9 +1,10 @@
 // eslint-disable-next-line
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useStateValue } from '../../contexts/state';
-import { ReactComponent as Checked } from '../../images/checked.svg';
-import { ReactComponent as Unchecked } from '../../images/unchecked.svg';
+import { useHistory, useLocation } from 'react-router-dom';
+import { useQueryParams } from '../../hooks/useQuery';
+
 import {
     StyledDiv,
     StyledDirectionButton,
@@ -12,54 +13,121 @@ import {
     StyledEndLeft,
 } from './OffSetButtons.styles';
 
-
-import {
-    Header,
-    ButtonContainer,
-} from './LastRunCheckbox.styles'
-
-
-import { ReactComponent as Left } from '../../images/chevron-left.svg';
-import { ReactComponent as Right } from '../../images/chevron-right.svg';
+import { Header, ButtonContainer } from './LastRunCheckbox.styles';
+import Left from '../../images/chevron-left.svg';
+import Right from '../../images/chevron-right.svg';
 const Offset = () => {
+    const history = useHistory();
+    const location = useLocation();
+    const queryParams = useQueryParams();
 
-    const [{ lastRunFilterPass, lastRunFilterFail }, dispatch] = useStateValue();
-    const [passFilter, setPassFilter] = useState(lastRunFilterPass.isChecked);
-    const [failFilter, setFailFilter] = useState(lastRunFilterFail.isChecked);
+    const [
+        {
+            offset,
+            historyDataState: { max_build_num },
+        },
+        dispatch,
+    ] = useStateValue();
+    const [inputOffset, setInputOffset] = useState(0);
+    const [leftEnabled, setLeftEnabled] = useState(1);
+    const [rightEnabled, setRightEnabled] = useState(1);
 
-    const [t] = useTranslation(['buttons']);
-
-    const handlePassFilterChange = e => {
-        dispatch({
-            type: 'setLastRunFilterPass',
-            filterType: passFilter ? '' : e.target.value,
-            isChecked: !passFilter,
-        });
-
-        setPassFilter(!passFilter);
+    const updateTags = tag => {
+        queryParams.set('offset', tag);
+        return queryParams.toString();
     };
 
-    const handleFailFilterChange = e => {
-        dispatch({
-            type: 'setLastRunFilterFail',
-            filterType: failFilter ? '' : e.target.value,
-            isChecked: !failFilter,
-        });
-
-        setFailFilter(!failFilter);
+    const handleRightButtonPress = e => {
+        if (rightEnabled === 1) {
+            const setOffset = offset + parseInt(inputOffset);
+            dispatch({
+                type: 'setOffset',
+                offset: setOffset,
+            });
+            history.push({
+                pathname: `${location.pathname}`,
+                search: `?${updateTags(setOffset)}`,
+                state: {},
+            });
+        }
     };
 
+    const handleLeftButtonPress = e => {
+        if (leftEnabled === 1) {
+            const setOffset = offset - parseInt(inputOffset);
+            dispatch({
+                type: 'setOffset',
+                offset: setOffset,
+            });
+            history.push({
+                pathname: `${location.pathname}`,
+                search: `?${updateTags(setOffset)}`,
+                state: {},
+            });
+        }
+    };
+
+    useEffect(() => {
+        const total_offset = queryParams.get('offset') || offset;
+        dispatch({
+            type: 'setOffset',
+            offset: total_offset,
+        });
+        if (total_offset - inputOffset < 0) {
+            setLeftEnabled(0);
+        } else {
+            setLeftEnabled(1);
+        }
+        if (max_build_num - inputOffset <= 0) {
+            setRightEnabled(0);
+        } else {
+            setRightEnabled(1);
+        }
+    }, [offset, inputOffset, max_build_num]);
+
+    // eslint-disable-next-line no-unused-vars
+    const handleLatestButtonPress = e => {
+        dispatch({
+            type: 'setOffset',
+            offset: 0,
+        });
+        history.push({
+            pathname: `${location.pathname}`,
+            search: `?${updateTags(0)}`,
+            state: {},
+        });
+    };
+
+    const handleNumberInput = e => {
+        setInputOffset(e.target.value);
+    };
     return (
         <ButtonContainer>
             <Header>Offset</Header>
             <FlexDiv id="offset_container">
-                <LatestButton><StyledEndLeft /> LATEST</LatestButton>
-                <StyledDirectionButton><Left /></StyledDirectionButton>
-                <StyledDirectionButton>0</StyledDirectionButton>
-                <StyledDirectionButton><Right /></StyledDirectionButton>
+                <LatestButton onClick={handleLatestButtonPress}>
+                    <StyledEndLeft /> LATEST
+                </LatestButton>
+                <StyledDirectionButton
+                    onClick={handleLeftButtonPress}
+                    enabled={leftEnabled}
+                >
+                    <img src={Left} alt="<" />
+                </StyledDirectionButton>
+                <input
+                    type="number"
+                    onChange={handleNumberInput}
+                    value={inputOffset}
+                />
+                <StyledDirectionButton
+                    onClick={handleRightButtonPress}
+                    enabled={rightEnabled}
+                >
+                    <img src={Right} alt=">" />
+                </StyledDirectionButton>
             </FlexDiv>
         </ButtonContainer>
     );
-}
+};
 
 export default Offset;

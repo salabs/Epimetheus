@@ -13,6 +13,9 @@ import {
     FlexDiv,
 } from './LastRunCheckbox.styles';
 
+import { useQueryParams } from '../../hooks/useQuery';
+import { useHistory, useLocation } from 'react-router-dom';
+
 const Checkbox = ( {direction} ) => {
     // eslint-disable-next-line
     const [{ lastRunFilterPass, lastRunFilterFail }, dispatch] = useStateValue();
@@ -20,6 +23,20 @@ const Checkbox = ( {direction} ) => {
     const [failFilter, setFailFilter] = useState(lastRunFilterFail.isChecked);
 
     const [t] = useTranslation(['buttons']);
+
+    const history = useHistory();
+    const location = useLocation();
+    const queryParams = useQueryParams();
+
+    const updateTags = tag => {
+        let tagList = queryParams.getAll('tag');
+        tagList.indexOf(tag) !== -1
+            ? tagList.splice(tagList.indexOf(tag), 1)
+            : tagList.push(tag);
+        queryParams.delete('tag');
+        tagList.forEach(element => queryParams.append('tag', element));
+        return queryParams.toString();
+    };
 
     const handlePassFilterChange = e => {
         dispatch({
@@ -29,6 +46,11 @@ const Checkbox = ( {direction} ) => {
         });
 
         setPassFilter(!passFilter);
+        history.push({
+            pathname: `${location.pathname}`,
+            search: `?${updateTags('Passing')}`,
+            state: {},
+        });
     };
 
     const handleFailFilterChange = e => {
@@ -39,6 +61,11 @@ const Checkbox = ( {direction} ) => {
         });
 
         setFailFilter(!failFilter);
+        history.push({
+            pathname: `${location.pathname}`,
+            search: `?${updateTags('Failing')}`,
+            state: {},
+        });
     };
 
     return (

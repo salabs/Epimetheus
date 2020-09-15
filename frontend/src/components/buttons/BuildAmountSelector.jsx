@@ -1,30 +1,48 @@
 // eslint-disable-next-line
 import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useStateValue } from '../../contexts/state';
-import { ReactComponent as Checked } from '../../images/checked.svg';
-import { ReactComponent as Unchecked } from '../../images/unchecked.svg';
-import {
-    StyledSelect,
-} from './BuildAmountSelector.styles';
+import { useHistory, useLocation } from 'react-router-dom';
+import { useQueryParams } from '../../hooks/useQuery';
 
-import {
-    Header,
-    ButtonContainer,
-} from './LastRunCheckbox.styles'
+import { useStateValue } from '../../contexts/state';
+import { StyledSelect } from './BuildAmountSelector.styles';
+
+import { Header, ButtonContainer } from './LastRunCheckbox.styles';
 
 const BuildAmountSelector = () => {
-    return (    
+    const [, dispatch] = useStateValue();
+
+    const history = useHistory();
+    const location = useLocation();
+    const queryParams = useQueryParams();
+
+    const updateTags = tag => {
+        queryParams.set('numberofbuilds', tag);
+        return queryParams.toString();
+    };
+
+    const handleChange = e => {
+        dispatch({
+            type: 'setAmountOfBuilds',
+            amountOfBuilds: e.target.value,
+        });
+        history.push({
+            pathname: `${location.pathname}`,
+            search: `?${updateTags(e.target.value)}`,
+            state: {},
+        });
+    };
+
+    return (
         <ButtonContainer>
             <Header>Builds</Header>
-            <StyledSelect>
-                <option>5</option>
-                <option>10</option>
-                <option>15</option>
+            <StyledSelect onChange={handleChange}>
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="30">30</option>
             </StyledSelect>
         </ButtonContainer>
-    )
-}
-
+    );
+};
 
 export default BuildAmountSelector;

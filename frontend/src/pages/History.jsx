@@ -4,7 +4,9 @@ import { useTranslation } from 'react-i18next';
 import Filter from '../components/historyTable/Filter';
 import Table from '../components/historyTable/Table';
 import ParentSeries from '../components/parentData/ParentSeries';
-import Checkbox from '../components/Checkbox';
+import Offset from '../components/buttons/OffSetButtons'
+import Checkbox from '../components/buttons/LastRunCheckbox'
+import BuildAmountSelector from '../components/buttons/BuildAmountSelector'
 import { useStateValue } from '../contexts/state';
 import { useParams } from 'react-router';
 import BreadcrumbNav from '../components/BreadcrumbNav';
@@ -26,6 +28,7 @@ const History = () => {
             selectedBranchState,
             amountOfBuilds,
             branchesState,
+            offset,
         },
         dispatch,
     ] = useStateValue();
@@ -35,8 +38,9 @@ const History = () => {
     const number_of_builds =
         queryParams.get('numberofbuilds') || amountOfBuilds || '30';
 
+    const total_offset = queryParams.get('offset') || offset;
     useEffect(() => {
-        const url = `/data/series/${series_id}/history?builds=${number_of_builds}`;
+        const url = `/data/series/${series_id}/history?builds=${number_of_builds}&offset=${total_offset}`;
         if (branchesState) {
             const branch = branchesState.series?.find(
                 ({ id: serie_id }) => serie_id === parseInt(series_id, 10)
@@ -72,7 +76,7 @@ const History = () => {
                 dispatch({ type: 'flushHistory' });
             };
         }
-    }, [dispatch, series_id, number_of_builds, branchesState]);
+    }, [dispatch, series_id, number_of_builds, branchesState, offset]);
 
     return (
         <RelativeMain id="history">
@@ -83,8 +87,9 @@ const History = () => {
                 <ParentSeries />
             </ParentContainer>
             <FilterContainer id="filter-container">
-                <Filter direction="column" />
-                <Checkbox />
+                <BuildAmountSelector />
+                <Offset />
+                <Checkbox direction="row" />
             </FilterContainer>
             {!historyDataState || loadingState ? (
                 <Loading />

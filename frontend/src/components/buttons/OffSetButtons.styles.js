@@ -39,8 +39,7 @@ export const StyledDirectionButton = styled.button`
     width: 32px;
 
     margin: 4px;
-    background: var(--nero-white);
-    
+    background: ${props => props.enabled ? "var(--nero-white)" : "var(--hermanni-grey)"};
     border: 1px solid var(--hermanni-grey);
     box-sizing: border-box;
     border-radius: 4px;
@@ -53,7 +52,6 @@ export const LatestButton = styled.button`
     margin: 4px;
 
     background: var(--nero-white);
-    
     border: 1px solid var(--hermanni-grey);
     box-sizing: border-box;
     border-radius: 4px;
@@ -65,9 +63,7 @@ export const LatestButton = styled.button`
 
     letter-spacing: -0.04em;
     text-transform: uppercase;
-    color: var(--evidence-grey);    
-
-    
+    color: var(--evidence-grey);
 `;
 
 export const StyledLabel = styled.label`

@@ -124,6 +124,11 @@ const reducer = (state, action) => {
                     seriesData: action.seriesData,
                 },
             };
+        case 'setOffset':
+            return {
+                ...state,
+                offset: action.offset,
+            };
         case 'setBuildData':
             return {
                 ...state,
@@ -135,7 +140,10 @@ const reducer = (state, action) => {
         case 'flushHistory':
             return {
                 ...state,
-                historyDataState: null,
+                historyDataState: {
+                    max_build_num: 0,
+                    history: null,
+                },
             };
         case 'flushMetadata':
             return {
