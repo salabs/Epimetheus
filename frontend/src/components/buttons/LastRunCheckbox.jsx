@@ -5,14 +5,15 @@ import { useStateValue } from '../../contexts/state';
 import { ReactComponent as Checked } from '../../images/checked.svg';
 import { ReactComponent as Unchecked } from '../../images/unchecked.svg';
 import {
-    CheckBoxContainer,
+    ButtonContainer,
     Header,
     StyledDiv,
     StyledLabel,
     StyledInput,
+    FlexDiv,
 } from './LastRunCheckbox.styles';
 
-const Checkbox = () => {
+const Checkbox = ( {direction} ) => {
     // eslint-disable-next-line
     const [{ lastRunFilterPass, lastRunFilterFail }, dispatch] = useStateValue();
     const [passFilter, setPassFilter] = useState(lastRunFilterPass.isChecked);
@@ -41,9 +42,9 @@ const Checkbox = () => {
     };
 
     return (
-        <CheckBoxContainer>
+        <ButtonContainer>
             <Header>{t('hide_tests.header')}</Header>
-            <StyledDiv id="last-run-checkbox-container">
+            <StyledDiv direction={direction} id="last-run-checkbox-container">
                 <StyledLabel labelfor="filterPassed">
                     <StyledInput
                         type="checkbox"
@@ -67,7 +68,7 @@ const Checkbox = () => {
                     {t('hide_tests.failing')}
                 </StyledLabel>
             </StyledDiv>
-        </CheckBoxContainer>
+        </ButtonContainer>
     );
 };
 

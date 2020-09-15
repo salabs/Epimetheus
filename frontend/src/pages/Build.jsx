@@ -93,7 +93,7 @@ const Build = () => {
                     </ParentInfoContainer>
                     <Metadata />
                     <TableHeader>Test results for build {buildId}</TableHeader>
-                    <LastRunCheckBox />
+                    <LastRunCheckBox direction="row"/>
                     <Table id={branch_id} />
                 </Fragment>
             )}
