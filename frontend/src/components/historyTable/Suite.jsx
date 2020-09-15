@@ -13,8 +13,8 @@ const Suite = ({ builds, test_case, suite, index, test_cases }) => {
                     tableCellHeight={test_cases.length}
                 />
             )}
-            <TestCase test_case={test_case} />
-            <TestStatus builds={builds} />
+            <TestCase test_case={test_case} position={index} />
+            <TestStatus builds={builds} position={index} />
         </tr>
     );
 };

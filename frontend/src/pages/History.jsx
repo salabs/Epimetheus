@@ -1,7 +1,6 @@
 // eslint-disable-next-line
 import React, { Fragment, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import styled from 'styled-components';
 import Filter from '../components/historyTable/Filter';
 import Table from '../components/historyTable/Table';
 import ParentSeries from '../components/parentData/ParentSeries';
@@ -12,24 +11,11 @@ import BreadcrumbNav from '../components/BreadcrumbNav';
 import Loading from '../components/Loading';
 import { useQueryParams } from '../hooks/useQuery';
 import Header from '../components/header/Header';
-
-const RelativeMain = styled.main`
-    position: relative;
-`;
-
-const HeritanceContainer = styled.div`
-    display: flex;
-    flex-flow: row wrap;
-`;
-
-const FilterContainer = styled(HeritanceContainer)`
-    max-width: 800px;
-`;
-
-const ParentContainer = styled(HeritanceContainer)`
-    padding: 20px 0;
-    flex-direction: column;
-`;
+import {
+    RelativeMain,
+    FilterContainer,
+    ParentContainer,
+} from './History.styles';
 
 const History = () => {
     const [t] = useTranslation(['parentData']);

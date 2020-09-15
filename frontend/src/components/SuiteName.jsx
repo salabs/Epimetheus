@@ -1,15 +1,6 @@
 import React, { Fragment } from 'react';
 import { dashify } from '../utils/helpers';
-import styled from 'styled-components';
-
-const StyledData = styled.td`
-    padding: 10px;
-    border: 1px solid black;
-    text-align: left;
-    vertical-align: top;
-    background: var(--nero-white);
-`;
-
+import { StyledData } from './SuiteName.styles';
 
 // Show suite name separated on different lines with dots showing depth level
 const SuiteName = ({ tableCellHeight, suiteName }) => {
@@ -19,7 +10,7 @@ const SuiteName = ({ tableCellHeight, suiteName }) => {
         let el = tempSuiteName[index];
         splitSuiteName.push(
             <Fragment key={index}>
-                .{el}
+                <span>.{el}</span>
                 <br />
             </Fragment>
         );

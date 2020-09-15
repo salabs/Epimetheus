@@ -1,31 +1,11 @@
 // eslint-disable-next-line
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import styled from 'styled-components';
 import { ReactComponent as Pass } from '../images/success.svg';
 import { ReactComponent as Fail } from '../images/fail.svg';
 import { ReactComponent as Skipped } from '../images/skip.svg';
 import { ReactComponent as NotFound } from '../images/not-found.svg';
-
-const FrontPage = styled.main`
-    max-width: 800px;
-    width: 100%;
-    margin-left: 40px;
-`;
-
-const IconsContainer = styled.div`
-    display: flex;
-    justify-content: space-around;
-    padding-top: 20px;
-
-    div {
-        /* flex-direction: column;
-        overflow: hidden;
-        white-space: nowrap; */
-        min-height: 100px;
-        max-width: 150px;
-    }
-`;
+import { FrontPage, IconsContainer } from './Frontpage.styles';
 
 const Frontpage = () => {
     const [t] = useTranslation(['frontpage']);

@@ -1,27 +1,11 @@
 import React from 'react';
 import { useStateValue } from '../../contexts/state';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import { StyledLink } from './Heading.styles';
 
 // helper for build number sorting
 function compareNumbers(a, b) {
     return a - b;
 }
-
-const StyledLink = styled(Link)`
-    display: block;
-    width: 100%;
-    margin: 0;
-    padding: 0px;
-    text-align: center;
-    height: 100%;
-    transition: 0.33s background-color;
-    &:hover,
-    &:active {
-        background-color: #ccc;
-        transition: 0.1s background-color;
-    }
-`;
 
 const Heading = () => {
     const [

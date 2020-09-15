@@ -10,7 +10,7 @@ const baseTable = styled.table`
     word-wrap: break-word;
 
     thead {
-        background: #f0f0f0;
+        background: var(--hermanni-grey);
     }
 
     td {
