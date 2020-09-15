@@ -24,5 +24,6 @@ yarn.lock
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+end_to_end_tests/run-e2e-tests-python3.sh
 
 .env

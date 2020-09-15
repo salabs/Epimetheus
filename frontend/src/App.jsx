@@ -20,7 +20,8 @@ import { StyledApp, SkipMain } from './App.styles';
 
 const App = () => {
     // eslint-disable-next-line
-    const [{ selectedBranchState, amountOfBuilds }, dispatch] = useStateValue();
+    const [{}, dispatch] = useStateValue();
+
     useEffect(() => {
         const fetchData = async () => {
             dispatch({ type: 'setLoadingState', loadingState: true });
