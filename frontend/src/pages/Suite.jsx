@@ -108,7 +108,7 @@ const Suite = () => {
                     </ParentInfoContainer>
                     <SuiteMetadata />
                     <FlexContainer className="container">
-                        <SuiteNav className="suiteNav">
+                        <SuiteNav className="suiteNav" id="suiteId">
                             {selectedSuiteState.suite.tests.map((test, i) => {
                                 return (
                                     <SuiteDiv key={i}>

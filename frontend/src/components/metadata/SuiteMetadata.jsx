@@ -6,11 +6,10 @@ const SuiteMetadata = () => {
     const [{ selectedSuiteState }] = useStateValue();
 
     const name = [
-        'ID:',
+        'Suite Id:',
         'Name:',
-        'Fullname:',
+        'Full name:',
         'Repository:',
-        'Testrunid',
         'Starttime:',
     ];
 
@@ -19,7 +18,6 @@ const SuiteMetadata = () => {
         selectedSuiteState.suite.name,
         selectedSuiteState.suite.full_name,
         selectedSuiteState.suite.repository,
-        selectedSuiteState.suite.test_run_id.toString(),
         selectedSuiteState.suite.start_time
             ? selectedSuiteState.suite.start_time.slice(0, 16)
             : '',

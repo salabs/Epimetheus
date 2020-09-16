@@ -8,6 +8,11 @@ export const BreadcrumbContainer = styled.div`
 
 export const StyledInnerDiv = styled.div`
     display: inline;
+
+    #SuiteBreadCrumb {
+        color: var(--pirlo-blue);
+        font-weight: bolder;
+    }
 `;
 
 export const StyledLink = styled(Link)`
