@@ -5,6 +5,7 @@ Resource                ../../../resources/resource.robot
 
 Verify Last build info and Breadcrumb
     Navigate to first suite of build    1   1
+    Store the team, series, build and suite of a suite page
     Suite page breadcrumbs should contain correct values    ${stored_suite}    ${stored_build}    ${stored_series}   ${stored_team}
     Navigate to build overview page using breadcrumbs
     Build page breadcrumbs should contain correct values    ${stored_build}    ${stored_series}   ${stored_team}

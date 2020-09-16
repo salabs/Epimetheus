@@ -26,7 +26,7 @@ const MetadataTable = ({ name, value }) => {
                 <span>{Open ? <Up /> : <Down />}</span>
             </HeaderContainer>
             <SplitBorder open={Open} />
-            <TableContainer>
+            <TableContainer id="datatable">
                 <DataRow first={true} className={Open ? 'Open' : 'Close'}>
                     <span>{t('name')}</span>
                     {name.map((n, index) => (
