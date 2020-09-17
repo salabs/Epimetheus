@@ -48,6 +48,13 @@ const BuildAmountSelector = () => {
                 defaultValue={5}
             />
         </SelectorContainer>
+        //     <StyledSelect onChange={handleChange} id="build_amount_dropdown">
+        //         <option value="5" id="5_option">5</option>
+        //         <option value="10" id="10_option">10</option>
+        //         <option value="15" id="15_option">15</option>
+        //         <option value="30" id="30_option">30</option>
+        //     </StyledSelect>
+        // </ButtonContainer>
     );
 };
 
