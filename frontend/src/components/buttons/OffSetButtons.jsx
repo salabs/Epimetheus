@@ -1,12 +1,10 @@
 // eslint-disable-next-line
 import React, { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useStateValue } from '../../contexts/state';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useQueryParams } from '../../hooks/useQuery';
 
 import {
-    StyledDiv,
     StyledDirectionButton,
     LatestButton,
     FlexDiv,
@@ -39,7 +37,7 @@ const Offset = () => {
 
     const handleRightButtonPress = e => {
         if (rightEnabled === 1) {
-            const setOffset = offset + parseInt(inputOffset);
+            const setOffset = parseInt(offset) + parseInt(inputOffset);
             dispatch({
                 type: 'setOffset',
                 offset: setOffset,
@@ -54,7 +52,7 @@ const Offset = () => {
 
     const handleLeftButtonPress = e => {
         if (leftEnabled === 1) {
-            const setOffset = offset - parseInt(inputOffset);
+            const setOffset = parseInt(offset) - parseInt(inputOffset);
             dispatch({
                 type: 'setOffset',
                 offset: setOffset,
@@ -105,12 +103,17 @@ const Offset = () => {
         <ButtonContainer>
             <Header>Offset</Header>
             <FlexDiv id="offset_container">
-                <LatestButton onClick={handleLatestButtonPress}>
+                <LatestButton
+                    onClick={handleLatestButtonPress}
+                    id="latest_offset_button"
+                >
                     <StyledEndLeft /> LATEST
                 </LatestButton>
                 <StyledDirectionButton
                     onClick={handleLeftButtonPress}
                     enabled={leftEnabled}
+                    id="left_offset_button"
+                    className={`left${leftEnabled}`}
                 >
                     <img src={Left} alt="<" />
                 </StyledDirectionButton>
@@ -118,10 +121,13 @@ const Offset = () => {
                     type="number"
                     onChange={handleNumberInput}
                     value={inputOffset}
+                    id="offset_field"
                 />
                 <StyledDirectionButton
                     onClick={handleRightButtonPress}
                     enabled={rightEnabled}
+                    id="right_offset_button"
+                    className={`right${rightEnabled}`}
                 >
                     <img src={Right} alt=">" />
                 </StyledDirectionButton>

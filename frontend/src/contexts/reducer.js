@@ -142,7 +142,7 @@ const reducer = (state, action) => {
                 ...state,
                 historyDataState: {
                     max_build_num: 0,
-                    history: null,
+                    history: [],
                 },
             };
         case 'flushMetadata':

@@ -5,7 +5,7 @@ export const StateContext = createContext();
 const initialState = {
     historyDataState: {
         max_build_num: 0,
-        history: null,
+        history: [],
     },
     loadingState: false,
     errorState: null,

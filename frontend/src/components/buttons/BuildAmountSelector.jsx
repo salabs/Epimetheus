@@ -1,5 +1,5 @@
 // eslint-disable-next-line
-import React, { useState } from 'react';
+import React from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useQueryParams } from '../../hooks/useQuery';
 
@@ -35,11 +35,11 @@ const BuildAmountSelector = () => {
     return (
         <ButtonContainer>
             <Header>Builds</Header>
-            <StyledSelect onChange={handleChange}>
-                <option value="5">5</option>
-                <option value="10">10</option>
-                <option value="15">15</option>
-                <option value="30">30</option>
+            <StyledSelect onChange={handleChange} id="build_amount_dropdown">
+                <option value="5" id="5_option">5</option>
+                <option value="10" id="10_option">10</option>
+                <option value="15" id="15_option">15</option>
+                <option value="30" id="30_option">30</option>
             </StyledSelect>
         </ButtonContainer>
     );
