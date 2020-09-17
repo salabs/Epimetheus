@@ -23,7 +23,7 @@ const BreadcrumbItem = () => {
             <BreadcrumbTeams /> /
             <StyledLink
                 to={`/team/${teamName}`}
-                className="BreadCrumbSeries"
+                className="TeamBreadCrumb"
                 id="TeamBreadCrumb"
             >
                 {teamName}
@@ -42,6 +42,7 @@ const BreadcrumbItemSeries = () => {
             <StyledLink
                 to={`/series/${seriesId}/overview`}
                 id="SeriesBreadCrumb"
+                className="SeriesBreadCrumb"
             >
                 {selectedBranchState.name}
             </StyledLink>
@@ -57,6 +58,7 @@ const BreadcrumbItemBuild = () => {
             <StyledLink
                 to={`/series/${seriesId}/build/${buildId}/overview`}
                 id="BuildBreadCrumb"
+                className="BuildBreadCrumb"
             >
                 {buildId}
             </StyledLink>
@@ -83,7 +85,7 @@ const BREADCRUMB_STATUS = {
 
 const BreadcrumbNav = ({ status }) => {
     return (
-        <BreadcrumbContainer id="breadCrumbNav">
+        <BreadcrumbContainer id="breadCrumbNav" status={status}>
             <StyledInnerDiv>{BREADCRUMB_STATUS[`${status}`]}</StyledInnerDiv>
         </BreadcrumbContainer>
     );

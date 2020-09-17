@@ -8,6 +8,7 @@ import overview from '../locales/en/overview.json';
 import header from '../locales/en/header.json';
 import history from '../locales/en/history.json';
 import buttons from '../locales/en/buttons.json';
+import metadata from '../locales/en/metadata.json';
 
 const resources = {
     en: {
@@ -19,6 +20,7 @@ const resources = {
         header,
         history,
         buttons,
+        metadata,
     },
 };
 

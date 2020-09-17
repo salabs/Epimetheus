@@ -1,7 +1,6 @@
 // eslint-disable-next-line
-import React, { useState, useEffect, Suspense } from 'react';
+import React, { useEffect, Suspense } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import theme from './styles/theme';
 import ThemeContext from './contexts/themeContext';
 import MainContent from './components/MainContent';
 import MainNav from './components/MainNav';
@@ -16,32 +15,13 @@ import { useStateValue } from './contexts/state';
 import './utils/i118n';
 import 'normalize.css';
 import './index.css';
-import styled from 'styled-components';
-
-const StyledApp = styled.div`
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    width: 100%;
-    background-color: var(--nero-white);
-    color: #222;
-    border: 1px solid #ccc;
-    p {
-        line-height: 1.6;
-    }
-
-    a {
-        color: var(--titan-green);
-    }
-    select:focus,
-    input:focus {
-        outline: 1px solid ${theme.testTheme.linkColor};
-    }
-`;
+import theme from './styles/theme';
+import { StyledApp } from './App.styles';
 
 const App = () => {
     // eslint-disable-next-line
-    const [{ selectedBranchState, amountOfBuilds }, dispatch] = useStateValue();
+    const [{}, dispatch] = useStateValue();
+
     useEffect(() => {
         const fetchData = async () => {
             dispatch({ type: 'setLoadingState', loadingState: true });

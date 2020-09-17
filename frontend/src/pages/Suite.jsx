@@ -4,125 +4,26 @@ import { useEffect } from 'react';
 import { useParams } from 'react-router';
 import { useStateValue } from '../contexts/state';
 import theme from '../styles/theme';
-import FA from 'react-fontawesome';
 import BreadcrumbNav from '../components/BreadcrumbNav';
 import Notfound from '../components/NotFound';
-import { NavLink } from 'react-router-dom';
 import { pickIcon } from '../components/TestIcon';
 import ParentBuild from '../components/parentData/ParentBuild';
 import Loading from '../components/Loading';
-import styled from 'styled-components';
 import Header from '../components/header/Header';
 import SuiteLogMessage from '../components/SuiteLogMessage';
-
-const ParentInfoContainer = styled.div`
-    display: flex;
-    padding: 20px 0;
-`;
-
-const SuiteNav = styled.div`
-    list-style: none;
-    padding: 0;
-    align-content: center;
-    border-right: 1px solid grey;
-    flex-grow: 1;
-
-    span {
-        float: right;
-        margin-left: 12px;
-    }
-    .active {
-        background: #fff;
-    }
-`;
-
-const SuiteDiv = styled.div`
-    display: flex;
-    width: 100%;
-    min-width: 140px;
-`;
-
-const StyledLink = styled(NavLink)`
-    width: 100%;
-    padding: 10px;
-    color: black !important;
-    cursor: pointer;
-    display: inline;
-    text-decoration: none;
-
-    :hover {
-        background: #ddd;
-    }
-`;
-
-const SuiteMain = styled.div`
-    flex-grow: 2;
-    padding: 10px;
-`;
-
-const FlexContainer = styled.div`
-    display: flex;
-`;
-
-const StyledFont = styled(FA)`
-    margin-right: 8px;
-`;
-
-const FlexGrowColumn = styled.div`
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    padding: 5px;
-`;
-
-const ListHeaderColumn = styled.ul`
-    list-style: none;
-    padding-left: 0px;
-    display: flex;
-    flex-direction: column;
-    padding: 5px;
-`;
-
-const ListTitle = styled.div`
-    color: grey;
-`;
-
-const SelectedTestDiv = styled.div`
-    background: #fff;
-    margin-top: 5px;
-    padding: 5px;
-    border-radius: 5px;
-    display: flex;
-    flex-direction: row;
-    table {
-        border-collapse: collapse;
-        table-layout: fixed;
-        width: 100%;
-    }
-    thead {
-        color: grey;
-        text-align: left;
-        border-bottom: 1px solid grey;
-    }
-    .table-item {
-        padding: 0.25rem 0rem;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-    }
-
-    tr {
-        border-bottom: 1px solid #eee;
-    }
-    .tableLogLevel {
-        width: 10%;
-    }
-    .tableMessage {
-        width: 60%;
-    }
-    .tableTimeStamp {
-        width: 30%;
-    }
-`;
+import SuiteMetadata from '../components/metadata/SuiteMetadata';
+import {
+    ParentInfoContainer,
+    SuiteNav,
+    SuiteDiv,
+    StyledLink,
+    FlexContainer,
+    StyledFont,
+    FlexGrowColumn,
+    ListHeaderColumn,
+    ListTitle,
+    SelectedTestDiv,
+} from './Suite.styles';
 
 const Suite = () => {
     const { suiteId, buildId, seriesId, testId } = useParams();
@@ -135,7 +36,9 @@ const Suite = () => {
         },
         dispatch,
     ] = useStateValue();
+
     const branch_id = seriesId || selectedBranchState;
+
     useEffect(() => {
         const fetchHistoryData = async () => {
             if (branch_id && buildId) {
@@ -203,8 +106,9 @@ const Suite = () => {
                     <ParentInfoContainer className="parentInfo-container">
                         <ParentBuild />
                     </ParentInfoContainer>
+                    <SuiteMetadata />
                     <FlexContainer className="container">
-                        <SuiteNav className="suiteNav">
+                        <SuiteNav className="suiteNav" id="suiteId">
                             {selectedSuiteState.suite.tests.map((test, i) => {
                                 return (
                                     <SuiteDiv key={i}>
@@ -218,35 +122,6 @@ const Suite = () => {
                                 );
                             })}
                         </SuiteNav>
-                        <SuiteMain className="suiteMain" id="suiteInfoList">
-                            <div>
-                                ID:{' '}
-                                <span id="suiteId">
-                                    {selectedSuiteState.suite.id}
-                                </span>
-                            </div>
-                            <div>Name: {selectedSuiteState.suite.name}</div>
-                            <div>
-                                Fullname: {selectedSuiteState.suite.full_name}
-                            </div>
-                            <div>
-                                Repository:{' '}
-                                {selectedSuiteState.suite.repository}
-                            </div>
-                            <div>
-                                Testrunid:{' '}
-                                {selectedSuiteState.suite.test_run_id}
-                            </div>
-                            <div>
-                                Starttime:{' '}
-                                {selectedSuiteState.suite.start_time
-                                    ? selectedSuiteState.suite.start_time.slice(
-                                          0,
-                                          16
-                                      )
-                                    : ''}
-                            </div>
-                        </SuiteMain>
                     </FlexContainer>
                     <SelectedTest
                         test={selectedSuiteState.suite.tests.find(

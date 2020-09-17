@@ -7,7 +7,7 @@ import Loading from '../Loading';
 import { useStateValue } from '../../contexts/state';
 import { useTranslation } from 'react-i18next';
 import { last } from 'ramda';
-import Metadata from '../buildTable/Metadata';
+import BuildMetadata from '../metadata/BuildMetadata';
 import useMetadata from '../../hooks/useMetadata';
 import { FlexDiv, ChartContainer, ElementHeader } from './Build.styles';
 
@@ -44,7 +44,7 @@ const Build = () => {
 
     return (
         <React.Fragment>
-            <Metadata />
+            <BuildMetadata />
             {statusCount ? (
                 <FlexDiv id="buildGraphDiv">
                     <ChartContainer width="450px" height="300px">

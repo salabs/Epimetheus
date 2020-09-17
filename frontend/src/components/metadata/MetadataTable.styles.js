@@ -4,20 +4,6 @@ export const Container = styled.div`
     border: 1px solid var(--hermanni-grey);
     padding: 0 16px;
     width: 100%;
-
-    .Open,
-    .Close {
-        max-height: 0;
-        overflow-y: hidden;
-        -webkit-transition: max-height 0.4s ease-in-out;
-        -moz-transition: max-height 0.4s ease-in-out;
-        -o-transition: max-height 0.4s ease-in-out;
-        transition: max-height 0.4s ease-in-out;
-    }
-
-    .Open {
-        max-height: 500px;
-    }
 `;
 
 export const HeaderContainer = styled.div`
@@ -34,14 +20,33 @@ export const HeaderContainer = styled.div`
 `;
 
 export const SplitBorder = styled.div`
-    height: 4px;
     background: var(--hermanni-grey);
     opacity: 0.4;
+    height: ${props => (props.open ? '4px' : '0px')};
 `;
 
 export const TableContainer = styled.div`
-    padding: 16px 0;
     display: flex;
+
+    .Open,
+    .Close {
+        max-height: 0;
+        overflow-y: hidden;
+        padding: 0;
+        -webkit-transition: max-height 0.3s ease-in-out;
+        -moz-transition: max-height 0.3s ease-in-out;
+        -o-transition: max-height 0.3s ease-in-out;
+        transition: max-height 0.3s ease-in-out;
+        -webkit-transition: padding 0.25s ease;
+        -moz-transition: padding 0.25s ease;
+        -o-transition: padding 0.25s ease;
+        transition: padding 0.25s ease;
+    }
+
+    .Open {
+        max-height: 500px;
+        padding: 16px 0;
+    }
 `;
 
 export const DataRow = styled.div`
