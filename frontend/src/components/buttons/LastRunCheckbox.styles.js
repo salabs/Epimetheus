@@ -15,14 +15,14 @@ export const StyledDiv = styled.div`
     flex-direction: ${props => props.direction};
     border: 1px solid var(--hermanni-grey);
     border-radius: 4px;
-    width: ${props => props.direction==="column" ? "10%" : "30%"};
+    width: ${props => (props.direction === 'column' ? '10%' : '30%')};
     max-width: 230px;
-    min-width:  ${props => props.direction==="column" ? "200px" : "230px"};
+    min-width: ${props => (props.direction === 'column' ? '200px' : '230px')};
     @media only screen and (max-width: 1280px) {
-        width: ${props => props.direction==="column" ? "20%" : "30%"};
+        width: ${props => (props.direction === 'column' ? '20%' : '30%')};
     }
     @media only screen and (max-width: 768px) {
-        width: 30%
+        width: 30%;
     }
 
     span {

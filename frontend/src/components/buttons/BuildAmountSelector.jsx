@@ -1,12 +1,12 @@
 // eslint-disable-next-line
-import React, { useState } from 'react';
+import React from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useQueryParams } from '../../hooks/useQuery';
 
 import { useStateValue } from '../../contexts/state';
-import { StyledSelect } from './BuildAmountSelector.styles';
+import DropdownMenu from './DropdownMenu';
 
-import { Header, ButtonContainer } from './LastRunCheckbox.styles';
+import { Header, SelectorContainer } from './BuildAmountSelector.styles';
 
 const BuildAmountSelector = () => {
     const [, dispatch] = useStateValue();
@@ -23,25 +23,31 @@ const BuildAmountSelector = () => {
     const handleChange = e => {
         dispatch({
             type: 'setAmountOfBuilds',
-            amountOfBuilds: e.target.value,
+            amountOfBuilds: e.value,
         });
         history.push({
             pathname: `${location.pathname}`,
-            search: `?${updateTags(e.target.value)}`,
+            search: `?${updateTags(e.value)}`,
             state: {},
         });
     };
 
+    const selectorValues = [
+        { value: 5, label: 5 },
+        { value: 10, label: 10 },
+        { value: 15, label: 15 },
+        { value: 30, label: 30 },
+    ];
+
     return (
-        <ButtonContainer>
+        <SelectorContainer>
             <Header>Builds</Header>
-            <StyledSelect onChange={handleChange}>
-                <option value="5">5</option>
-                <option value="10">10</option>
-                <option value="15">15</option>
-                <option value="30">30</option>
-            </StyledSelect>
-        </ButtonContainer>
+            <DropdownMenu
+                selectorValues={selectorValues}
+                onChange={handleChange}
+                defaultValue={5}
+            />
+        </SelectorContainer>
     );
 };
 

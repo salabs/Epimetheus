@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { ReactComponent as EndLeft } from '../../images/chevron-verticalbar-left.svg'
+import { ReactComponent as EndLeft } from '../../images/chevron-verticalbar-left.svg';
 
 export const OffsetContainer = styled.div`
     margin: 16px 10px;
@@ -7,7 +7,7 @@ export const OffsetContainer = styled.div`
 
 export const Header = styled.div`
     color: var(--evidence-grey);
-    margin: 8px 0 4px 0;
+    margin: 8px 0;
 `;
 
 export const StyledEndLeft = styled(EndLeft)`
@@ -17,7 +17,7 @@ export const StyledEndLeft = styled(EndLeft)`
     bottom: 6.25%;
 `;
 
-export const FlexDiv= styled.div`
+export const FlexDiv = styled.div`
     display: flex;
 `;
 
@@ -39,7 +39,8 @@ export const StyledDirectionButton = styled.button`
     width: 32px;
 
     margin: 4px;
-    background: ${props => props.enabled ? "var(--nero-white)" : "var(--hermanni-grey)"};
+    background: ${props =>
+        props.enabled ? 'var(--nero-white)' : 'var(--hermanni-grey)'};
     border: 1px solid var(--hermanni-grey);
     box-sizing: border-box;
     border-radius: 4px;
@@ -47,6 +48,7 @@ export const StyledDirectionButton = styled.button`
 
 export const LatestButton = styled.button`
     width: 89px;
+    height: 32px !important;
 
     padding: 8px;
     margin: 4px;
@@ -55,6 +57,7 @@ export const LatestButton = styled.button`
     border: 1px solid var(--hermanni-grey);
     box-sizing: border-box;
     border-radius: 4px;
+    display: inline-block;
 
     font-family: Space Mono;
     font-style: normal;
