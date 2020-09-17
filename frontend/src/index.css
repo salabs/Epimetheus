@@ -77,7 +77,7 @@ a:focus {
     outline: 2px solid var(--pirlo-blue);
 }
 
-button:hover,
+button:hover:enabled,
 a:hover {
     cursor: pointer;
 }

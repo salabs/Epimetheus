@@ -10,13 +10,12 @@ import {
     StyledDiv,
     StyledLabel,
     StyledInput,
-    FlexDiv,
 } from './LastRunCheckbox.styles';
 
 import { useQueryParams } from '../../hooks/useQuery';
 import { useHistory, useLocation } from 'react-router-dom';
 
-const Checkbox = ( {direction} ) => {
+const Checkbox = ({ direction }) => {
     // eslint-disable-next-line
     const [{ lastRunFilterPass, lastRunFilterFail }, dispatch] = useStateValue();
     const [passFilter, setPassFilter] = useState(lastRunFilterPass.isChecked);

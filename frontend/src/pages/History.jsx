@@ -1,12 +1,11 @@
 // eslint-disable-next-line
 import React, { Fragment, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import Filter from '../components/historyTable/Filter';
 import Table from '../components/historyTable/Table';
 import ParentSeries from '../components/parentData/ParentSeries';
-import Offset from '../components/buttons/OffSetButtons'
-import Checkbox from '../components/buttons/LastRunCheckbox'
-import BuildAmountSelector from '../components/buttons/BuildAmountSelector'
+import Offset from '../components/buttons/OffSetButtons';
+import Checkbox from '../components/buttons/LastRunCheckbox';
+import BuildAmountSelector from '../components/buttons/BuildAmountSelector';
 import { useStateValue } from '../contexts/state';
 import { useParams } from 'react-router';
 import BreadcrumbNav from '../components/BreadcrumbNav';
@@ -76,7 +75,14 @@ const History = () => {
                 dispatch({ type: 'flushHistory' });
             };
         }
-    }, [dispatch, series_id, number_of_builds, branchesState, offset]);
+    }, [
+        dispatch,
+        series_id,
+        number_of_builds,
+        branchesState,
+        offset,
+        total_offset,
+    ]);
 
     return (
         <RelativeMain id="history">

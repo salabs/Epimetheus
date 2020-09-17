@@ -33,10 +33,10 @@ const BuildAmountSelector = () => {
     };
 
     const selectorValues = [
-        { value: 5, label: 5 },
-        { value: 10, label: 10 },
-        { value: 15, label: 15 },
-        { value: 30, label: 30 },
+        { value: 5, label: 5, id: '5_option' },
+        { value: 10, label: 10, id: '10_option' },
+        { value: 15, label: 15, id: '15_option' },
+        { value: 30, label: 30, id: '30_option' },
     ];
 
     return (
@@ -46,15 +46,9 @@ const BuildAmountSelector = () => {
                 selectorValues={selectorValues}
                 onChange={handleChange}
                 defaultValue={5}
+                id="build_amount_dropdown"
             />
         </SelectorContainer>
-        //     <StyledSelect onChange={handleChange} id="build_amount_dropdown">
-        //         <option value="5" id="5_option">5</option>
-        //         <option value="10" id="10_option">10</option>
-        //         <option value="15" id="15_option">15</option>
-        //         <option value="30" id="30_option">30</option>
-        //     </StyledSelect>
-        // </ButtonContainer>
     );
 };
 

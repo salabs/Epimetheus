@@ -6,7 +6,7 @@ export const ButtonContainer = styled.div`
 
 export const Header = styled.div`
     color: var(--evidence-grey);
-    margin: 8px 0 4px 0;
+    margin: 8px 0;
 `;
 
 export const StyledDiv = styled.div`

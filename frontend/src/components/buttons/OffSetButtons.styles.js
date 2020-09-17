@@ -1,10 +1,6 @@
 import styled from 'styled-components';
 import { ReactComponent as EndLeft } from '../../images/chevron-verticalbar-left.svg';
 
-export const OffsetContainer = styled.div`
-    margin: 16px 10px;
-`;
-
 export const Header = styled.div`
     color: var(--evidence-grey);
     margin: 8px 0;
@@ -21,26 +17,12 @@ export const FlexDiv = styled.div`
     display: flex;
 `;
 
-export const StyledDiv = styled.div`
-    padding: 8px;
-    display: flex;
-    flex-direction: row;
-    border: 1px solid var(--tonic-grey);
-    border-radius: 4px;
-
-    span {
-        padding-right: 8px;
-        position: relative;
-        top: -1.5px;
-    }
-`;
-
 export const StyledDirectionButton = styled.button`
     width: 36px;
 
     margin: 1px 4px 6px 4px;
     background: ${props =>
-        props.enabled ? 'var(--nero-white)' : 'var(--tonic-grey)'};
+        props.disabled ? 'var(--tonic-grey) ' : 'var(--nero-white)'};
     border: 1px solid var(--tonic-grey);
     box-sizing: border-box;
     border-radius: 4px;
@@ -71,13 +53,11 @@ export const LatestButton = styled.button`
     }
 `;
 
-export const StyledLabel = styled.label`
-    margin-right: 20px;
-    display: block;
-    float: left;
-`;
-
 export const StyledInput = styled.input`
     border: 1px solid var(--tonic-grey);
     border-radius: 4px;
+    max-width: 54px;
+    height: 36px;
+    margin: 1px 4px 6px 4px;
+    text-align: right;
 `;

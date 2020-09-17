@@ -3,10 +3,7 @@ import logger from 'use-reducer-logger';
 export const StateContext = createContext();
 
 const initialState = {
-    historyDataState: {
-        max_build_num: 0,
-        history: [],
-    },
+    historyDataState: null,
     loadingState: false,
     errorState: null,
     amountOfBuilds: 10,

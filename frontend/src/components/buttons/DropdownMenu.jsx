@@ -10,7 +10,7 @@ const DropdownIndicator = props => {
     );
 };
 
-const DropdownMenu = ({ selectorValues, onChange, defaultValue }) => {
+const DropdownMenu = ({ selectorValues, onChange, defaultValue, id }) => {
     return (
         <>
             <Select
@@ -24,6 +24,7 @@ const DropdownMenu = ({ selectorValues, onChange, defaultValue }) => {
                 )}
                 options={selectorValues}
                 onChange={e => onChange(e)}
+                id={id}
                 styles={{
                     width: '130px',
                     dropdownIndicator: (provided, state) => ({

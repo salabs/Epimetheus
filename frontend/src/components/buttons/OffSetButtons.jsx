@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 // eslint-disable-next-line
 import React, { useState, useEffect } from 'react';
 import { useStateValue } from '../../contexts/state';
@@ -6,7 +7,6 @@ import { useQueryParams } from '../../hooks/useQuery';
 
 import {
     Header,
-    StyledDiv,
     StyledInput,
     StyledDirectionButton,
     LatestButton,
@@ -25,21 +25,23 @@ const Offset = () => {
     const [
         {
             offset,
-            historyDataState: { max_build_num },
+            parentData: { seriesData },
         },
         dispatch,
     ] = useStateValue();
     const [inputOffset, setInputOffset] = useState(0);
-    const [leftEnabled, setLeftEnabled] = useState(1);
-    const [rightEnabled, setRightEnabled] = useState(1);
+    const [leftDisabled, setleftDisabled] = useState(false);
+    const [rightDisabled, setrightDisabled] = useState(false);
+
+    const { builds } = seriesData;
 
     const updateTags = tag => {
         queryParams.set('offset', tag);
         return queryParams.toString();
     };
 
-    const handleRightButtonPress = e => {
-        if (rightEnabled === 1) {
+    const handleRightButtonPress = () => {
+        if (!rightDisabled) {
             const setOffset = parseInt(offset) + parseInt(inputOffset);
             dispatch({
                 type: 'setOffset',
@@ -53,8 +55,8 @@ const Offset = () => {
         }
     };
 
-    const handleLeftButtonPress = e => {
-        if (leftEnabled === 1) {
+    const handleLeftButtonPress = () => {
+        if (!leftDisabled) {
             const setOffset = parseInt(offset) - parseInt(inputOffset);
             dispatch({
                 type: 'setOffset',
@@ -69,25 +71,25 @@ const Offset = () => {
     };
 
     useEffect(() => {
-        const total_offset = queryParams.get('offset') || offset;
+        const paramsOffset = queryParams.get('offset') || offset;
+        const totalOffset = parseInt(paramsOffset) + parseInt(inputOffset);
         dispatch({
             type: 'setOffset',
-            offset: total_offset,
+            offset: paramsOffset,
         });
-        if (total_offset - inputOffset < 0) {
-            setLeftEnabled(0);
+        if (paramsOffset - inputOffset < 0) {
+            setleftDisabled(true);
         } else {
-            setLeftEnabled(1);
+            setleftDisabled(false);
         }
-        if (max_build_num - inputOffset <= 0) {
-            setRightEnabled(0);
+        if (builds - totalOffset - 1 < 0) {
+            setrightDisabled(true);
         } else {
-            setRightEnabled(1);
+            setrightDisabled(false);
         }
-    }, [offset, inputOffset, max_build_num]);
+    }, [offset, inputOffset, builds]);
 
-    // eslint-disable-next-line no-unused-vars
-    const handleLatestButtonPress = e => {
+    const handleLatestButtonPress = () => {
         dispatch({
             type: 'setOffset',
             offset: 0,
@@ -100,7 +102,8 @@ const Offset = () => {
     };
 
     const handleNumberInput = e => {
-        setInputOffset(e.target.value);
+        const value = parseInt(e.target.value) < 0 ? 0 : e.target.value;
+        setInputOffset(value);
     };
     return (
         <ButtonContainer>
@@ -114,9 +117,9 @@ const Offset = () => {
                 </LatestButton>
                 <StyledDirectionButton
                     onClick={handleLeftButtonPress}
-                    enabled={leftEnabled}
+                    disabled={leftDisabled}
                     id="left_offset_button"
-                    className={`left${leftEnabled}`}
+                    className={`left${leftDisabled}`}
                 >
                     <img src={Left} alt="<" />
                 </StyledDirectionButton>
@@ -128,9 +131,9 @@ const Offset = () => {
                 />
                 <StyledDirectionButton
                     onClick={handleRightButtonPress}
-                    enabled={rightEnabled}
+                    disabled={rightDisabled}
                     id="right_offset_button"
-                    className={`right${rightEnabled}`}
+                    className={`right${rightDisabled}`}
                 >
                     <img src={Right} alt=">" />
                 </StyledDirectionButton>
