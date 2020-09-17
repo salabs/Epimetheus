@@ -8,7 +8,7 @@ import BreadcrumbNav from '../components/BreadcrumbNav';
 import ParentBuild from '../components/parentData/ParentBuild';
 import Loading from '../components/Loading';
 import Header from '../components/header/Header';
-import Metadata from '../components/buildTable/Metadata';
+import BuildMetadata from '../components/metadata/BuildMetadata';
 import useMetadata from '../hooks/useMetadata';
 import {
     ParentInfoContainer,
@@ -91,7 +91,7 @@ const Build = () => {
                     <ParentInfoContainer id="parentInfo-container">
                         <ParentBuild />
                     </ParentInfoContainer>
-                    <Metadata />
+                    <BuildMetadata />
                     <TableHeader>Test results for build {buildId}</TableHeader>
                     <LastRunCheckBox />
                     <Table id={branch_id} />
