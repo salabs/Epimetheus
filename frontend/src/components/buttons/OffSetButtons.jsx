@@ -7,6 +7,7 @@ import { useQueryParams } from '../../hooks/useQuery';
 import {
     Header,
     StyledDiv,
+    StyledInput,
     StyledDirectionButton,
     LatestButton,
     FlexDiv,
@@ -109,7 +110,7 @@ const Offset = () => {
                     onClick={handleLatestButtonPress}
                     id="latest_offset_button"
                 >
-                    <StyledEndLeft /> LATEST
+                    <StyledEndLeft /> <span>LATEST</span>
                 </LatestButton>
                 <StyledDirectionButton
                     onClick={handleLeftButtonPress}
@@ -119,7 +120,7 @@ const Offset = () => {
                 >
                     <img src={Left} alt="<" />
                 </StyledDirectionButton>
-                <input
+                <StyledInput
                     type="number"
                     onChange={handleNumberInput}
                     value={inputOffset}

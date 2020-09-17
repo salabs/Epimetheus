@@ -75,6 +75,11 @@ a:focus {
     outline: 2px solid var(--pirlo-blue);
 }
 
+button:hover,
+a:hover {
+    cursor: pointer;
+}
+
 /** a11y **/
 
 .sr-show {

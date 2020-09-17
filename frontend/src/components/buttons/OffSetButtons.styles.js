@@ -25,7 +25,7 @@ export const StyledDiv = styled.div`
     padding: 8px;
     display: flex;
     flex-direction: row;
-    border: 1px solid var(--hermanni-grey);
+    border: 1px solid var(--tonic-grey);
     border-radius: 4px;
 
     span {
@@ -36,28 +36,26 @@ export const StyledDiv = styled.div`
 `;
 
 export const StyledDirectionButton = styled.button`
-    width: 32px;
+    width: 36px;
 
-    margin: 4px;
+    margin: 1px 4px 6px 4px;
     background: ${props =>
-        props.enabled ? 'var(--nero-white)' : 'var(--hermanni-grey)'};
-    border: 1px solid var(--hermanni-grey);
+        props.enabled ? 'var(--nero-white)' : 'var(--tonic-grey)'};
+    border: 1px solid var(--tonic-grey);
     box-sizing: border-box;
     border-radius: 4px;
 `;
 
 export const LatestButton = styled.button`
     width: 89px;
-    height: 32px !important;
+    height: 36px;
 
-    padding: 8px;
-    margin: 4px;
+    margin: 1px 4px 6px 0;
 
     background: var(--nero-white);
-    border: 1px solid var(--hermanni-grey);
+    border: 1px solid var(--tonic-grey);
     box-sizing: border-box;
     border-radius: 4px;
-    display: inline-block;
 
     font-family: Space Mono;
     font-style: normal;
@@ -67,6 +65,10 @@ export const LatestButton = styled.button`
     letter-spacing: -0.04em;
     text-transform: uppercase;
     color: var(--evidence-grey);
+
+    span {
+        vertical-align: middle;
+    }
 `;
 
 export const StyledLabel = styled.label`
@@ -76,5 +78,6 @@ export const StyledLabel = styled.label`
 `;
 
 export const StyledInput = styled.input`
-    display: none;
+    border: 1px solid var(--tonic-grey);
+    border-radius: 4px;
 `;
