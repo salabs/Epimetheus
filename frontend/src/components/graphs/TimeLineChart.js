@@ -12,12 +12,12 @@ const TimeLineChart = () => {
     const { seriesId } = useParams();
     const history = useHistory();
 
-    const [{ amountOfBuilds }, dispatch] = useStateValue();
+    const [{ amountOfBuilds, offset }, dispatch] = useStateValue();
     const [statusCount, setStatusCount] = useState();
 
     useEffect(() => {
         let mounted = true;
-        const url = `/data/series/${seriesId}/status_counts/?builds=${amountOfBuilds}`;
+        const url = `/data/series/${seriesId}/status_counts/?builds=${amountOfBuilds}&offset=${offset}`;
 
         const fetchData = async () => {
             try {
@@ -32,7 +32,7 @@ const TimeLineChart = () => {
         };
         fetchData();
         return () => (mounted = false);
-    }, [seriesId, amountOfBuilds]);
+    }, [seriesId, amountOfBuilds, offset]);
 
     const numberOfTestsWithStatus = status => {
         return (

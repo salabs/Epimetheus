@@ -13,5 +13,7 @@ export const FlexDiv = styled.div`
 
 export const FlexColumn = styled.div`
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+    flex-direction: row;
+    width: 400px;
 `;

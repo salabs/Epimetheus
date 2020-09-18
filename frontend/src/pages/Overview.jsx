@@ -6,8 +6,9 @@ import Build from '../components/overview/Build';
 import Series from '../components/overview/Series';
 import ParentBuild from '../components/parentData/ParentBuild';
 import Header from '../components/header/Header';
-import Filter from '../components/historyTable/Filter';
 import { ParentInfo, FlexDiv, FlexColumn } from './Overview.styles';
+import BuildAmountSelector from '../components/buttons/BuildAmountSelector';
+import Offset from '../components/buttons/OffSetButtons'
 
 const Overview = () => {
     const pathname = useLocation().pathname;
@@ -23,7 +24,8 @@ const Overview = () => {
                 <ParentInfo id="parentInfo-container">
                     {!buildUrl ? (
                         <FlexColumn>
-                            <Filter direction="row" />
+                            <BuildAmountSelector />
+                            <Offset />
                         </FlexColumn>
                     ) : (
                         <ParentBuild />
