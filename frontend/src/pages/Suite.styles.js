@@ -1,4 +1,5 @@
-﻿import styled from 'styled-components';
+﻿import React from 'react';
+import styled from 'styled-components';
 import FA from 'react-fontawesome';
 import { NavLink } from 'react-router-dom';
 import { ReactComponent as Collection } from '../images/collection-white.svg';
@@ -10,38 +11,20 @@ export const ParentInfoContainer = styled.div`
     padding: 20px 0;
 `;
 
-export const SuiteNav = styled.div`
-    list-style: none;
-    padding: 0;
-    align-content: center;
-    border-right: 1px solid grey;
-    flex-grow: 1;
-
-    span {
-        float: right;
-        margin-left: 12px;
-    }
-    .active {
-        background: #fff;
-    }
-`;
-
-export const SuiteDiv = styled.div`
-    display: flex;
-    width: 100%;
-    min-width: 140px;
-`;
-
-export const StyledLink = styled(NavLink)`
-    width: 100%;
-    padding: 10px;
+// eslint-disable-next-line no-unused-vars
+export const StyledLink = styled(({ isselected, ...props }) => (
+    <NavLink {...props} />
+))`
+    padding: 4px;
     font-weight: bolder;
     cursor: pointer;
     display: inline;
     text-decoration: none;
+    flex: 2;
+    color: ${props => props.isselected && 'var(--pirlo-blue) !important'};
 
     :hover {
-        background: #ddd;
+        background: var(--tonic-grey);
     }
 `;
 
@@ -57,14 +40,6 @@ export const StyledFont = styled(FA)`
 
 export const FlexGrowColumn = styled.div`
     flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    padding: 5px;
-`;
-
-export const ListHeaderColumn = styled.ul`
-    list-style: none;
-    padding-left: 0px;
     display: flex;
     flex-direction: column;
     padding: 5px;
@@ -182,13 +157,15 @@ export const TestListContainer = styled.div`
 
     ul li:last-child:before {
         border-left: 1px solid var(--tonic-grey);
+        width: 33px;
     }
 `;
 
 export const DotSpan = styled.span`
     height: 9px;
     width: 9px;
-    background-color: var(--tonic-grey);
+    background-color: ${props =>
+        props.isselected ? 'var(--pirlo-blue)' : 'var(--tonic-grey)'};
     border-radius: 50%;
     display: inline-block;
     position: relative;
@@ -197,7 +174,6 @@ export const DotSpan = styled.span`
 
 export const TestStatusRow = styled.div`
     display: inline-flex;
-    justify-content: space-evenly;
     flex-direction: row;
     width: 80%;
     align-items: center;
@@ -210,11 +186,29 @@ export const TestStatusRow = styled.div`
 export const SvgStatus = styled.span`
     position: relative;
     top: -2px;
+    flex: 0.5;
+`;
+
+export const TimeContainer = styled.span`
+    flex: 0.5;
 `;
 
 export const TagContainer = styled.span`
+    flex: 3;
+
+    @media only screen and (max-width: 1300px) {
+        flex: 2;
+    }
+
+    @media only screen and (max-width: 1024px) {
+        flex: 1;
+    }
+`;
+
+export const Tag = styled.span`
     border: 1px solid var(--evidence-grey);
     padding: 0 8px;
     border-radius: 16px;
     font-size: 10px;
+    margin: 0 8px;
 `;

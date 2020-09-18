@@ -12,16 +12,12 @@ import Loading from '../components/Loading';
 import Header from '../components/header/Header';
 import SuiteLogMessage from '../components/SuiteLogMessage';
 import SuiteMetadata from '../components/metadata/SuiteMetadata';
-import { ReactComponent as Collection } from '../images/collection-white.svg';
 import {
     ParentInfoContainer,
-    SuiteNav,
-    SuiteDiv,
     StyledLink,
     FlexContainer,
     StyledFont,
     FlexGrowColumn,
-    ListHeaderColumn,
     ListTitle,
     SelectedTestDiv,
     HeaderContainer,
@@ -32,6 +28,8 @@ import {
     TestStatusRow,
     SvgStatus,
     TagContainer,
+    Tag,
+    TimeContainer,
 } from './Suite.styles';
 
 const Suite = () => {
@@ -120,7 +118,11 @@ const Suite = () => {
                         <HeaderContainer>
                             <SvgCollection />
                             <h3>{selectedSuiteState.suite.name} Tests</h3>
-                            <p>5 tests</p>
+                            <p>
+                                {selectedSuiteState.suite.tests.length} test
+                                {selectedSuiteState.suite.tests.length > 1 &&
+                                    's'}
+                            </p>
                             <SvgDown></SvgDown>
                         </HeaderContainer>
                         <TestListContainer>
@@ -130,10 +132,19 @@ const Suite = () => {
                                     (test, i) => {
                                         return (
                                             <li key={i}>
-                                                <DotSpan />
+                                                <DotSpan
+                                                    isselected={
+                                                        test.id.toString() ===
+                                                        testId
+                                                    }
+                                                />
                                                 <TestStatusRow>
                                                     {' '}
                                                     <StyledLink
+                                                        isselected={
+                                                            test.id.toString() ===
+                                                            testId
+                                                        }
                                                         to={`/series/${seriesId}/build/${buildId}/suite/${suiteId}/test/${test.id}/history`}
                                                     >
                                                         {test.name}
@@ -141,21 +152,26 @@ const Suite = () => {
                                                     <SvgStatus>
                                                         {pickIcon(test.status)}
                                                     </SvgStatus>
-                                                    <span>
+                                                    <TimeContainer>
                                                         {(
                                                             test.elapsed / 1000
                                                         ).toFixed(2)}
                                                         s
-                                                    </span>
-                                                    {test.tags.map((tag, i) => {
-                                                        return (
-                                                            <TagContainer
-                                                                key={i}
-                                                            >
-                                                                {tag}
-                                                            </TagContainer>
-                                                        );
-                                                    })}
+                                                    </TimeContainer>
+                                                    <TagContainer>
+                                                        {' '}
+                                                        {test.tags.map(
+                                                            (tag, i) => {
+                                                                return (
+                                                                    <Tag
+                                                                        key={i}
+                                                                    >
+                                                                        {tag}
+                                                                    </Tag>
+                                                                );
+                                                            }
+                                                        )}
+                                                    </TagContainer>
                                                 </TestStatusRow>
                                             </li>
                                         );
@@ -180,42 +196,6 @@ const Suite = () => {
 const SelectedTest = ({ test }) => {
     return test ? (
         <div>
-            <SelectedTestDiv>
-                <FlexGrowColumn className="flex-grow flex-column">
-                    <ListTitle className="list-title">
-                        <StyledFont name="desktop" />
-                        Name
-                    </ListTitle>
-                    <ListHeaderColumn className="flex-column list-header">
-                        <li>
-                            <StyledFont name="info" />
-                            {test.name}
-                        </li>
-                    </ListHeaderColumn>
-                </FlexGrowColumn>
-                <FlexGrowColumn className="flex-grow flex-column">
-                    <ListTitle className="list-title">
-                        <StyledFont name="tags" />
-                        Tags
-                    </ListTitle>
-                    <ListHeaderColumn className="flex-column list-header">
-                        {test.tags.map((tag, i) => {
-                            return <li key={i}>{tag}</li>;
-                        })}
-                    </ListHeaderColumn>
-                </FlexGrowColumn>
-                <FlexGrowColumn className="flex-grow flex-column">
-                    <ListTitle className="list-title">
-                        <StyledFont name="tachometer" />
-                        Statuses
-                    </ListTitle>
-                    <ListHeaderColumn className="flex-column list-header">
-                        <li>Setup: {test.setup_status}</li>
-                        <li>Execution: {test.execution_status}</li>
-                        <li>Teardown: {test.teardown_status}</li>
-                    </ListHeaderColumn>
-                </FlexGrowColumn>
-            </SelectedTestDiv>
             <SelectedTestDiv>
                 <FlexGrowColumn className="flex-grow flex-column">
                     <ListTitle className="list-title">
