@@ -12,6 +12,7 @@ import Loading from '../components/Loading';
 import Header from '../components/header/Header';
 import SuiteLogMessage from '../components/SuiteLogMessage';
 import SuiteMetadata from '../components/metadata/SuiteMetadata';
+import { ReactComponent as Collection } from '../images/collection-closed.svg';
 import {
     ParentInfoContainer,
     SuiteNav,
@@ -23,6 +24,11 @@ import {
     ListHeaderColumn,
     ListTitle,
     SelectedTestDiv,
+    HeaderContainer,
+    Svg,
+    SvgDown,
+    TestListContainer,
+    DotSpan,
 } from './Suite.styles';
 
 const Suite = () => {
@@ -108,7 +114,34 @@ const Suite = () => {
                     </ParentInfoContainer>
                     <SuiteMetadata />
                     <FlexContainer className="container">
-                        <SuiteNav className="suiteNav" id="suiteId">
+                        <HeaderContainer>
+                            <h3>{selectedSuiteState.suite.name} Tests</h3>
+                            <p>5 tests</p>
+                            <SvgDown></SvgDown>
+                        </HeaderContainer>
+                        <TestListContainer>
+                            <ul>
+                                {' '}
+                                {selectedSuiteState.suite.tests.map(
+                                    (test, i) => {
+                                        return (
+                                            <li key={i}>
+                                                <DotSpan />
+                                                <StyledLink
+                                                    to={`/series/${seriesId}/build/${buildId}/suite/${suiteId}/test/${test.id}/history`}
+                                                >
+                                                    {test.name}
+                                                    <span>
+                                                        {pickIcon(test.status)}
+                                                    </span>
+                                                </StyledLink>
+                                            </li>
+                                        );
+                                    }
+                                )}
+                            </ul>
+                        </TestListContainer>
+                        {/* <SuiteNav className="suiteNav" id="suiteId">
                             {selectedSuiteState.suite.tests.map((test, i) => {
                                 return (
                                     <SuiteDiv key={i}>
@@ -121,7 +154,7 @@ const Suite = () => {
                                     </SuiteDiv>
                                 );
                             })}
-                        </SuiteNav>
+                        </SuiteNav> */}
                     </FlexContainer>
                     <SelectedTest
                         test={selectedSuiteState.suite.tests.find(
