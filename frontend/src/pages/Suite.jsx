@@ -12,24 +12,13 @@ import Loading from '../components/Loading';
 import Header from '../components/header/Header';
 import SuiteLogMessage from '../components/SuiteLogMessage';
 import SuiteMetadata from '../components/metadata/SuiteMetadata';
+import TestList from '../components/suite/Testlist';
 import {
     ParentInfoContainer,
-    StyledLink,
-    FlexContainer,
     StyledFont,
     FlexGrowColumn,
     ListTitle,
     SelectedTestDiv,
-    HeaderContainer,
-    SvgCollection,
-    SvgDown,
-    TestListContainer,
-    DotSpan,
-    TestStatusRow,
-    SvgStatus,
-    TagContainer,
-    Tag,
-    TimeContainer,
 } from './Suite.styles';
 
 const Suite = () => {
@@ -114,72 +103,7 @@ const Suite = () => {
                         <ParentBuild />
                     </ParentInfoContainer>
                     <SuiteMetadata />
-                    <FlexContainer className="container">
-                        <HeaderContainer>
-                            <SvgCollection />
-                            <h3>{selectedSuiteState.suite.name} Tests</h3>
-                            <p>
-                                {selectedSuiteState.suite.tests.length} test
-                                {selectedSuiteState.suite.tests.length > 1 &&
-                                    's'}
-                            </p>
-                            <SvgDown></SvgDown>
-                        </HeaderContainer>
-                        <TestListContainer>
-                            <ul>
-                                {' '}
-                                {selectedSuiteState.suite.tests.map(
-                                    (test, i) => {
-                                        return (
-                                            <li key={i}>
-                                                <DotSpan
-                                                    isselected={
-                                                        test.id.toString() ===
-                                                        testId
-                                                    }
-                                                />
-                                                <TestStatusRow>
-                                                    {' '}
-                                                    <StyledLink
-                                                        isselected={
-                                                            test.id.toString() ===
-                                                            testId
-                                                        }
-                                                        to={`/series/${seriesId}/build/${buildId}/suite/${suiteId}/test/${test.id}/history`}
-                                                    >
-                                                        {test.name}
-                                                    </StyledLink>
-                                                    <SvgStatus>
-                                                        {pickIcon(test.status)}
-                                                    </SvgStatus>
-                                                    <TimeContainer>
-                                                        {(
-                                                            test.elapsed / 1000
-                                                        ).toFixed(2)}
-                                                        s
-                                                    </TimeContainer>
-                                                    <TagContainer>
-                                                        {' '}
-                                                        {test.tags.map(
-                                                            (tag, i) => {
-                                                                return (
-                                                                    <Tag
-                                                                        key={i}
-                                                                    >
-                                                                        {tag}
-                                                                    </Tag>
-                                                                );
-                                                            }
-                                                        )}
-                                                    </TagContainer>
-                                                </TestStatusRow>
-                                            </li>
-                                        );
-                                    }
-                                )}
-                            </ul>
-                        </TestListContainer>
-                    </FlexContainer>
+                    <TestList suite={selectedSuiteState.suite} />
                     <SelectedTest
                         test={selectedSuiteState.suite.tests.find(
                             i => i.id === parseInt(testId, 10)
