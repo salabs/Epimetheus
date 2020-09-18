@@ -6,11 +6,11 @@ Resource                            ../../../resources/resource.robot
 
 Test Build Amount Dropdown
   Open history page of series    3
-  Select From List By Label   ${series_history_dropdown}		5
+  Select From Dropdown    ${history_build_selector_5} 
   Table should be limited to    number=5
-  Select From List By Label   ${series_history_dropdown}		10
+  Select From Dropdown    ${history_build_selector_10} 
   Table should be limited to    number=10
-  Select From List By Label   ${series_history_dropdown}		30
+  Select From Dropdown    ${history_build_selector_30} 
   Table should be limited to    number=30
 
 Test Offset Functionality
@@ -42,6 +42,13 @@ Test Offset Functionality
 #Test Offset Functionality with Offset URL, to be added
 
 *** Keywords ***
+
+Select From Dropdown
+  [Arguments]    ${dropdown_option}
+  Wait Until Element Is Enabled   ${series_history_dropdown}
+  Click Element   ${series_history_dropdown}
+  Wait Until Element Is Visible   ${dropdown_option}
+  Click Element   ${dropdown_option}
 
 Browser is on a history page of series
   [Arguments]    ${series}
@@ -90,19 +97,22 @@ Check offset url
   Should Contain    ${url}    ${full_string}
 
 Left Button Should be disabled
-  Wait Until Element Is Enabled    ${offset_left}     
+  Wait Until Element Is Visible    ${offset_left}     
   ${count}=   Get Element Count	   ${disabled_offset_left}
   Should be equal as Integers   ${count}    0
+  
 Left Button Should be enabled
   Wait Until Element Is Enabled    ${offset_left} 
   ${count}=   Get Element Count	   ${enabled_offset_left}
   Should be equal as Integers   ${count}    1
+
 Right Button Should be enabled
   Wait Until Element Is Enabled    ${offset_right} 
   ${count}=   Get Element Count	   ${enabled_offset_right}
   Should be equal as Integers   ${count}    1
+
 Right Button Should be disabled
-  Wait Until Element Is Enabled    ${offset_right} 
+  Wait Until Element Is Visible    ${offset_right} 
   ${count}=   Get Element Count	   ${disabled_offset_right}
   Should be equal as Integers   ${count}    0
   
