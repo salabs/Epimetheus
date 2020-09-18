@@ -23,7 +23,7 @@ const Row = ({ test_cases, suite, id, suiteId }) => {
                 ? filteredBuilds[0]
                 : builds[0];
 
-        const testRunTime = build ? build.test_run_time : 'ei ole';
+        const testRunTime = build ? build.test_run_time : 'not found';
 
         return (
             <SuiteRow key={index} position={index} build={build}>
@@ -44,7 +44,7 @@ const Row = ({ test_cases, suite, id, suiteId }) => {
 
                 <Error build={build} />
                 <td className="test-time-row">
-                    {(testRunTime / 1000).toFixed(3)}s
+                    {(testRunTime / 1000).toFixed(2)}s
                 </td>
                 <Flakiness builds={builds} id={id} />
             </SuiteRow>

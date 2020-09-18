@@ -12,7 +12,7 @@ import Loading from '../components/Loading';
 import Header from '../components/header/Header';
 import SuiteLogMessage from '../components/SuiteLogMessage';
 import SuiteMetadata from '../components/metadata/SuiteMetadata';
-import { ReactComponent as Collection } from '../images/collection-closed.svg';
+import { ReactComponent as Collection } from '../images/collection-white.svg';
 import {
     ParentInfoContainer,
     SuiteNav,
@@ -25,10 +25,13 @@ import {
     ListTitle,
     SelectedTestDiv,
     HeaderContainer,
-    Svg,
+    SvgCollection,
     SvgDown,
     TestListContainer,
     DotSpan,
+    TestStatusRow,
+    SvgStatus,
+    TagContainer,
 } from './Suite.styles';
 
 const Suite = () => {
@@ -115,6 +118,7 @@ const Suite = () => {
                     <SuiteMetadata />
                     <FlexContainer className="container">
                         <HeaderContainer>
+                            <SvgCollection />
                             <h3>{selectedSuiteState.suite.name} Tests</h3>
                             <p>5 tests</p>
                             <SvgDown></SvgDown>
@@ -127,34 +131,38 @@ const Suite = () => {
                                         return (
                                             <li key={i}>
                                                 <DotSpan />
-                                                <StyledLink
-                                                    to={`/series/${seriesId}/build/${buildId}/suite/${suiteId}/test/${test.id}/history`}
-                                                >
-                                                    {test.name}
-                                                    <span>
+                                                <TestStatusRow>
+                                                    {' '}
+                                                    <StyledLink
+                                                        to={`/series/${seriesId}/build/${buildId}/suite/${suiteId}/test/${test.id}/history`}
+                                                    >
+                                                        {test.name}
+                                                    </StyledLink>
+                                                    <SvgStatus>
                                                         {pickIcon(test.status)}
+                                                    </SvgStatus>
+                                                    <span>
+                                                        {(
+                                                            test.elapsed / 1000
+                                                        ).toFixed(2)}
+                                                        s
                                                     </span>
-                                                </StyledLink>
+                                                    {test.tags.map((tag, i) => {
+                                                        return (
+                                                            <TagContainer
+                                                                key={i}
+                                                            >
+                                                                {tag}
+                                                            </TagContainer>
+                                                        );
+                                                    })}
+                                                </TestStatusRow>
                                             </li>
                                         );
                                     }
                                 )}
                             </ul>
                         </TestListContainer>
-                        {/* <SuiteNav className="suiteNav" id="suiteId">
-                            {selectedSuiteState.suite.tests.map((test, i) => {
-                                return (
-                                    <SuiteDiv key={i}>
-                                        <StyledLink
-                                            to={`/series/${seriesId}/build/${buildId}/suite/${suiteId}/test/${test.id}/history`}
-                                        >
-                                            {test.name}
-                                            <span>{pickIcon(test.status)}</span>
-                                        </StyledLink>
-                                    </SuiteDiv>
-                                );
-                            })}
-                        </SuiteNav> */}
                     </FlexContainer>
                     <SelectedTest
                         test={selectedSuiteState.suite.tests.find(

@@ -1,7 +1,7 @@
 ﻿import styled from 'styled-components';
 import FA from 'react-fontawesome';
 import { NavLink } from 'react-router-dom';
-import { ReactComponent as Collection } from '../images/collection-closed.svg';
+import { ReactComponent as Collection } from '../images/collection-white.svg';
 import { ReactComponent as Up } from '../images/chevron-up.svg';
 import { ReactComponent as Down } from '../images/chevron-down-white.svg';
 
@@ -35,7 +35,7 @@ export const SuiteDiv = styled.div`
 export const StyledLink = styled(NavLink)`
     width: 100%;
     padding: 10px;
-    color: black !important;
+    font-weight: bolder;
     cursor: pointer;
     display: inline;
     text-decoration: none;
@@ -116,7 +116,7 @@ export const HeaderContainer = styled.div`
     align-items: center;
     flex-direction: row;
     justify-content: space-between;
-    border-radius: 24px;
+    border-radius: 48px;
     width: 100%;
     color: var(--nero-white);
 
@@ -127,16 +127,17 @@ export const HeaderContainer = styled.div`
         font-style: normal;
         font-weight: normal;
         flex: 20;
-        padding-left: 24px;
+        padding-left: 56px;
     }
 
     p {
-        flex: 3;
+        flex: 2;
     }
 `;
 
-export const Svg = styled(Collection)`
-    background: white;
+export const SvgCollection = styled(Collection)`
+    position: relative;
+    left: 24px;
 `;
 
 export const SvgDown = styled(Down)`
@@ -157,9 +158,6 @@ export const TestListContainer = styled.div`
     ul li {
         margin: 0;
         padding: 0 7px;
-        line-height: 40px;
-        color: #369;
-        font-weight: bold;
         border-left: 1px solid var(--tonic-grey);
     }
 
@@ -171,7 +169,7 @@ export const TestListContainer = styled.div`
         position: relative;
         top: -0.3em;
         height: 2.4em;
-        width: 24px;
+        width: 32px;
         color: white;
         border-bottom: 1px solid var(--tonic-grey);
         content: '';
@@ -188,11 +186,35 @@ export const TestListContainer = styled.div`
 `;
 
 export const DotSpan = styled.span`
-    height: 8px;
-    width: 8px;
+    height: 9px;
+    width: 9px;
     background-color: var(--tonic-grey);
     border-radius: 50%;
     display: inline-block;
     position: relative;
     left: -7px;
+`;
+
+export const TestStatusRow = styled.div`
+    display: inline-flex;
+    justify-content: space-evenly;
+    flex-direction: row;
+    width: 80%;
+    align-items: center;
+
+    span {
+        color: var(--evidence-grey);
+    }
+`;
+
+export const SvgStatus = styled.span`
+    position: relative;
+    top: -2px;
+`;
+
+export const TagContainer = styled.span`
+    border: 1px solid var(--evidence-grey);
+    padding: 0 8px;
+    border-radius: 16px;
+    font-size: 10px;
 `;
