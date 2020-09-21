@@ -1,6 +1,6 @@
 import React from 'react';
 import { dashify } from '../../utils/helpers';
-import SuiteName from '../SuiteName';
+import SuiteName from './SuiteName';
 import TestStatus from './TestStatus';
 import TestCase from './TestCase';
 

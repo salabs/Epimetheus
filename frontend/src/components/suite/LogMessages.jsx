@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import SuiteLogMessage from '../SuiteLogMessage';
+import SuiteLogMessage from './SuiteLogMessage';
 import { ReactComponent as Fail } from '../../images/fail-white.svg';
 import {
     SelectedTestContainer,
