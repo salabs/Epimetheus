@@ -8,7 +8,7 @@ import ParentBuild from '../components/parentData/ParentBuild';
 import Header from '../components/header/Header';
 import { ParentInfo, FlexDiv, FlexColumn } from './Overview.styles';
 import BuildAmountSelector from '../components/buttons/BuildAmountSelector';
-import Offset from '../components/buttons/OffSetButtons'
+import Offset from '../components/buttons/OffSetButtons';
 
 const Overview = () => {
     const pathname = useLocation().pathname;
