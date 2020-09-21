@@ -40,8 +40,8 @@ const Offset = () => {
         return queryParams.toString();
     };
 
-    const handleRightButtonPress = () => {
-        if (!rightDisabled) {
+    const handleDirectionButtonPress = direction => {
+        if (direction === 'right' && !rightDisabled) {
             const setOffset = parseInt(offset) + parseInt(inputOffset);
             dispatch({
                 type: 'setOffset',
@@ -52,11 +52,7 @@ const Offset = () => {
                 search: `?${updateTags(setOffset)}`,
                 state: {},
             });
-        }
-    };
-
-    const handleLeftButtonPress = () => {
-        if (!leftDisabled) {
+        } else if (direction === 'left' && !leftDisabled) {
             const setOffset = parseInt(offset) - parseInt(inputOffset);
             dispatch({
                 type: 'setOffset',
@@ -105,6 +101,7 @@ const Offset = () => {
         const value = parseInt(e.target.value) < 0 ? 0 : e.target.value;
         setInputOffset(value);
     };
+
     return (
         <ButtonContainer>
             <Header>Offset</Header>
@@ -116,7 +113,7 @@ const Offset = () => {
                     <StyledEndLeft /> <span>LATEST</span>
                 </LatestButton>
                 <StyledDirectionButton
-                    onClick={handleLeftButtonPress}
+                    onClick={() => handleDirectionButtonPress('left')}
                     disabled={leftDisabled}
                     id="left_offset_button"
                     className={`left${leftDisabled}`}
@@ -130,7 +127,7 @@ const Offset = () => {
                     id="offset_field"
                 />
                 <StyledDirectionButton
-                    onClick={handleRightButtonPress}
+                    onClick={() => handleDirectionButtonPress('right')}
                     disabled={rightDisabled}
                     id="right_offset_button"
                     className={`right${rightDisabled}`}
