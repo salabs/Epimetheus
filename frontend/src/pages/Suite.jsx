@@ -12,15 +12,11 @@ import Loading from '../components/Loading';
 import Header from '../components/header/Header';
 import SuiteLogMessage from '../components/SuiteLogMessage';
 import SuiteMetadata from '../components/metadata/SuiteMetadata';
+import TestList from '../components/suite/Testlist';
 import {
     ParentInfoContainer,
-    SuiteNav,
-    SuiteDiv,
-    StyledLink,
-    FlexContainer,
     StyledFont,
     FlexGrowColumn,
-    ListHeaderColumn,
     ListTitle,
     SelectedTestDiv,
 } from './Suite.styles';
@@ -107,22 +103,7 @@ const Suite = () => {
                         <ParentBuild />
                     </ParentInfoContainer>
                     <SuiteMetadata />
-                    <FlexContainer className="container">
-                        <SuiteNav className="suiteNav" id="suiteId">
-                            {selectedSuiteState.suite.tests.map((test, i) => {
-                                return (
-                                    <SuiteDiv key={i}>
-                                        <StyledLink
-                                            to={`/series/${seriesId}/build/${buildId}/suite/${suiteId}/test/${test.id}/history`}
-                                        >
-                                            {test.name}
-                                            <span>{pickIcon(test.status)}</span>
-                                        </StyledLink>
-                                    </SuiteDiv>
-                                );
-                            })}
-                        </SuiteNav>
-                    </FlexContainer>
+                    <TestList suite={selectedSuiteState.suite} />
                     <SelectedTest
                         test={selectedSuiteState.suite.tests.find(
                             i => i.id === parseInt(testId, 10)
@@ -139,42 +120,6 @@ const Suite = () => {
 const SelectedTest = ({ test }) => {
     return test ? (
         <div>
-            <SelectedTestDiv>
-                <FlexGrowColumn className="flex-grow flex-column">
-                    <ListTitle className="list-title">
-                        <StyledFont name="desktop" />
-                        Name
-                    </ListTitle>
-                    <ListHeaderColumn className="flex-column list-header">
-                        <li>
-                            <StyledFont name="info" />
-                            {test.name}
-                        </li>
-                    </ListHeaderColumn>
-                </FlexGrowColumn>
-                <FlexGrowColumn className="flex-grow flex-column">
-                    <ListTitle className="list-title">
-                        <StyledFont name="tags" />
-                        Tags
-                    </ListTitle>
-                    <ListHeaderColumn className="flex-column list-header">
-                        {test.tags.map((tag, i) => {
-                            return <li key={i}>{tag}</li>;
-                        })}
-                    </ListHeaderColumn>
-                </FlexGrowColumn>
-                <FlexGrowColumn className="flex-grow flex-column">
-                    <ListTitle className="list-title">
-                        <StyledFont name="tachometer" />
-                        Statuses
-                    </ListTitle>
-                    <ListHeaderColumn className="flex-column list-header">
-                        <li>Setup: {test.setup_status}</li>
-                        <li>Execution: {test.execution_status}</li>
-                        <li>Teardown: {test.teardown_status}</li>
-                    </ListHeaderColumn>
-                </FlexGrowColumn>
-            </SelectedTestDiv>
             <SelectedTestDiv>
                 <FlexGrowColumn className="flex-grow flex-column">
                     <ListTitle className="list-title">
