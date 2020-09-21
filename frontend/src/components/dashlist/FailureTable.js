@@ -40,10 +40,10 @@ const StyledTable = styled.table`
 const DashboardList = () => {
     const { seriesId } = useParams();
 
-    const [{ amountOfBuilds, failureList }, dispatch] = useStateValue();
+    const [{ amountOfBuilds, failureList, offset }, dispatch] = useStateValue();
 
     useEffect(() => {
-        const url = `/data/series/${seriesId}/history?builds=${amountOfBuilds}`;
+        const url = `/data/series/${seriesId}/history?builds=${amountOfBuilds}&offset=${offset}`;
         const fetchData = async () => {
             try {
                 const res = await fetch(url);
@@ -70,7 +70,7 @@ const DashboardList = () => {
             }
         };
         fetchData();
-    }, [dispatch, seriesId, amountOfBuilds]);
+    }, [dispatch, seriesId, amountOfBuilds, offset]);
 
     return (
         <TableContainer className="failure-table">

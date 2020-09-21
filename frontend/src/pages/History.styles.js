@@ -10,7 +10,8 @@ export const HeritanceContainer = styled.div`
 `;
 
 export const FilterContainer = styled(HeritanceContainer)`
-    max-width: 800px;
+    justify-content: space-between;
+    max-width: 700px;
 `;
 
 export const ParentContainer = styled(HeritanceContainer)`

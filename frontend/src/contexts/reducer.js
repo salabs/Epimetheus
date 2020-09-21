@@ -124,6 +124,11 @@ const reducer = (state, action) => {
                     seriesData: action.seriesData,
                 },
             };
+        case 'setOffset':
+            return {
+                ...state,
+                offset: action.offset,
+            };
         case 'setBuildData':
             return {
                 ...state,

@@ -5,20 +5,37 @@ import { useStateValue } from '../../contexts/state';
 import { ReactComponent as Checked } from '../../images/checked.svg';
 import { ReactComponent as Unchecked } from '../../images/unchecked.svg';
 import {
-    CheckBoxContainer,
+    ButtonContainer,
     Header,
     StyledDiv,
     StyledLabel,
     StyledInput,
 } from './LastRunCheckbox.styles';
 
-const Checkbox = () => {
+import { useQueryParams } from '../../hooks/useQuery';
+import { useHistory, useLocation } from 'react-router-dom';
+
+const Checkbox = ({ direction }) => {
     // eslint-disable-next-line
     const [{ lastRunFilterPass, lastRunFilterFail }, dispatch] = useStateValue();
     const [passFilter, setPassFilter] = useState(lastRunFilterPass.isChecked);
     const [failFilter, setFailFilter] = useState(lastRunFilterFail.isChecked);
 
     const [t] = useTranslation(['buttons']);
+
+    const history = useHistory();
+    const location = useLocation();
+    const queryParams = useQueryParams();
+
+    const updateTags = tag => {
+        let tagList = queryParams.getAll('tag');
+        tagList.indexOf(tag) !== -1
+            ? tagList.splice(tagList.indexOf(tag), 1)
+            : tagList.push(tag);
+        queryParams.delete('tag');
+        tagList.forEach(element => queryParams.append('tag', element));
+        return queryParams.toString();
+    };
 
     const handlePassFilterChange = e => {
         dispatch({
@@ -28,6 +45,11 @@ const Checkbox = () => {
         });
 
         setPassFilter(!passFilter);
+        history.push({
+            pathname: `${location.pathname}`,
+            search: `?${updateTags('Passing')}`,
+            state: {},
+        });
     };
 
     const handleFailFilterChange = e => {
@@ -38,12 +60,17 @@ const Checkbox = () => {
         });
 
         setFailFilter(!failFilter);
+        history.push({
+            pathname: `${location.pathname}`,
+            search: `?${updateTags('Failing')}`,
+            state: {},
+        });
     };
 
     return (
-        <CheckBoxContainer>
+        <ButtonContainer>
             <Header>{t('hide_tests.header')}</Header>
-            <StyledDiv id="last-run-checkbox-container">
+            <StyledDiv direction={direction} id="last-run-checkbox-container">
                 <StyledLabel labelfor="filterPassed">
                     <StyledInput
                         type="checkbox"
@@ -67,7 +94,7 @@ const Checkbox = () => {
                     {t('hide_tests.failing')}
                 </StyledLabel>
             </StyledDiv>
-        </CheckBoxContainer>
+        </ButtonContainer>
     );
 };
 

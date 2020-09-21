@@ -16,7 +16,7 @@ import './utils/i118n';
 import 'normalize.css';
 import './index.css';
 import theme from './styles/theme';
-import { StyledApp, SkipMain } from './App.styles';
+import { StyledApp } from './App.styles';
 
 const App = () => {
     // eslint-disable-next-line
@@ -45,9 +45,6 @@ const App = () => {
             <StyledApp id="main">
                 <Suspense fallback="loading">
                     <Router>
-                        <SkipMain className="skip-main" href="#main-content">
-                            Skip to main content
-                        </SkipMain>
                         <MainNav />
                         <MainContent>
                             <Switch>
