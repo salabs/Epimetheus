@@ -41,29 +41,24 @@ const Offset = () => {
     };
 
     const handleDirectionButtonPress = direction => {
+        let setOffset = 0;
         if (direction === 'right' && !rightDisabled) {
-            const setOffset = parseInt(offset) + parseInt(inputOffset);
-            dispatch({
-                type: 'setOffset',
-                offset: setOffset,
-            });
-            history.push({
-                pathname: `${location.pathname}`,
-                search: `?${updateTags(setOffset)}`,
-                state: {},
-            });
+            setOffset = parseInt(offset) + parseInt(inputOffset);
         } else if (direction === 'left' && !leftDisabled) {
-            const setOffset = parseInt(offset) - parseInt(inputOffset);
-            dispatch({
-                type: 'setOffset',
-                offset: setOffset,
-            });
-            history.push({
-                pathname: `${location.pathname}`,
-                search: `?${updateTags(setOffset)}`,
-                state: {},
-            });
+            setOffset = parseInt(offset) - parseInt(inputOffset);
+        } else {
+            return;
         }
+
+        dispatch({
+            type: 'setOffset',
+            offset: setOffset,
+        });
+        history.push({
+            pathname: `${location.pathname}`,
+            search: `?${updateTags(setOffset)}`,
+            state: {},
+        });
     };
 
     useEffect(() => {
