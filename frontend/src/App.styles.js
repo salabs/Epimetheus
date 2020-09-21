@@ -20,27 +20,3 @@ export const StyledApp = styled.div`
         outline: 1px solid ${theme.testTheme.linkColor};
     }
 `;
-
-export const SkipMain = styled.a`
-    left: -999px;
-    position: absolute;
-    top: auto;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    z-index: -999;
-    :focus,
-    :active {
-        background-color: #fff;
-        left: auto;
-        top: auto;
-        width: 30%;
-        height: auto;
-        overflow: auto;
-        margin: 10px 35%;
-        padding: 5px;
-        border: 1px solid black;
-        text-align: center;
-        z-index: 999;
-    }
-`;

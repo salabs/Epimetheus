@@ -32,7 +32,6 @@ const BuildInfoTable = () => {
             parentData: { seriesData },
         },
     ] = useStateValue();
-    
     return (
         <LastBuildTable>
             <tbody>

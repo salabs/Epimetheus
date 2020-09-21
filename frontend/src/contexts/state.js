@@ -8,6 +8,7 @@ const initialState = {
     errorState: null,
     amountOfBuilds: 10,
     amountShown: 10,
+    offset: 0,
     amountFilteredData: null,
     lastRunFilterFail: {
         isChecked: false,

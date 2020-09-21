@@ -69,12 +69,12 @@ const DashboardList = () => {
     const { seriesId } = useParams();
 
     const [
-        { testStabilityList, stabilityChecker, amountOfBuilds },
+        { testStabilityList, stabilityChecker, amountOfBuilds, offset },
         dispatch,
     ] = useStateValue();
 
     useEffect(() => {
-        const url = `/data/series/${seriesId}/most_stable_tests/?builds=${amountOfBuilds}&most=${stabilityChecker}`;
+        const url = `/data/series/${seriesId}/most_stable_tests/?builds=${amountOfBuilds}&most=${stabilityChecker}&offset=${offset}`;
         const fetchData = async () => {
             try {
                 const res = await fetch(url);
@@ -85,7 +85,7 @@ const DashboardList = () => {
             }
         };
         fetchData();
-    }, [dispatch, seriesId, stabilityChecker, amountOfBuilds]);
+    }, [dispatch, seriesId, stabilityChecker, amountOfBuilds, offset]);
 
     return (
         <TableContainer id="flakiness-table">

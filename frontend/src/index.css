@@ -71,6 +71,17 @@ svg {
     vertical-align: middle;
 }
 
+button:focus,
+input:focus,
+a:focus {
+    outline: 2px solid var(--pirlo-blue);
+}
+
+button:hover:enabled,
+a:hover {
+    cursor: pointer;
+}
+
 /** a11y **/
 
 .sr-show {

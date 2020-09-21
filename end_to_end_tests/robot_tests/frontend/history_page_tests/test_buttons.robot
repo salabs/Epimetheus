@@ -4,17 +4,51 @@ Resource                            ../../../resources/resource.robot
 
 *** Test Cases ***
 
-Test Buttons
+Test Build Amount Dropdown
   Open history page of series    3
-  Check history buttons
-  Click Button		5
+  Select From Dropdown    ${history_build_selector_5} 
   Table should be limited to    number=5
-  Click Button		10
+  Select From Dropdown    ${history_build_selector_10} 
   Table should be limited to    number=10
-  Click Button		100
-  Table should be limited to    number=100
+  Select From Dropdown    ${history_build_selector_30} 
+  Table should be limited to    number=30
+
+Test Offset Functionality
+  Open history page of series   3
+  Store Most Recent Builds
+  Offset should be    0
+  Most Recent Build Number should be    ${most_recent_build}
+  Set Offset field to   1000
+  Left Button Should be disabled
+  Right Button Should be disabled
+  Set Offset field to   1
+  Right Button Should be enabled
+  Click Right Button
+  Offset should be    1
+  Most Recent Build Number should be    ${second_recent_build}
+  Click Right Button
+  Offset should be    2
+  Most Recent Build Number should be    ${third_recent_build}
+  Set Offset field to   1
+  Left Button Should be enabled
+  Click Left Button
+  Offset should be    1
+  Most Recent Build Number should be    ${second_recent_build}
+  Left Button Should be enabled
+  Click Left Button
+  Offset should be    0
+  Most Recent Build Number should be    ${most_recent_build}
+
+#Test Offset Functionality with Offset URL, to be added
 
 *** Keywords ***
+
+Select From Dropdown
+  [Arguments]    ${dropdown_option}
+  Wait Until Element Is Enabled   ${series_history_dropdown}
+  Click Element   ${series_history_dropdown}
+  Wait Until Element Is Visible   ${dropdown_option}
+  Click Element   ${dropdown_option}
 
 Browser is on a history page of series
   [Arguments]    ${series}
@@ -23,19 +57,67 @@ Browser is on a history page of series
   ${url}=   Get Location
   Should be equal as Strings   ${url}   ${str}
 
-Check history buttons
-
-  Page Should Contain Button 	Passing 	
-  Page Should Contain Button	Failing 	
-  Page Should Contain Button	5 	
-  Page Should Contain Button	10 	
-  Page Should Contain Button	15 	
-  Page Should Contain Button	30 	
-  Page Should Contain Button	100
-
 Table should be limited to
   [Arguments]   ${number}
   Wait Until Element Is Enabled   ${table_header_xpath}
   ${elements} =		Get Element Count   ${table_header_xpath}
   ${sum} =   Evaluate  ${number} + 2
   Should be True 	${sum}>=${elements} 
+
+Store Most Recent Builds
+  Wait Until Element Is Enabled    ${series_history_most_recent}
+  ${temp_most_recent}=    Get Text    ${series_history_most_recent}
+  ${temp_second_recent}=    Get Text  ${series_history_second_recent}
+  ${temp_third_recent}=   Get Text  ${series_history_third_recent}
+
+  Set Suite Variable      ${most_recent_build}      ${temp_most_recent}
+  Set Suite Variable      ${second_recent_build}    ${temp_second_recent}
+  Set Suite Variable      ${third_recent_build}     ${temp_third_recent}
+
+Most Recent Build Number should be
+  [Arguments]   ${build}
+  Wait Until Element Is Enabled    ${series_history_most_recent}
+  ${temp_most_recent}=    Get Text    ${series_history_most_recent}
+  
+  Should be equal as Strings    ${build}    ${temp_most_recent}
+
+Set Offset field to
+  [Arguments]   ${text}
+  Input Text    ${offset_field}   ${text}
+
+Offset should be
+  [Arguments]   ${value}
+  ${url}=   Get Location
+  Run Keyword if    'offset' in "${url}"  Check offset url    ${value}
+
+Check offset url
+  [Arguments]   ${value}
+  ${url}=   Get Location
+  ${full_string}=   Catenate  SEPARATOR=    offset    =    ${value}
+  Should Contain    ${url}    ${full_string}
+
+Left Button Should be disabled
+  Wait Until Element Is Visible    ${offset_left}     
+  ${count}=   Get Element Count	   ${disabled_offset_left}
+  Should be equal as Integers   ${count}    0
+  
+Left Button Should be enabled
+  Wait Until Element Is Enabled    ${offset_left} 
+  ${count}=   Get Element Count	   ${enabled_offset_left}
+  Should be equal as Integers   ${count}    1
+
+Right Button Should be enabled
+  Wait Until Element Is Enabled    ${offset_right} 
+  ${count}=   Get Element Count	   ${enabled_offset_right}
+  Should be equal as Integers   ${count}    1
+
+Right Button Should be disabled
+  Wait Until Element Is Visible    ${offset_right} 
+  ${count}=   Get Element Count	   ${disabled_offset_right}
+  Should be equal as Integers   ${count}    0
+  
+Click Right Button
+  Click Element   ${offset_right}
+Click Left Button
+  Click Element   ${offset_left}  
+

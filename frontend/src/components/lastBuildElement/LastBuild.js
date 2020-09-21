@@ -19,12 +19,12 @@ const Containing = styled.div`
 const LastBuildElement = () => {
     const { seriesId } = useParams();
     const [failures, setFailures] = useState([]);
-    const [dispatch] = useStateValue();
+    const [{ offset }, dispatch] = useStateValue();
 
     useEffect(() => {
         let mounted = true;
         const fetchHistory = async () => {
-            const url = `/data/series/${seriesId}/history?builds=1`;
+            const url = `/data/series/${seriesId}/history?builds=1&offset=${offset}`;
             try {
                 const res = await fetch(url);
                 const json = await res.json();
@@ -55,7 +55,7 @@ const LastBuildElement = () => {
         fetchHistory();
 
         return () => (mounted = false);
-    }, [seriesId]);
+    }, [seriesId, offset]);
 
     return (
         <Containing>
