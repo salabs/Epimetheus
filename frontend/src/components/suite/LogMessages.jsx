@@ -9,7 +9,6 @@ import {
 } from './LogMessages.styles';
 
 const LogMessages = ({ test }) => {
-    console.log('test on', test);
     return test ? (
         <SelectedTestContainer>
             <FlexGrowColumn className="flex-grow flex-column">
