@@ -40,14 +40,14 @@ const Offset = () => {
         return queryParams.toString();
     };
 
-    const buttonClickDispatch = offset => {
+    const buttonClickDispatch = para_offset => {
         dispatch({
             type: 'setOffset',
-            offset: offset,
+            offset: para_offset,
         });
         history.push({
             pathname: `${location.pathname}`,
-            search: `?${updateTags(offset)}`,
+            search: `?${updateTags(para_offset)}`,
             state: {},
         });
     };
