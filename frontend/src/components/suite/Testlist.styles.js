@@ -147,6 +147,7 @@ export const StyledLink = styled(({ isselected, ...props }) => (
 export const SvgStatus = styled.span`
     position: relative;
     top: -2px;
+    left: 8px;
     flex: 0.5;
 `;
 

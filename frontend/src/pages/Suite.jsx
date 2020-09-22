@@ -6,20 +6,13 @@ import { useStateValue } from '../contexts/state';
 import theme from '../styles/theme';
 import BreadcrumbNav from '../components/BreadcrumbNav';
 import Notfound from '../components/NotFound';
-import { pickIcon } from '../components/TestIcon';
 import ParentBuild from '../components/parentData/ParentBuild';
 import Loading from '../components/Loading';
 import Header from '../components/header/Header';
-import SuiteLogMessage from '../components/SuiteLogMessage';
 import SuiteMetadata from '../components/metadata/SuiteMetadata';
 import TestList from '../components/suite/Testlist';
-import {
-    ParentInfoContainer,
-    StyledFont,
-    FlexGrowColumn,
-    ListTitle,
-    SelectedTestDiv,
-} from './Suite.styles';
+import LogMessages from '../components/suite/LogMessages';
+import { ParentInfoContainer } from './Suite.styles';
 
 const Suite = () => {
     const { suiteId, buildId, seriesId, testId } = useParams();
@@ -104,7 +97,7 @@ const Suite = () => {
                     </ParentInfoContainer>
                     <SuiteMetadata />
                     <TestList suite={selectedSuiteState.suite} />
-                    <SelectedTest
+                    <LogMessages
                         test={selectedSuiteState.suite.tests.find(
                             i => i.id === parseInt(testId, 10)
                         )}
@@ -115,63 +108,6 @@ const Suite = () => {
             )}
         </main>
     );
-};
-
-const SelectedTest = ({ test }) => {
-    return test ? (
-        <div>
-            <SelectedTestDiv>
-                <FlexGrowColumn className="flex-grow flex-column">
-                    <ListTitle className="list-title">
-                        <StyledFont name="comment" />
-                        Log messages
-                    </ListTitle>
-                    <table id="logMessages-table">
-                        <thead>
-                            <tr>
-                                <th className="tableLogLevel">Log level</th>
-                                <th className="tableMessage">Message</th>
-                                <th className="tableTimeStamp">Timestamp</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {test.log_messages !== null &&
-                                test.log_messages.map(
-                                    ({ log_level, message, timestamp }, i) => {
-                                        return (
-                                            <tr key={i}>
-                                                <td>
-                                                    <div
-                                                        className="table-item"
-                                                        title={log_level}
-                                                    >
-                                                        {log_level}
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <SuiteLogMessage
-                                                        message={message}
-                                                    />
-                                                </td>
-                                                <td>
-                                                    <div
-                                                        className="table-item"
-                                                        title={timestamp}
-                                                    >
-                                                        {pickIcon('TIME')}
-                                                        {timestamp}
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        );
-                                    }
-                                )}
-                        </tbody>
-                    </table>
-                </FlexGrowColumn>
-            </SelectedTestDiv>
-        </div>
-    ) : null;
 };
 
 export default Suite;

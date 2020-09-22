@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { dashify } from '../utils/helpers';
+import { dashify } from '../../utils/helpers';
 import { StyledData } from './SuiteName.styles';
 
 // Show suite name separated on different lines with dots showing depth level
