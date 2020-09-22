@@ -29,14 +29,17 @@
         },
         "icons": {
             "title": "Icons",
-            "opening_paragraph": "Icons to indicate test status use green/red/grey coloring combined with helping shapes. If you have trouble viewing the results, please create an accessibility issue in the repository. Our goal is to make this project accessible for everyone."
+            "opening_paragraph": "Icons to indicate test status use blue and red coloring combined with helping shapes. If you have trouble viewing the results, please create an accessibility issue in the repository. Our goal is to make this project accessible for everyone.",
+            "pass": "Passed test",
+            "fail": "Failed test",
+            "skipped": "Skipped test (result file found)",
+            "not_found": "Test not found in selected run"
         },
         "views": {
             "title": "Different Views",
             "history": "History: Shows how the recent test runs have executed. Amount of visible runs can be 5-30 (default 10).",
             "team": "Team: Display all series related to a single team.",
             "suite": "Suite: Collection of different test cases. Open different test cases and see related results, log messages and metadata."
-
         },
         "feedback": {
             "title": "How to give feedback?",

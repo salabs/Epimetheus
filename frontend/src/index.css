@@ -21,12 +21,19 @@ html {
 ----------------------*/
 :root {
     --nelson-purple: #b8557b;
-    --whipped-red: #c63757;
-    --pirlo-blue: #56a2c3;
-    --revolution-black: #141312;
-    --dove-grey: #7b756f;
-    --mithril-grey: #e9e8e8;
-    --powder-white: #ffffff;
+    --semolina-red: #c63757;
+    --pirlo-blue: #067cc1;
+    --titan-green: #238564;
+    --gradient-black: #141312;
+    --evidence-grey: #7b756f;
+    --hermanni-grey: #edecec;
+    --toukola-green: #e9f5e1;
+    --kumpula-yellow: #faf3e1;
+    --vallila-blue: #e1f1f7;
+    --arabia-red: #faecec;
+    --nero-white: #ffffff;
+    --tonic-grey: #d7d4d3;
+    --sparkling-blue: #80bfdb;
 }
 
 /** Basics **/
@@ -36,6 +43,7 @@ body {
     font-size: 14px;
     line-height: 24px;
 }
+
 h1,
 h2,
 h3,
@@ -57,6 +65,21 @@ h3 {
 
 h4 {
     font-size: 16px;
+}
+
+svg {
+    vertical-align: middle;
+}
+
+button:focus,
+input:focus,
+a:focus {
+    outline: 2px solid var(--pirlo-blue);
+}
+
+button:hover:enabled,
+a:hover {
+    cursor: pointer;
 }
 
 /** a11y **/

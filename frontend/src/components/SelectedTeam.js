@@ -6,119 +6,127 @@ import theme from '../styles/theme';
 import BreadcrumbNav from './BreadcrumbNav';
 import { pickIcon } from './TestIcon';
 import { useTranslation } from 'react-i18next';
+import styled from 'styled-components';
 
-/** @jsx jsx */
-import { css, jsx } from '@emotion/core';
+const CardStyles = styled.div`
+    background-color: var(--nero-white);
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 5px 7px, rgba(0, 0, 0, 0.23) 0px 5px 7px;
+    margin: 10px;
+    padding: 10px;
+    line-height: 16px;
+`;
+
+const HoverDiv = styled.div`
+    :hover {
+        cursor: pointer;
+    }
+`;
+
+const H3 = styled.h3`
+    font-size: 16px;
+    line-height: 20px;
+    margin-top: 0;
+`;
+const H4 = styled.h4`
+    font-size: 16px;
+    line-height: 20px;
+`;
+
+const CardInfo = styled.div`
+    @media only screen and (min-width: 1024px) {
+        min-width: 440px;
+        min-height: 220px;
+    }
+`;
+
+const InfoContainer = styled.div`
+    :hover {
+        background-color: var(--hermanni-grey);
+    }
+`;
+
+const CardValue = styled.span`
+    color: var(--pirlo-blue);
+`;
+
+const TeamCard = ({ data }) => {
+    const [t] = useTranslation(['team']);
+    let history = useHistory();
+    const {
+        id,
+        name,
+        builds,
+        last_build,
+        last_build_id,
+        last_started,
+        last_status,
+    } = data;
+
+    const LastStarted = last_started.slice(0, 16);
+    const testStatusIcon = pickIcon(last_status);
+
+    return (
+        <CardStyles>
+            <div>
+                <H3>{name}</H3>
+            </div>
+            <CardInfo className="card">
+                <HoverDiv
+                    className="series"
+                    onClick={() => history.push(`/series/${id}/overview`)}
+                    role={'presentation'}
+                >
+                    <H4>{t('card.series.title')}</H4>
+                    <InfoContainer className="cardInfoContainer">
+                        {t('card.series.builds')}:{' '}
+                        <CardValue className="cardValue">{builds}</CardValue>
+                    </InfoContainer>
+                </HoverDiv>
+                <HoverDiv
+                    className="builds"
+                    onClick={() =>
+                        history.push(
+                            `/series/${id}/build/${last_build}/overview`
+                        )
+                    }
+                    role={'presentation'}
+                >
+                    <H4>{t('card.last_build.title')}</H4>
+                    <InfoContainer className="cardInfoContainer">
+                        {t('card.last_build.build_number')}:{' '}
+                        <CardValue className="cardValue">
+                            {last_build}
+                        </CardValue>
+                    </InfoContainer>
+                    <InfoContainer className="cardInfoContainer">
+                        {t('card.last_build.build_id')}:{' '}
+                        <CardValue className="cardValue">
+                            {last_build_id}
+                        </CardValue>
+                    </InfoContainer>
+                    <InfoContainer className="cardInfoContainer">
+                        {t('card.last_build.last_build_started')}:{' '}
+                        <CardValue className="cardValue">
+                            {LastStarted}
+                        </CardValue>
+                    </InfoContainer>
+                    <InfoContainer className="cardInfoContainer">
+                        {t('card.last_build.last_status')}:{' '}
+                        <CardValue className="cardValue">
+                            {testStatusIcon}
+                        </CardValue>
+                    </InfoContainer>
+                </HoverDiv>
+            </CardInfo>
+        </CardStyles>
+    );
+};
 
 const SelectedTeam = ({ selectedTeam }) => {
-    const [t] = useTranslation(['team']);
-
-    const cardStyles = css`
-        background-color: var(--powder-white);
-        box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 4px,
-            rgba(0, 0, 0, 0.23) 0px 3px 4px;
-        margin: 10px;
-        padding: 10px;
-        line-height: 16px;
-
-        .series:hover,
-        .builds:hover {
-            cursor: pointer;
-        }
-
-        h3,
-        h4 {
-            font-size: 16px;
-            line-height: 20px;
-        }
-        h3 {
-            margin-top: 0;
-        }
-        .cardInfoContainer:hover {
-            background-color: var(--mithril-grey);
-        }
-
-        .cardValue {
-            color: var(--pirlo-blue);
-        }
-
-        @media only screen and (min-width: 1024px) {
-            .card {
-                min-width: 440px;
-                min-height: 220px;
-            }
-        }
-    `;
-
-    let history = useHistory();
-
     const flexContainer = {
         display: 'flex',
         flexWrap: 'wrap',
-        paddingTop: '20px'
-    };
-
-    const TeamCard = ({ data }) => {
-        const {
-            id,
-            name,
-            builds,
-            last_build,
-            last_build_id,
-            last_started,
-            last_status
-        } = data;
-
-        const LastStarted = last_started.slice(0, 16);
-        const testStatusIcon = pickIcon(last_status);
-
-        return (
-            <div css={cardStyles}>
-                <div>
-                    <h3>{name}</h3>
-                </div>
-                <div className="card">
-                    <div
-                        className="series"
-                        onClick={() => history.push(`/series/${id}/history`)}
-                        role={'presentation'}
-                    >
-                        <h4>{t('card.series.title')}</h4>
-                        <div className="cardInfoContainer">
-                            {t('card.series.builds')}:{' '}
-                            <span className="cardValue">{builds}</span>
-                        </div>
-                    </div>
-                    <div
-                        className="builds"
-                        onClick={() =>
-                            history.push(
-                                `/series/${id}/build/${last_build}/history`
-                            )
-                        }
-                        role={'presentation'}
-                    >
-                        <h4>{t('card.last_build.title')}</h4>
-                        <div className="cardInfoContainer">
-                            {t('card.last_build.build_number')}:{' '}
-                            <span className="cardValue">{last_build}</span>
-                        </div>
-                        <div className="cardInfoContainer">
-                            {t('card.last_build.build_id')}:{' '}
-                            <span className="cardValue">{last_build_id}</span>
-                        </div>
-                        <div className="cardInfoContainer">
-                            {t('card.last_build.last_build_started')}:{' '}
-                            <span className="cardValue">{LastStarted}</span>
-                        </div>
-                        <div className="cardInfoContainer">
-                            {t('card.last_build.last_status')}:{' '}
-                            <span className="cardValue">{testStatusIcon}</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        );
+        paddingTop: '20px',
     };
 
     return (
@@ -143,8 +151,8 @@ SelectedTeam.propTypes = {
         all_builds: PropTypes.object,
         name: PropTypes.string,
         series: PropTypes.array,
-        series_count: PropTypes.number
-    })
+        series_count: PropTypes.number,
+    }),
 };
 
 export default SelectedTeam;

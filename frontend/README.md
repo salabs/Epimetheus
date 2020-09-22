@@ -14,6 +14,7 @@ npm run start
 The default configuration for backend server is `http://localhost:5000`.
 
 Backend server configuration can be changed by setting the following environment variables:
+
 ```
 REACT_APP_SERVER_URL=localhost
 REACT_APP_FRONT_END_PORT=5000
@@ -44,9 +45,11 @@ Install plugins:
 [Prettier](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 [Eslint](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
 In Visual Studio Code settings check
+
 ```
 Prettier: Require Config
 ```
+
 and
 
 ```

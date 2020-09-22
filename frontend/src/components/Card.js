@@ -1,45 +1,43 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-/** @jsx jsx */
-import { css, jsx } from '@emotion/core';
+import styled from 'styled-components';
+
+const StyledDiv = styled.div`
+    background-color: var(--nero-white);
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 5px 7px, rgba(0, 0, 0, 0.23) 0px 5px 7px;
+    margin: 10px;
+    padding: 10px;
+    line-height: 16px;
+    min-height: 120px;
+    width: 300px;
+    height: 200px;
+    cursor: pointer;
+
+    @media only screen and (min-width: 1024px) {
+        width: 400px;
+    }
+`;
+
+const StyledSpan = styled.span`
+    color: var(--pirlo-blue);
+`;
 
 const Card = ({ team, numberOfSeries }) => {
     const [t] = useTranslation(['team']);
     let history = useHistory();
 
-    const Mongolia = css`
-        background-color: var(--powder-white);
-        box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 4px,
-            rgba(0, 0, 0, 0.23) 0px 3px 4px;
-        margin: 10px;
-        padding: 10px;
-        line-height: 16px;
-        min-height: 120px;
-        width: 250px;
-        cursor: pointer;
-
-        span {
-            color: var(--pirlo-blue);
-        }
-
-        @media only screen and (min-width: 1024px) {
-            width: 400px;
-            height: 200px;
-        }
-    `;
-
     return (
-        <div
-            css={Mongolia}
+        <StyledDiv
             onClick={() => history.push(`/team/${team}`)}
             role={'presentation'}
         >
             <h3>{team}</h3>
             <div>
-                {t('series')}: <span className="test">{numberOfSeries}</span>
+                {t('series')}:{' '}
+                <StyledSpan className="test">{numberOfSeries}</StyledSpan>
             </div>
-        </div>
+        </StyledDiv>
     );
 };
 

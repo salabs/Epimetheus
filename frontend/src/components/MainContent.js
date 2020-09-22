@@ -1,20 +1,19 @@
 // eslint-disable-next-line
 import React from 'react';
-/** @jsx jsx */
-import { css, jsx } from '@emotion/core';
+import styled from 'styled-components';
+
+const StyledDiv = styled.div`
+    padding: 20px;
+    overflow: auto;
+    width: 100%;
+
+    @media only screen and (min-width: 1024px) {
+        padding: 20px 40px;
+    }
+`;
 
 const MainContent = ({ children }) => {
-    const mainStyles = css`
-        padding: 20px;
-        overflow: auto;
-        width: 100%;
-    `;
-
-    return (
-        <div id="main-content" css={mainStyles}>
-            {children}
-        </div>
-    );
+    return <StyledDiv id="main-content">{children}</StyledDiv>;
 };
 
 export default MainContent;

@@ -1,0 +1,13 @@
+{
+    "Build": "Build",
+    "build": "build",
+    "Series": "Series",
+    "series": "series",
+    "from": "from",
+    "suite": "Suite",
+    "in": "in",
+    "buttons": {
+        "overview": "Overview",
+        "history": "History"
+    }
+}

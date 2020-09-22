@@ -1,151 +1,82 @@
 // eslint-disable-next-line
-import React, { useContext } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
-/** @jsx jsx */
-import { css, jsx } from '@emotion/core';
-import ThemeContext from '../contexts/themeContext';
-import packageJson from '../../package.json';
+import React from 'react';
+import { NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import styled from 'styled-components';
+import { useLocation } from 'react-router-dom';
+
+const NavBar = styled.nav`
+    background: var(--titan-green);
+    color: var(--nero-white);
+    display: flex;
+    align-items: center;
+    min-height: 100px;
+`;
+
+const StyledH2 = styled.h2`
+    padding: 0px 40px 0px 40px;
+    font-family: 'Space Mono' !important;
+    letter-spacing: 1px;
+    @media only screen and (max-width: 540px) {
+        width: 0;
+        overflow: hidden;
+        display: block;
+    }
+`;
+
+const LinkContainer = styled.div`
+    a {
+        margin: 0 15px 0 15px;
+        color: var(--nero-white) !important;
+        font-size: 16px;
+        line-height: 24px;
+        font-weight: bold;
+        text-decoration: none;
+        border-bottom: none;
+    }
+
+    .about {
+        border-bottom: ${props => !props.team && '3px solid var(--nero-white)'};
+    }
+
+    .team {
+        border-bottom: ${props => props.team && '3px solid var(--nero-white)'};
+    }
+
+    @media only screen and (max-width: 540px) {
+        margin-left: 10px;
+        a {
+            margin: 0 5px 0 5px;
+        }
+    }
+`;
 
 const MainNav = () => {
-    const theme = useContext(ThemeContext);
     const [t] = useTranslation(['mainnav']);
 
-    const pathname = useLocation().pathname;
+    const location = useLocation();
+    const team =
+        location.pathname.includes('team') ||
+        location.pathname.includes('series');
 
-    const seriesUrl = pathname.includes('series');
-    const suiteUrl = pathname.includes('suite');
-
-    const correctUrl = prop => {
-        if (pathname.includes(prop)) {
-            return pathname;
-        }
-        const beginningUrl = pathname.substring(0, pathname.lastIndexOf('/'));
-        return beginningUrl.concat('/' + prop);
-    };
-
-    const mainNavStyles = css`
-        flex: 0 0 240px;
-        @media only screen and (max-width: 999px) {
-            flex: 0 0 120px;
-        }
-        h2 {
-            padding: 0px 20px 0px 20px;
-            @media only screen and (max-width: 768px) {
-                display: block;
-                width: 0;
-                height: 40px;
-                padding: 0;
-                margin: 0;
-                overflow: hidden;
-                &:after {
-                    display: block;
-                    width: 100px;
-                    top: 15px;
-                    left: 10px;
-                    content: 'Epi';
-                    position: absolute;
-                }
-            }
-        }
-        p {
-            padding: 20px 20px 0px 20px;
-            @media only screen and (max-width: 768px) {
-                display: block;
-                width: 0;
-                height: 40px;
-                padding: 0;
-                margin: 0;
-                overflow: hidden;
-                &:after {
-                    display: none;
-                }
-            }
-        }
-        ul {
-            list-style-type: none;
-            padding: 0;
-            li {
-                font-size: 16px;
-                padding: & + li {
-                    padding-top: ${theme.spacing.xs / 2}px;
-                }
-
-                a {
-                    display: block;
-                    width: 100%;
-                    padding: 15px 20px;
-                    @media only screen and (max-width: 999px) {
-                        padding: 15px 20px 15px 10px;
-                    }
-                    transition: 0.33s background-color;
-                    &:hover,
-                    &:active {
-                        background-color: #ccc;
-                        transition: 0.1s background-color;
-                    }
-                }
-                &.nav-github {
-                    margin-top: 1em;
-                    font-weight: bold;
-                }
-            }
-            a.active {
-                font-weight: bold;
-                background-color: #ccc;
-            }
-        }
-        .sub-url {
-            padding-left: 5%;
-        }
-    `;
     return (
-        <nav id="main-nav" css={mainNavStyles}>
-            <h2 className="logo">{t('logo')}</h2>
-            <ul>
-                <li>
-                    <NavLink exact activeClassName="active" to="/">
-                        {t('help')}
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink activeClassName="active" to="/team">
-                        {t('team')}
-                    </NavLink>
-                </li>
-                {seriesUrl && (
-                    <div>
-                        <li className="sub-url">
-                            <NavLink
-                                activeClassName="active"
-                                to={correctUrl('history')}
-                            >
-                                {t('history')}
-                            </NavLink>
-                        </li>
-                        {!suiteUrl && (
-                            <li className="sub-url">
-                                <NavLink
-                                    activeClassName="active"
-                                    to={correctUrl('dashboard')}
-                                >
-                                    Dashboard
-                                </NavLink>
-                            </li>
-                        )}
-                    </div>
-                )}
-                <li className="nav-github">
-                    <a href="https://github.com/salabs/Epimetheus">
-                        {t('github')}
-                    </a>
-                </li>
-            </ul>
-            <p>
-                {/* TODO: needs better design!*/}
-                {t('version')} {packageJson.version}
-            </p>
-        </nav>
+        <NavBar id="main-nav">
+            <StyledH2 className="logo">{t('logo')}</StyledH2>
+            <LinkContainer team={team}>
+                <NavLink
+                    exact
+                    activeClassName="active"
+                    to="/"
+                    className="about"
+                >
+                    {t('help')}
+                </NavLink>
+                <NavLink activeClassName="active" to="/team" className="team">
+                    {t('team')}
+                </NavLink>
+                <a href="https://github.com/salabs/Epimetheus">{t('github')}</a>
+            </LinkContainer>
+        </NavBar>
     );
 };
 

@@ -7,23 +7,33 @@ const initialState = {
     loadingState: false,
     errorState: null,
     amountOfBuilds: 10,
+    amountShown: 10,
+    offset: 0,
     amountFilteredData: null,
     lastRunFilterFail: {
         isChecked: false,
-        filterType: ''
+        filterType: '',
     },
     lastRunFilterPass: {
         isChecked: false,
-        filterType: ''
+        filterType: '',
     },
     branchesState: null,
     selectedBranchState: { name: 'All builds', id: 1 },
     metadataState: [],
+    testStabilityList: [],
+    failureList: [],
     selectedBuildState: {},
+    selectedSuiteState: null,
+    stabilityChecker: 'unstable',
     parentData: {
-        seriesData: null,
-        buildData: null
-    }
+        seriesData: {
+            last_build_id: '',
+            last_status: '',
+            last_started: '',
+        },
+        buildData: null,
+    },
 };
 
 export const StateProvider = ({ reducer, children }) => {
