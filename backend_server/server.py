@@ -16,7 +16,7 @@ import database as db
 def load_config_file(file_name):
     with open(file_name, 'r') as file:
         return json.load(file)
-VERSION_NUMBER = "0.3.1"
+VERSION_NUMBER = "1.0.0"
 
 @register_swagger_model
 class SeriesModel:
