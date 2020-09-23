@@ -20,3 +20,8 @@ ${enabled_offset_right}      xpath://*[contains(@class, 'rightfalse')]
 ${enabled_offset_left}      xpath://*[contains(@class, 'leftfalse')]
 ${disabled_offset_right}      xpath://*[contains(@class, 'rightrue')]
 ${disabled_offset_left}      xpath://*[contains(@class, 'leftrue')]
+
+
+${clicked_pass}      xpath://*[contains(@class, 'passtrue')]
+
+${clicked_fail}      xpath://*[contains(@class, 'failtrue')]
