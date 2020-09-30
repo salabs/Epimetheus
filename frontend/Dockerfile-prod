@@ -16,9 +16,20 @@ RUN npm run build
 
 # set up production environment
 FROM nginx:alpine
-COPY --from=build /usr/src/app/build /usr/share/nginx/html
-RUN rm /etc/nginx/conf.d/default.conf
-COPY nginx/nginx.conf /etc/nginx/conf.d
+EXPOSE 8080
 
-EXPOSE 80
+COPY --from=build /usr/src/app/build /usr/share/nginx/html
+
+RUN rm /etc/nginx/conf.d/default.conf && \
+    rm /etc/nginx/nginx.conf
+COPY nginx/nginx.conf /etc/nginx/nginx.conf
+COPY nginx/default.conf /etc/nginx/conf.d/default.conf
+
+RUN mkdir /tmp/log && \
+    chown -R nginx:nginx /tmp/log && chmod -R 755 /tmp/log
+RUN chown -R nginx:nginx /usr/share/nginx/html && chmod -R 755 /usr/share/nginx/html && \
+        chown -R nginx:nginx /etc/nginx/conf.d
+
+USER nginx
+
 CMD ["nginx", "-g", "daemon off;"]
