@@ -36,8 +36,7 @@ RUN sed -i -e 's/$NGINX_PORT/'"$NGINX_PORT"'/g' /etc/nginx/conf.d/default.conf
 # Using '#' as a delimeter here because url contains slashes and it confuses sed
 RUN sed -i -e 's#$BACKEND_URL#'"$BACKEND_URL"'#g#' /etc/nginx/conf.d/default.conf
 
-RUN mkdir /tmp/log && \
-    chown -R nginx:nginx /tmp/log && chmod -R 755 /tmp/log
+
 RUN chown -R nginx:nginx /usr/share/nginx/html && chmod -R 755 /usr/share/nginx/html && \
         chown -R nginx:nginx /etc/nginx/conf.d
 
