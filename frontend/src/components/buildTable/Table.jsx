@@ -17,7 +17,7 @@ const Table = ({ id }) => {
                             {t('build.table.status')}
                         </th>
                         <th>{t('build.table.test')}</th>
-                        <th>{t('build.table.suite')}</th>
+                        <th>{t('build.table.error')}</th>
                         <th className="test-time-row">
                             {t('build.table.time')}
                         </th>
