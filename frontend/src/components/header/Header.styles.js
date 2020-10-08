@@ -18,7 +18,8 @@ export const StyledLink = styled(({ overview, ...props }) => (
     margin: 10px 15px 10px 0;
     cursor: pointer;
     color: var(--titan-green);
-    text-decoration: none;
+    background: var(--nero-white) !important;
+    text-decoration: none !important;
     font-size: 16px;
     font-weight: bold;
     line-height: 24px;

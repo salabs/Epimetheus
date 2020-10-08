@@ -8,30 +8,30 @@ export const LinkSuiteName = styled.td`
     text-align: left !important;
 
     span:nth-child(4) {
-        padding-left: 8px;
+        margin-left: 8px;
     }
     span:nth-child(6) {
-        padding-left: 16px;
+        margin-left: 16px;
     }
     span:nth-child(8) {
-        padding-left: 24px;
+        margin-left: 24px;
     }
     span:nth-child(10) {
-        padding-left: 32px;
+        margin-left: 32px;
     }
     span:nth-child(12) {
-        padding-left: 40px;
+        margin-left: 40px;
     }
     span:nth-child(14) {
-        padding-left: 48px;
+        margin-left: 48px;
     }
     span:nth-child(16) {
-        padding-left: 56px;
+        margin-left: 56px;
     }
     span:nth-child(18) {
-        padding-left: 64px;
+        margin-left: 64px;
     }
     span:nth-child(20) {
-        padding-left: 72px;
+        margin-left: 72px;
     }
 `;

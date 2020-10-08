@@ -4,9 +4,8 @@ const baseTable = styled.table`
     table-layout: fixed;
     width: 100%;
     border-collapse: collapse;
-    padding: 5px 5px;
     text-align: left;
-    vertical-align: middle;
+    vertical-align: top;
     word-wrap: break-word;
 
     thead {
@@ -21,15 +20,14 @@ const baseTable = styled.table`
 
     td,
     th {
-        padding: 5px 5px;
-        text-align: center;
-        vertical-align: middle;
+        padding: 8px;
+        text-align: left;
         word-wrap: break-word;
+        vertical-align: top;
     }
 
     td {
         background: #ffffff;
-        vertical-align: top;
     }
 
     tr {

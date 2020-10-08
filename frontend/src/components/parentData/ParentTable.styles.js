@@ -1,7 +1,7 @@
 ﻿import styled from 'styled-components';
 
 export const Container = styled.div`
-    background: var(--hermanni-grey);
+    background: var(--hermanni-grey-lighter);
     padding: 40px 8px 40px 8px;
     display: flex;
     flex-direction: row;

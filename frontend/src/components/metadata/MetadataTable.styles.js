@@ -2,6 +2,7 @@
 
 export const Container = styled.div`
     border: 1px solid var(--hermanni-grey);
+    border-radius: 4px;
     padding: 0 16px;
     width: 100%;
 `;
@@ -64,5 +65,9 @@ export const DataRow = styled.div`
     span:first-child {
         font-weight: bolder;
         padding-bottom: 8px;
+    }
+
+    a:hover {
+        color: var(--titan-green-darker);
     }
 `;

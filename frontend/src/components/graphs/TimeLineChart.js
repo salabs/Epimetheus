@@ -84,7 +84,7 @@ const TimeLineChart = () => {
             toolbar: {
                 show: false,
             },
-            fontFamily: 'Space Mono',
+            fontFamily: 'Hack',
             events: {
                 markerClick(event, chartContext, { dataPointIndex }) {
                     const statusCountIndex =

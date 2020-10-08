@@ -4,14 +4,15 @@ export const SelectedTestContainer = styled.div`
     background: #fff;
     margin-top: 5px;
     padding: 5px;
-    border-radius: 5px;
     display: flex;
     flex-direction: row;
     table {
-        border-collapse: collapse;
+        border-collapse: separate !important;
+        border-spacing: 0;
         table-layout: fixed;
         width: 100%;
         border: 1px solid var(--hermanni-grey);
+        border-radius: 8px;
     }
     thead {
         background: var(--hermanni-grey);
@@ -20,6 +21,7 @@ export const SelectedTestContainer = styled.div`
         th {
             color: var(--gradient-black);
             font-weight: bold;
+            padding: 8px 0;
         }
 
         th:first-child {

@@ -20,7 +20,7 @@ const BreadcrumbItem = () => {
 
     return (
         <StyledInnerDiv>
-            <BreadcrumbTeams /> /
+            <BreadcrumbTeams /> <span>/</span>
             <StyledLink
                 to={`/team/${teamName}`}
                 className="TeamBreadCrumb"
@@ -38,7 +38,7 @@ const BreadcrumbItemSeries = () => {
     const seriesId = series || selectedBranchState.id;
     return (
         <StyledInnerDiv>
-            <BreadcrumbItem /> /
+            <BreadcrumbItem /> <span>/</span>
             <StyledLink
                 to={`/series/${seriesId}/overview`}
                 id="SeriesBreadCrumb"
@@ -54,7 +54,7 @@ const BreadcrumbItemBuild = () => {
     const { buildId, seriesId } = useParams();
     return (
         <StyledInnerDiv>
-            <BreadcrumbItemSeries /> /
+            <BreadcrumbItemSeries /> <span>/</span>
             <StyledLink
                 to={`/series/${seriesId}/build/${buildId}/overview`}
                 id="BuildBreadCrumb"
@@ -70,7 +70,7 @@ const BreadcrumbItemSuite = () => {
     const { suiteId } = useParams();
     return (
         <StyledInnerDiv>
-            <BreadcrumbItemBuild /> /{' '}
+            <BreadcrumbItemBuild /> <span>/</span>
             <span id="SuiteBreadCrumb">{suiteId}</span>
         </StyledInnerDiv>
     );
@@ -84,6 +84,7 @@ const BREADCRUMB_STATUS = {
 };
 
 const BreadcrumbNav = ({ status }) => {
+    console.log('status on', status);
     return (
         <BreadcrumbContainer id="breadCrumbNav" status={status}>
             <StyledInnerDiv>{BREADCRUMB_STATUS[`${status}`]}</StyledInnerDiv>

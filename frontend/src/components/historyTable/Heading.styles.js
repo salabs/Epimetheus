@@ -9,4 +9,9 @@ export const StyledLink = styled(Link)`
     text-align: center;
     height: 100%;
     transition: 0.33s background-color;
+    text-decoration: none;
+
+    :hover {
+        color: var(--titan-green-darker);
+    }
 `;
