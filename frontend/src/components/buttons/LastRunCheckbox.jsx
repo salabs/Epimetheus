@@ -1,5 +1,7 @@
 // eslint-disable-next-line
-import React, { useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+
+import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useStateValue } from '../../contexts/state';
 import { ReactComponent as Checked } from '../../images/checked.svg';
@@ -26,6 +28,16 @@ const Checkbox = ({ direction }) => {
     const history = useHistory();
     const location = useLocation();
     const queryParams = useQueryParams();
+
+    useEffect(() => {
+        const tags = queryParams.getAll('tag') || 'Passing';
+        if (tags.includes('Passing')) {
+            setPassFilter(true);
+        }
+        if (tags.includes('Failing')) {
+            setFailFilter(true);
+        }
+    }, []);
 
     const updateTags = tag => {
         let tagList = queryParams.getAll('tag');
@@ -76,7 +88,8 @@ const Checkbox = ({ direction }) => {
                         type="checkbox"
                         name="filterPassed"
                         value="PASS"
-                        checked={lastRunFilterPass.isChecked}
+                        className={`pass${passFilter}`}
+                        checked={passFilter}
                         onChange={e => handlePassFilterChange(e)}
                     />
                     <span>{passFilter ? <Checked /> : <Unchecked />}</span>
@@ -88,6 +101,7 @@ const Checkbox = ({ direction }) => {
                         name="filterFailed"
                         value="FAIL"
                         checked={failFilter}
+                        className={`fail${failFilter}`}
                         onChange={e => handleFailFilterChange(e)}
                     />
                     <span>{failFilter ? <Checked /> : <Unchecked />}</span>

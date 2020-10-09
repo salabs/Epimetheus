@@ -5,7 +5,7 @@
             "suite": "Suitename",
             "status": "Status",
             "test": "Test(s)",
-            "error": "Error messages",
+            "error": "Error message",
             "time": "Time",
             "flakiness": "Flakiness",
             "row": {
