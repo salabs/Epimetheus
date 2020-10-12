@@ -1,6 +1,6 @@
 ﻿export const colorTypes = {
     'gradient black': '#141312',
-    'evidence grey': '#7B756F',
+    'evidence grey': '#77716b',
     'evidence grey darker': '#6b6661',
     'nero white': '#ffffff',
     'nelson purple': '#b8557b',

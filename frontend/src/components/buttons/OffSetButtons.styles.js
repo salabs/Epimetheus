@@ -16,11 +16,6 @@ export const StyledEndLeft = styled(EndLeft)`
 export const FlexDiv = styled.div`
     display: flex;
 
-    button:disabled {
-        color: var(--tonic-grey);
-        background: var(--nero-white);
-    }
-
     button:hover {
         text-decoration: none;
         background: var(--hermanni-grey-lighter);
@@ -34,7 +29,7 @@ export const StyledDirectionButton = styled.button`
 
     margin: 1px 4px 6px 4px;
     background: ${props =>
-        props.disabled ? 'var(--tonic-grey) ' : 'var(--nero-white)'};
+        props.disabled ? 'var(--tonic-grey) !important' : 'var(--nero-white)'};
     border: 1px solid var(--tonic-grey);
     box-sizing: border-box;
     border-radius: 4px;

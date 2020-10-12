@@ -11,7 +11,13 @@ export const StyledLink = styled(Link)`
     transition: 0.33s background-color;
     text-decoration: none;
 
+    .buildNumber:hover {
+        background: var(--hermanni-grey-lighter);
+    }
+`;
+
+export const BuildNumberCell = styled.th`
     :hover {
-        color: var(--titan-green-darker);
+        background: var(--hermanni-grey-lighter);
     }
 `;

@@ -10,11 +10,6 @@ const reducer = (state, action) => {
                 ...state,
                 amountOfBuilds: action.amountOfBuilds,
             };
-        case 'setAmountShown':
-            return {
-                ...state,
-                amountShown: action.amount,
-            };
         case 'setFailureList':
             return {
                 ...state,
