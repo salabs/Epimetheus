@@ -11,6 +11,7 @@ services:
     container_name: backend-server
 
   front-end:
+    tty: yes
     build: ./frontend
     ports:
     - "3000:3000"
