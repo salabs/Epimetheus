@@ -3,7 +3,7 @@ import MetadataTable from './MetadataTable';
 import { capitalCaseInitial, removeUnderscore } from '../../utils/helpers';
 import { useStateValue } from '../../contexts/state';
 
-const BuildMetadata = () => {
+const BuildMetadata = isOverview => {
     const [{ metadataState }] = useStateValue();
 
     const metadata =

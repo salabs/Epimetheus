@@ -8,7 +8,12 @@ import { useTranslation } from 'react-i18next';
 import { last } from 'ramda';
 import BuildMetadata from '../metadata/BuildMetadata';
 import useMetadata from '../../hooks/useMetadata';
-import { FlexDiv, ChartContainer, ElementHeader } from './Build.styles';
+import {
+    PageContainer,
+    FlexDiv,
+    ChartContainer,
+    ElementHeader,
+} from './Build.styles';
 
 const Build = () => {
     const [t] = useTranslation(['overview']);
@@ -42,7 +47,7 @@ const Build = () => {
     };
 
     return (
-        <React.Fragment>
+        <PageContainer>
             <BuildMetadata />
             {statusCount ? (
                 <FlexDiv id="buildGraphDiv">
@@ -64,7 +69,7 @@ const Build = () => {
             ) : (
                 <Loading />
             )}
-        </React.Fragment>
+        </PageContainer>
     );
 };
 
