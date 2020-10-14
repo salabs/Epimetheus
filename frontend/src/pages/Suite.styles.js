@@ -2,5 +2,5 @@
 
 export const ParentInfoContainer = styled.div`
     display: flex;
-    padding: 20px 0;
+    padding: 24px 0;
 `;

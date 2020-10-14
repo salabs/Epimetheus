@@ -2,7 +2,12 @@
 import { useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useStateValue } from '../../contexts/state';
-import { LinkContainer, OverviewLink, HistoryLink } from './Header.styles';
+import {
+    HeaderContainer,
+    LinkContainer,
+    OverviewLink,
+    HistoryLink,
+} from './Header.styles';
 
 const Header = () => {
     const [t] = useTranslation(['header']);
@@ -73,7 +78,7 @@ const Header = () => {
     return (
         <>
             {(seriesData || buildData) && (
-                <>
+                <HeaderContainer>
                     <h1 id="siteHeader">{formHeader()}</h1>
                     {!selectedSuiteState && (
                         <LinkContainer>
@@ -91,7 +96,7 @@ const Header = () => {
                             </HistoryLink>
                         </LinkContainer>
                     )}
-                </>
+                </HeaderContainer>
             )}
         </>
     );

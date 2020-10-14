@@ -95,7 +95,7 @@ const History = () => {
             <FilterContainer id="filter-container">
                 <BuildAmountSelector />
                 <Offset />
-                <Checkbox direction="row" />
+                <Checkbox direction="row" isHistory="true" />
             </FilterContainer>
             {!historyDataState || loadingState ? (
                 <Loading />

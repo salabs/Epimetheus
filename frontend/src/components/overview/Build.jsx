@@ -1,5 +1,4 @@
-﻿/* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 import PieChart from '../graphs/PieChart';
 import { suiteLabels, testLabels } from '../../utils/graphTypes';
@@ -34,7 +33,7 @@ const Build = () => {
             }
         };
         fetchData();
-    }, [buildId, seriesId]);
+    }, [buildId, dispatch, seriesId]);
 
     const cleanseData = () => {
         return statusCount && statusCount.length > 1

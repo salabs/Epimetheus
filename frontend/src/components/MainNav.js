@@ -14,7 +14,7 @@ const NavBar = styled.nav`
 `;
 
 const StyledH2 = styled.h2`
-    padding: 0px 40px 0px 40px;
+    padding: 0px 24px 0px 40px;
     font-family: 'Hack' !important;
     letter-spacing: 1px;
     @media only screen and (max-width: 540px) {

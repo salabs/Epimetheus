@@ -1,7 +1,11 @@
 ﻿import styled from 'styled-components';
 
 export const ButtonContainer = styled.div`
-    margin: 16px 0;
+    padding-left: ${props => (props.ishistory ? '0' : '198px')};
+
+    @media only screen and (max-width: 1280px) {
+        padding-left: ${props => (props.ishistory ? '0' : '108px')};
+    }
 `;
 
 export const Header = styled.div`
@@ -18,6 +22,7 @@ export const StyledDiv = styled.div`
     width: ${props => (props.direction === 'column' ? '10%' : '30%')};
     max-width: 230px;
     min-width: ${props => (props.direction === 'column' ? '200px' : '230px')};
+    margin-bottom: 24px;
     @media only screen and (max-width: 1280px) {
         width: ${props => (props.direction === 'column' ? '20%' : '30%')};
     }

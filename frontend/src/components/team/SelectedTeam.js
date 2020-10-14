@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import NotFound from './NotFound';
+import NotFound from '../NotFound';
 import { useHistory } from 'react-router-dom';
-import theme from '../styles/theme';
-import BreadcrumbNav from './BreadcrumbNav';
-import { pickIcon } from './TestIcon';
+import theme from '../../styles/theme';
+import BreadcrumbNav from '../BreadcrumbNav';
+import { pickIcon } from '../TestIcon';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 
@@ -47,6 +47,17 @@ const InfoContainer = styled.div`
 
 const CardValue = styled.span`
     color: var(--pirlo-blue);
+`;
+
+const SelectedTeamContainer = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    padding: 40px 108px;
+    background: var(--hermanni-grey-lighter);
+
+    @media only screen and (max-width: 1280px) {
+        padding: 24px 40px;
+    }
 `;
 
 const TeamCard = ({ data }) => {
@@ -123,22 +134,16 @@ const TeamCard = ({ data }) => {
 };
 
 const SelectedTeam = ({ selectedTeam }) => {
-    const flexContainer = {
-        display: 'flex',
-        flexWrap: 'wrap',
-        paddingTop: '20px',
-    };
-
     return (
         <main id="selectedTeam" css={theme.loadingState}>
             <BreadcrumbNav status={'team'} />
             {selectedTeam && selectedTeam.all_builds ? (
-                <div style={flexContainer}>
+                <SelectedTeamContainer>
                     <TeamCard data={selectedTeam.all_builds} />
                     {selectedTeam.series.reverse().map((serie, i) => {
                         return <TeamCard key={i} data={serie} />;
                     })}
-                </div>
+                </SelectedTeamContainer>
             ) : (
                 <NotFound />
             )}

@@ -11,10 +11,25 @@ export const HeritanceContainer = styled.div`
 
 export const FilterContainer = styled(HeritanceContainer)`
     justify-content: space-between;
-    max-width: 700px;
+    max-width: 900px;
+    margin: 24px 0;
+    padding-left: 198px;
+
+    @media only screen and (max-width: 1280px) {
+        padding-left: 108px;
+        max-width: 800px;
+    }
 `;
 
 export const ParentContainer = styled(HeritanceContainer)`
-    padding: 20px 0;
+    padding: 24px 0;
     flex-direction: column;
+
+    h3 {
+        padding-left: 198px;
+
+        @media only screen and (max-width: 1280px) {
+            padding-left: 108px;
+        }
+    }
 `;

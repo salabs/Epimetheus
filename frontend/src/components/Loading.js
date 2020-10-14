@@ -5,7 +5,7 @@ import styled from 'styled-components';
 const LoadingDiv = styled.div`
     height: 30px;
     line-height: 30px;
-    padding: 0;
+    padding: 48px 198px;
     &:after {
         margin: 0;
         padding: 0;
