@@ -14,6 +14,8 @@ const Header = () => {
 
     const [
         {
+            amountOfBuilds,
+            offset,
             parentData: { seriesData, buildData },
             selectedSuiteState,
         },
@@ -59,7 +61,13 @@ const Header = () => {
             return pathname;
         }
         const beginningUrl = pathname.substring(0, pathname.lastIndexOf('/'));
-        return beginningUrl.concat('/' + prop);
+        const offsetUrl = offset > 0 && '&offset=' + offset;
+        const numberOfBuildsUrl = 'numberofbuilds=' + amountOfBuilds;
+        return offsetUrl
+            ? beginningUrl.concat(
+                  '/' + prop + '?' + numberOfBuildsUrl + offsetUrl
+              )
+            : beginningUrl.concat('/' + prop + '?' + numberOfBuildsUrl);
     };
 
     return (

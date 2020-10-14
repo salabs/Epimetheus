@@ -10,5 +10,5 @@ export const ChartContainer = styled(overviewElement)`
 export const ElementHeader = styled.h3`
     text-align: center;
     margin: 10px;
-    font-family: 'Space Mono';
+    font-family: 'Hack';
 `;

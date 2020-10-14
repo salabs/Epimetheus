@@ -4,6 +4,7 @@
     "private": true,
     "dependencies": {
         "apexcharts": "^3.19.2",
+        "default-passive-events": "^2.0.0",
         "i18next": "^19.4.4",
         "normalize.css": "^8.0.1",
         "prop-types": "^15.7.2",

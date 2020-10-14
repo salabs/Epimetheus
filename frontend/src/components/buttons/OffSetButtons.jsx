@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-// eslint-disable-next-line
 import React, { useState, useEffect } from 'react';
 import { useStateValue } from '../../contexts/state';
 import { useHistory, useLocation } from 'react-router-dom';
@@ -63,12 +62,8 @@ const Offset = () => {
     };
 
     useEffect(() => {
-        const paramsOffset = queryParams.get('offset') || offset;
+        const paramsOffset = queryParams.get('offset') || parseInt(offset);
         const totalOffset = parseInt(paramsOffset) + parseInt(inputOffset);
-        dispatch({
-            type: 'setOffset',
-            offset: paramsOffset,
-        });
         if (paramsOffset - inputOffset < 0) {
             setleftDisabled(true);
         } else {

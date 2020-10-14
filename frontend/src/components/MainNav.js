@@ -15,7 +15,7 @@ const NavBar = styled.nav`
 
 const StyledH2 = styled.h2`
     padding: 0px 40px 0px 40px;
-    font-family: 'Space Mono' !important;
+    font-family: 'Hack' !important;
     letter-spacing: 1px;
     @media only screen and (max-width: 540px) {
         width: 0;
@@ -33,6 +33,13 @@ const LinkContainer = styled.div`
         font-weight: bold;
         text-decoration: none;
         border-bottom: none;
+    }
+
+    a:hover,
+    .about:hover,
+    .team:hover {
+        background: var(--titan-green);
+        border-bottom: 3px solid var(--titan-green-darkest);
     }
 
     .about {

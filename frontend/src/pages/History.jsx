@@ -48,7 +48,7 @@ const History = () => {
                 dispatch({ type: 'setLoadingState', loadingState: true });
                 dispatch({
                     type: 'setAmountOfBuilds',
-                    amountOfBuilds: number_of_builds,
+                    amountOfBuilds: parseInt(number_of_builds),
                 });
                 dispatch({
                     type: 'setSelectedBranch',

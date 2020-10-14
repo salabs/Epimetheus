@@ -6,8 +6,7 @@ const initialState = {
     historyDataState: null,
     loadingState: false,
     errorState: null,
-    amountOfBuilds: 10,
-    amountShown: 10,
+    amountOfBuilds: 5,
     offset: 0,
     amountFilteredData: null,
     lastRunFilterFail: {

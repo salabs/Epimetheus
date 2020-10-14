@@ -15,6 +15,13 @@ export const StyledEndLeft = styled(EndLeft)`
 
 export const FlexDiv = styled.div`
     display: flex;
+
+    button:hover {
+        text-decoration: none;
+        background: var(--hermanni-grey-lighter);
+        border-radius: 4px;
+        color: var(--evidence-grey-darker);
+    }
 `;
 
 export const StyledDirectionButton = styled.button`
@@ -22,7 +29,7 @@ export const StyledDirectionButton = styled.button`
 
     margin: 1px 4px 6px 4px;
     background: ${props =>
-        props.disabled ? 'var(--tonic-grey) ' : 'var(--nero-white)'};
+        props.disabled ? 'var(--tonic-grey) !important' : 'var(--nero-white)'};
     border: 1px solid var(--tonic-grey);
     box-sizing: border-box;
     border-radius: 4px;
@@ -39,7 +46,7 @@ export const LatestButton = styled.button`
     box-sizing: border-box;
     border-radius: 4px;
 
-    font-family: Space Mono;
+    font-family: Hack;
     font-style: normal;
     font-weight: bold;
     font-size: 12px;
@@ -50,6 +57,8 @@ export const LatestButton = styled.button`
 
     span {
         vertical-align: middle;
+        position: relative;
+        top: 1px;
     }
 `;
 

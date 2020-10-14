@@ -36,7 +36,7 @@ export const HeaderContainer = styled.div`
 
     h3 {
         font-size: 20px;
-        font-family: 'Space Mono';
+        font-family: 'Hack';
         letter-spacing: -0.04em;
         font-style: normal;
         font-weight: normal;
@@ -140,7 +140,7 @@ export const StyledLink = styled(({ isselected, ...props }) => (
     color: ${props => props.isselected && 'var(--pirlo-blue) !important'};
 
     :hover {
-        background: var(--tonic-grey);
+        color: var(--titan-green-darker);
     }
 `;
 
@@ -170,7 +170,7 @@ export const TagContainer = styled.span`
 export const Tag = styled.span`
     border: 1px solid var(--evidence-grey);
     padding: 0 8px;
-    border-radius: 16px;
+    border-radius: 8px;
     font-size: 10px;
     margin: 0 8px;
 `;

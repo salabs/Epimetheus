@@ -1,7 +1,7 @@
 ﻿import styled from 'styled-components';
 
 export const StyledData = styled.td`
-    padding: 10px;
+    padding: 8px;
     text-align: left;
     vertical-align: top;
     background: var(--nero-white);

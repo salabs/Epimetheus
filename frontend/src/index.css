@@ -23,23 +23,30 @@ html {
     --nelson-purple: #b8557b;
     --semolina-red: #c63757;
     --pirlo-blue: #067cc1;
+    --pirlo-blue-darker: #0469a4;
     --titan-green: #238564;
+    --titan-green-darker: #14835e;
+    --titan-green-darkest: #145b43;
     --gradient-black: #141312;
-    --evidence-grey: #7b756f;
+    --evidence-grey: #77716b;
+    --evidence-grey-darker: #6b6661;
     --hermanni-grey: #edecec;
+    --hermanni-grey-lighter: #f8f8f7;
     --toukola-green: #e9f5e1;
+    --toukola-green-lighter: #f4f7f2;
     --kumpula-yellow: #faf3e1;
     --vallila-blue: #e1f1f7;
     --arabia-red: #faecec;
     --nero-white: #ffffff;
     --tonic-grey: #d7d4d3;
     --sparkling-blue: #80bfdb;
+    --birra-brown: #976f10;
 }
 
 /** Basics **/
 
 body {
-    font-family: 'Space Mono';
+    font-family: 'Hack';
     font-size: 14px;
     line-height: 24px;
 }
@@ -80,6 +87,9 @@ a:focus {
 button:hover:enabled,
 a:hover {
     cursor: pointer;
+    text-decoration: underline;
+    background: var(--hermanni-grey-lighter);
+    color: var(--titan-green-darker);
 }
 
 /** a11y **/
