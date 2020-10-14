@@ -12,4 +12,4 @@ USER backendserver
 
 CMD python server.py --database $DATABASE --host $HOST --user $USER --pw $PASSWORD  --port $PORT
 
-EXPOSE 5000
+EXPOSE $PORT
