@@ -159,6 +159,12 @@ const reducer = (state, action) => {
                 ...state,
                 selectedSuiteState: null,
             };
+        case 'flushParams':
+            return {
+                ...state,
+                amountOfBuilds: 5,
+                offset: 0,
+            };
 
         default:
             return state;

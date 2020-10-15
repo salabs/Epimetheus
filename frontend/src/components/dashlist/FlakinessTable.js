@@ -67,11 +67,11 @@ const StabilityButton = ({ value, text }) => {
 
 const DashboardList = () => {
     const { seriesId } = useParams();
-
     const [
         { testStabilityList, stabilityChecker, amountOfBuilds, offset },
         dispatch,
     ] = useStateValue();
+    console.log('testStabilityList', testStabilityList);
 
     useEffect(() => {
         const url = `/data/series/${seriesId}/most_stable_tests/?builds=${amountOfBuilds}&most=${stabilityChecker}&offset=${offset}`;
