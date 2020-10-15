@@ -3,7 +3,7 @@
 export const TableContainer = styled.div`
     padding: 0 198px 64px 198px;
 
-    @media only screen and (max-width: 1280px) {
+    @media only screen and (max-width: 1024px) {
         padding: 0 108px 24px 108px;
     }
 `;

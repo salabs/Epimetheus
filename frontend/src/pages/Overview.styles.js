@@ -18,7 +18,7 @@ export const FlexColumn = styled.div`
     width: 600px;
     padding-left: 198px;
 
-    @media only screen and (max-width: 1280px) {
+    @media only screen and (max-width: 1024px) {
         width: 500px;
         padding-left: 108px;
     }

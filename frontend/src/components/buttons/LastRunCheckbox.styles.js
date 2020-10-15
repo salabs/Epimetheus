@@ -3,7 +3,7 @@
 export const ButtonContainer = styled.div`
     padding-left: ${props => (props.ishistory ? '0' : '198px')};
 
-    @media only screen and (max-width: 1280px) {
+    @media only screen and (max-width: 1024px) {
         padding-left: ${props => (props.ishistory ? '0' : '108px')};
     }
 `;
@@ -23,7 +23,7 @@ export const StyledDiv = styled.div`
     max-width: 230px;
     min-width: ${props => (props.direction === 'column' ? '200px' : '230px')};
     margin-bottom: 24px;
-    @media only screen and (max-width: 1280px) {
+    @media only screen and (max-width: 1024px) {
         width: ${props => (props.direction === 'column' ? '20%' : '30%')};
     }
     @media only screen and (max-width: 768px) {

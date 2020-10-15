@@ -11,7 +11,7 @@ export const FlexContainer = styled.div`
     padding: 40px 0px;
     margin: 0 108px;
 
-    @media only screen and (max-width: 1280px) {
+    @media only screen and (max-width: 1024px) {
         margin: 0 64px;
     }
     :hover {

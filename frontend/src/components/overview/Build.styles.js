@@ -13,7 +13,7 @@ export const FlexDiv = styled.div`
     width: 100%;
     padding: 24px 198px 24px 198px;
 
-    @media only screen and (max-width: 1280px) {
+    @media only screen and (max-width: 1024px) {
         padding: 12px 108px 12px 108px;
     }
 `;

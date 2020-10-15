@@ -1,8 +1,6 @@
-// eslint-disable-next-line
-import React from 'react';
-import styled from 'styled-components';
+﻿import styled from 'styled-components';
 
-const LoadingDiv = styled.div`
+export const LoadingDiv = styled.div`
     height: 30px;
     line-height: 30px;
     padding: 48px 198px;
@@ -30,18 +28,3 @@ const LoadingDiv = styled.div`
         }
     }
 `;
-
-const Loading = () => {
-    return (
-        <LoadingDiv
-            role="status"
-            aria-live="polite"
-            aria-label="Loading"
-            aria-relevant="all"
-        >
-            Loading
-        </LoadingDiv>
-    );
-};
-
-export default Loading;

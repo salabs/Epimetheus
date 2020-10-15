@@ -5,7 +5,7 @@ export const BreadcrumbContainer = styled.div`
     font-size: 14px;
     padding: 48px 0 24px 198px;
 
-    @media only screen and (max-width: 1280px) {
+    @media only screen and (max-width: 1024px) {
         padding: 48px 0 24px 108px;
     }
 

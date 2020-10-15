@@ -7,7 +7,7 @@ export const SelectedTestContainer = styled.div`
     display: flex;
     flex-direction: row;
 
-    @media only screen and (max-width: 1280px) {
+    @media only screen and (max-width: 1024px) {
         padding: 0 108px 24px 108px;
     }
     table {

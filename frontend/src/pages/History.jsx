@@ -89,7 +89,7 @@ const History = () => {
             <BreadcrumbNav status={'series'} />
             <Header />
             <ParentContainer id="parentInfo-container">
-                <h3>{t('title')}</h3>
+                <h4>{t('title')}</h4>
                 <ParentSeries />
             </ParentContainer>
             <FilterContainer id="filter-container">
