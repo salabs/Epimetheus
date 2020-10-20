@@ -29,7 +29,7 @@ Test Team Navigation using Team Headers
   Wait Until Element is Enabled   ${teams_xpath}
   #This long identifier points to the header part of the component that matches the header text
   FOR    ${header}    IN    @{team_names}
-      Click Element     xpath://*[contains(@class, "ta_${header}_card")]
+      Click Element     xpath://*[contains(@class, "ta-${header}-card")]
       Wait Until Element is Enabled    ${series_list}
       Go Back
       Wait Until Element is Enabled   ${teams_xpath}

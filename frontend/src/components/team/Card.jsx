@@ -11,7 +11,7 @@ const Card = ({ team, numberOfSeries }) => {
     return (
         <CardSection
             onClick={() => history.push(`/team/${team}`)}
-            className={`ta_${team}_card`}
+            className={`ta-${team}-card`}
             role={'presentation'}
         >
             <H4>{team}</H4>
