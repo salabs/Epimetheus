@@ -38,7 +38,7 @@ Test Overview of All Stored Series
     Wait Until Element is Enabled   ${series_list}
 
     FOR    ${header}    IN    @{series_names}
-      Click Element     //h4[.="${header}"]/ancestor-or-self::section[2]/div[2]/div[1]
+      Click Element     id=${header}_series
       Wait Until Element is Enabled    ${timeline_locator}
       Go Back
       Wait Until Element is Enabled   ${series_list}
@@ -48,7 +48,7 @@ Test Overview of All Stored Series
 Test Last Builds of All Stored Series
     Wait Until Element is Enabled   ${series_list}
     FOR    ${header}    IN    @{series_names}
-      Click Element     //h4[.="${header}"]/ancestor-or-self::section[2]/div[2]/div[2]
+      Click Element     id=${header}_builds
       Wait Until Element is Enabled    ${buildOverviewContainer}
       Go Back
       Wait Until Element is Enabled   ${series_list}
