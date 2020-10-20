@@ -159,7 +159,7 @@ const reducer = (state, action) => {
                 ...state,
                 selectedSuiteState: null,
             };
-        case 'flushParams':
+        case 'flushQueryParams':
             return {
                 ...state,
                 amountOfBuilds: 5,
