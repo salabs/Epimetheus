@@ -62,3 +62,24 @@ Supported browsers are "all modern browsers". This means IE and some mobile brow
 ## License
 
 [Apache 2.0](https://choosealicense.com/licenses/apache-2.0/)
+
+## Release Notes
+
+-   1.0.1 (21.10.2020)
+
+    -   Fixes a bug which prevented the frontend container from starting when using docker-compose
+    -   Changes the default port of Nginx in Dockerfile-prod container from 80 to 8080. Services in Docker containers are now running as non root user.
+    -   Layout fixes
+    -   New default font
+    -   Queryparams are now properly shown when switching between Overview and History layouts
+    -   Queryparams are properly removed from state if not needed
+
+-   1.0.0 (22.9.2020)
+    -   Completely updated layout and colour palette
+    -   Updated Breadcrumb nav
+    -   Overview -page for Series and Builds with graphical visualisation
+    -   Offset buttons to toggle between different builds in Series -view
+    -   Added metadata to Build- and Suite -view
+    -   Backend support for latest TestArchiver version
+    -   Slight data loading optimisation when toggling between different Series -views
+    -   Translation support
