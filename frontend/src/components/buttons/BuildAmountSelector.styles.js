@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 export const SelectorContainer = styled.div`
-    margin: 16px 0;
     width: 130px;
 `;
 

@@ -1,6 +1,16 @@
 ﻿import styled from 'styled-components';
 import { overviewElement } from '../../styles/baseComponents';
 
+export const ParentContainer = styled.div`
+    display: flex;
+    flex-flow: row wrap;
+    padding: 0 198px;
+
+    @media only screen and (max-width: 1024px) {
+        padding: 0 108px;
+    }
+`;
+
 export const ChartContainer = styled(overviewElement)`
     margin: 20px 40px 40px 0;
     background-color: var(--nero-white);

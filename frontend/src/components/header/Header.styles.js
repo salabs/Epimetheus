@@ -2,6 +2,14 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
+export const HeaderContainer = styled.div`
+    padding-left: 198px;
+
+    @media only screen and (max-width: 1024px) {
+        padding-left: 108px;
+    }
+`;
+
 export const LinkContainer = styled.div`
     padding: 10px 0;
 

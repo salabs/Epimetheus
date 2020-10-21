@@ -10,7 +10,7 @@ Library                             Collections
 *** Test Cases ***
 
 Test Teams Page Component Usage
-  Open Team Page 
+  Open Team Page
   Store Team Headers
   Test Team Navigation using Team Headers
 
@@ -19,7 +19,7 @@ Test Teams Page Component Usage
 Store Team Headers
   Wait Until Element is Enabled   ${teams_xpath}
   ${teams}=  Get WebElements   ${teams_xpath}
-  
+
   FOR    ${teami}    IN    @{teams}
       ${header_text}=    Get Line    ${teami.text}    0
       Append To List    ${team_names}    ${header_text}
@@ -29,8 +29,8 @@ Test Team Navigation using Team Headers
   Wait Until Element is Enabled   ${teams_xpath}
   #This long identifier points to the header part of the component that matches the header text
   FOR    ${header}    IN    @{team_names}
-      Click Element     //*[@id="team"]/div/div[*]/h3[contains(text(),"${header}")]
+      Click Element     xpath://*[contains(@class, "ta-${header}-card")]
       Wait Until Element is Enabled    ${series_list}
-      Go Back 
+      Go Back
       Wait Until Element is Enabled   ${teams_xpath}
   END

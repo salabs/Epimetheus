@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+// eslint-disable-next-line
 import React, { useState, useEffect } from 'react';
 import { useStateValue } from '../../contexts/state';
 import { useHistory, useLocation } from 'react-router-dom';
@@ -13,7 +14,6 @@ import {
     StyledEndLeft,
 } from './OffSetButtons.styles';
 
-import { ButtonContainer } from './LastRunCheckbox.styles';
 import Left from '../../images/chevron-left.svg';
 import Right from '../../images/chevron-right.svg';
 const Offset = () => {
@@ -62,8 +62,12 @@ const Offset = () => {
     };
 
     useEffect(() => {
-        const paramsOffset = queryParams.get('offset') || parseInt(offset);
+        const paramsOffset = queryParams.get('offset') || offset;
         const totalOffset = parseInt(paramsOffset) + parseInt(inputOffset);
+        dispatch({
+            type: 'setOffset',
+            offset: paramsOffset,
+        });
         if (paramsOffset - inputOffset < 0) {
             setleftDisabled(true);
         } else {
@@ -94,7 +98,7 @@ const Offset = () => {
     };
 
     return (
-        <ButtonContainer>
+        <div>
             <Header>Offset</Header>
             <FlexDiv id="offset_container">
                 <LatestButton
@@ -126,7 +130,7 @@ const Offset = () => {
                     <img src={Right} alt=">" />
                 </StyledDirectionButton>
             </FlexDiv>
-        </ButtonContainer>
+        </div>
     );
 };
 

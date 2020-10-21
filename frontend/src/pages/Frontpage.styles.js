@@ -3,7 +3,11 @@
 export const FrontPage = styled.main`
     max-width: 800px;
     width: 100%;
-    margin-left: 40px;
+    padding: 24px 0 24px 108px;
+
+    @media only screen and (max-width: 1024px) {
+        padding: 12px 0 12px 48px;
+    }
 `;
 
 export const IconsContainer = styled.div`

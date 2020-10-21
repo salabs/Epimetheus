@@ -3,7 +3,8 @@ import styled from 'styled-components';
 const baseTable = styled.table`
     table-layout: fixed;
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate !important;
+    border-spacing: 0;
     text-align: left;
     vertical-align: top;
     word-wrap: break-word;

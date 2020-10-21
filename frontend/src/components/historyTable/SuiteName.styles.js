@@ -7,7 +7,7 @@ export const StyledData = styled.td`
     background: var(--nero-white);
     min-width: 25%;
 
-    @media only screen and (min-width: 1280px) {
+    @media only screen and (min-width: 1024px) {
         span:nth-child(3) {
             padding-left: 8px;
         }

@@ -17,7 +17,7 @@ import {
 import { useQueryParams } from '../../hooks/useQuery';
 import { useHistory, useLocation } from 'react-router-dom';
 
-const Checkbox = ({ direction }) => {
+const Checkbox = ({ direction, isHistory }) => {
     // eslint-disable-next-line
     const [{ lastRunFilterPass, lastRunFilterFail }, dispatch] = useStateValue();
     const [passFilter, setPassFilter] = useState(lastRunFilterPass.isChecked);
@@ -80,7 +80,7 @@ const Checkbox = ({ direction }) => {
     };
 
     return (
-        <ButtonContainer>
+        <ButtonContainer ishistory={isHistory}>
             <Header>{t('hide_tests.header')}</Header>
             <StyledDiv direction={direction} id="last-run-checkbox-container">
                 <StyledLabel labelfor="filterPassed">
