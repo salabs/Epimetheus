@@ -9,7 +9,7 @@ import DropdownMenu from './DropdownMenu';
 import { Header, SelectorContainer } from './BuildAmountSelector.styles';
 
 const BuildAmountSelector = () => {
-    const [, dispatch] = useStateValue();
+    const [{ amountOfBuilds }, dispatch] = useStateValue();
 
     const history = useHistory();
     const location = useLocation();
@@ -23,7 +23,7 @@ const BuildAmountSelector = () => {
     const handleChange = e => {
         dispatch({
             type: 'setAmountOfBuilds',
-            amountOfBuilds: e.value,
+            amountOfBuilds: parseInt(e.value),
         });
         history.push({
             pathname: `${location.pathname}`,
@@ -45,7 +45,7 @@ const BuildAmountSelector = () => {
             <DropdownMenu
                 selectorValues={selectorValues}
                 onChange={handleChange}
-                defaultValue={5}
+                defaultValue={amountOfBuilds}
                 id="build_amount_dropdown"
             />
         </SelectorContainer>

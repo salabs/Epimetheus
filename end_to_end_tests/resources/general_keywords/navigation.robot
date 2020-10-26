@@ -38,10 +38,28 @@ Open history page of series
   Should be equal as Strings   ${url}   ${str}
   Wait Until Element is Enabled   ${lastRunInfo}
 
+Open history page of series with url params
+  [Arguments]    ${series}    ${offset}   ${numberofbuilds}
+  ${str}=   Catenate  SEPARATOR=    ${history_url}    ${series}    /history   ?offset=    ${offset}   &numberofbuilds=    ${numberofbuilds}
+  Current Page Is     url=${str}
+  ${url}=   Get Location
+  Set Suite Variable    ${navigated_series}   ${series}
+  Should be equal as Strings   ${url}   ${str}
+  Wait Until Element is Enabled   ${lastRunInfo}
+
+
+Open history page of series with checkbox set
+  [Arguments]   ${series}   ${boolean}
+  ${str}=   Catenate  SEPARATOR=    ${history_url}    ${series}    /history   ?tag=   ${boolean}
+  Current Page Is     url=${str}
+  ${url}=   Get Location
+  Set Suite Variable    ${navigated_series}   ${series}
+  Should be equal as Strings   ${url}   ${str}
+  Wait Until Element is Enabled   ${lastRunInfo}
 
 Open overview page of series
   [Arguments]    ${series}
-  ${str}=   Catenate  SEPARATOR=    ${history_url}    ${series}    /overview
+  ${str}=   Catenate  SEPARATOR=    ${history_url}    ${series}    /overview    
   Current Page Is     url=${str}
   ${url}=   Get Location
   Set Suite Variable    ${navigated_series}   ${series}

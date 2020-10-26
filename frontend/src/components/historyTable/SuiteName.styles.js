@@ -1,13 +1,13 @@
 ﻿import styled from 'styled-components';
 
 export const StyledData = styled.td`
-    padding: 10px;
+    padding: 8px;
     text-align: left;
     vertical-align: top;
     background: var(--nero-white);
     min-width: 25%;
 
-    @media only screen and (min-width: 1280px) {
+    @media only screen and (min-width: 1024px) {
         span:nth-child(3) {
             padding-left: 8px;
         }

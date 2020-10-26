@@ -18,10 +18,10 @@ const canvasStyles = css`
 const SuiteTable = styled(baseTable)`
     width: 100%;
     th {
-        font-family: 'Space Mono';
+        font-family: 'Hack';
     }
     td {
-        font-family: 'Space Mono';
+        font-family: 'Hack';
     }
 `;
 
@@ -66,23 +66,23 @@ const SuiteInstability = () => {
         height: 200,
         config: {
             axis: {
-                labelFont: 'Space Mono',
-                titleFont: 'Space Mono',
+                labelFont: 'Hack',
+                titleFont: 'Hack',
             },
             legend: {
-                labelFont: 'Space Mono',
-                titleFont: 'Space Mono',
+                labelFont: 'Hack',
+                titleFont: 'Hack',
             },
             header: {
-                labelFont: 'Space Mono',
-                titleFont: 'Space Mono',
+                labelFont: 'Hack',
+                titleFont: 'Hack',
             },
             mark: {
-                font: 'Space Mono',
+                font: 'Hack',
             },
             title: {
-                font: 'Space Mono',
-                subtitleFont: 'Space Mono',
+                font: 'Hack',
+                subtitleFont: 'Hack',
             },
         },
         mark: {

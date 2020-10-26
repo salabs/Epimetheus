@@ -9,4 +9,15 @@ export const StyledLink = styled(Link)`
     text-align: center;
     height: 100%;
     transition: 0.33s background-color;
+    text-decoration: none;
+
+    .buildNumber:hover {
+        background: var(--hermanni-grey-lighter);
+    }
+`;
+
+export const BuildNumberCell = styled.th`
+    :hover {
+        background: var(--hermanni-grey-lighter);
+    }
 `;

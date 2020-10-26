@@ -27,20 +27,20 @@ Test Navigation to Last Builds
 Store Series Headers
   Wait Until Element is Enabled   ${series_list}
   ${series}=  Get WebElements   ${series_list}
-  
+
   FOR    ${serial}    IN    @{series}
-      
+
       ${header_text}=    Get Line    ${serial.text}    0
       Append To List    ${series_names}    ${header_text}
   END
 
 Test Overview of All Stored Series
     Wait Until Element is Enabled   ${series_list}
-    
+
     FOR    ${header}    IN    @{series_names}
-      Click Element     //h3[.="${header}"]/ancestor-or-self::div[2]/div[2]/div[1]
+      Click Element     id=${header}_series
       Wait Until Element is Enabled    ${timeline_locator}
-      Go Back 
+      Go Back
       Wait Until Element is Enabled   ${series_list}
     END
 
@@ -48,8 +48,8 @@ Test Overview of All Stored Series
 Test Last Builds of All Stored Series
     Wait Until Element is Enabled   ${series_list}
     FOR    ${header}    IN    @{series_names}
-      Click Element     //h3[.="${header}"]/ancestor-or-self::div[2]/div[2]/div[2]
+      Click Element     id=${header}_builds
       Wait Until Element is Enabled    ${buildOverviewContainer}
-      Go Back 
+      Go Back
       Wait Until Element is Enabled   ${series_list}
     END

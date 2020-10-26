@@ -2,54 +2,8 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import styled from 'styled-components';
 import { useLocation } from 'react-router-dom';
-
-const NavBar = styled.nav`
-    background: var(--titan-green);
-    color: var(--nero-white);
-    display: flex;
-    align-items: center;
-    min-height: 100px;
-`;
-
-const StyledH2 = styled.h2`
-    padding: 0px 40px 0px 40px;
-    font-family: 'Space Mono' !important;
-    letter-spacing: 1px;
-    @media only screen and (max-width: 540px) {
-        width: 0;
-        overflow: hidden;
-        display: block;
-    }
-`;
-
-const LinkContainer = styled.div`
-    a {
-        margin: 0 15px 0 15px;
-        color: var(--nero-white) !important;
-        font-size: 16px;
-        line-height: 24px;
-        font-weight: bold;
-        text-decoration: none;
-        border-bottom: none;
-    }
-
-    .about {
-        border-bottom: ${props => !props.team && '3px solid var(--nero-white)'};
-    }
-
-    .team {
-        border-bottom: ${props => props.team && '3px solid var(--nero-white)'};
-    }
-
-    @media only screen and (max-width: 540px) {
-        margin-left: 10px;
-        a {
-            margin: 0 5px 0 5px;
-        }
-    }
-`;
+import { NavBar, StyledH2, LinkContainer } from './MainNav.styles';
 
 const MainNav = () => {
     const [t] = useTranslation(['mainnav']);

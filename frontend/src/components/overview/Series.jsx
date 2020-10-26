@@ -6,7 +6,11 @@ import TimeLineChart from '../graphs/TimeLineChart';
 import DashboardList from '../dashlist/ListMain';
 import LastBuildElement from '../lastBuildElement/LastBuild';
 import { useTranslation } from 'react-i18next';
-import { ChartContainer, ElementHeader } from './Series.styles';
+import {
+    ParentContainer,
+    ChartContainer,
+    ElementHeader,
+} from './Series.styles';
 
 const Series = () => {
     const [t] = useTranslation(['overview']);
@@ -49,7 +53,7 @@ const Series = () => {
     }, [seriesId, branchesState]);
 
     return (
-        <>
+        <ParentContainer>
             <ChartContainer id="timeLineContainer" minWidth="790px">
                 <ElementHeader>{t('series.all_builds')}</ElementHeader>
                 <TimeLineChart />
@@ -61,7 +65,7 @@ const Series = () => {
                 <ElementHeader>{t('series.stability_table')}</ElementHeader>
                 <DashboardList />
             </ChartContainer>
-        </>
+        </ParentContainer>
     );
 };
 

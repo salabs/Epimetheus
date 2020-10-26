@@ -48,7 +48,7 @@ const History = () => {
                 dispatch({ type: 'setLoadingState', loadingState: true });
                 dispatch({
                     type: 'setAmountOfBuilds',
-                    amountOfBuilds: number_of_builds,
+                    amountOfBuilds: parseInt(number_of_builds),
                 });
                 dispatch({
                     type: 'setSelectedBranch',
@@ -89,13 +89,13 @@ const History = () => {
             <BreadcrumbNav status={'series'} />
             <Header />
             <ParentContainer id="parentInfo-container">
-                <h3>{t('title')}</h3>
+                <h4>{t('title')}</h4>
                 <ParentSeries />
             </ParentContainer>
             <FilterContainer id="filter-container">
                 <BuildAmountSelector />
                 <Offset />
-                <Checkbox direction="row" />
+                <Checkbox direction="row" isHistory="true" />
             </FilterContainer>
             {!historyDataState || loadingState ? (
                 <Loading />

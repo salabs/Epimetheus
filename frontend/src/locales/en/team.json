@@ -7,11 +7,13 @@
             "builds": "Number of builds"
         },
         "last_build": {
-            "title": "Last build",
+            "header": "Series in team",
+            "series": "series",
+            "title": "Last build in series: ",
             "build_number": "Build number",
             "build_id": "Build id",
-            "last_build_started": "Last build started",
-            "last_status": "Last status"
+            "last_build_started": "Start time",
+            "last_status": "Status"
         }
     }
 }

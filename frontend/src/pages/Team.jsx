@@ -1,15 +1,11 @@
 import React, { useEffect } from 'react';
 import { useStateValue } from '../contexts/state';
-import Card from '../components/Card';
+import Card from '../components/team/Card';
 import { useParams } from 'react-router';
-import SelectedTeam from '../components/SelectedTeam';
+import SelectedTeam from '../components/team/SelectedTeam';
 import Loading from '../components/Loading';
 import { useTranslation } from 'react-i18next';
-import styled from 'styled-components';
-
-const TeamContainer = styled.div`
-    padding-top: 20px;
-`;
+import { TeamHeader, TeamContainer } from './Team.styles';
 
 const Team = () => {
     const [t] = useTranslation(['team']);
@@ -44,18 +40,20 @@ const Team = () => {
                     )}
                 />
             ) : (
-                <TeamContainer>
-                    <h2>{t('title')}</h2>
-                    {teamsState.map(({ name, series_count }, i) => {
-                        return (
-                            <Card
-                                team={name}
-                                numberOfSeries={series_count}
-                                key={i}
-                            />
-                        );
-                    })}
-                </TeamContainer>
+                <>
+                    <TeamHeader>{t('title')}</TeamHeader>
+                    <TeamContainer>
+                        {teamsState.map(({ name, series_count }, i) => {
+                            return (
+                                <Card
+                                    team={name}
+                                    numberOfSeries={series_count}
+                                    key={i}
+                                />
+                            );
+                        })}
+                    </TeamContainer>
+                </>
             )}
         </main>
     );

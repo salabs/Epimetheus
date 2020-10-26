@@ -1,6 +1,6 @@
 import React from 'react';
 import { useStateValue } from '../../contexts/state';
-import { StyledLink } from './Heading.styles';
+import { StyledLink, BuildNumberCell } from './Heading.styles';
 
 // helper for build number sorting
 function compareNumbers(a, b) {
@@ -38,12 +38,15 @@ const Heading = () => {
         .sort(compareNumbers)
         .reverse()
         .map(buildNumber => (
-            <th key={buildNumber} onClick={e => handleBuildClick(e)}>
+            <BuildNumberCell
+                key={buildNumber}
+                onClick={e => handleBuildClick(e)}
+            >
                 <StyledLink to={`/series/${id}/build/${buildNumber}/history`}>
                     <span className="sr-show">Build </span>
                     {buildNumber}
                 </StyledLink>
-            </th>
+            </BuildNumberCell>
         ));
     return (
         <thead id="history-table-head">

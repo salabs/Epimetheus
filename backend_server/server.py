@@ -16,7 +16,10 @@ import database as db
 def load_config_file(file_name):
     with open(file_name, 'r') as file:
         return json.load(file)
-VERSION_NUMBER = "1.0.0"
+
+
+VERSION_NUMBER = "1.0.1"
+
 
 @register_swagger_model
 class SeriesModel:
@@ -64,6 +67,7 @@ class SeriesModel:
             description: Timestamp used for sorting the series. Either last_started or last_imported
     """
 
+
 @register_swagger_model
 class BuildModel:
     """
@@ -106,6 +110,7 @@ class BuildModel:
             description: The build starting time i.e. the first timestamp in the build.
     """
 
+
 @register_swagger_model
 class LogMessageModel:
     """
@@ -136,6 +141,7 @@ class LogMessageModel:
             type: integer
             description: Id of the test run
     """
+
 
 @register_swagger_model
 class KeywordModel:
@@ -177,21 +183,32 @@ class Application(tornado.web.Application):
             url(r"/data/?$", BaseDataHandler),
             url(r"/data/teams/?$", TeamsDataHandler),
             url(r"/data/series/?$", SeriesDataHandler),
-            url(r"/data/series/(?P<series>[0-9]+)/info?$", SeriesInfoDataHandler),
-            url(r"/data/series/(?P<series>[0-9]+)/builds/?$", BuildsDataHandler),
-            url(r"/data/series/(?P<series>[0-9]+)/builds/(?P<build_number>[0-9]+)/info?$", BuildInfoDataHandler),
-            url(r"/data/series/(?P<series>[0-9]+)/builds/(?P<build_number>[0-9]+)/suites/(?P<suite>[0-9]+)/?$", SuiteResultDataHandler),
-            url(r"/data/series/(?P<series>[0-9]+)/builds/(?P<build_number>[0-9]+)/suites/(?P<suite>[0-9]+)/info?$", SuiteResultInfoDataHandler),
-            url(r"/data/series/(?P<series>[0-9]+)/history/?$", HistoryDataHandler),
-            url(r"/data/series/(?P<series>[0-9]+)/most_stable_tests/?$", MostStableTestsDataHandler),
-            url(r"/data/series/(?P<series>[0-9]+)/status_counts/?$", SeriesStatusCountsDataHandler),
+            url(r"/data/series/(?P<series>[0-9]+)/info?$",
+                SeriesInfoDataHandler),
+            url(r"/data/series/(?P<series>[0-9]+)/builds/?$",
+                BuildsDataHandler),
+            url(r"/data/series/(?P<series>[0-9]+)/builds/(?P<build_number>[0-9]+)/info?$",
+                BuildInfoDataHandler),
+            url(r"/data/series/(?P<series>[0-9]+)/builds/(?P<build_number>[0-9]+)/suites/(?P<suite>[0-9]+)/?$",
+                SuiteResultDataHandler),
+            url(r"/data/series/(?P<series>[0-9]+)/builds/(?P<build_number>[0-9]+)/suites/(?P<suite>[0-9]+)/info?$",
+                SuiteResultInfoDataHandler),
+            url(r"/data/series/(?P<series>[0-9]+)/history/?$",
+                HistoryDataHandler),
+            url(r"/data/series/(?P<series>[0-9]+)/most_stable_tests/?$",
+                MostStableTestsDataHandler),
+            url(r"/data/series/(?P<series>[0-9]+)/status_counts/?$",
+                SeriesStatusCountsDataHandler),
             url(r"/data/series/(?P<series>[0-9]+)/builds/(?P<build_number>[0-9]+)/metadata/?$", MetaDataHandler),
-            url(r"/data/test_runs/(?P<test_run>[0-9]+)/suites/(?P<suite>[0-9]+)/log_messages?$", SuiteLogMessageDataHandler),
-            url(r"/data/test_runs/(?P<test_run>[0-9]+)/test_cases/(?P<test>[0-9]+)/log_messages?$", TestCaseLogMessageDataHandler),
-            url(r"/data/keyword_tree/(?P<fingerprint>[0-9a-fA-F]{40})/?$", KeywordTreeDataHandler),
+            url(r"/data/test_runs/(?P<test_run>[0-9]+)/suites/(?P<suite>[0-9]+)/log_messages?$",
+                SuiteLogMessageDataHandler),
+            url(r"/data/test_runs/(?P<test_run>[0-9]+)/test_cases/(?P<test>[0-9]+)/log_messages?$",
+                TestCaseLogMessageDataHandler),
+            url(
+                r"/data/keyword_tree/(?P<fingerprint>[0-9a-fA-F]{40})/?$", KeywordTreeDataHandler),
 
-            #url(r"/data/history/?$", OldHistoryDataHandler), # Depricated see HistoryDataHandler
-            #url(r"/data/metadata/?$", OldMetaDataHandler), # Depricated see MetaDataHandler
+            # url(r"/data/history/?$", OldHistoryDataHandler), # Depricated see HistoryDataHandler
+            # url(r"/data/metadata/?$", OldMetaDataHandler), # Depricated see MetaDataHandler
 
             # For query testing purposes only
             url(r"/data/foo/?$", FooDataHandler)
@@ -219,6 +236,7 @@ def free_connection(connections):
     else:
         connections.free()
 
+
 @tornado.gen.coroutine
 def coroutine_query(querer, *args, **kwargs):
     rows, formatter = querer(*args, **kwargs)
@@ -226,6 +244,7 @@ def coroutine_query(querer, *args, **kwargs):
     results = formatter(rows)
     free_connection(rows)
     return results
+
 
 class BaseHandler(tornado.web.RequestHandler):
     # Default error handling is to return HTTP status 500
@@ -244,14 +263,16 @@ class BaseHandler(tornado.web.RequestHandler):
         try:
             return None if value is None else int(value)
         except ValueError:
-            self.send_error_response(400, "Bad request. Argument '{}' should be an integer".format(name))
+            self.send_error_response(
+                400, "Bad request. Argument '{}' should be an integer".format(name))
             raise InvalidArgumentError()
 
     def get_restricted_argument(self, name, options):
         """The first option is considered the default option"""
         value = self.get_argument(name, options[0])
         if value not in options:
-            message = "Bad request. Argument '{}' should be one of {}".format(name, options)
+            message = "Bad request. Argument '{}' should be one of {}".format(
+                name, options)
             self.send_error_response(400, message)
             raise InvalidArgumentError()
         return value
@@ -395,7 +416,8 @@ class SeriesInfoDataHandler(BaseHandler):
         last_build = yield coroutine_query(self.database.builds, series, num_of_builds=1)
         first_build = yield coroutine_query(self.database.builds, series, num_of_builds=1, reverse=True)
         if series_info and last_build:
-            self.write({'series': series_info[0], 'last_build': last_build[0], 'first_build': first_build[0]})
+            self.write(
+                {'series': series_info[0], 'last_build': last_build[0], 'first_build': first_build[0]})
         else:
             self.send_not_found_response()
 
@@ -638,10 +660,10 @@ class SuiteResultDataHandler(BaseHandler):
         suite_result = yield coroutine_query(self.database.suite_result, series, build_number, suite)
         if suite_result:
             suite_result['log_messages'] = yield coroutine_query(self.database.suite_log_messages,
-                                                                      suite_result['test_run_id'], suite)
+                                                                 suite_result['test_run_id'], suite)
             for test in suite_result['tests']:
                 test['log_messages'] = yield coroutine_query(self.database.test_case_log_messages,
-                                                                  test['test_run_id'], test['id'])
+                                                             test['test_run_id'], test['id'])
             self.write({'suite': suite_result})
         else:
             self.send_not_found_response()
@@ -735,7 +757,8 @@ class SuiteResultInfoDataHandler(BaseHandler):
         suite_result_info = yield coroutine_query(self.database.suite_result_info, series, build_number,
                                                   suite)
         if series_info and build_info and suite_result_info:
-            self.write({'series': series_info[0], 'build': build_info[0], 'suite': suite_result_info})
+            self.write(
+                {'series': series_info[0], 'build': build_info[0], 'suite': suite_result_info})
         else:
             self.send_not_found_response()
 
@@ -1255,10 +1278,12 @@ def main():
         help='path to JSON config file containing database credentials')
     parser.add_argument('--database', help='database name')
     parser.add_argument('--host', help='database host name', default=None)
-    parser.add_argument('--dbport', default=5432, help='database port (default: 5432)')
+    parser.add_argument('--dbport', default=5432,
+                        help='database port (default: 5432)')
     parser.add_argument('--user', help='database user')
     parser.add_argument('--pw', '--password', help='database password')
-    parser.add_argument('--port', help='http server port (default: 5000)', default=5000, type=int)
+    parser.add_argument(
+        '--port', help='http server port (default: 5000)', default=5000, type=int)
     args = parser.parse_args()
 
     if args.config_file:

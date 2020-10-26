@@ -2,8 +2,13 @@
 
 export const Container = styled.div`
     border: 1px solid var(--hermanni-grey);
+    border-radius: 4px;
     padding: 0 16px;
-    width: 100%;
+    margin: 0 182px;
+
+    @media only screen and (max-width: 1024px) {
+        margin: 0 80px;
+    }
 `;
 
 export const HeaderContainer = styled.div`
@@ -64,5 +69,9 @@ export const DataRow = styled.div`
     span:first-child {
         font-weight: bolder;
         padding-bottom: 8px;
+    }
+
+    a:hover {
+        color: var(--titan-green-darker);
     }
 `;

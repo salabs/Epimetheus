@@ -24,3 +24,9 @@ In windows 10 powershell, you can command docker-compose with the following synt
 `$env:ENV_FILE="configfile.env"; docker-compose -f .\docker-compose.yml up --build`
 
 Frontend runs on: [http://localhost:3000](http://localhost:3000/)
+
+### Configuring Nginx running port and backend server url in Dockerfile-prod
+
+[Dockerfile-prod](./frontend/Dockerfile-prod) has two build arguments; `nginx_port` and `backend_url` with default values `8080` and `http://backend-server:5000`.
+The `nginx_port` argument configures the port which the Ngnix service runs inside the Docker and the `backend_url` argument tells the Nginx service
+where to route backend server requests. This arguments can be configured when building the Docker image.

@@ -3,15 +3,20 @@
 export const SelectedTestContainer = styled.div`
     background: #fff;
     margin-top: 5px;
-    padding: 5px;
-    border-radius: 5px;
+    padding: 0 198px 64px 198px;
     display: flex;
     flex-direction: row;
+
+    @media only screen and (max-width: 1024px) {
+        padding: 0 108px 24px 108px;
+    }
     table {
-        border-collapse: collapse;
+        border-collapse: separate !important;
+        border-spacing: 0;
         table-layout: fixed;
         width: 100%;
         border: 1px solid var(--hermanni-grey);
+        border-radius: 8px;
     }
     thead {
         background: var(--hermanni-grey);
@@ -20,6 +25,7 @@ export const SelectedTestContainer = styled.div`
         th {
             color: var(--gradient-black);
             font-weight: bold;
+            padding: 8px 0;
         }
 
         th:first-child {

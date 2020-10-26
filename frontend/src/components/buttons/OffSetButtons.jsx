@@ -14,7 +14,6 @@ import {
     StyledEndLeft,
 } from './OffSetButtons.styles';
 
-import { ButtonContainer } from './LastRunCheckbox.styles';
 import Left from '../../images/chevron-left.svg';
 import Right from '../../images/chevron-right.svg';
 const Offset = () => {
@@ -99,7 +98,7 @@ const Offset = () => {
     };
 
     return (
-        <ButtonContainer>
+        <div>
             <Header>Offset</Header>
             <FlexDiv id="offset_container">
                 <LatestButton
@@ -131,7 +130,7 @@ const Offset = () => {
                     <img src={Right} alt=">" />
                 </StyledDirectionButton>
             </FlexDiv>
-        </ButtonContainer>
+        </div>
     );
 };
 

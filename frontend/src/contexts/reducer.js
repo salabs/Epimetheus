@@ -10,11 +10,6 @@ const reducer = (state, action) => {
                 ...state,
                 amountOfBuilds: action.amountOfBuilds,
             };
-        case 'setAmountShown':
-            return {
-                ...state,
-                amountShown: action.amount,
-            };
         case 'setFailureList':
             return {
                 ...state,
@@ -163,6 +158,12 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 selectedSuiteState: null,
+            };
+        case 'flushQueryParams':
+            return {
+                ...state,
+                amountOfBuilds: 5,
+                offset: 0,
             };
 
         default:
