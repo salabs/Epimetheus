@@ -29,15 +29,15 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: frontend
-          file: ./Dockerfile-prod
+          file: frontend/Dockerfile-prod
           push: true
           tags: siilisalabs/epimetheus-frontend:latest
-
-      - name: Build and push frontend
+      
+      - name: Build and push backend
         uses: docker/build-push-action@v2
         with:
-          context: backend
-          file: ./Dockerfile
+          context: backend_server
+          file: backend_server/Dockerfile
           push: true
           tags: siilisalabs/epimetheus-backend:latest
       
