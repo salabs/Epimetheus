@@ -23,18 +23,21 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-          
+
+      - name: Debug
+        run:  ls -la
+        
       - name: Build and push frontend
         uses: docker/build-push-action@v2
         with:
-          file: .frontend/Dockerfile-prod
+          file: frontend/Dockerfile-prod
           push: true
           tags: siilisalabs/epimetheus-frontend:latest
-
+      
       - name: Build and push frontend
         uses: docker/build-push-action@v2
         with:
-          file: ./backend/Dockerfile
+          file: backend/Dockerfile
           push: true
           tags: siilisalabs/epimetheus-backend:latest
       
