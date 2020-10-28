@@ -30,3 +30,11 @@ Frontend runs on: [http://localhost:3000](http://localhost:3000/)
 [Dockerfile-prod](./frontend/Dockerfile-prod) has two build arguments; `nginx_port` and `backend_url` with default values `8080` and `http://backend-server:5000`.
 The `nginx_port` argument configures the port which the Ngnix service runs inside the Docker and the `backend_url` argument tells the Nginx service
 where to route backend server requests. This arguments can be configured when building the Docker image.
+
+### Running docker-compose with public images
+
+There are also prebuilt images that you can use by running the command.
+
+`$env:ENV_FILE="configfile.env"; docker-compose -f .\docker-compose-from-remote.yml up --build`
+
+Note that currently the public images are built with the default arguements as defined in the chapter before.

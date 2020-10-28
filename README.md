@@ -45,6 +45,7 @@ Once you have both frontend and backend running, you can open your browser to [h
 
 Note that there should be some data saved in the database before user interface will show something. For pushing data into database, consult [TestArchiver documentation](https://github.com/salabs/TestArchiver).
 
+## Installation with docker
 Running project with [Docker](/README-docker.md)
 
 ## Browser Support
