@@ -32,7 +32,6 @@ class Database:
                 session.query('SELECT count(*) FROM test_run')
         except Exception:
             print('ERROR: Given database is empty. Consider archiving some results first.')
-            sys.exit(1)
 
         self.session = queries.TornadoSession(connection_uri)
 
