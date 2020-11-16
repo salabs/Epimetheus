@@ -1,0 +1,23 @@
+version: '3.7'
+
+services:
+
+  back-end:
+    image: siilisalabs/epimetheus-backend:latest
+    ports:
+    - "6000:5000"
+    env_file:
+    - ${ENV_FILE}
+    container_name: backend
+
+  front-end:
+    tty: yes
+    image: 67b5b5ca4215
+    ports:
+    - "3000:8090"
+    environment:
+    - BACKEND_URL=http://backend:5000
+    - NGINX_PORT=8090
+    volumes:
+      - ./frontend/src:/app/src
+    container_name: frontend-server
