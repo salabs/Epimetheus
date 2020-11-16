@@ -12,7 +12,7 @@ services:
 
   front-end:
     tty: yes
-    image: 67b5b5ca4215
+    image: siilisalabs/epimetheus-frontend:latest
     ports:
     - "3000:8090"
     environment:
