@@ -18,12 +18,13 @@ Navigate to build overview page using breadcrumbs
 Team page breadcrumb should contain correct value
     [Arguments]     ${team}
     Wait Until Element Is Enabled   ${team_breadcrumb}
-    Wait Until Element Does Not Contain     ${team_breadcrumb}  ''
+    Wait Until Element Does Not Contain     ${team_breadcrumb}  'Loading'
     Element Should Contain      ${team_breadcrumb}  ${team}
     
 Series page breadcrumbs should contain correct values
     [Arguments]     ${series}   ${team}
     Wait Until Element Is Enabled   ${series_breadcrumb}
+    Wait Until Element Does Not Contain     ${series_breadcrumb}  'Loading'
     Team page breadcrumb should contain correct value   ${team}
     Element Should Contain      ${series_breadcrumb}        ${series}
 
