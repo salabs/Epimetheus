@@ -1,20 +1,20 @@
 
 # Docker Compose Files
-docker-compose-backend.yml:
+This directory contains a few docker-compose files for different types of installations.
 
+docker-compose-backend.yml:
 - This file is aimed to provide a working backend in the case local backend installation fails.
 
 docker-compose-from-remote.yml:
-
 - This file creates epimetheus with default port number for nginx and default hostname for backend.
 
 docker-compose-with-env.yml:
-
+- Also built from remote images.
 - This file aims to display the different environmental variables available for the frontend container.
 - Defining the backend hostname as a variable and the port used by nginx as a variable.
 
 # Setup
-Next we need to create a .env file for docker-compose to use for backend configuration.
+An .env file needs to be created for docker-compose to use for backend configuration.
 Read more here https://docs.docker.com/compose/env-file/
 
 Content of an .env file with the necessary paramaters:
@@ -23,7 +23,7 @@ DATABASE="database_name"
 HOST="host"
 USER="user"
 PASSWORD="password"
-PORT="port"
+PORT="5000"
 ```
 
 Port defines the port the backend executes in, epimetheus assumes this in development environment as 5000.
