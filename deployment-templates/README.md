@@ -1,4 +1,3 @@
-This directory contains a few different docker-compose files for different types of installation.
 
 # Docker Compose Files
 docker-compose-backend.yml:
