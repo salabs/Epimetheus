@@ -3,7 +3,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
-import { NavBar, StyledH2, LinkContainer } from './MainNav.styles';
+import { NavBar, LinkContainer, SiteLogo } from './MainNav.styles';
 
 const MainNav = () => {
     const [t] = useTranslation(['mainnav']);
@@ -16,7 +16,7 @@ const MainNav = () => {
     return (
         <header>
             <NavBar id="main-nav">
-                <StyledH2 className="logo">{t('logo')}</StyledH2>
+                <SiteLogo className="logo">{t('logo')}</SiteLogo>
                 <LinkContainer team={team}>
                     <NavLink
                         exact
