@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { ReactComponent as EndLeft } from '../../images/chevron-verticalbar-left.svg';
 
-export const Header = styled.div`
+export const Heading = styled.div`
     color: var(--evidence-grey);
     margin: 8px 0;
 `;
