@@ -14,23 +14,25 @@ const MainNav = () => {
         location.pathname.includes('series');
 
     return (
-        <NavBar id="main-nav">
-            <StyledH2 className="logo">{t('logo')}</StyledH2>
-            <LinkContainer team={team}>
-                <NavLink
-                    exact
-                    activeClassName="active"
-                    to="/"
-                    className="about"
-                >
-                    {t('help')}
-                </NavLink>
-                <NavLink activeClassName="active" to="/team" className="team">
-                    {t('team')}
-                </NavLink>
-                <a href="https://github.com/salabs/Epimetheus">{t('github')}</a>
-            </LinkContainer>
-        </NavBar>
+        <header>
+            <NavBar id="main-nav">
+                <StyledH2 className="logo">{t('logo')}</StyledH2>
+                <LinkContainer team={team}>
+                    <NavLink
+                        exact
+                        activeClassName="active"
+                        to="/"
+                        className="about"
+                    >
+                        {t('help')}
+                    </NavLink>
+                    <NavLink activeClassName="active" to="/team" className="team">
+                        {t('team')}
+                    </NavLink>
+                    <a href="https://github.com/salabs/Epimetheus">{t('github')}</a>
+                </LinkContainer>
+            </NavBar>
+        </header>
     );
 };
 
