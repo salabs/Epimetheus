@@ -85,9 +85,11 @@ const BREADCRUMB_STATUS = {
 
 const BreadcrumbNav = ({ status }) => {
     return (
-        <BreadcrumbContainer id="breadCrumbNav" status={status}>
-            <StyledInnerDiv>{BREADCRUMB_STATUS[`${status}`]}</StyledInnerDiv>
-        </BreadcrumbContainer>
+        <nav>
+            <BreadcrumbContainer id="breadCrumbNav" status={status}>
+                <StyledInnerDiv>{BREADCRUMB_STATUS[`${status}`]}</StyledInnerDiv>
+            </BreadcrumbContainer>
+        </nav>
     );
 };
 

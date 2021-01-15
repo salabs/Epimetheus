@@ -17,7 +17,7 @@ const Overview = () => {
     const status = buildUrl ? 'build' : 'series';
 
     return (
-        <main>
+        <div>
             <BreadcrumbNav status={status} />
             <Header />
             <div>
@@ -43,7 +43,7 @@ const Overview = () => {
                     )}
                 </FlexDiv>
             </div>
-        </main>
+        </div>
     );
 };
 

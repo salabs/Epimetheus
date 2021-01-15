@@ -68,7 +68,7 @@ const Suite = () => {
     }, [dispatch, branch_id, suiteId, buildId, seriesId, branchesState]);
 
     return (
-        <main id="suite">
+        <div id="suite">
             {!selectedSuiteState || loadingState ? (
                 <div
                     css={theme.loadingState}
@@ -106,7 +106,7 @@ const Suite = () => {
             ) : (
                 <Notfound />
             )}
-        </main>
+        </div>
     );
 };
 

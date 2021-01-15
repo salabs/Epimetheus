@@ -7,8 +7,8 @@ const Footer = () => {
     const [t] = useTranslation(['mainnav']);
 
     return (
-        <FooterContainer>
-            <footer>
+        <footer>
+            <FooterContainer>
                 <EpiIcon>{t('footer.E')}</EpiIcon>
                 <TextStyles>
                     {t('footer.epimetheus')} {t('footer.version')}{' '}
@@ -19,8 +19,8 @@ const Footer = () => {
                     </span>
                     .
                 </TextStyles>
-            </footer>
-        </FooterContainer>
+            </FooterContainer>
+        </footer>
     );
 };
 

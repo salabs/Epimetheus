@@ -95,7 +95,7 @@ const SelectedTeam = ({ selectedTeam }) => {
         .series_count;
 
     return (
-        <main id="selectedTeam" css={theme.loadingState}>
+        <div id="selectedTeam" css={theme.loadingState}>
             <BreadcrumbNav status={'team'} />
             {selectedTeam && selectedTeam.all_builds ? (
                 <SelectedTeamContainer>
@@ -119,7 +119,7 @@ const SelectedTeam = ({ selectedTeam }) => {
             ) : (
                 <NotFound />
             )}
-        </main>
+        </div>
     );
 };
 

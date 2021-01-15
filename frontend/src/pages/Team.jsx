@@ -30,7 +30,7 @@ const Team = () => {
     }, [dispatch]);
 
     return (
-        <main id="team">
+        <div id="team">
             {!teamsState || loadingState ? (
                 <Loading />
             ) : name ? (
@@ -55,7 +55,7 @@ const Team = () => {
                     </TeamContainer>
                 </>
             )}
-        </main>
+        </div>
     );
 };
 export default Team;

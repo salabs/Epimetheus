@@ -42,7 +42,7 @@ const App = () => {
 
     return (
         <ThemeContext.Provider value={theme}>
-            <StyledApp id="main">
+            <StyledApp id="main-app">
                 <Suspense fallback="loading">
                     <Router>
                         <MainNav />

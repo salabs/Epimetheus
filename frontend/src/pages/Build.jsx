@@ -63,7 +63,7 @@ const Build = () => {
     useMetadata();
 
     return (
-        <main id="last-run">
+        <div id="last-run">
             <LastRunContainer id="last-run-container"></LastRunContainer>
             {!historyDataState || loadingState ? (
                 <div
@@ -97,7 +97,7 @@ const Build = () => {
                     <Table id={branch_id} />
                 </Fragment>
             )}
-        </main>
+        </div>
     );
 };
 
