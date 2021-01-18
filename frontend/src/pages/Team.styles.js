@@ -1,6 +1,6 @@
 ﻿import styled from 'styled-components';
 
-export const TeamHeader = styled.h2`
+export const TeamHeading = styled.h1`
     padding: 24px 0px 24px 198px;
 
     @media only screen and (max-width: 1024px) {

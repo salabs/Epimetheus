@@ -38,6 +38,9 @@ export const LinkContainer = styled.div`
         background: var(--titan-green);
         border-bottom: 3px solid var(--titan-green-darkest);
     }
+    a:focus {
+        outline-color: var(--nero-white);
+    }
 
     .about {
         border-bottom: ${props => !props.team && '3px solid var(--nero-white)'};

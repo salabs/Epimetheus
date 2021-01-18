@@ -26,7 +26,11 @@ const MainNav = () => {
                     >
                         {t('help')}
                     </NavLink>
-                    <NavLink activeClassName="active" to="/team" className="team">
+                    <NavLink
+                        activeClassName="active"
+                        to="/team"
+                        className="team"
+                    >
                         {t('team')}
                     </NavLink>
                     <a href="https://github.com/salabs/Epimetheus">{t('github')}</a>
