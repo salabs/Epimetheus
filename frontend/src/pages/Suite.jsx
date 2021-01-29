@@ -8,11 +8,11 @@ import BreadcrumbNav from '../components/BreadcrumbNav';
 import Notfound from '../components/NotFound';
 import ParentBuild from '../components/parentData/ParentBuild';
 import Loading from '../components/Loading';
-import Header from '../components/header/Header';
 import SuiteMetadata from '../components/metadata/SuiteMetadata';
 import TestList from '../components/suite/Testlist';
 import LogMessages from '../components/suite/LogMessages';
 import { ParentInfoContainer } from './Suite.styles';
+import ContentHeader from '../components/header/ContentHeader';
 
 const Suite = () => {
     const { suiteId, buildId, seriesId, testId } = useParams();
@@ -91,7 +91,7 @@ const Suite = () => {
                         Content loaded.
                     </div>
                     <BreadcrumbNav status={'suite'} />
-                    <Header />
+                    <ContentHeader />
                     <ParentInfoContainer className="parentInfo-container">
                         <ParentBuild />
                     </ParentInfoContainer>

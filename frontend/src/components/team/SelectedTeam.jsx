@@ -12,12 +12,12 @@ import {
     CardSection,
     HoverDiv,
     H5,
-    H4,
     StatusSpan,
     InfoContainer,
     CardValue,
     SelectedTeamContainer,
     SeriesCount,
+    CardHeading,
 } from './SelectedTeam.styles';
 
 const TeamCard = ({ data }) => {
@@ -38,10 +38,10 @@ const TeamCard = ({ data }) => {
     const testStatusIcon = pickIcon(last_status);
     return (
         <CardSection>
-            <header>
-                <H4>{name}</H4>
+            <heading className={'cardHeading'}>
+                <CardHeading>{name} </CardHeading>
                 <CardValue className="cardValue">{testStatusIcon}</CardValue>
-            </header>
+            </heading>
             <HoverDiv
                 className="series"
                 id={`${name}_series`}
@@ -99,7 +99,7 @@ const SelectedTeam = ({ selectedTeam }) => {
             <BreadcrumbNav status={'team'} />
             {selectedTeam && selectedTeam.all_builds ? (
                 <SelectedTeamContainer>
-                    <header>
+                    <heading>
                         <h2>
                             {t('card.last_build.header')} {teamName}
                         </h2>
@@ -108,7 +108,7 @@ const SelectedTeam = ({ selectedTeam }) => {
                                 {seriesCount} {t('card.last_build.series')}{' '}
                             </SeriesCount>
                         </div>
-                    </header>
+                    </heading>
                     <CardContainer>
                         <TeamCard data={selectedTeam.all_builds} />
                         {selectedTeam.series.reverse().map((serie, i) => {

@@ -7,7 +7,6 @@ import { useParams } from 'react-router';
 import BreadcrumbNav from '../components/BreadcrumbNav';
 import ParentBuild from '../components/parentData/ParentBuild';
 import Loading from '../components/Loading';
-import Header from '../components/header/Header';
 import BuildMetadata from '../components/metadata/BuildMetadata';
 import useMetadata from '../hooks/useMetadata';
 import {
@@ -15,6 +14,7 @@ import {
     LastRunContainer,
     TableHeader,
 } from './Build.styles';
+import ContentHeader from '../components/header/ContentHeader';
 
 const Build = () => {
     const [
@@ -87,7 +87,7 @@ const Build = () => {
                         Content loaded.
                     </div>
                     <BreadcrumbNav status={'build'} />
-                    <Header />
+                    <ContentHeader />
                     <ParentInfoContainer id="parentInfo-container">
                         <ParentBuild />
                     </ParentInfoContainer>

@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 
 export const BreadcrumbContainer = styled.div`
     font-size: 14px;
-    padding: 48px 0 24px 198px;
+    padding: 24px 0 24px 198px;
     list-style-type: none;
 
     @media only screen and (max-width: 1024px) {
-        padding: 48px 0 24px 108px;
+        padding: 24px 0 24px 108px;
     }
 
     a {

@@ -3,13 +3,13 @@ import { useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useStateValue } from '../../contexts/state';
 import {
-    HeaderContainer,
     LinkContainer,
     OverviewLink,
     HistoryLink,
-} from './Header.styles';
+    ContentHeaderContainer,
+} from './ContentHeader.styles';
 
-const Header = () => {
+const ContentHeader = () => {
     const [t] = useTranslation(['header']);
 
     const pathname = useLocation().pathname;
@@ -78,8 +78,11 @@ const Header = () => {
     return (
         <>
             {(seriesData || buildData) && (
-                <HeaderContainer>
-                    <h1 id="siteHeader">{formHeader()}</h1>
+                <ContentHeaderContainer>
+                    <h1 id="siteHeading">
+                        {formHeader()}{' '}
+                        Pneumonoult/ramicroscopicsilicovolcanoconiosisPneumonoultramicroscopicsilicovolcanoconiosis
+                    </h1>
                     {!selectedSuiteState && (
                         <LinkContainer>
                             <OverviewLink
@@ -96,10 +99,10 @@ const Header = () => {
                             </HistoryLink>
                         </LinkContainer>
                     )}
-                </HeaderContainer>
+                </ContentHeaderContainer>
             )}
         </>
     );
 };
 
-export default Header;
+export default ContentHeader;
