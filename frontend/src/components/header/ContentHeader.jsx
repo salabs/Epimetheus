@@ -79,10 +79,7 @@ const ContentHeader = () => {
         <>
             {(seriesData || buildData) && (
                 <ContentHeaderContainer>
-                    <h1 id="siteHeading">
-                        {formHeader()}{' '}
-                        Pneumonoult/ramicroscopicsilicovolcanoconiosisPneumonoultramicroscopicsilicovolcanoconiosis
-                    </h1>
+                    <h1 id="siteHeading">{formHeader()}</h1>
                     {!selectedSuiteState && (
                         <LinkContainer>
                             <OverviewLink
