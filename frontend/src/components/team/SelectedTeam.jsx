@@ -11,13 +11,13 @@ import {
     CardContainer,
     CardSection,
     HoverDiv,
-    H5,
     StatusSpan,
     InfoContainer,
     CardValue,
     SelectedTeamContainer,
     SeriesCount,
     CardHeading,
+    CardSubTitle,
 } from './SelectedTeam.styles';
 
 const TeamCard = ({ data }) => {
@@ -38,10 +38,10 @@ const TeamCard = ({ data }) => {
     const testStatusIcon = pickIcon(last_status);
     return (
         <CardSection>
-            <heading className={'cardHeading'}>
+            <div className={'cardHeading'}>
                 <CardHeading>{name} </CardHeading>
                 <CardValue className="cardValue">{testStatusIcon}</CardValue>
-            </heading>
+            </div>
             <HoverDiv
                 className="series"
                 id={`${name}_series`}
@@ -61,9 +61,9 @@ const TeamCard = ({ data }) => {
                 }
                 role={'presentation'}
             >
-                <H5>
+                <CardSubTitle>
                     {t('card.last_build.title')} {last_build}
-                </H5>
+                </CardSubTitle>
                 <InfoContainer className="cardInfoContainer">
                     {t('card.last_build.build_id')}:{' '}
                     <CardValue className="cardValue">{last_build_id}</CardValue>
@@ -99,16 +99,14 @@ const SelectedTeam = ({ selectedTeam }) => {
             <BreadcrumbNav status={'team'} />
             {selectedTeam && selectedTeam.all_builds ? (
                 <SelectedTeamContainer>
-                    <heading>
-                        <h2>
+                    <div className={'selectedTeamHeading'}>
+                        <h1>
                             {t('card.last_build.header')} {teamName}
-                        </h2>
-                        <div>
-                            <SeriesCount>
-                                {seriesCount} {t('card.last_build.series')}{' '}
-                            </SeriesCount>
-                        </div>
-                    </heading>
+                        </h1>
+                        <SeriesCount>
+                            {seriesCount} {t('card.last_build.series')}{' '}
+                        </SeriesCount>
+                    </div>
                     <CardContainer>
                         <TeamCard data={selectedTeam.all_builds} />
                         {selectedTeam.series.reverse().map((serie, i) => {
