@@ -37,7 +37,7 @@ const TeamCard = ({ data }) => {
     const LastStarted = last_started.slice(0, 16);
     const testStatusIcon = pickIcon(last_status);
     return (
-        <CardSection>
+        <CardSection aria-label={name} tabIndex="0">
             <div className={'cardHeading'}>
                 <CardHeading>{name} </CardHeading>
                 <CardValue className="cardValue">{testStatusIcon}</CardValue>
@@ -46,7 +46,9 @@ const TeamCard = ({ data }) => {
                 className="series"
                 id={`${name}_series`}
                 onClick={() => history.push(`/series/${id}/overview`)}
-                role={'presentation'}
+                role={'link'}
+                href={`/series/${id}/overview`}
+                aria-label={`Series ${name}`}
             >
                 <InfoContainer className="cardInfoContainer">
                     {t('card.series.builds')}{' '}
@@ -59,7 +61,8 @@ const TeamCard = ({ data }) => {
                 onClick={() =>
                     history.push(`/series/${id}/build/${last_build}/overview`)
                 }
-                role={'presentation'}
+                role={'link'}
+                href={`/series/${id}/build/${last_build}/overview`}
             >
                 <CardSubTitle>
                     {t('card.last_build.title')} {last_build}
