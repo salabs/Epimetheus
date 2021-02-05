@@ -9,7 +9,7 @@ const Footer = () => {
     return (
         <footer>
             <FooterContainer>
-                <EpiIcon role="text" aria-label="Small Epimetheus logo">
+                <EpiIcon role="img" aria-label="Small Epimetheus logo">
                     {t('footer.E')}
                 </EpiIcon>
                 <TextStyles>
