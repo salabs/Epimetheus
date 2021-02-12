@@ -1,6 +1,6 @@
 ﻿import styled from 'styled-components';
 
-export const FrontPage = styled.main`
+export const FrontPage = styled.div`
     max-width: 800px;
     width: 100%;
     padding: 24px 0 24px 108px;
