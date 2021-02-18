@@ -6,7 +6,7 @@ export const FooterContainer = styled.footer`
     color: var(--nero-white);
     display: flex;
     align-items: center;
-    min-height: 50px;
+    height: var(--space-48);
 
     a {
         background: var(--titan-green);
