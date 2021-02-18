@@ -17,9 +17,9 @@ html {
 @import url('https://fonts.googleapis.com/css?family=Space+Mono');
 @import url('https://fonts.googleapis.com/css?family=Noto+Serif');
 
-/* Colors
-----------------------*/
 :root {
+    /* Colors
+    ----------------------*/
     --nelson-purple: #b8557b;
     --semolina-red: #c63757;
     --pirlo-blue: #067cc1;
@@ -41,6 +41,23 @@ html {
     --tonic-grey: #d7d4d3;
     --sparkling-blue: #80bfdb;
     --birra-brown: #976f10;
+
+
+    /* Space scale
+    ----------------------*/
+    --space-80: 80px;
+    --space-64: 64px;
+    --space-48: 48px;
+    --space-40: 40px;
+    --space-24: 24px;
+    --space-16: 16px;
+    --space-8: 8px;
+    --space-4: 4px;
+
+
+    /* Grid
+    ----------------------*/
+    --max-page-width: 1280px;
 }
 
 /** Basics **/

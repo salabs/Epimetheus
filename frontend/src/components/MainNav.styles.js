@@ -5,7 +5,7 @@ export const NavBar = styled.nav`
     color: var(--nero-white);
     display: flex;
     align-items: center;
-    min-height: 100px;
+    height: var(--space-80);
 `;
 
 export const SiteLogo = styled.div`
