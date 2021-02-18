@@ -15,11 +15,4 @@ export const FlexColumn = styled.div`
     display: flex;
     justify-content: space-between;
     flex-direction: row;
-    width: 600px;
-    padding-left: 198px;
-
-    @media only screen and (max-width: 1024px) {
-        width: 500px;
-        padding-left: 108px;
-    }
 `;

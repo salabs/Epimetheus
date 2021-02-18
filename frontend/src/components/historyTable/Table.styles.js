@@ -1,23 +1,15 @@
 ﻿import styled from 'styled-components';
 
-export const TableContainer = styled.div`
-    padding: 0 198px 64px 198px;
-
-    @media only screen and (max-width: 1024px) {
-        padding: 0 108px 24px 108px;
-    }
-`;
-
 export const TableStyled = styled.table`
     overflow: auto;
     clear: both;
     border-collapse: separate !important;
     border-spacing: 0;
-    table-layout: fixed;
     border: 1px solid #e5e5e5;
     border-radius: 8px;
     text-align: left;
     vertical-align: top;
+    width: 100%;
 
     thead {
         background: var(--hermanni-grey);

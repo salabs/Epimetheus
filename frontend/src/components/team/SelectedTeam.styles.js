@@ -4,7 +4,7 @@ export const SelectedTeamContainer = styled.div`
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between;
-    padding: 20px 108px;
+    padding: var(--space-16);
     background: var(--hermanni-grey-lighter);
 
     .selectedTeamHeading {
