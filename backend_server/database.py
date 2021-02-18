@@ -92,6 +92,10 @@ class Database:
         sql = sql_queries.suite_result(test_series, build_number, suite)
         return self.session.query(sql), suite_result_data
 
+    def simple_build_result(self, test_series, build_number):
+        sql = sql_queries.simple_build_results_data(test_series, build_number)
+        return self.session.query(sql), simple_build_result_data
+
     def suite_log_messages(self, test_run_id, suite):
         sql = sql_queries.log_messages(test_run_id, suite_id=suite)
         return self.session.query(sql), list_of_dicts
@@ -184,6 +188,21 @@ def suite_result_data(rows):
     if current_suite:
         current_suite['tests'] = tests
     return current_suite
+
+def simple_build_result_data(rows):
+    suites = []
+    current_suite = None
+    for row in list_of_dicts(rows):
+        suite, test = _separate_suite_and_test_values(row)
+        if not current_suite or suite['id'] != current_suite['id']:
+            suites.append(suite)
+            current_suite = suite
+            current_suite['tests'] = []
+        if test['id']:
+            current_suite['tests'].append(test)
+    if current_suite:
+        suites.append(current_suite)
+    return suites
 
 def _separate_suite_and_test_values(row):
     suite = {key[6:]: row[key] for key in row if key.startswith('suite_')}
