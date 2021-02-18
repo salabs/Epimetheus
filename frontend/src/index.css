@@ -74,6 +74,8 @@ h3,
 h4,
 h5 {
     font-family: 'Noto Serif Semibold';
+    margin-top: var(--space-40);
+    margin-bottom: var(--space-24);
 }
 
 h1 {

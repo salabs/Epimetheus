@@ -52,10 +52,11 @@ export const HeaderContainer = styled.button`
         font-size: 20px;
         font-family: 'Hack';
         font-weight: normal;
+        text-transform: none;
         letter-spacing: -0.04em;
-        padding: 10px 0 10px 60px;
-        margin: 0;
         flex: 20;
+        padding-left: 56px;
+        margin: 0;
     }
 
     & > p {
