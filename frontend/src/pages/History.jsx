@@ -1,4 +1,3 @@
-// eslint-disable-next-line
 import React, { Fragment, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import Table from '../components/historyTable/Table';
@@ -17,6 +16,7 @@ import {
     ParentContainer,
 } from './History.styles';
 import ContentHeader from '../components/header/ContentHeader';
+import { ContainerGrid12, ContentGrid6 } from '../styles/baseComponents';
 
 const History = () => {
     const [t] = useTranslation(['parentData']);
@@ -88,31 +88,45 @@ const History = () => {
         <RelativeMain id="history">
             <BreadcrumbNav status={'series'} />
             <ContentHeader />
+            <ContainerGrid12>
+                <ContentGrid6>
+                    <h4>{t('title')}</h4>
+                </ContentGrid6>
+            </ContainerGrid12>
+
             <ParentContainer id="parentInfo-container">
-                <h4>{t('title')}</h4>
-                <ParentSeries />
+                <ContainerGrid12>
+                    <ContentGrid6>
+                        <ParentSeries />
+                    </ContentGrid6>
+                </ContainerGrid12>
             </ParentContainer>
-            <FilterContainer id="filter-container">
-                <BuildAmountSelector />
-                <Offset />
-                <Checkbox direction="row" isHistory="true" />
-            </FilterContainer>
-            {!historyDataState || loadingState ? (
-                <Loading />
-            ) : (
-                <Fragment>
-                    <div
-                        className="sr-show"
-                        role="status"
-                        aria-live="polite"
-                        aria-relevant="all"
-                        aria-label="Content loaded."
-                    >
-                        Content loaded.
-                    </div>
-                    <Table />
-                </Fragment>
-            )}
+
+            <ContainerGrid12>
+                <ContentGrid6>
+                    <FilterContainer id="filter-container">
+                        <BuildAmountSelector />
+                        <Offset />
+                        <Checkbox direction="row" isHistory="true" />
+                    </FilterContainer>
+                    {!historyDataState || loadingState ? (
+                        <Loading />
+                    ) : (
+                        <Fragment>
+                            <div
+                                className="sr-show"
+                                role="status"
+                                aria-live="polite"
+                                aria-relevant="all"
+                                aria-label="Content loaded."
+                            >
+                                Content loaded.
+                            </div>
+                            <Table />
+                        </Fragment>
+                    )}
+                </ContentGrid6>
+            </ContainerGrid12>
         </RelativeMain>
     );
 };
