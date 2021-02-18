@@ -4,17 +4,13 @@ export const RelativeMain = styled.main`
     position: relative;
 `;
 
-export const HeritanceContainer = styled.div`
+export const FilterContainer = styled.div`
     display: flex;
     flex-flow: row wrap;
-`;
-
-export const FilterContainer = styled(HeritanceContainer)`
     justify-content: space-between;
     margin: 24px 0;
 `;
 
-export const ParentContainer = styled(HeritanceContainer)`
-    padding: 24px 0;
-    flex-direction: column;
+export const ParentContainer = styled.div`
+    background: var(--hermanni-grey-lighter);
 `;
