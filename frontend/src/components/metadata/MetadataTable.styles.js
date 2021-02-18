@@ -3,7 +3,10 @@
 export const Container = styled.div`
     border: 1px solid var(--hermanni-grey);
     border-radius: 4px;
-    padding: 0 16px;
+    padding: 0 var(--space-16);
+    margin: var(--space-24) calc(var(--space-16) * -1);
+    width: calc(100% + 16px + 16px);
+    word-break: break-word;
 `;
 
 export const HeaderContainer = styled.div`
