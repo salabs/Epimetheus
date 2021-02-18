@@ -1,4 +1,3 @@
-// eslint-disable-next-line
 import React from 'react';
 import { useStateValue } from '../contexts/state';
 import { useParams } from 'react-router';
@@ -8,6 +7,7 @@ import {
     StyledLink,
     TeamsLink,
 } from './BreadcrumbNav.styles';
+import { ContainerGrid12, ContentGrid6 } from '../styles/baseComponents';
 
 const BreadcrumbTeams = () => {
     return (
@@ -114,11 +114,15 @@ const BREADCRUMB_STATUS = {
 const BreadcrumbNav = ({ status }) => {
     return (
         <BreadcrumbContainer id={'breadCrumbNav'} status={status}>
-            <nav aria-label="Breadcrumb">
-                <StyledInnerDiv>
-                    {BREADCRUMB_STATUS[`${status}`]}
-                </StyledInnerDiv>
-            </nav>
+            <ContainerGrid12>
+                <ContentGrid6>
+                    <nav aria-label="Breadcrumb">
+                        <StyledInnerDiv>
+                            {BREADCRUMB_STATUS[`${status}`]}
+                        </StyledInnerDiv>
+                    </nav>
+                </ContentGrid6>
+            </ContainerGrid12>
         </BreadcrumbContainer>
     );
 };

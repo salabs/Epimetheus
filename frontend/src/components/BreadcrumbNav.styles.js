@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export const BreadcrumbContainer = styled.div`
     font-size: 14px;
-    padding: var(--space-40) 0 var(--space-24) 0;
+    padding-top: var(--space-40);
 
     a {
         text-decoration: none;
@@ -43,6 +43,7 @@ export const StyledInnerDiv = styled.ol`
     display: flex;
     flex-direction: row;
     list-style-type: none;
+    padding: 0;
 
     #SuiteBreadCrumb {
         color: var(--pirlo-blue);
@@ -51,7 +52,7 @@ export const StyledInnerDiv = styled.ol`
 
     span {
         color: var(--tonic-grey);
-        padding-right: 8px;
+        padding: 0 var(--space-8);
     }
 `;
 
