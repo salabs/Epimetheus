@@ -110,6 +110,93 @@ class BuildModel:
             description: The build starting time i.e. the first timestamp in the build.
     """
 
+@register_swagger_model
+class SimpleTestResultModel:
+    """
+    ---
+    type: object
+    description: Result of a test case
+    properties:
+        id:
+            type: integer
+            description: Id of the test case
+        name:
+            type: string
+            description: Name of the test case
+        full_name:
+            type: string
+            description: Full name of the test case
+        test_run_id:
+            type: integer
+            description: Id of the test run producing this result
+        start_time:
+            type: string
+            format: date-time
+            description: Timestamp for the test execution start
+        status:
+            type: string
+            description: Final status of the test case
+        setup_status:
+            type: string
+            description: Status of the test case setup phase, null if there was no setup
+        execution_status:
+            type: string
+            description: Status of the test case execution phase, null if there was no execution
+        teardown_status:
+            type: string
+            description: Status of the test case teardown phase, null if there was no teardown
+        elapsed:
+            type: string
+            description: Total running time of the test case in millis
+        setup_elapsed:
+            type: string
+            description: Running time of the test case setup phase in millis, null if there was no setup
+        execution_elapsed:
+            type: string
+            description: Running time of the test case execution phase in millis, null if there was no execution
+        teardown_elapsed:
+            type: string
+            description: Running time of the test case teardown phase in millis, null if there was no teardown
+        fingerprint:
+            type: string
+            description: Fingerprint of the test case
+        setup_fingerprint:
+            type: string
+            description: Fingerprint of the test case setup phase, refers to a keyword tree, null if there was no setup
+        execution_fingerprint:
+            type: string
+            description: Fingerprint of the test case execution phase, refers to a keyword tree, null if there was no execution
+        teardown_fingerprint:
+            type: string
+            description: Fingerprint of the test case teardown phase, refers to a keyword tree, null if there was no teardown
+    """
+
+@register_swagger_model
+class SimpleBuildResultModel:
+    """
+    ---
+    type: object
+    description: Suite information and test results directly under it
+    properties:
+        id:
+            type: integer
+            description: Id of the suite
+        name:
+            type: string
+            description: Name of the suite
+        full_name:
+            type: string
+            description: Full name of the suite
+        repository:
+            type: string
+            description: Repository of the suite
+        tests:
+            type: array
+            description: List of test case results included in the suite
+            items:
+                $ref: '#/definitions/SimpleTestResultModel'
+    """
+
 
 @register_swagger_model
 class LogMessageModel:
@@ -183,15 +270,17 @@ class Application(tornado.web.Application):
             url(r"/data/?$", BaseDataHandler),
             url(r"/data/teams/?$", TeamsDataHandler),
             url(r"/data/series/?$", SeriesDataHandler),
-            url(r"/data/series/(?P<series>[0-9]+)/info?$",
+            url(r"/data/series/(?P<series>[0-9]+)/info/?$",
                 SeriesInfoDataHandler),
             url(r"/data/series/(?P<series>[0-9]+)/builds/?$",
                 BuildsDataHandler),
-            url(r"/data/series/(?P<series>[0-9]+)/builds/(?P<build_number>[0-9]+)/info?$",
+            url(r"/data/series/(?P<series>[0-9]+)/builds/(?P<build_number>[0-9]+)/info/?$",
                 BuildInfoDataHandler),
+            url(r"/data/series/(?P<series>[0-9]+)/builds/(?P<build_number>[0-9]+)/simple_results/?$",
+                BuildSimpleResultsDataHandler),
             url(r"/data/series/(?P<series>[0-9]+)/builds/(?P<build_number>[0-9]+)/suites/(?P<suite>[0-9]+)/?$",
                 SuiteResultDataHandler),
-            url(r"/data/series/(?P<series>[0-9]+)/builds/(?P<build_number>[0-9]+)/suites/(?P<suite>[0-9]+)/info?$",
+            url(r"/data/series/(?P<series>[0-9]+)/builds/(?P<build_number>[0-9]+)/suites/(?P<suite>[0-9]+)/info/?$",
                 SuiteResultInfoDataHandler),
             url(r"/data/series/(?P<series>[0-9]+)/history/?$",
                 HistoryDataHandler),
@@ -199,7 +288,8 @@ class Application(tornado.web.Application):
                 MostStableTestsDataHandler),
             url(r"/data/series/(?P<series>[0-9]+)/status_counts/?$",
                 SeriesStatusCountsDataHandler),
-            url(r"/data/series/(?P<series>[0-9]+)/builds/(?P<build_number>[0-9]+)/metadata/?$", MetaDataHandler),
+            url(r"/data/series/(?P<series>[0-9]+)/builds/(?P<build_number>[0-9]+)/metadata/?$",
+                MetaDataHandler),
             url(r"/data/test_runs/(?P<test_run>[0-9]+)/suites/(?P<suite>[0-9]+)/log_messages?$",
                 SuiteLogMessageDataHandler),
             url(r"/data/test_runs/(?P<test_run>[0-9]+)/test_cases/(?P<test>[0-9]+)/log_messages?$",
@@ -305,9 +395,19 @@ class BaseHandler(tornado.web.RequestHandler):
             keyword_tree['children'] = []
         children = yield coroutine_query(self.database.subtrees, keyword_tree['fingerprint'])
         for child in children:
-            child_tree = yield self.child_trees(child)
+            child_tree = self.tree_from_cache(child['fingerprint'])
+            if not child_tree:
+                child_tree = yield self.child_trees(child)
+                self._keyword_tree_cache[child['fingerprint']] = child_tree
             keyword_tree['children'].append(child_tree)
         return keyword_tree
+
+    def tree_from_cache(self, fingerprint):
+        try:
+            return self._keyword_tree_cache.get(fingerprint, None)
+        except AttributeError:
+            self._keyword_tree_cache = {}
+            return None
 
 
 class BaseDataHandler(BaseHandler):
@@ -518,6 +618,47 @@ class BuildInfoDataHandler(BaseHandler):
         build_info = yield coroutine_query(self.database.builds, series, build_number=build_number)
         if series_info and build_info:
             self.write({'series': series_info[0], 'build': build_info[0]})
+        else:
+            self.send_not_found_response()
+
+
+class BuildSimpleResultsDataHandler(BaseHandler):
+    @tornado.gen.coroutine
+    def get(self, series, build_number):
+        """
+        ---
+        tags:
+        - Results
+        summary: Simple results of a build
+        description: Simple results of a build. For more detailed results see suite results or history
+        produces:
+        - application/json
+        parameters:
+        -   name: series
+            in: path
+            description: series id
+            required: true
+            type: integer
+        -   name: build_number
+            in: path
+            description: build number
+            required: true
+            type: integer
+        responses:
+            200:
+                description: Simple results of a build.
+                schema:
+                    type: object
+                    properties:
+                        suites:
+                            type: array
+                            description: list of test suites and test results
+                            items:
+                                $ref: '#/definitions/SimpleBuildResultModel'
+        """
+        results = yield coroutine_query(self.database.simple_build_result, series, build_number)
+        if results:
+            self.write({'suites': results})
         else:
             self.send_not_found_response()
 
