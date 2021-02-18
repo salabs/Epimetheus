@@ -2,7 +2,6 @@
 import theme from './styles/theme';
 
 export const StyledApp = styled.div`
-    max-width: var(--max-page-width);
     background-color: var(--nero-white);
     color: #222;
     margin: 0 auto;
