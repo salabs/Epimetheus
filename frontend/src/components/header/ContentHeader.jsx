@@ -6,8 +6,8 @@ import {
     LinkContainer,
     OverviewLink,
     HistoryLink,
-    ContentHeaderContainer,
 } from './ContentHeader.styles';
+import { ContainerGrid12, ContentGrid6 } from '../../styles/baseComponents';
 
 const ContentHeader = () => {
     const [t] = useTranslation(['header']);
@@ -78,25 +78,27 @@ const ContentHeader = () => {
     return (
         <>
             {(seriesData || buildData) && (
-                <ContentHeaderContainer>
-                    <h1 id="siteHeading">{formHeader()}</h1>
-                    {!selectedSuiteState && (
-                        <LinkContainer>
-                            <OverviewLink
-                                to={correctUrl('overview')}
-                                overview={overviewUrl}
-                            >
-                                {t('buttons.overview')}
-                            </OverviewLink>
-                            <HistoryLink
-                                to={correctUrl('history')}
-                                overview={overviewUrl}
-                            >
-                                {t('buttons.history')}
-                            </HistoryLink>
-                        </LinkContainer>
-                    )}
-                </ContentHeaderContainer>
+                <ContainerGrid12>
+                    <ContentGrid6>
+                        <h1 id="siteHeading">{formHeader()}</h1>
+                        {!selectedSuiteState && (
+                            <LinkContainer>
+                                <OverviewLink
+                                    to={correctUrl('overview')}
+                                    overview={overviewUrl}
+                                >
+                                    {t('buttons.overview')}
+                                </OverviewLink>
+                                <HistoryLink
+                                    to={correctUrl('history')}
+                                    overview={overviewUrl}
+                                >
+                                    {t('buttons.history')}
+                                </HistoryLink>
+                            </LinkContainer>
+                        )}
+                    </ContentGrid6>
+                </ContainerGrid12>
             )}
         </>
     );
