@@ -6,7 +6,6 @@ export const CardSection = styled.section`
     margin: 10px;
     line-height: 16px;
     min-height: 120px;
-    width: 344px;
     height: 232px;
     padding: 16px;
     cursor: pointer;

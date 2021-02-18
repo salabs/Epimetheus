@@ -1,14 +1,7 @@
 ﻿import styled from 'styled-components';
 
 export const ParentInfo = styled.div`
-    display: flex;
-    flex-flow: row wrap;
-    padding: 24px 0;
-`;
-
-export const FlexDiv = styled.div`
-    display: flex;
-    flex-flow: row wrap;
+    background: var(--hermanni-grey-lighter);
 `;
 
 export const FlexColumn = styled.div`
