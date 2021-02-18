@@ -2,12 +2,10 @@
 import theme from './styles/theme';
 
 export const StyledApp = styled.div`
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    width: 100%;
+    max-width: var(--max-page-width);
     background-color: var(--nero-white);
     color: #222;
+    margin: 0 auto;
     p {
         line-height: 1.6;
     }
