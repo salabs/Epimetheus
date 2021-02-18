@@ -19,6 +19,7 @@ import {
     CardHeading,
     CardSubTitle,
 } from './SelectedTeam.styles';
+import { ContainerGrid12 } from '../../styles/baseComponents';
 
 const TeamCard = ({ data }) => {
     const [t] = useTranslation(['team']);
@@ -102,20 +103,22 @@ const SelectedTeam = ({ selectedTeam }) => {
             <BreadcrumbNav status={'team'} />
             {selectedTeam && selectedTeam.all_builds ? (
                 <SelectedTeamContainer>
-                    <div className={'selectedTeamHeading'}>
-                        <h1>
-                            {t('card.last_build.header')} {teamName}
-                        </h1>
-                        <SeriesCount>
-                            {seriesCount} {t('card.last_build.series')}{' '}
-                        </SeriesCount>
-                    </div>
-                    <CardContainer>
-                        <TeamCard data={selectedTeam.all_builds} />
-                        {selectedTeam.series.reverse().map((serie, i) => {
-                            return <TeamCard key={i} data={serie} />;
-                        })}
-                    </CardContainer>
+                    <ContainerGrid12>
+                        <div className={'selectedTeamHeading'}>
+                            <h1>
+                                {t('card.last_build.header')} {teamName}
+                            </h1>
+                            <SeriesCount>
+                                {seriesCount} {t('card.last_build.series')}{' '}
+                            </SeriesCount>
+                        </div>
+                        <CardContainer>
+                            <TeamCard data={selectedTeam.all_builds} />
+                            {selectedTeam.series.reverse().map((serie, i) => {
+                                return <TeamCard key={i} data={serie} />;
+                            })}
+                        </CardContainer>
+                    </ContainerGrid12>
                 </SelectedTeamContainer>
             ) : (
                 <NotFound />
