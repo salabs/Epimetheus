@@ -1,10 +1,6 @@
 ﻿import styled from 'styled-components';
 
 export const SelectedTeamContainer = styled.div`
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-between;
-    padding: var(--space-16);
     background: var(--hermanni-grey-lighter);
 
     .selectedTeamHeading {
@@ -29,7 +25,10 @@ export const SelectedTeamContainer = styled.div`
 export const CardContainer = styled.div`
     display: grid;
     grid-gap: 16px;
-    grid-template-columns: repeat(auto-fit, minmax(344px, 1fr));
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(calc(var(--max-page-width) / 4 - 16px), 1fr)
+    );
     width: 100%;
     height: 100%;
 `;
@@ -42,7 +41,7 @@ export const CardSection = styled.section`
     display: grid;
     padding: 0 16px;
     height: 232px;
-    width: 344px;
+    word-break: break-word;
 
     .cardHeading {
         font-size: 20px;
@@ -53,7 +52,6 @@ export const CardSection = styled.section`
         justify-content: space-between;
         align-items: center;
         margin: 0;
-        max-width: 344px;
     }
     p {
         margin: 0;
@@ -80,7 +78,7 @@ export const CardSubTitle = styled.p`
 export const CardHeading = styled.p`
     color: var(--titan-green);
     overflow-wrap: break-word;
-    max-width: 290px;
+    max-width: calc(100% - 24px);
     margin: 0;
     display: block;
     margin-block-start: 1.33em;
