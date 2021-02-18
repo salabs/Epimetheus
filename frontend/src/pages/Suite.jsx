@@ -13,6 +13,7 @@ import TestList from '../components/suite/Testlist';
 import LogMessages from '../components/suite/LogMessages';
 import { ParentInfoContainer } from './Suite.styles';
 import ContentHeader from '../components/header/ContentHeader';
+import { ContainerGrid12, ContentGrid6 } from '../styles/baseComponents';
 
 const Suite = () => {
     const { suiteId, buildId, seriesId, testId } = useParams();
@@ -77,7 +78,11 @@ const Suite = () => {
                     aria-label="Loading"
                     aria-relevant="all"
                 >
-                    <Loading />
+                    <ContainerGrid12>
+                        <ContentGrid6>
+                            <Loading />
+                        </ContentGrid6>
+                    </ContainerGrid12>
                 </div>
             ) : selectedSuiteState.suite ? (
                 <div>
@@ -93,15 +98,29 @@ const Suite = () => {
                     <BreadcrumbNav status={'suite'} />
                     <ContentHeader />
                     <ParentInfoContainer className="parentInfo-container">
-                        <ParentBuild />
+                        <ContainerGrid12>
+                            <ContentGrid6>
+                                <ParentBuild />
+                            </ContentGrid6>
+                        </ContainerGrid12>
                     </ParentInfoContainer>
-                    <SuiteMetadata />
-                    <TestList suite={selectedSuiteState.suite} />
-                    <LogMessages
-                        test={selectedSuiteState.suite.tests.find(
-                            i => i.id === parseInt(testId, 10)
-                        )}
-                    />
+                    <ContainerGrid12>
+                        <ContentGrid6>
+                            <SuiteMetadata />
+                        </ContentGrid6>
+                    </ContainerGrid12>
+                    <ContainerGrid12>
+                        <TestList suite={selectedSuiteState.suite} />
+                    </ContainerGrid12>
+                    <ContainerGrid12>
+                        <ContentGrid6>
+                            <LogMessages
+                                test={selectedSuiteState.suite.tests.find(
+                                    i => i.id === parseInt(testId, 10)
+                                )}
+                            />
+                        </ContentGrid6>
+                    </ContainerGrid12>
                 </div>
             ) : (
                 <Notfound />
