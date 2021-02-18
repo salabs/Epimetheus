@@ -3,11 +3,13 @@
 export const CardSection = styled.section`
     background-color: var(--nero-white);
     box-shadow: rgba(0, 0, 0, 0.16) 0px 5px 7px, rgba(0, 0, 0, 0.23) 0px 5px 7px;
-    margin: 10px;
+    margin: 0 var(--space-16) var(--space-16) 0;
     line-height: 16px;
-    min-height: 120px;
+    width: calc(100% / 3 - var(--space-16));
+    min-width: calc(var(--max-page-width) / 4);
     height: 232px;
-    padding: 16px;
+    min-height: 120px;
+    padding: var(--space-16);
     cursor: pointer;
 
     div {

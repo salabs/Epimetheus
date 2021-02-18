@@ -16,10 +16,6 @@ export const SelectedTeamContainer = styled.div`
             vertical-align: -webkit-baseline-middle;
         }
     }
-
-    @media only screen and (max-width: 1024px) {
-        padding: 24px 40px;
-    }
 `;
 
 export const CardContainer = styled.div`
@@ -27,7 +23,7 @@ export const CardContainer = styled.div`
     grid-gap: 16px;
     grid-template-columns: repeat(
         auto-fit,
-        minmax(calc(var(--max-page-width) / 4 - 16px), 1fr)
+        minmax(calc(var(--max-page-width) / 4 - var(--space-16)), 1fr)
     );
     width: 100%;
     height: 100%;
@@ -39,7 +35,7 @@ export const CardSection = styled.section`
     border-radius: 8px 0px 0px 0px;
     border: 1px solid #eeecec;
     display: grid;
-    padding: 0 16px;
+    padding: 0 var(--space-16);
     height: 232px;
     word-break: break-word;
 
@@ -75,6 +71,7 @@ export const CardSubTitle = styled.p`
     text-transform: uppercase;
 `;
 
+// max-width's 24px is the svg icon's width
 export const CardHeading = styled.p`
     color: var(--titan-green);
     overflow-wrap: break-word;
