@@ -1,5 +1,5 @@
 *** Settings ***
-Library         REST    http://localhost:${PORT}
+Library         rest_or_null.RESTorNull  http://localhost:${PORT}
 Library         RequestsLibrary
 Metadata        FIXTURE_SERIES_ID   ${FIXTURE_SERIES_ID}
 
@@ -62,6 +62,12 @@ Build info data
     Integer                 response status     200
     Valid series object     $.series
     Valid build object      $.build
+
+Simple build result data
+    GET                         /data/series/${FIXTURE_SERIES_ID}/builds/1/simple_results
+    Integer                     response status     200
+    Array                       $.suites
+    Valid simple build result suite object  $.suites[*]
 
 Suite result info data
     GET                         /data/series/${FIXTURE_SERIES_ID}/builds/1/suites/3/info
@@ -257,6 +263,35 @@ Valid build object
     String              ${json_path}.archiving_time
     String              ${json_path}.start_time
 
+Valid simple build result suite object
+    [Arguments]         ${json_path}
+    Integer             ${json_path}.id
+    String              ${json_path}.name
+    String              ${json_path}.full_name
+    String              ${json_path}.repository
+    Array               ${json_path}.tests
+    Valid simple test result    ${json_path}.tests[*]
+
+Valid simple test result
+    [Arguments]         ${json_path}
+    Integer             ${json_path}.id
+    String              ${json_path}.name
+    String              ${json_path}.full_name
+    Integer             ${json_path}.test_run_id
+    String              ${json_path}.start_time
+    String              ${json_path}.status
+    String or null      ${json_path}.setup_status
+    String or null      ${json_path}.execution_status
+    String or null      ${json_path}.teardown_status
+    Integer             ${json_path}.elapsed
+    Integer or null     ${json_path}.setup_elapsed
+    Integer or null     ${json_path}.execution_elapsed
+    Integer or null     ${json_path}.teardown_elapsed
+    String              ${json_path}.fingerprint
+    String or null      ${json_path}.setup_fingerprint
+    String or null      ${json_path}.execution_fingerprint
+    String or null      ${json_path}.teardown_fingerprint
+
 Valid log message object
     [Arguments]         ${json_path}  ${is_test_case}=${true}
     Integer             ${json_path}.id
@@ -264,7 +299,7 @@ Valid log message object
     String              ${json_path}.message
     String              ${json_path}.log_level
     Integer             ${json_path}.suite_id
-    #String              ${json_path}.test_id
+    Integer or null     ${json_path}.test_id
     Integer             ${json_path}.test_run_id
 
 Get last fixture test run id
