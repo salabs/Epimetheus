@@ -14,6 +14,7 @@ import {
     LastRunContainer,
 } from './Build.styles';
 import ContentHeader from '../components/header/ContentHeader';
+import { ContainerGrid12, ContentGrid6 } from '../styles/baseComponents';
 
 const Build = () => {
     const [
@@ -72,7 +73,11 @@ const Build = () => {
                     aria-label="Loading"
                     aria-relevant="all"
                 >
-                    <Loading />
+                    <ContainerGrid12>
+                        <ContentGrid6>
+                            <Loading />
+                        </ContentGrid6>
+                    </ContainerGrid12>
                 </div>
             ) : (
                 <Fragment>
@@ -88,12 +93,20 @@ const Build = () => {
                     <BreadcrumbNav status={'build'} />
                     <ContentHeader />
                     <ParentInfoContainer id="parentInfo-container">
-                        <ParentBuild />
+                        <ContainerGrid12>
+                            <ContentGrid6>
+                                <ParentBuild />
+                            </ContentGrid6>
+                        </ContainerGrid12>
                     </ParentInfoContainer>
-                    <BuildMetadata />
-                    <h2>Test results for build {buildId}</h2>
-                    <LastRunCheckBox direction="column" />
-                    <Table id={branch_id} />
+                    <ContainerGrid12>
+                        <ContentGrid6>
+                            <BuildMetadata />
+                            <h2>Test results for build {buildId}</h2>
+                            <LastRunCheckBox direction="column" />
+                            <Table id={branch_id} />
+                        </ContentGrid6>
+                    </ContainerGrid12>
                 </Fragment>
             )}
         </div>
