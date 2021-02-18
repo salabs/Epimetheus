@@ -4,11 +4,6 @@ export const Container = styled.div`
     border: 1px solid var(--hermanni-grey);
     border-radius: 4px;
     padding: 0 16px;
-    margin: 0 182px;
-
-    @media only screen and (max-width: 1024px) {
-        margin: 0 80px;
-    }
 `;
 
 export const HeaderContainer = styled.div`

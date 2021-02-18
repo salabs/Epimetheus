@@ -37,11 +37,6 @@ export const Container = styled.div`
     overflow: hidden;
     border: 1px solid #e5e5e5;
     border-radius: 8px;
-    margin: 0 198px 64px 198px;
-
-    @media only screen and (max-width: 1024px) {
-        margin: 0 108px 24px 108px;
-    }
 `;
 
 export const HeaderRow = styled.tr`

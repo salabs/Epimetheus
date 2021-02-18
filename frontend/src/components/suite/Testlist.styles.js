@@ -9,10 +9,8 @@ export const FlexContainer = styled.div`
     display: flex;
     flex-direction: column;
     padding: 40px 0px;
-    margin: 0 108px;
-
-    @media only screen and (max-width: 1024px) {
-        margin: 0 64px;
+    :hover {
+        cursor: pointer;
     }
 
     .open,

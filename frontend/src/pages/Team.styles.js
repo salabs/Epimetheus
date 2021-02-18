@@ -11,6 +11,6 @@ export const TeamHeading = styled.h1`
 export const TeamContainer = styled.div`
     display: flex;
     flex-wrap: wrap;
-    padding: 40px 108px;
+    padding: var(--space-16);
     background: var(--hermanni-grey-lighter);
 `;

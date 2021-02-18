@@ -12,7 +12,6 @@ import useMetadata from '../hooks/useMetadata';
 import {
     ParentInfoContainer,
     LastRunContainer,
-    TableHeader,
 } from './Build.styles';
 import ContentHeader from '../components/header/ContentHeader';
 
@@ -92,7 +91,7 @@ const Build = () => {
                         <ParentBuild />
                     </ParentInfoContainer>
                     <BuildMetadata />
-                    <TableHeader>Test results for build {buildId}</TableHeader>
+                    <h2>Test results for build {buildId}</h2>
                     <LastRunCheckBox direction="column" />
                     <Table id={branch_id} />
                 </Fragment>
