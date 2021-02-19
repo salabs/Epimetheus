@@ -2,6 +2,7 @@
 
 export const StyledRow = styled.td`
     font-size: 14px;
+    white-space: nowrap;
     span {
         width: 13px;
     }
