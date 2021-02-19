@@ -2,7 +2,7 @@ import React from 'react';
 import { StyledDiv } from './MainContent.styles';
 
 const MainContent = ({ children }) => {
-    return <main><StyledDiv id="main-content">{children}</StyledDiv></main>;
+    return <StyledDiv id="main-content">{children}</StyledDiv>;
 };
 
 export default MainContent;

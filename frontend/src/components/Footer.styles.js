@@ -1,6 +1,6 @@
 ﻿import styled from 'styled-components';
 
-export const FooterContainer = styled.div`
+export const FooterContainer = styled.footer`
     margin-top: auto;
     background: var(--titan-green);
     color: var(--nero-white);
