@@ -4,7 +4,7 @@ import Heading from './Heading';
 import Body from './Body';
 import NotFound from '../NotFound';
 import { useStateValue } from '../../contexts/state';
-import { TableStyled } from './Table.styles';
+import { OverflowWrapper, TableStyled, TableWrapper } from './Table.styles';
 
 const Table = () => {
     const [
@@ -15,12 +15,16 @@ const Table = () => {
 
     if (max_build_num > 0) {
         return (
-            <TableStyled id="history-table">
-                <Heading />
-                <tbody id="history-table-body">
-                    <Body />
-                </tbody>
-            </TableStyled>
+            <TableWrapper>
+                <OverflowWrapper>
+                    <TableStyled id="history-table">
+                        <Heading />
+                        <tbody id="history-table-body">
+                            <Body />
+                        </tbody>
+                    </TableStyled>
+                </OverflowWrapper>
+            </TableWrapper>
         );
     } else {
         return <NotFound />;
