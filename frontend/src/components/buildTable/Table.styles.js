@@ -2,9 +2,22 @@
 import styled from 'styled-components';
 
 export const StyledTable = styled(baseTable)`
-    table-layout: fixed;
-    border-collapse: collapse !important;
+    table-layout: initial;
     overflow: auto;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    position: relative;
+    width: 100%;
+
+    &::after {
+        content: '';
+        position: absolute;
+        right: -20px;
+        top: 0;
+        display: inline-block;
+        width: 20px;
+        height: 100%;
+    }
 
     thead th:nth-of-type(1) {
         width: 10%;
@@ -31,12 +44,6 @@ export const StyledTable = styled(baseTable)`
     thead th:nth-of-type(6) {
         width: 4%;
     }
-`;
-
-export const Container = styled.div`
-    overflow: hidden;
-    border: 1px solid #e5e5e5;
-    border-radius: 8px;
 `;
 
 export const HeaderRow = styled.tr`

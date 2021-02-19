@@ -5,8 +5,9 @@ export const SuiteRow = styled.tr`
 `;
 
 export const LinkSuiteName = styled.td`
-    text-align: left !important;
-
+    span {
+        display: inline-block;
+    }
     span:nth-child(4) {
         margin-left: 8px;
     }
