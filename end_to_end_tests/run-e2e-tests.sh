@@ -1,12 +1,14 @@
-#!/bin/sh 
+#!/bin/sh
+
+VERSION_METADATA="version:0.3.0"
 
 
-
-if [ ! -z "${CI_PIPELINE_ID}" ]; then 
+if [ ! -z "${CI_PIPELINE_ID}" ]; then
 
 python -m robot --outputdir ./logs/ \
+                --pythonpath resources/Libraries/ \
                 --variablefile variables.py \
-                --metadata "version:0.3.0" \
+                --metadata ${VERSION_METADATA} \
                 --metadata "ci_pipeline_id:$CI_PIPELINE_ID" \
                 --metadata "branch:$CI_COMMIT_REF_NAME" \
                 --metadata "commit_sha:$CI_COMMIT_SHA" \
@@ -21,9 +23,9 @@ python -m robot --outputdir ./logs/ \
                 ./robot_tests
 BACKEND=$?
 
-#Testarchiver data storing can be added here,
-#Important to exit with the right exit value from the test execution,
-#not with the exitvalue from data storing. 
+# Testarchiver data storing can be added here,
+# Important to exit with the right exit value from the test execution,
+# not with the exitvalue from data storing.
 
 echo "---------------------------------------------"
 echo " Archiving Backend reports from ./logs -directory"
@@ -33,8 +35,9 @@ find ./logs -name \*.xml -type f -print0 | xargs -0 -n1 testarchiver --dbengine 
                                             --team Epimetheus --series ci_backend#"${CI_RUN_NUMBER}" --series "${CI_COMMIT_REF_NAME}"#"${CI_RUN_NUMBER}" --format robotframework
 
 python -m robot --outputdir ./logs/ \
+                --pythonpath resources/Libraries/ \
                 --variablefile variables.py \
-                --metadata "version:0.3.0" \
+                --metadata ${VERSION_METADATA} \
                 --metadata "ci_pipeline_id:$CI_PIPELINE_ID" \
                 --metadata "branch:$CI_COMMIT_REF_NAME" \
                 --metadata "commit_sha:$CI_COMMIT_SHA" \
@@ -62,16 +65,17 @@ EXITVAL=$((FRONTEND+BACKEND))
 else
 
 python -m robot --outputdir ./logs/ \
+                --pythonpath resources/Libraries/ \
                 --variablefile variables.py \
-                --metadata "version:0.3.0" \
+                --metadata ${VERSION_METADATA} \
                 --metadata "environment:locally" \
                 --include Backend \
                 ./robot_tests
 BACKEND=$?
 
-#Testarchiver data storing can be added here,
-#Important to exit with the right exit value from the test execution,
-#not with the exitvalue from data storing. 
+# Testarchiver data storing can be added here,
+# Important to exit with the right exit value from the test execution,
+# not with the exitvalue from data storing.
 
 echo "---------------------------------------------"
 echo " Archiving Backend reports from ./logs -directory"
@@ -83,8 +87,9 @@ find ./logs -name \*.xml -type f -print0 | xargs -0 -n1 testarchiver --dbengine 
 
 
 python -m robot --outputdir ./logs/ \
+                --pythonpath resources/Libraries/ \
                 --variablefile variables.py \
-                --metadata "version:0.3.0" \
+                --metadata ${VERSION_METADATA} \
                 --metadata "environment:locally" \
                 --include Frontend \
                 ./robot_tests
