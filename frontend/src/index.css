@@ -81,28 +81,34 @@ h5 {
 h1 {
     font-size: 40px;
     font-weight: 700;
-    line-height: 1.15;
+    line-height: 56px;
     overflow-wrap: break-word;
 }
 
 h2 {
     font-size: 30px;
     font-weight: 700;
+    line-height: 48px;
 }
 
 h3 {
-    font-size: 18px;
-    font-weight: 500;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 40px;
+    text-transform: uppercase;
 }
 
 h4 {
     font-size: 20px;
     font-weight: 500;
+    line-height: 24px;
 }
 
 h5 {
     font-size: 14px;
     font-weight: 600;
+    line-height: 24px;
+    text-transform: uppercase;
 }
 
 svg {
