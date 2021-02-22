@@ -9,10 +9,7 @@ import ParentBuild from '../components/parentData/ParentBuild';
 import Loading from '../components/Loading';
 import BuildMetadata from '../components/metadata/BuildMetadata';
 import useMetadata from '../hooks/useMetadata';
-import {
-    ParentInfoContainer,
-    LastRunContainer,
-} from './Build.styles';
+import { ParentInfoContainer } from './Build.styles';
 import ContentHeader from '../components/header/ContentHeader';
 import { ContainerGrid12, ContentGrid6 } from '../styles/baseComponents';
 
@@ -64,7 +61,6 @@ const Build = () => {
 
     return (
         <div id="last-run">
-            <LastRunContainer id="last-run-container"></LastRunContainer>
             {!historyDataState || loadingState ? (
                 <div
                     className="loading-state"
