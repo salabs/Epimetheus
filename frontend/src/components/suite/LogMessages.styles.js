@@ -3,16 +3,23 @@
 export const SelectedTestContainer = styled.div`
     background: #fff;
     margin-top: 5px;
-    display: flex;
-    flex-direction: row;
 
     table {
         border-collapse: separate !important;
         border-spacing: 0;
-        table-layout: fixed;
         width: 100%;
         border: 1px solid var(--hermanni-grey);
         border-radius: 8px;
+        position: relative;
+        &::after {
+            content: '';
+            position: absolute;
+            right: -20px;
+            top: 0;
+            display: inline-block;
+            width: 20px;
+            height: 100%;
+        }
     }
     thead {
         background: var(--hermanni-grey);
