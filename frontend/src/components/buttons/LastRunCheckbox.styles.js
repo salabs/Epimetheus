@@ -1,13 +1,5 @@
 ﻿import styled from 'styled-components';
 
-export const ButtonContainer = styled.div`
-    padding-left: ${props => (props.ishistory ? '0' : '198px')};
-
-    @media only screen and (max-width: 1024px) {
-        padding-left: ${props => (props.ishistory ? '0' : '108px')};
-    }
-`;
-
 export const Header = styled.div`
     color: var(--evidence-grey);
     margin: 8px 0;

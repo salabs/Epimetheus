@@ -7,7 +7,6 @@ import { useStateValue } from '../../contexts/state';
 import { ReactComponent as Checked } from '../../images/checked.svg';
 import { ReactComponent as Unchecked } from '../../images/unchecked.svg';
 import {
-    ButtonContainer,
     Header,
     StyledDiv,
     StyledLabel,
@@ -17,7 +16,7 @@ import {
 import { useQueryParams } from '../../hooks/useQuery';
 import { useHistory, useLocation } from 'react-router-dom';
 
-const Checkbox = ({ direction, isHistory }) => {
+const Checkbox = ({ direction }) => {
     // eslint-disable-next-line
     const [{ lastRunFilterPass, lastRunFilterFail }, dispatch] = useStateValue();
     const [passFilter, setPassFilter] = useState(lastRunFilterPass.isChecked);
@@ -80,7 +79,7 @@ const Checkbox = ({ direction, isHistory }) => {
     };
 
     return (
-        <ButtonContainer ishistory={isHistory}>
+        <div>
             <Header>{t('hide_tests.header')}</Header>
             <StyledDiv direction={direction} id="last-run-checkbox-container">
                 <StyledLabel labelfor="filterPassed">
@@ -108,7 +107,7 @@ const Checkbox = ({ direction, isHistory }) => {
                     {t('hide_tests.failing')}
                 </StyledLabel>
             </StyledDiv>
-        </ButtonContainer>
+        </div>
     );
 };
 
