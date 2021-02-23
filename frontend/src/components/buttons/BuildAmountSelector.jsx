@@ -5,8 +5,11 @@ import { useQueryParams } from '../../hooks/useQuery';
 import { useStateValue } from '../../contexts/state';
 import DropdownSelect from './DropdownSelect';
 import { SelectorContainer } from './BuildAmountSelector.styles';
+import { useTranslation } from 'react-i18next';
 
 const BuildAmountSelector = () => {
+    const [t] = useTranslation(['buttons']);
+
     const [{ amountOfBuilds }, dispatch] = useStateValue();
 
     const history = useHistory();
@@ -40,7 +43,7 @@ const BuildAmountSelector = () => {
     return (
         <SelectorContainer>
             <DropdownSelect
-                label="Builds"
+                label={t('Builds')}
                 selector-values={selectorValues}
                 on-change={handleChange}
                 initial-value={amountOfBuilds}
