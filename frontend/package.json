@@ -9,6 +9,7 @@
         "prop-types": "^15.7.2",
         "ramda": "^0.27.0",
         "react": "^16.13.1",
+        "react-a11y-select": "^1.0.4",
         "react-apexcharts": "^1.3.7",
         "react-dom": "^16.10.2",
         "react-fontawesome": "^1.7.1",
