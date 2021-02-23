@@ -1,12 +1,10 @@
-// eslint-disable-next-line
 import React from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useQueryParams } from '../../hooks/useQuery';
 
 import { useStateValue } from '../../contexts/state';
-import DropdownMenu from './DropdownMenu';
-
-import { Header, SelectorContainer } from './BuildAmountSelector.styles';
+import DropdownSelect from './DropdownSelect';
+import { SelectorContainer } from './BuildAmountSelector.styles';
 
 const BuildAmountSelector = () => {
     const [{ amountOfBuilds }, dispatch] = useStateValue();
@@ -23,11 +21,11 @@ const BuildAmountSelector = () => {
     const handleChange = e => {
         dispatch({
             type: 'setAmountOfBuilds',
-            amountOfBuilds: parseInt(e.value),
+            amountOfBuilds: parseInt(e),
         });
         history.push({
             pathname: `${location.pathname}`,
-            search: `?${updateTags(e.value)}`,
+            search: `?${updateTags(e)}`,
             state: {},
         });
     };
@@ -41,12 +39,12 @@ const BuildAmountSelector = () => {
 
     return (
         <SelectorContainer>
-            <Header>Builds</Header>
-            <DropdownMenu
-                selectorValues={selectorValues}
-                onChange={handleChange}
-                defaultValue={amountOfBuilds}
-                id="build_amount_dropdown"
+            <DropdownSelect
+                label="Builds"
+                selector-values={selectorValues}
+                on-change={handleChange}
+                initial-value={amountOfBuilds}
+                indicator="build_amount_dropdown"
             />
         </SelectorContainer>
     );
