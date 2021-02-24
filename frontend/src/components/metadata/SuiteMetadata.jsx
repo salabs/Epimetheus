@@ -7,7 +7,7 @@ const SuiteMetadata = () => {
     const [t] = useTranslation(['accordion']);
     const [{ selectedSuiteState }] = useStateValue();
 
-    const name = ['Suite Id', 'Name', 'Full name', 'Repository', 'Starttime'];
+    const name = ['Suite Id', 'Name', 'Full name', 'Repository', 'Start time'];
 
     const value = selectedSuiteState && [
         selectedSuiteState.suite.id.toString(),
