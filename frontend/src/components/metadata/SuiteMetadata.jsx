@@ -12,7 +12,7 @@ const SuiteMetadata = () => {
         'Name:',
         'Full name:',
         'Repository:',
-        'Starttime:',
+        'Start time:',
     ];
 
     const value = selectedSuiteState && [
