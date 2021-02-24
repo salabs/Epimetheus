@@ -6,23 +6,23 @@ import {
     SplitBorder,
     TableContainer,
     DataRow,
-} from './MetadataTable.styles';
+} from './Accordion.styles';
 import { ReactComponent as Up } from '../../images/chevron-up.svg';
 import { ReactComponent as Down } from '../../images/chevron-down.svg';
 
-const MetadataTable = ({ name, value }) => {
-    const [t] = useTranslation(['metadata']);
+const Accordion = ({ header, name, value }) => {
+    const [t] = useTranslation(['accordion']);
     const [Open, setOpen] = useState(true);
 
     return (
-        <Container id="metadata-table">
+        <Container>
             <HeaderContainer
                 onClick={() => setOpen(!Open)}
                 onKeyPress={() => setOpen(!Open)}
                 role="button"
                 tabIndex="0"
             >
-                <p>{t('metadata')}</p>
+                <p>{header}</p>
                 <span>{Open ? <Up /> : <Down />}</span>
             </HeaderContainer>
             <SplitBorder open={Open} />
@@ -50,4 +50,4 @@ const MetadataTable = ({ name, value }) => {
     );
 };
 
-export default MetadataTable;
+export default Accordion;
