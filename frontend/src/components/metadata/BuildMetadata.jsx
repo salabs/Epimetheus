@@ -1,9 +1,11 @@
 ﻿import React from 'react';
-import MetadataTable from './MetadataTable';
+import Accordion from '../accordion/Accordion';
 import { capitalCaseInitial, removeUnderscore } from '../../utils/helpers';
 import { useStateValue } from '../../contexts/state';
+import { useTranslation } from 'react-i18next';
 
-const BuildMetadata = isOverview => {
+const BuildMetadata = () => {
+    const [t] = useTranslation(['accordion']);
     const [{ metadataState }] = useStateValue();
 
     const metadata =
@@ -25,7 +27,11 @@ const BuildMetadata = isOverview => {
             removeUnderscore(capitalCaseInitial(metadata_value))
         );
 
-    return metadata && <MetadataTable name={name} value={value} />;
+    return (
+        metadata && (
+            <Accordion header={t('metadata')} name={name} value={value} />
+        )
+    );
 };
 
 export default BuildMetadata;
