@@ -1,71 +1,79 @@
 ﻿import styled from 'styled-components';
 
 export const Container = styled.div`
-    border: 1px solid var(--hermanni-grey);
-    border-radius: 4px;
-    padding: 0 var(--space-16);
-    margin: var(--space-24) calc(var(--space-16) * -1);
-    width: calc(100% + 16px + 16px);
-    word-break: break-word;
+    border: 1px solid var(--tonic-grey);
+    border-radius: var(--space-4);
+    width: 100%;
+    padding: var(--space-8);
+    margin: var(--space-24) 0;
+
+    > * {
+        padding: 0 var(--space-8);
+    }
 `;
 
-export const HeaderContainer = styled.div`
+export const HeaderContainer = styled.button`
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    :hover {
-        cursor: pointer;
-    }
-
     font-size: 20px;
     font-family: 'Noto Serif';
+    width: 100%;
+    border: 0;
+    background: var(--nero-white);
+
+    &:hover {
+        background-color: var(--hermanni-grey-lighter);
+    }
+
+    &[aria-expanded='true'] {
+        p {
+            color: var(--pirlo-blue);
+        }
+
+        &:hover:enabled {
+            background-color: var(--nero-white);
+        }
+    }
+
+    p {
+        margin: 0;
+        padding-top: var(--space-4);
+        padding-bottom: var(--space-4);
+        line-height: var(--space-24) !important; // same as h4's
+    }
+
+    .caret {
+        line-height: 0;
+    }
+`;
+
+export const Content = styled.div`
+    &.Open,
+    &.Close {
+        visibility: hidden;
+        max-height: 0;
+        overflow-y: hidden;
+        transition: all 0.2s ease-in-out;
+    }
+
+    &.Open {
+        visibility: visible;
+        max-height: 5000px;
+    }
+
+    table {
+        overflow: hidden;
+        word-break: break-word;
+
+        th:first-of-type {
+            min-width: 150px;
+        }
+    }
 `;
 
 export const SplitBorder = styled.div`
-    background: var(--hermanni-grey);
-    opacity: 0.4;
-    height: ${props => (props.open ? '4px' : '0px')};
-`;
-
-export const TableContainer = styled.div`
-    display: flex;
-
-    .Open,
-    .Close {
-        max-height: 0;
-        overflow-y: hidden;
-        padding: 0;
-        -webkit-transition: max-height 0.3s ease-in-out;
-        -moz-transition: max-height 0.3s ease-in-out;
-        -o-transition: max-height 0.3s ease-in-out;
-        transition: max-height 0.3s ease-in-out;
-        -webkit-transition: padding 0.25s ease;
-        -moz-transition: padding 0.25s ease;
-        -o-transition: padding 0.25s ease;
-        transition: padding 0.25s ease;
-    }
-
-    .Open {
-        max-height: 500px;
-        padding: 16px 0;
-    }
-`;
-
-export const DataRow = styled.div`
-    display: flex;
-    flex-direction: column;
-    flex: ${props => (props.first ? '0.35' : '0.65')};
-
-    span {
-        border-bottom: 1px solid var(--hermanni-grey);
-    }
-    span:first-child,
-    span:last-child {
-        border-bottom: none;
-    }
-    span:first-child {
-        font-weight: bolder;
-        padding-bottom: 8px;
-    }
+    background: var(--hermanni-grey-lighter);
+    height: var(--space-4);
+    margin-top: var(--space-8);
 `;

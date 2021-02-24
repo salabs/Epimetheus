@@ -3,49 +3,59 @@ import { useTranslation } from 'react-i18next';
 import {
     Container,
     HeaderContainer,
+    Content,
     SplitBorder,
-    TableContainer,
-    DataRow,
 } from './Accordion.styles';
 import { ReactComponent as Up } from '../../images/chevron-up.svg';
 import { ReactComponent as Down } from '../../images/chevron-down.svg';
+import { SimpleTable } from '../table/Table.styles';
 
 const Accordion = ({ header, name, value }) => {
     const [t] = useTranslation(['accordion']);
     const [Open, setOpen] = useState(true);
+    const NameValuePairTable = [];
+
+    if (name.length === value.length) {
+        for (let i = 0; i < name.length; i++) {
+            NameValuePairTable.push({ name: name[i], value: value[i] });
+        }
+    }
 
     return (
         <Container>
             <HeaderContainer
                 onClick={() => setOpen(!Open)}
-                onKeyPress={() => setOpen(!Open)}
-                role="button"
-                tabIndex="0"
+                aria-expanded={Open}
             >
                 <p>{header}</p>
-                <span>{Open ? <Up /> : <Down />}</span>
+                <span className="caret">{Open ? <Up /> : <Down />}</span>
             </HeaderContainer>
-            <SplitBorder open={Open} />
-            <TableContainer id="datatable">
-                <DataRow first={true} className={Open ? 'Open' : 'Close'}>
-                    <span>{t('name')}</span>
-                    {name.map((n, index) => (
-                        <span key={index}>{n}</span>
-                    ))}
-                </DataRow>
-                <DataRow className={Open ? 'Open' : 'Close'}>
-                    <span>{t('value')}</span>
-                    {value.map((v, index) =>
-                        v.includes('Http') || v.includes('http') ? (
-                            <a href={v} key={index}>
-                                {v}
-                            </a>
-                        ) : (
-                            <span key={index}>{v}</span>
-                        )
-                    )}
-                </DataRow>
-            </TableContainer>
+            <Content className={Open ? 'Open' : 'Close'}>
+                <SplitBorder />
+                <SimpleTable id="datatable">
+                    <thead>
+                        <tr>
+                            <th>{t('name')}</th>
+                            <th>{t('value')}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {NameValuePairTable.map((item, index) => (
+                            <tr key={index}>
+                                <td>{item.name}</td>
+                                <td>
+                                    {item.value.includes('Http') ||
+                                    item.value.includes('http') ? (
+                                        <a href={item.value}>{item.value}</a>
+                                    ) : (
+                                        <span key={index}>{item.value}</span>
+                                    )}
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </SimpleTable>
+            </Content>
         </Container>
     );
 };
