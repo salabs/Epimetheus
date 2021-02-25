@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const LastBuildTable = styled.table`
     width: 100%;
+
     th {
         margin: 20px;
         text-align: left;
