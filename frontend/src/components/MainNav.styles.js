@@ -1,6 +1,6 @@
 ﻿import styled from 'styled-components';
 
-export const NavBar = styled.div`
+export const NavBar = styled.nav`
     background: var(--titan-green);
     color: var(--nero-white);
     display: flex;

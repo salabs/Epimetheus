@@ -2,7 +2,6 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { CardSection, StyledSpan, CardHeading } from './Card.styles';
-//import {Link} from 'react-router-dom';
 
 const Card = ({ team, numberOfSeries }) => {
     const [t] = useTranslation(['team']);
