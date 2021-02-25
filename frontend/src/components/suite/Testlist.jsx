@@ -22,20 +22,20 @@ const Testlist = ({ suite }) => {
     const [Open, setOpen] = useState(true);
 
     return (
-        <FlexContainer className="container">
+        <FlexContainer>
             <HeaderContainer
                 onClick={() => setOpen(!Open)}
-                onKeyPress={() => setOpen(!Open)}
+                aria-expanded={Open}
             >
                 <SvgCollection />
-                <h3>{suite.name} Tests</h3>
+                <h2>{suite.name} Tests</h2>
                 <p>
                     {suite.tests.length} test
                     {suite.tests.length > 1 && 's'}
                 </p>
-                {Open ? <SvgUp></SvgUp> : <SvgDown></SvgDown>}
+                {Open ? <SvgUp /> : <SvgDown />}
             </HeaderContainer>
-            <TestListContainer className={Open ? 'Open' : 'Close'}>
+            <TestListContainer className={Open ? 'open' : 'close'}>
                 <ul>
                     {' '}
                     {suite.tests.map((test, i) => {
