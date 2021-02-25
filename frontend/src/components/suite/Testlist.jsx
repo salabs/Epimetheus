@@ -14,8 +14,8 @@ import {
     SvgStatus,
     TimeContainer,
     TagContainer,
-    Tag,
 } from './Testlist.styles';
+import AttributeTag from '../attributeTag/AttributeTag';
 
 const Testlist = ({ suite }) => {
     const { suiteId, buildId, seriesId, testId } = useParams();
@@ -63,7 +63,13 @@ const Testlist = ({ suite }) => {
                                     <TagContainer>
                                         {' '}
                                         {test.tags.map((tag, i) => {
-                                            return <Tag key={i}>{tag}</Tag>;
+                                            return (
+                                                <AttributeTag
+                                                    key={i}
+                                                    color="grey"
+                                                    header={tag}
+                                                />
+                                            );
                                         })}
                                     </TagContainer>
                                 </TestStatusRow>
