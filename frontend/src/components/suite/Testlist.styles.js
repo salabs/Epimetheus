@@ -179,12 +179,3 @@ export const TagContainer = styled.span`
         flex-wrap: wrap;
     }
 `;
-
-export const Tag = styled.span`
-    border: 1px solid var(--evidence-grey);
-    padding: 0 8px;
-    border-radius: 8px;
-    font-size: 10px;
-    margin: 2px 8px;
-    line-height: 14px;
-`;
