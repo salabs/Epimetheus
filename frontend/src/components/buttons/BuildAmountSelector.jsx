@@ -47,7 +47,7 @@ const BuildAmountSelector = () => {
                 selector-values={selectorValues}
                 on-change={handleChange}
                 initial-value={amountOfBuilds}
-                indicator="build_amount_dropdown"
+                id="build_amount_dropdown"
             />
         </SelectorContainer>
     );

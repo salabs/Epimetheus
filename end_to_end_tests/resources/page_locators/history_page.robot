@@ -2,10 +2,10 @@
 ${table_header_xpath}        xpath://*[@id="history-table-head"]/tr/th
 ${series_history_dropdown}      xpath://*[@id="build_amount_dropdown"]
 
-${history_build_selector_5}     xpath://*[@id="react-select-2-option-0"]
-${history_build_selector_10}        xpath://*[@id="react-select-2-option-1"]
-${history_build_selector_15}        xpath://*[@id="react-select-2-option-2"]
-${history_build_selector_30}        xpath://*[@id="react-select-2-option-3"]
+${history_build_selector_5}     xpath://*[@id="react-a11y-option-.$5_option"]
+${history_build_selector_10}        xpath://*[@id="react-a11y-option-.$10_option"]
+${history_build_selector_15}        xpath://*[@id="react-a11y-option-.$15_option"]
+${history_build_selector_30}        xpath://*[@id="react-a11y-option-.$30_option"]
 
 
 ${offset_latest}        xpath://*[@id="latest_offset_button"]

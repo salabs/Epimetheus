@@ -4,7 +4,7 @@ import { Select, Option } from 'react-a11y-select';
 import 'react-a11y-select/src/styles.css';
 
 const DropdownSelect = props => {
-    const { label, indicator } = props;
+    const { label, id } = props;
     const selectorValues = props['selector-values'];
     const onChange = props['on-change'];
     const initialValue = props['initial-value'].toString();
@@ -25,7 +25,7 @@ const DropdownSelect = props => {
                     label={label}
                     onChange={onChange}
                     initialValue={initialValue}
-                    indicator={indicator}
+                    buttonId={id}
                 >
                     {selectorItems}
                 </Select>
