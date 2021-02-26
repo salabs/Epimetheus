@@ -262,6 +262,45 @@ class KeywordModel:
                 $ref: '#/definitions/KeywordModel'
     """
 
+@register_swagger_model
+class BuildKeywordAnalysisObjectModel:
+    """
+    ---
+    type: object
+    description: Object representing keyword execution analysis data for keyword analysis table
+    properties:
+        library:
+            type: string
+            description: Library of the keyword/test step. If null this the keyword has no library
+        keyword:
+            type: string
+            description: Keyword/test step name. If null this represents a virtual test step
+        percent:
+            type: number
+            description: Percentage of total build execution time spent executing this keyword.
+        min:
+            type: integer
+            description: Minimum execution time of the keyword within build in milli seconds
+        avg:
+            type: integer
+            description: Average execution time of the keyword within build in milli seconds
+        max:
+            type: integer
+            description: Maximum execution time of the keyword within build in milli seconds
+        total:
+            type: integer
+            description: Total execution time of the keyword within build in milli seconds
+        calls:
+            type: integer
+            description: Total number of times the keyword was called within build
+        versions:
+            type: integer
+            description: Number of distinct versions/fingerprints for the keyword execution within build
+        max_call_depth:
+            type: integer
+            description: Maximum number of keywords called before the keyword was called.
+    """
+
 
 class Application(tornado.web.Application):
     def __init__(self, database):
@@ -278,6 +317,8 @@ class Application(tornado.web.Application):
                 BuildInfoDataHandler),
             url(r"/data/series/(?P<series>[0-9]+)/builds/(?P<build_number>[0-9]+)/simple_results/?$",
                 BuildSimpleResultsDataHandler),
+            url(r"/data/series/(?P<series>[0-9]+)/builds/(?P<build_number>[0-9]+)/keyword_analysis/?$",
+                KeywordAnalysisDataHandler),
             url(r"/data/series/(?P<series>[0-9]+)/builds/(?P<build_number>[0-9]+)/suites/(?P<suite>[0-9]+)/?$",
                 SuiteResultDataHandler),
             url(r"/data/series/(?P<series>[0-9]+)/builds/(?P<build_number>[0-9]+)/suites/(?P<suite>[0-9]+)/info/?$",
@@ -1401,6 +1442,46 @@ class KeywordTreeDataHandler(BaseHandler):
         keyword_tree = yield self.keyword_tree(fingerprint.lower())
         if keyword_tree:
             self.write(keyword_tree)
+        else:
+            self.send_not_found_response()
+
+
+class KeywordAnalysisDataHandler(BaseHandler):
+    @tornado.gen.coroutine
+    def get(self, series, build_number):
+        """
+        ---
+        tags:
+        - Keyword analysis
+        summary: Execution time statistics
+        description: List of keywords and statistics ordered by total execution time in descenfing order
+        produces:
+        - application/json
+        parameters:
+        -   name: series
+            in: path
+            description: series id
+            required: true
+            type: integer
+        -   name: build_number
+            in: path
+            description: build number
+            required: true
+            type: integer
+        responses:
+            200:
+                description: List of keywords and statistics ordered by total execution time in descenfing order
+                schema:
+                    type: object
+                    properties:
+                        statistics:
+                            type: array
+                            items:
+                                $ref: '#/definitions/BuildKeywordAnalysisObjectModel'
+        """
+        statistics = yield coroutine_query(self.database.keyword_analysis, series, build_number)
+        if statistics:
+            self.write({'statistics': statistics})
         else:
             self.send_not_found_response()
 

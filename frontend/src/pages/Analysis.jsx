@@ -2,13 +2,10 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import BreadcrumbNav from '../components/BreadcrumbNav';
-import Build from '../components/overview/Build';
-import Series from '../components/overview/Series';
+import KeywordAnalysisTable from '../components/dashlist/KeywordAnalysisTable';
 import ParentBuild from '../components/parentData/ParentBuild';
-import { ParentInfo, FlexColumn } from './Overview.styles';
-import BuildAmountSelector from '../components/buttons/BuildAmountSelector';
-import Offset from '../components/buttons/OffSetButtons';
 import ContentHeader from '../components/header/ContentHeader';
+import { ParentInfo } from './Overview.styles';
 import { ContainerGrid12, ContentGrid6 } from '../styles/baseComponents';
 
 const Overview = () => {
@@ -18,37 +15,25 @@ const Overview = () => {
     const status = buildUrl ? 'build' : 'series';
 
     return (
-        <div>
+        <main>
             <BreadcrumbNav status={status} />
             <ContentHeader />
             <div>
                 <ParentInfo id="parentInfo-container">
                     <ContainerGrid12>
                         <ContentGrid6>
-                            {!buildUrl ? (
-                                <FlexColumn>
-                                    <BuildAmountSelector />
-                                    <Offset />
-                                </FlexColumn>
-                            ) : (
-                                <ParentBuild />
-                            )}
+                            <ParentBuild />
                         </ContentGrid6>
                     </ContainerGrid12>
                 </ParentInfo>
                 <ContainerGrid12>
-                    {buildUrl ? (
-                        <ContentGrid6>
-                            <Build />
-                        </ContentGrid6>
-                    ) : (
-                        <ContentGrid6>
-                            <Series />
-                        </ContentGrid6>
-                    )}
+                    <h3>Statistics on keyword execution times</h3>
                 </ContainerGrid12>
+                <React.Fragment>
+                    <KeywordAnalysisTable />
+                </React.Fragment>
             </div>
-        </div>
+        </main>
     );
 };
 

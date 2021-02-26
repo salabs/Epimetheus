@@ -111,6 +111,9 @@ class Database:
     def subtrees(self, fingerprint):
         return self.session.query(sql_queries.SUBTREES, {'fingerprint': fingerprint}), list_of_dicts
 
+    def keyword_analysis(self, test_series, build_number):
+        return self.session.query(sql_queries.keyword_analysis(test_series, build_number)), list_of_dicts
+
 
 def list_of_dicts(rows):
     results = []

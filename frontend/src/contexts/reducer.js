@@ -106,6 +106,11 @@ const reducer = (state, action) => {
                 ...state,
                 testStabilityList: action.data,
             };
+        case 'setKeywordAnalysisList':
+            return {
+                ...state,
+                keywordAnalysisList: action.data,
+            };
         case 'setStabilityChecker':
             return {
                 ...state,

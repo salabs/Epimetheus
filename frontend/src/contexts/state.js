@@ -22,6 +22,7 @@ const initialState = {
     metadataState: [],
     testStabilityList: [],
     failureList: [],
+    keywordAnalysisList: [],
     selectedBuildState: {},
     selectedSuiteState: null,
     stabilityChecker: 'unstable',

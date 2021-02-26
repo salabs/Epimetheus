@@ -490,3 +490,31 @@ LIMIT {limit} OFFSET {limit_offset};
            limit=int(limit),
            limit_offset=int(limit_offset),
            order="ASC" if stable else "DESC")
+
+def keyword_analysis(series, build_number):
+    return """
+WITH total_elapsed AS (
+    SELECT sum(top_suite_elapsed) as total
+    FROM (
+        SELECT max(elapsed) as top_suite_elapsed
+        FROM suite_result
+        WHERE test_run_id IN ({test_run_ids})
+        GROUP BY test_run_id
+    ) AS foo
+)
+SELECT tree.library, tree.keyword,
+       sum(cumulative_execution_time)::real/total_elapsed.total*100 as percent,
+       min(min_execution_time) as min,
+       sum(cumulative_execution_time)/sum(calls) as avg,
+       max(max_execution_time) as max,
+       sum(cumulative_execution_time) as total,
+       sum(calls) as calls,
+       count(*) versions,
+       max(max_call_depth) as max_call_depth
+FROM keyword_statistics as stat
+JOIN keyword_tree as tree ON tree.fingerprint=stat.fingerprint
+CROSS JOIN total_elapsed
+WHERE test_run_id IN ({test_run_ids})
+GROUP BY tree.library, tree.keyword,  total_elapsed.total
+ORDER BY total DESC
+""".format(test_run_ids=test_run_ids(series, build_num=build_number))

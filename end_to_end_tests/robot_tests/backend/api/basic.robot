@@ -215,13 +215,13 @@ Keyword tree data
     Array                       $.children
 
     # Test execution with virtual keyword as root
-    GET                         /data/keyword_tree/b38e47f8530f32669f42ebda3170fae067dc64bb/
+    GET                         /data/keyword_tree/4bd14ecbf6c4bc29498b9094f407bb72fb09c1a8/
     Integer                     response status     200
-    String                      $.fingerprint      b38e47f8530f32669f42ebda3170fae067dc64bb
+    String                      $.fingerprint      4bd14ecbf6c4bc29498b9094f407bb72fb09c1a8
     Null                        $.keyword
     Null                        $.library
-    String                      $.status
-    Array                       $.arguments
+    String                      $.status            PASS
+    Array                       $.arguments         maxItems=0
     Array                       $.children
 
     String                      $.children[*].call_index
