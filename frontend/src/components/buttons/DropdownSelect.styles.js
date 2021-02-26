@@ -3,6 +3,7 @@ import caretDown from '../../images/caret-down.svg';
 
 export const DropdownWrapper = styled.div`
     .ReactA11ySelect {
+        font-family: 'Hack';
         width: 100%;
         position: relative;
     }
@@ -13,6 +14,7 @@ export const DropdownWrapper = styled.div`
         padding: 0 10px 0 15px;
         background-color: var(--nero-white);
         border: 1px solid var(--tonic-grey);
+        font-size: 14px;
         white-space: nowrap;
         display: flex;
         justify-content: space-between;
@@ -56,6 +58,7 @@ export const DropdownWrapper = styled.div`
     .ReactA11ySelect__ul {
         min-width: 100%;
         margin: 0;
+        font-size: 14px;
         border: 1px solid var(--tonic-grey);
         border-radius: 4px;
         box-shadow: 0 3px 5px 1px var(--tonic-grey);
