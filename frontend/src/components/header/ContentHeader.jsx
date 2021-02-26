@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useStateValue } from '../../contexts/state';
@@ -6,6 +6,7 @@ import {
     LinkContainer,
     OverviewLink,
     HistoryLink,
+    AnalysisLink,
 } from './ContentHeader.styles';
 import { ContainerGrid12, ContentGrid6 } from '../../styles/baseComponents';
 
@@ -14,6 +15,8 @@ const ContentHeader = () => {
 
     const pathname = useLocation().pathname;
     const overviewUrl = pathname.includes('overview');
+    const historyUrl = pathname.includes('history');
+    const analysisUrl = pathname.includes('analysis');
     const buildUrl = pathname.includes('build');
     const suiteUrl = pathname.includes('suite');
 
@@ -91,10 +94,16 @@ const ContentHeader = () => {
                                 </OverviewLink>
                                 <HistoryLink
                                     to={correctUrl('history')}
-                                    overview={overviewUrl}
+                                    history={historyUrl}
                                 >
                                     {t('buttons.history')}
                                 </HistoryLink>
+                                <AnalysisLink
+                                    to={correctUrl('analysis')}
+                                    analysis={analysisUrl}
+                                >
+                                    {t('buttons.analysis')}
+                                </AnalysisLink>
                             </LinkContainer>
                         )}
                     </ContentGrid6>

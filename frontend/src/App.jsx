@@ -6,6 +6,7 @@ import MainNav from './components/MainNav';
 import Footer from './components/Footer';
 import History from './pages/History';
 import Overview from './pages/Overview';
+import Analysis from './pages/Analysis';
 import Build from './pages/Build';
 import Frontpage from './pages/Frontpage';
 import Team from './pages/Team';
@@ -62,6 +63,9 @@ const App = () => {
                             </Route>
                             <Route path="/series/:seriesId/build/:buildId/overview">
                                 <Overview />
+                            </Route>
+                            <Route path="/series/:seriesId/build/:buildId/analysis">
+                                <Analysis />
                             </Route>
                             <Route exact path="/team">
                                 <Team />

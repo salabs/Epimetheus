@@ -1,4 +1,4 @@
-﻿import styled from 'styled-components';
+import styled from 'styled-components';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 
@@ -31,6 +31,11 @@ export const OverviewLink = styled(StyledLink)`
 `;
 
 export const HistoryLink = styled(StyledLink)`
-    color: ${props => !props.overview && 'var(--pirlo-blue) !important'};
-    border-bottom: ${props => !props.overview && '4px solid var(--pirlo-blue)'};
+    color: ${props => props.history && 'var(--pirlo-blue) !important'};
+    border-bottom: ${props => props.history && '4px solid var(--pirlo-blue)'};
+`;
+
+export const AnalysisLink = styled(StyledLink)`
+    color: ${props => props.analysis && 'var(--pirlo-blue) !important'};
+    border-bottom: ${props => props.analysis && '4px solid var(--pirlo-blue)'};
 `;

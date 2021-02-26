@@ -8,6 +8,7 @@
     "in": "in",
     "buttons": {
         "overview": "Overview",
-        "history": "History"
+        "history": "History",
+        "analysis": "Analysis"
     }
 }
