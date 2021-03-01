@@ -11,13 +11,13 @@ import {
     CardContainer,
     CardSection,
     HoverDiv,
-    H5,
-    H4,
     StatusSpan,
     InfoContainer,
     CardValue,
     SelectedTeamContainer,
     SeriesCount,
+    CardHeading,
+    CardSubTitle,
 } from './SelectedTeam.styles';
 
 const TeamCard = ({ data }) => {
@@ -37,16 +37,18 @@ const TeamCard = ({ data }) => {
     const LastStarted = last_started.slice(0, 16);
     const testStatusIcon = pickIcon(last_status);
     return (
-        <CardSection>
-            <header>
-                <H4>{name}</H4>
+        <CardSection aria-label={name} tabIndex="0">
+            <div className={'cardHeading'}>
+                <CardHeading>{name} </CardHeading>
                 <CardValue className="cardValue">{testStatusIcon}</CardValue>
-            </header>
+            </div>
             <HoverDiv
                 className="series"
                 id={`${name}_series`}
                 onClick={() => history.push(`/series/${id}/overview`)}
-                role={'presentation'}
+                role={'link'}
+                href={`/series/${id}/overview`}
+                aria-label={`Series ${name}`}
             >
                 <InfoContainer className="cardInfoContainer">
                     {t('card.series.builds')}{' '}
@@ -59,11 +61,12 @@ const TeamCard = ({ data }) => {
                 onClick={() =>
                     history.push(`/series/${id}/build/${last_build}/overview`)
                 }
-                role={'presentation'}
+                role={'link'}
+                href={`/series/${id}/build/${last_build}/overview`}
             >
-                <H5>
+                <CardSubTitle>
                     {t('card.last_build.title')} {last_build}
-                </H5>
+                </CardSubTitle>
                 <InfoContainer className="cardInfoContainer">
                     {t('card.last_build.build_id')}:{' '}
                     <CardValue className="cardValue">{last_build_id}</CardValue>
@@ -95,20 +98,18 @@ const SelectedTeam = ({ selectedTeam }) => {
         .series_count;
 
     return (
-        <main id="selectedTeam" css={theme.loadingState}>
+        <div id="selectedTeam" css={theme.loadingState}>
             <BreadcrumbNav status={'team'} />
             {selectedTeam && selectedTeam.all_builds ? (
                 <SelectedTeamContainer>
-                    <header>
-                        <h2>
+                    <div className={'selectedTeamHeading'}>
+                        <h1>
                             {t('card.last_build.header')} {teamName}
-                        </h2>
-                        <div>
-                            <SeriesCount>
-                                {seriesCount} {t('card.last_build.series')}{' '}
-                            </SeriesCount>
-                        </div>
-                    </header>
+                        </h1>
+                        <SeriesCount>
+                            {seriesCount} {t('card.last_build.series')}{' '}
+                        </SeriesCount>
+                    </div>
                     <CardContainer>
                         <TeamCard data={selectedTeam.all_builds} />
                         {selectedTeam.series.reverse().map((serie, i) => {
@@ -119,7 +120,7 @@ const SelectedTeam = ({ selectedTeam }) => {
             ) : (
                 <NotFound />
             )}
-        </main>
+        </div>
     );
 };
 

@@ -19,6 +19,19 @@ export const CardSection = styled.section`
     }
 `;
 
+export const CardHeading = styled.p`
+    color: var(--titan-green);
+    overflow-wrap: break-word;
+    max-width: 290px;
+    margin: 0;
+    font-size: 20px;
+    font-weight: 500;
+    font-family: 'Noto Serif Semibold';
+    display: block;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+`;
+
 export const StyledSpan = styled.span`
     color: var(--pirlo-blue);
 `;

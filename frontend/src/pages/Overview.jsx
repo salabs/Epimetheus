@@ -5,10 +5,10 @@ import BreadcrumbNav from '../components/BreadcrumbNav';
 import Build from '../components/overview/Build';
 import Series from '../components/overview/Series';
 import ParentBuild from '../components/parentData/ParentBuild';
-import Header from '../components/header/Header';
 import { ParentInfo, FlexDiv, FlexColumn } from './Overview.styles';
 import BuildAmountSelector from '../components/buttons/BuildAmountSelector';
 import Offset from '../components/buttons/OffSetButtons';
+import ContentHeader from '../components/header/ContentHeader';
 
 const Overview = () => {
     const pathname = useLocation().pathname;
@@ -17,9 +17,9 @@ const Overview = () => {
     const status = buildUrl ? 'build' : 'series';
 
     return (
-        <main>
+        <div>
             <BreadcrumbNav status={status} />
-            <Header />
+            <ContentHeader />
             <div>
                 <ParentInfo id="parentInfo-container">
                     {!buildUrl ? (
@@ -43,7 +43,7 @@ const Overview = () => {
                     )}
                 </FlexDiv>
             </div>
-        </main>
+        </div>
     );
 };
 

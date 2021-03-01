@@ -4,10 +4,10 @@ export const SelectedTeamContainer = styled.div`
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between;
-    padding: 40px 108px;
+    padding: 20px 108px;
     background: var(--hermanni-grey-lighter);
 
-    header {
+    .selectedTeamHeading {
         flex: 1 100%;
         flex-direction: row;
         display: flex;
@@ -44,11 +44,19 @@ export const CardSection = styled.section`
     height: 232px;
     width: 344px;
 
-    header {
+    .cardHeading {
+        font-size: 20px;
+        font-weight: 500;
+        font-family: 'Noto Serif Semibold';
         display: flex;
         flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
         margin: 0;
         max-width: 344px;
+    }
+    p {
+        margin: 0;
     }
 `;
 
@@ -62,18 +70,23 @@ export const HoverDiv = styled.div`
     }
 `;
 
-export const H5 = styled.h5`
+export const CardSubTitle = styled.p`
     color: var(--titan-green);
     font-family: 'Noto Serif';
     margin: 0;
     text-transform: uppercase;
 `;
 
-export const H4 = styled.h4`
+export const CardHeading = styled.p`
     color: var(--titan-green);
     overflow-wrap: break-word;
     max-width: 290px;
     margin: 0;
+    display: block;
+    margin-block-start: 1.33em;
+    margin-block-end: 1.33em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
 `;
 
 export const InfoContainer = styled.div`

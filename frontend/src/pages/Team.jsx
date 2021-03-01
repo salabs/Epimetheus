@@ -5,7 +5,7 @@ import { useParams } from 'react-router';
 import SelectedTeam from '../components/team/SelectedTeam';
 import Loading from '../components/Loading';
 import { useTranslation } from 'react-i18next';
-import { TeamHeader, TeamContainer } from './Team.styles';
+import { TeamHeading, TeamContainer } from './Team.styles';
 
 const Team = () => {
     const [t] = useTranslation(['team']);
@@ -30,7 +30,7 @@ const Team = () => {
     }, [dispatch]);
 
     return (
-        <main id="team">
+        <div id="team">
             {!teamsState || loadingState ? (
                 <Loading />
             ) : name ? (
@@ -41,7 +41,7 @@ const Team = () => {
                 />
             ) : (
                 <>
-                    <TeamHeader>{t('title')}</TeamHeader>
+                    <TeamHeading>{t('title')}</TeamHeading>
                     <TeamContainer>
                         {teamsState.map(({ name, series_count }, i) => {
                             return (
@@ -55,7 +55,7 @@ const Team = () => {
                     </TeamContainer>
                 </>
             )}
-        </main>
+        </div>
     );
 };
 export default Team;

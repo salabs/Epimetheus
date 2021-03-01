@@ -8,10 +8,12 @@ export const NavBar = styled.nav`
     min-height: 100px;
 `;
 
-export const StyledH2 = styled.h2`
+export const SiteLogo = styled.div`
     padding: 0px 24px 0px 40px;
     font-family: 'Hack' !important;
     letter-spacing: 1px;
+    font-size: 30px;
+    font-weight: 700;
     @media only screen and (max-width: 540px) {
         width: 0;
         overflow: hidden;
@@ -35,6 +37,9 @@ export const LinkContainer = styled.div`
     .team:hover {
         background: var(--titan-green);
         border-bottom: 3px solid var(--titan-green-darkest);
+    }
+    a:focus {
+        outline-color: var(--nero-white);
     }
 
     .about {

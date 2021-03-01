@@ -52,9 +52,9 @@ const DashboardList = () => {
                     {failureList.map(entry => {
                         return (
                             <tr key={entry.id}>
-                                <th>{entry.name}</th>
-                                <th>{entry.id}</th>
-                                <th>{entry.failures}</th>
+                                <td>{entry.name}</td>
+                                <td>{entry.id}</td>
+                                <td>{entry.failures}</td>
                             </tr>
                         );
                     })}

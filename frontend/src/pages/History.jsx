@@ -11,12 +11,12 @@ import { useParams } from 'react-router';
 import BreadcrumbNav from '../components/BreadcrumbNav';
 import Loading from '../components/Loading';
 import { useQueryParams } from '../hooks/useQuery';
-import Header from '../components/header/Header';
 import {
     RelativeMain,
     FilterContainer,
     ParentContainer,
 } from './History.styles';
+import ContentHeader from '../components/header/ContentHeader';
 
 const History = () => {
     const [t] = useTranslation(['parentData']);
@@ -87,7 +87,7 @@ const History = () => {
     return (
         <RelativeMain id="history">
             <BreadcrumbNav status={'series'} />
-            <Header />
+            <ContentHeader />
             <ParentContainer id="parentInfo-container">
                 <h4>{t('title')}</h4>
                 <ParentSeries />
