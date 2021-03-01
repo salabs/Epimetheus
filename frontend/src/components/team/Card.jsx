@@ -7,21 +7,20 @@ const Card = ({ team, numberOfSeries }) => {
     const [t] = useTranslation(['team']);
     let history = useHistory();
     return (
-        <div
+        <CardSection
             role="link"
             tabIndex="0"
             onClick={() => history.push(`/team/${team}`)}
             onKeyPress={() => history.push(`/team/${team}`)}
             data-href={'/team/' + team}
+            className={`ta-${team}-card`}
         >
-            <CardSection className={`ta-${team}-card`}>
-                <CardHeading>{team}</CardHeading>
-                <div>
-                    {t('series')}:{' '}
-                    <StyledSpan className="test">{numberOfSeries}</StyledSpan>
-                </div>
-            </CardSection>
-        </div>
+            <CardHeading>{team}</CardHeading>
+            <div>
+                {t('series')}:{' '}
+                <StyledSpan className="test">{numberOfSeries}</StyledSpan>
+            </div>
+        </CardSection>
     );
 };
 
