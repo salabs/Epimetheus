@@ -29,6 +29,7 @@ https://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html
 If you wish to execute tests locally you need to have a few things covered.
 - You need Epimetheus Running Somewhere, while developing this will usually be local installation
 - You need to have the correct python packages installed to execute robot framework tests.
+- You need to have chromedriver installed correctly.
 
 #### Installing Robot Framework Packages
 
@@ -84,13 +85,13 @@ pip install -r requirements.txt
 
 With this all the necessary packages should be installed.
 
-#### Installing Chrome Webdriver
+#### Installing Chromedriver
 
-Chrome Webdriver can be installed in two different ways
+Chromedriver can be installed in two different ways
 
 One way is to use the method used in the CI and run a docker-container "elgalu/selenium:latest". This Container will allow for remote execution of selenium tests, utilizing the remote_url parameter of Selenium Library. Make sure that the selenium container is created so that it supports chromedriver.
 
-The otherway is to install chrome webdriver locally, this can take a while to get working though.
+The otherway is to install chromedriver locally, this can take a while to get working though.
 
 - Make sure that your virtualenv is active
 - Install pip package called webdrivermanager
@@ -109,8 +110,6 @@ With this chromedriver should work. Verification can be done by executing fronte
 If you face a version conflict with your installed chrome browser and chromedriver try to find a solution using google.
 
 #### Executing tests
-
-##### Locally:
 
 All of the tests can be executed with the following command
 
@@ -133,6 +132,8 @@ Execute the following command to port your local test executions to your chosen 
 The Test Execution is created in such a way that variables regarding the local and remote execution of the suite will be automatically chosen by the variable file variables.py. If you want to execute your local test cases facing a different URL than "localhost:3000" the variable should be changed here. 
 Variables.py will also decide whether to use local selenium/webdriver for testing or to use a remotely created selenium container.
 
+If you decided to create a selenium container for local testing, please change the local remote url in variables.py to match the url of your selenium container. By default the application uses a local webdriver so the remote url paramater is left empty for local development.
+
 ### Directory Structure
 
 The directory structure of end_to_end tests is as follows.
@@ -153,7 +154,7 @@ Under resources we find 3 folders:
 We also find a file called resource.robot which is used to import common ( currently all ) elements to robot tests.
 
 
-Under robot_tests we find a split between backend and frontend, after which we find folders designated for different pages. We also find some more common suites such as navbar tests.
+Under robot_tests we find a split between backend and frontend, after which we find folders designated for different pages. We also find some more common suites such as navbar tests. Notice that most of the folder contain an __init__.robot file, this is used to force tags to the underlying files which can then be used to limit test execution with the --include flag in the execution of robot.
 
 ### How the automated tests are executed with github actions
 
@@ -167,3 +168,12 @@ The github action initially starts the workflow by executing run-docker.sh
 
 
 ## Refactoring Ideas
+
+Few ideas for the purpose of refactoring the test automation.
+
+- Create a script which will run the test execution with docker-compose so that the user does not need to install all python dependencies/webdriver
+- Create better suites for frontend, instead of having page specific suites have for example breadcrumbs suite, verification suite etc. The locators could also be located inside the robot_tests folder within their corresponding suites, in a separate file of course. This would make the editing of tests easier as their corresponding variables would be located within the folder.
+- Change locators to work with a robot-id instead of html ids.
+- Split keywords away from test cases, so that the test case files would not be crowded by keyword implementations.
+- general_keywords folder could be under robot_tests as well, as the folder contains no test cases.
+- For the future maybe move towards browser library from seleniumlibrary.
