@@ -1,3 +1,3 @@
 ***Variables***
 ${suite_breadcrumb}     xpath://*[@id="SuiteBreadCrumb"]
-${suite_id_locator}     xpath://*[@id="datatable"]/div[2]/span[2]
+${suite_id_locator}     xpath://*[@id="datatable"]/tbody/tr/td[2]/span
