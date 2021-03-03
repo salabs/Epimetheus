@@ -26,16 +26,9 @@ export const DropdownWrapper = styled.div`
         text-decoration: none;
     }
 
-    .ReactA11ySelect__button:enabled:focus::before {
-        content: ' ';
-        position: absolute;
-        z-index: 0;
-        top: -4px;
-        left: -4px;
-        width: calc(100% + 8px);
-        border: 4px solid var(--sparkling-blue);
-        height: calc(100% + 8px);
-        border-radius: 8px;
+    .ReactA11ySelect__button:enabled:focus {
+        outline: 0;
+        box-shadow: 0 0 0 4px var(--sparkling-blue);
     }
 
     .ReactA11ySelect__button > span:first-child {
