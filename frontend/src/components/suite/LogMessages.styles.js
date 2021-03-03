@@ -1,7 +1,7 @@
 ﻿import styled from 'styled-components';
 
 export const SelectedTestContainer = styled.div`
-    background: #fff;
+    background: var(--nero-white);
     margin-top: 5px;
 
     table {
@@ -42,7 +42,7 @@ export const SelectedTestContainer = styled.div`
     }
 
     tbody tr {
-        border-bottom: 1px solid #eee;
+        border-bottom: 1px solid var(--hermanni-grey);
     }
 
     tbody td:first-child {

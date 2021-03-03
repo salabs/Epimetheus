@@ -1,3 +1,5 @@
+// Not used anywhere!
+
 // eslint-disable-next-line
 import React, { useState } from 'react';
 import { useStateValue } from '../../contexts/state';
@@ -16,7 +18,7 @@ const StyledButtonGroup = styled.div`
 `;
 
 const StyledInput = styled.input`
-    border: 1px solid #eee;
+    border: 1px solid var(--hermanni-grey);
     width: 100px;
     border-radius: 10px;
     background-color: var(--nero-white);

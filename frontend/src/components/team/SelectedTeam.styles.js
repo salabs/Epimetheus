@@ -31,9 +31,9 @@ export const CardContainer = styled.div`
 
 export const CardSection = styled.section`
     background-color: var(--nero-white);
-    box-shadow: 0px 2px 4px #eeecec;
+    box-shadow: 0px 2px 4px var(--hermanni-grey);
     border-radius: 8px 0px 0px 0px;
-    border: 1px solid #eeecec;
+    border: 1px solid var(--hermanni-grey);
     display: grid;
     padding: 0 var(--space-16);
     height: 232px;

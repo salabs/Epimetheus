@@ -7,7 +7,7 @@ import { useParams } from 'react-router';
 import { useStateValue } from '../../contexts/state';
 
 const TableHeading = styled.div`
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid var(--tonic-grey);
     min-width: 300px;
     font-weight: bold;
 `;

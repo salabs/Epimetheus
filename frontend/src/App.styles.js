@@ -3,7 +3,7 @@ import theme from './styles/theme';
 
 export const StyledApp = styled.div`
     background-color: var(--nero-white);
-    color: #222;
+    color: var(--gradient-black);
     margin: 0 auto;
     p {
         line-height: 1.6;

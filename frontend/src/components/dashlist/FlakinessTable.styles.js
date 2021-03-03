@@ -2,7 +2,7 @@
 
 export const TableContainer = styled.div`
     border-top: solid;
-    border-color: #ddd;
+    border-color: var(--tonic-grey);
     width: 100%;
     max-height: 400px;
     overflow-y: scroll;
@@ -21,13 +21,13 @@ export const StyledTable = styled.table`
     }
 
     th {
-        border-bottom: 1px solid #ddd;
+        border-bottom: 1px solid var(--tonic-grey);
         padding-left: 5px;
         padding-right: 5px;
         text-align: left;
     }
     td {
-        border-bottom: 1px solid #ddd;
+        border-bottom: 1px solid var(--tonic-grey);
         padding-left: 5px;
         padding-right: 5px;
         text-align: left;

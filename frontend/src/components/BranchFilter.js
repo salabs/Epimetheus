@@ -1,3 +1,5 @@
+// Not used anywhere!
+
 // eslint-disable-next-line
 import React, { useState, useEffect, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
@@ -15,22 +17,22 @@ const Input = styled.input`
     width: 200px;
     padding: 10px 10px;
     margin: 0;
-    border: 1px solid #333;
+    border: 1px solid var(--gradient-black);
     border-radius: 0;
     -moz-appearance: none;
     -webkit-appearance: none;
     appearance: none;
     background-size: 1.2em auto, 100%;
-    background-color: #fefefe;
+    background-color: var(--nero-white);
 `;
 
 const SuggestionContainer = styled.div`
     margin-left: 20px;
     margin-top: 0px;
-    border: 1px solid #000;
+    border: 1px solid var(--gradient-black);
     border-top: 0;
     border-bottom: 1;
-    background-color: #fafafa;
+    background-color: var(--nero-white);
     width: 200px;
     max-height: 300px;
     overflow: auto;
@@ -60,13 +62,13 @@ const SuggestionItem = styled.div`
     margin-top: 0;
     border: 0;
     border-top: 0;
-    background-color: #fafafa;
+    background-color: var(--nero-white);
     width: 200px;
     padding-left: 20px;
 `;
 
 const ActiveSuggestionItem = styled(SuggestionItem)`
-    background-color: #0030bb;
+    background-color: var(--pirlo-blue-darker);
     border: 0px solid blue;
     color: white;
     cursor: pointer;
@@ -93,6 +95,7 @@ const BranchFilter = () => {
     const [visible, setVisible] = useState(false);
     const [suggestionError, setSuggestionError] = useState(false);
 
+    // eslint-disable-next-line no-unused-vars
     const fetchData = async (builds, series_id, build_id) => {
         dispatch({ type: 'setLoadingState', loadingState: true });
         try {
@@ -133,7 +136,7 @@ const BranchFilter = () => {
             dispatch({
                 type: 'setSelectedBranch',
                 name: branchAndTeam,
-                id: branch.id
+                id: branch.id,
             });
             fetchData(amountOfBuilds, branch.id, selectedBuild);
         } catch (error) {
@@ -150,7 +153,6 @@ const BranchFilter = () => {
                 userInput !== '' &&
                 document.getElementById(activeOption)
             ) {
-                console.log(selectedBuild);
                 const branchNameAndTeam = document.getElementById(activeOption)
                     .innerText;
                 const branchId = document
@@ -159,7 +161,7 @@ const BranchFilter = () => {
                 dispatch({
                     type: 'setSelectedBranch',
                     name: branchNameAndTeam,
-                    id: branchId
+                    id: branchId,
                 });
                 fetchData(amountOfBuilds, branchId, selectedBuild);
                 emptySearchField();
