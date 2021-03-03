@@ -35,7 +35,7 @@ html {
     --kumpula-yellow: #faf3e1;
     --toukola-green: #e9f5e1;
     --vallila-blue: #e1f1f7;
-    --hermanni-grey: #edecec;
+    --hermanni-grey: #eeecec;
 
     /* Special colors */
     --tonic-grey: #d7d4d3;
@@ -45,8 +45,9 @@ html {
     /* Shady colors */
     --hermanni-grey-lighter: #f8f8f7;
     --toukola-green-lighter: #f4f7f2;
+    --evidence-grey-lighter: #adaaa6;
     --evidence-grey-darker: #6b6661;
-    --titan-green-darker: #14835e;
+    --titan-green-darker: #16815d;
     --titan-green-darkest: #145b43;
     --pirlo-blue-darker: #0469a4;
 
