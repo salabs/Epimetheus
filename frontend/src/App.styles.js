@@ -1,5 +1,4 @@
 ﻿import styled from 'styled-components';
-import theme from './styles/theme';
 
 export const StyledApp = styled.div`
     background-color: var(--nero-white);
@@ -14,6 +13,7 @@ export const StyledApp = styled.div`
     }
     select:focus,
     input:focus {
-        outline: 1px solid ${theme.testTheme.linkColor};
+        outline: 0;
+        box-shadow: 0 0 0 4px var(--sparkling-blue);
     }
 `;

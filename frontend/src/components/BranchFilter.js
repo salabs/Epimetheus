@@ -4,7 +4,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useStateValue } from '../contexts/state';
-import theme from '../styles/theme';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -50,7 +49,7 @@ const SuggestionError = styled.div`
     padding-top: 5px;
     position: absolute;
     font-size: 75%;
-    color: ${theme.colors.fail};
+    color: var(--semolina-red);
     display: none;
     font-weight: bold;
     &.show {
