@@ -30,7 +30,7 @@ export const HeaderContainer = styled.button`
     align-items: center;
     flex-direction: row;
     justify-content: space-between;
-    border-radius: 48px;
+    border-radius: var(--space-48);
     width: 100%;
     color: var(--nero-white);
     border: 0;
@@ -63,17 +63,17 @@ export const HeaderContainer = styled.button`
 
 export const SvgCollection = styled(Collection)`
     position: relative;
-    left: 24px;
+    left: var(--space-24);
 `;
 
 export const SvgDown = styled(Down)`
     position: relative;
-    right: 24px;
+    right: var(--space-24);
 `;
 
 export const SvgUp = styled(Up)`
     position: relative;
-    right: 24px;
+    right: var(--space-24);
 `;
 
 export const TestListContainer = styled.div`
