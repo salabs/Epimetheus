@@ -9,9 +9,6 @@ export const FlexContainer = styled.div`
     display: flex;
     flex-direction: column;
     padding: 40px 0px;
-    :hover {
-        cursor: pointer;
-    }
 
     .open,
     .close {
