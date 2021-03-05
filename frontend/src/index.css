@@ -20,27 +20,36 @@ html {
 :root {
     /* Colors
     ----------------------*/
-    --nelson-purple: #b8557b;
-    --semolina-red: #c63757;
-    --pirlo-blue: #067cc1;
-    --pirlo-blue-darker: #0469a4;
-    --titan-green: #238564;
-    --titan-green-darker: #14835e;
-    --titan-green-darkest: #145b43;
+
+    /* Main colors */
     --gradient-black: #141312;
     --evidence-grey: #77716b;
-    --evidence-grey-darker: #6b6661;
-    --hermanni-grey: #edecec;
-    --hermanni-grey-lighter: #f8f8f7;
-    --toukola-green: #e9f5e1;
-    --toukola-green-lighter: #f4f7f2;
-    --kumpula-yellow: #faf3e1;
-    --vallila-blue: #e1f1f7;
-    --arabia-red: #faecec;
     --nero-white: #ffffff;
+    --titan-green: #238564;
+    --pirlo-blue: #067cc1;
+    --semolina-red: #c63757;
+    --nelson-purple: #b8557b;
+
+    /* Background colors */
+    --arabia-red: #faecec;
+    --kumpula-yellow: #faf3e1;
+    --toukola-green: #e9f5e1;
+    --vallila-blue: #e1f1f7;
+    --hermanni-grey: #eeecec;
+
+    /* Special colors */
     --tonic-grey: #d7d4d3;
     --sparkling-blue: #80bfdb;
     --birra-brown: #976f10;
+
+    /* Shady colors */
+    --hermanni-grey-lighter: #f8f8f7;
+    --toukola-green-lighter: #f4f7f2;
+    --evidence-grey-lighter: #adaaa6;
+    --evidence-grey-darker: #6b6661;
+    --titan-green-darker: #16815d;
+    --titan-green-darkest: #145b43;
+    --pirlo-blue-darker: #0469a4;
 
     /* Space scale
     ----------------------*/

@@ -47,7 +47,7 @@ export const TableStyled = styled.table`
     clear: both;
     border-collapse: separate !important;
     border-spacing: 0;
-    border: 1px solid #e5e5e5;
+    border: 1px solid var(--hermanni-grey);
     border-radius: 8px;
     text-align: left;
     vertical-align: top;
@@ -74,7 +74,7 @@ export const TableStyled = styled.table`
     }
 
     tbody td {
-        border-top: 1px solid #e5e5e5;
+        border-top: 1px solid var(--hermanni-grey);
         vertical-align: top;
     }
 

@@ -1,3 +1,5 @@
+// Not used anywhere!
+
 import React from 'react';
 import { useQueryParams } from '../../hooks/useQuery';
 import { useHistory, useLocation } from 'react-router-dom';

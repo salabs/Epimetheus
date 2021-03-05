@@ -7,7 +7,7 @@ const LastBuildTable = styled.table`
         margin: 20px;
         text-align: left;
         vertical-align: middle;
-        border-bottom: 1px solid #ddd;
+        border-bottom: 1px solid var(--tonic-grey);
     }
 
     td {

@@ -1,7 +1,6 @@
 // eslint-disable-next-line
 import React, { useEffect, Suspense } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import ThemeContext from './contexts/themeContext';
 import MainContent from './components/MainContent';
 import MainNav from './components/MainNav';
 import Footer from './components/Footer';
@@ -15,7 +14,6 @@ import { useStateValue } from './contexts/state';
 import './utils/i118n';
 import 'normalize.css';
 import './index.css';
-import theme from './styles/theme';
 import { StyledApp } from './App.styles';
 
 const App = () => {
@@ -41,47 +39,45 @@ const App = () => {
     }, [dispatch]);
 
     return (
-        <ThemeContext.Provider value={theme}>
-            <StyledApp id="main-app">
-                <Suspense fallback="loading">
-                    <Router>
-                        <MainNav />
-                        <MainContent>
-                            <Switch>
-                                <Route path="/series/:seriesId/build/:buildId/suite/:suiteId/test/:testId/history">
-                                    <Suite />
-                                </Route>
-                                <Route path="/series/:seriesId/build/:buildId/suite/:suiteId/history">
-                                    <Suite />
-                                </Route>
-                                <Route path="/series/:seriesId/build/:buildId/history">
-                                    <Build />
-                                </Route>
-                                <Route path="/series/:seriesId/history">
-                                    <History />
-                                </Route>
-                                <Route path="/series/:seriesId/overview">
-                                    <Overview />
-                                </Route>
-                                <Route path="/series/:seriesId/build/:buildId/overview">
-                                    <Overview />
-                                </Route>
-                                <Route exact path="/team">
-                                    <Team />
-                                </Route>
-                                <Route path="/team/:name">
-                                    <Team />
-                                </Route>
-                                <Route path="/">
-                                    <Frontpage />
-                                </Route>
-                            </Switch>
-                        </MainContent>
-                        <Footer />
-                    </Router>
-                </Suspense>
-            </StyledApp>
-        </ThemeContext.Provider>
+        <StyledApp id="main-app">
+            <Suspense fallback="loading">
+                <Router>
+                    <MainNav />
+                    <MainContent>
+                        <Switch>
+                            <Route path="/series/:seriesId/build/:buildId/suite/:suiteId/test/:testId/history">
+                                <Suite />
+                            </Route>
+                            <Route path="/series/:seriesId/build/:buildId/suite/:suiteId/history">
+                                <Suite />
+                            </Route>
+                            <Route path="/series/:seriesId/build/:buildId/history">
+                                <Build />
+                            </Route>
+                            <Route path="/series/:seriesId/history">
+                                <History />
+                            </Route>
+                            <Route path="/series/:seriesId/overview">
+                                <Overview />
+                            </Route>
+                            <Route path="/series/:seriesId/build/:buildId/overview">
+                                <Overview />
+                            </Route>
+                            <Route exact path="/team">
+                                <Team />
+                            </Route>
+                            <Route path="/team/:name">
+                                <Team />
+                            </Route>
+                            <Route path="/">
+                                <Frontpage />
+                            </Route>
+                        </Switch>
+                    </MainContent>
+                    <Footer />
+                </Router>
+            </Suspense>
+        </StyledApp>
     );
 };
 

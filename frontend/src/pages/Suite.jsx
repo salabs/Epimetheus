@@ -3,7 +3,6 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useParams } from 'react-router';
 import { useStateValue } from '../contexts/state';
-import theme from '../styles/theme';
 import BreadcrumbNav from '../components/BreadcrumbNav';
 import Notfound from '../components/NotFound';
 import ParentBuild from '../components/parentData/ParentBuild';
@@ -72,7 +71,6 @@ const Suite = () => {
         <div id="suite">
             {!selectedSuiteState || loadingState ? (
                 <div
-                    css={theme.loadingState}
                     role="status"
                     aria-live="polite"
                     aria-label="Loading"

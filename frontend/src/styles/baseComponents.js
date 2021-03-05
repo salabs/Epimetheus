@@ -16,7 +16,7 @@ export const baseTable = styled.table`
     td {
     }
     td.test-result-undefined {
-        background: #eee;
+        background: var(--hermanni-grey);
     }
 
     td,
@@ -28,11 +28,11 @@ export const baseTable = styled.table`
     }
 
     td {
-        background: #ffffff;
+        background: var(--nero-white);
     }
 
     tr {
-        border-top: 1px solid #e5e5e5;
+        border-top: 1px solid var(--hermanni-grey);
     }
     a {
         text-decoration: none;

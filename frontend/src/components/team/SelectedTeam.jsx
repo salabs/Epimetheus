@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import NotFound from '../NotFound';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useStateValue } from '../../contexts/state';
-import theme from '../../styles/theme';
 import BreadcrumbNav from '../BreadcrumbNav';
 import { pickIcon } from '../TestIcon';
 import { useTranslation } from 'react-i18next';
@@ -99,7 +98,7 @@ const SelectedTeam = ({ selectedTeam }) => {
         .series_count;
 
     return (
-        <div id="selectedTeam" css={theme.loadingState}>
+        <div id="selectedTeam">
             <BreadcrumbNav status={'team'} />
             {selectedTeam && selectedTeam.all_builds ? (
                 <SelectedTeamContainer>

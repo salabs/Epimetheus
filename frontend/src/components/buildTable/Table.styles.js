@@ -4,7 +4,7 @@ import styled from 'styled-components';
 export const StyledTable = styled(baseTable)`
     table-layout: initial;
     overflow: auto;
-    border: 1px solid #e5e5e5;
+    border: 1px solid var(--hermanni-grey);
     border-radius: 8px;
     position: relative;
     width: 100%;
