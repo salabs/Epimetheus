@@ -14,8 +14,8 @@ import {
     Heading,
 } from './OffSetButtons.styles';
 
-import Left from '../../images/chevron-left.svg';
-import Right from '../../images/chevron-right.svg';
+import { ReactComponent as Left } from '../../images/chevron-left.svg';
+import { ReactComponent as Right } from '../../images/chevron-right.svg';
 const Offset = () => {
     const history = useHistory();
     const location = useLocation();
@@ -113,7 +113,7 @@ const Offset = () => {
                     id="left_offset_button"
                     className={`left${leftDisabled}`}
                 >
-                    <img src={Left} alt="<" />
+                    <Left />
                 </StyledDirectionButton>
                 <StyledInput
                     type="number"
@@ -127,7 +127,7 @@ const Offset = () => {
                     id="right_offset_button"
                     className={`right${rightDisabled}`}
                 >
-                    <img src={Right} alt=">" />
+                    <Right />
                 </StyledDirectionButton>
             </FlexDiv>
         </div>
