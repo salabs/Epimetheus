@@ -11,7 +11,7 @@ import Offset from '../components/buttons/OffSetButtons';
 import ContentHeader from '../components/header/ContentHeader';
 import { ContainerGrid12, ContentGrid6 } from '../styles/baseComponents';
 import ParentSeries from '../components/parentData/ParentBuild';
-import { FilterContainer } from './History.styles';
+import { FilterContainer } from '../components/overview/FilterContainer.styles';
 
 const Overview = () => {
     const pathname = useLocation().pathname;
