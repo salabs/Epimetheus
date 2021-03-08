@@ -6,9 +6,13 @@ export const RelativeMain = styled.main`
 
 export const FilterContainer = styled.div`
     display: flex;
-    flex-flow: row wrap;
-    justify-content: space-between;
-    margin: 24px 0;
+    flex-wrap: wrap;
+    margin: var(--space-24) 0 var(--space-16) 0;
+
+    > div {
+        margin-right: var(--space-24);
+        margin-bottom: var(--space-24);
+    }
 `;
 
 export const ParentContainer = styled.div`

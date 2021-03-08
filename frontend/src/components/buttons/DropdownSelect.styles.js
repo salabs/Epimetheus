@@ -86,5 +86,5 @@ export const DropdownWrapper = styled.div`
 export const Label = styled.label`
     display: inline-block;
     color: var(--evidence-grey);
-    margin: 8px 0 9px 0;
+    margin: var(--space-8) 0;
 `;
