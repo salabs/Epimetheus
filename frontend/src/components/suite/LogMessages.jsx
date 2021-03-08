@@ -37,7 +37,7 @@ const LogMessages = ({ test }) => {
                                                         <Fail />
                                                     </span>
                                                 </InfoLevel>
-                                                <td>
+                                                <td className="suite-log-message">
                                                     <SuiteLogMessage
                                                         message={message}
                                                     />

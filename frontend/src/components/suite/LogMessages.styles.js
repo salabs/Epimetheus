@@ -11,6 +11,7 @@ export const SelectedTestContainer = styled.div`
         border: 1px solid var(--hermanni-grey);
         border-radius: 8px;
         position: relative;
+
         &::after {
             content: '';
             position: absolute;
@@ -21,6 +22,7 @@ export const SelectedTestContainer = styled.div`
             height: 100%;
         }
     }
+
     thead {
         background: var(--hermanni-grey);
         text-align: left;
@@ -35,36 +37,30 @@ export const SelectedTestContainer = styled.div`
             padding-left: 8px;
         }
     }
+
     .table-item {
         padding: 0.25rem 0rem;
         white-space: normal;
-        overflow: hidden;
+        display: inline-block;
     }
 
     tbody tr {
         border-bottom: 1px solid var(--hermanni-grey);
     }
 
-    tbody td:first-child {
-        padding-left: 8px;
+    tbody td {
+        vertical-align: top;
+        &:first-child {
+            padding-left: 8px;
+        }
     }
 
-    .tableLogLevel {
-        width: 10%;
+    .suite-log-message {
+        > div {
+            width: calc(100vw / 2.5);
+            word-break: break-word;
+        }
     }
-    .tableMessage {
-        width: 70%;
-    }
-    .tableTimeStamp {
-        width: 20%;
-    }
-`;
-
-export const FlexGrowColumn = styled.div`
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    padding: 5px;
 `;
 
 export const LogRow = styled.tr`
@@ -74,13 +70,9 @@ export const LogRow = styled.tr`
 `;
 
 export const InfoLevel = styled.td`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
     span {
         position: relative;
         top: -2px;
-        left: -16px;
+        margin: 0 10px;
     }
 `;
