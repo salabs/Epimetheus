@@ -52,6 +52,7 @@ export const SelectedTestContainer = styled.div`
         vertical-align: top;
         &:first-child {
             padding-left: 8px;
+            white-space: nowrap;
         }
     }
 
@@ -64,9 +65,18 @@ export const SelectedTestContainer = styled.div`
 `;
 
 export const LogRow = styled.tr`
-    background: ${props =>
+    background-color: ${props =>
         props.log_level === 'FAIL' && 'var(--nelson-purple)'};
     color: ${props => props.log_level === 'FAIL' && 'var(--nero-white)'};
+
+    .suite-log-message {
+        .can-be-opened {
+            &::after {
+                background-color: ${props =>
+                    props.log_level === 'FAIL' && 'var(--nelson-purple)'};
+            }
+        }
+    }
 `;
 
 export const InfoLevel = styled.td`
