@@ -1,5 +1,6 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
+import analysis from '../locales/en/analysis.json';
 import frontpage from '../locales/en/frontpage.json';
 import mainnav from '../locales/en/mainnav.json';
 import team from '../locales/en/team.json';
@@ -12,6 +13,7 @@ import metadata from '../locales/en/metadata.json';
 
 const resources = {
     en: {
+        analysis,
         frontpage,
         mainnav,
         team,

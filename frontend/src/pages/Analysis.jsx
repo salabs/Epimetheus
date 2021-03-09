@@ -5,10 +5,12 @@ import BreadcrumbNav from '../components/BreadcrumbNav';
 import KeywordAnalysisTable from '../components/dashlist/KeywordAnalysisTable';
 import ParentBuild from '../components/parentData/ParentBuild';
 import ContentHeader from '../components/header/ContentHeader';
+import { useTranslation } from 'react-i18next';
 import { ParentInfo } from './Overview.styles';
 import { ContainerGrid12, ContentGrid6 } from '../styles/baseComponents';
 
 const Overview = () => {
+    const [t] = useTranslation(['analysis']);
     const pathname = useLocation().pathname;
     const buildUrl = pathname.includes('build');
 
@@ -26,7 +28,7 @@ const Overview = () => {
                 </ContainerGrid12>
             </ParentInfo>
             <ContainerGrid12>
-                <h3>Statistics on keyword execution times</h3>
+                <h2>{t('title')}</h2>
                 <KeywordAnalysisTable />
             </ContainerGrid12>
         </>

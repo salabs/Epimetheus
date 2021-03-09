@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router';
 import { useStateValue } from '../../contexts/state';
+import { useTranslation } from 'react-i18next';
 import { StyledTable } from './KeywordAnalysisTable.styles';
 import { OverflowWrapper, TableWrapper } from '../historyTable/Table.styles';
 
 const DashboardList = () => {
+    const [t] = useTranslation(['analysis']);
     const { seriesId, buildId } = useParams();
     const [{ keywordAnalysisList }, dispatch] = useStateValue();
 
@@ -31,16 +33,16 @@ const DashboardList = () => {
                 <StyledTable id="keyword-analysis-table">
                     <thead>
                         <tr>
-                            <th>Library</th>
-                            <th>Keyword</th>
-                            <th>Total running time %</th>
-                            <th>Min</th>
-                            <th>Avg</th>
-                            <th>Max</th>
-                            <th>Total</th>
-                            <th>Calls</th>
-                            <th>Versions</th>
-                            <th>Max call depth</th>
+                            <th>{t('table.library')}</th>
+                            <th>{t('table.keyword')}</th>
+                            <th>{t('table.running_time')}</th>
+                            <th>{t('table.min')}</th>
+                            <th>{t('table.avg')}</th>
+                            <th>{t('table.max')}</th>
+                            <th>{t('table.total')}</th>
+                            <th>{t('table.calls')}</th>
+                            <th>{t('table.versions')}</th>
+                            <th>{t('table.call_depth')}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -63,9 +65,7 @@ const DashboardList = () => {
                             })
                         ) : (
                             <tr>
-                                <td colSpan="10">
-                                    Sorry. No analysis data available
-                                </td>
+                                <td colSpan="10">{t('table.no_data')}</td>
                             </tr>
                         )}
                     </tbody>

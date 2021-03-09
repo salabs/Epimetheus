@@ -1,0 +1,16 @@
+{
+    "title": "Statistics on keyword execution times",
+    "table": {
+        "library": "Library",
+        "keyword": "Keyword",
+        "running_time": "Total running time %",
+        "min": "Min",
+        "avg": "Avg",
+        "max": "Max",
+        "total": "Total",
+        "calls": "Calls",
+        "versions": "Versions",
+        "call_depth": "Max call depth",
+        "no_data":"Sorry. No analysis data available"
+    }
+}
