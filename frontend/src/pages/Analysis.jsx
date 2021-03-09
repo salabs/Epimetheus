@@ -15,25 +15,21 @@ const Overview = () => {
     const status = buildUrl ? 'build' : 'series';
 
     return (
-        <main>
+        <>
             <BreadcrumbNav status={status} />
             <ContentHeader />
-            <div>
-                <ParentInfo id="parentInfo-container">
-                    <ContainerGrid12>
-                        <ContentGrid6>
-                            <ParentBuild />
-                        </ContentGrid6>
-                    </ContainerGrid12>
-                </ParentInfo>
+            <ParentInfo id="parentInfo-container">
                 <ContainerGrid12>
-                    <h3>Statistics on keyword execution times</h3>
+                    <ContentGrid6>
+                        <ParentBuild />
+                    </ContentGrid6>
                 </ContainerGrid12>
-                <React.Fragment>
-                    <KeywordAnalysisTable />
-                </React.Fragment>
-            </div>
-        </main>
+            </ParentInfo>
+            <ContainerGrid12>
+                <h3>Statistics on keyword execution times</h3>
+                <KeywordAnalysisTable />
+            </ContainerGrid12>
+        </>
     );
 };
 

@@ -5,8 +5,11 @@ import { NavLink } from 'react-router-dom';
 export const LinkContainer = styled.div`
     padding: 10px 0;
 
-    a:nth-child(2) {
+    a {
         margin-left: 10px;
+        &:first-child {
+            margin-left: 0;
+        }
     }
 `;
 
