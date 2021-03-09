@@ -49,8 +49,9 @@ export const HeaderContainer = styled.button`
         font-weight: normal;
         text-transform: none;
         letter-spacing: -0.04em;
+        line-height: var(--space-40);
         flex: 20;
-        padding-left: 56px;
+        padding: var(--space-8) 0 var(--space-8) 56px;
         margin: 0;
     }
 
