@@ -26,7 +26,12 @@ const Row = ({ test_cases, suite, id, suiteId }) => {
         const testRunTime = build ? build.test_run_time : 'not found';
 
         return (
-            <SuiteRow key={index} position={index} build={build}>
+            <SuiteRow
+                key={index}
+                position={index}
+                build={build}
+                className={test_cases.length === 1 ? 'childless' : ''}
+            >
                 {index === 0 && (
                     <LinksSuiteName
                         tableCellHeight={test_cases.length}

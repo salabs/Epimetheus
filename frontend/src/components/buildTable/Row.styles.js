@@ -2,37 +2,75 @@
 
 export const SuiteRow = styled.tr`
     border-top: ${props => props.position !== 0 && 'none !important'};
+
+    &:hover {
+        &:last-of-type {
+            td:first-of-type {
+                border-radius: 0 !important;
+            }
+
+            th {
+                border-radius: 0 0 0 10px;
+            }
+        }
+
+        th {
+            background-color: var(--nero-white);
+        }
+    }
+
+    &.childless {
+        &:hover {
+            th {
+                background: inherit;
+                & ~ td {
+                    background: inherit;
+                }
+            }
+        }
+    }
+
+    &:not(.childless) {
+        th:hover {
+            & ~ td {
+                background: white;
+            }
+        }
+    }
+
+    td {
+        border-bottom: 0 !important;
+
+        &:first-of-type {
+            padding-left: 0 !important;
+        }
+    }
 `;
 
-export const LinkSuiteName = styled.td`
+export const LinkSuiteName = styled.th`
+    font-weight: normal;
+    text-align: left;
+    border-top: 1px solid var(--hermanni-grey);
+
+    & ~ td {
+        border-top: 1px solid var(--hermanni-grey);
+    }
+
     span {
         display: inline-block;
     }
-    span:nth-child(4) {
-        margin-left: 8px;
-    }
-    span:nth-child(6) {
-        margin-left: 16px;
-    }
-    span:nth-child(8) {
-        margin-left: 24px;
-    }
-    span:nth-child(10) {
-        margin-left: 32px;
-    }
-    span:nth-child(12) {
-        margin-left: 40px;
-    }
-    span:nth-child(14) {
-        margin-left: 48px;
-    }
-    span:nth-child(16) {
-        margin-left: 56px;
-    }
-    span:nth-child(18) {
-        margin-left: 64px;
-    }
-    span:nth-child(20) {
-        margin-left: 72px;
-    }
+
+    ${calculateSpanMargin()};
 `;
+
+function calculateSpanMargin() {
+    let spansMarginRules = [];
+
+    for (let i = 0; i < 11; i++) {
+        spansMarginRules.push(
+            `span:nth-of-type(${i}) { margin-left: ${8 * i}px }`
+        );
+    }
+
+    return spansMarginRules;
+}

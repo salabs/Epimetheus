@@ -2,8 +2,9 @@
 import React from 'react';
 import Body from './Body';
 import { useTranslation } from 'react-i18next';
-import { StyledTable, HeaderRow } from './Table.styles';
+import { HeaderRow } from './Table.styles';
 import { OverflowWrapper, TableWrapper } from '../historyTable/Table.styles';
+import { SpreadSheetTable } from '../../styles/baseComponents';
 
 const Table = ({ id }) => {
     const [t] = useTranslation(['history']);
@@ -11,7 +12,7 @@ const Table = ({ id }) => {
     return (
         <TableWrapper>
             <OverflowWrapper>
-                <StyledTable id="last-run-table">
+                <SpreadSheetTable id="last-run-table">
                     <thead>
                         <HeaderRow>
                             <th>{t('build.table.suite')}</th>
@@ -31,7 +32,7 @@ const Table = ({ id }) => {
                     <tbody>
                         <Body id={id} />
                     </tbody>
-                </StyledTable>
+                </SpreadSheetTable>
             </OverflowWrapper>
         </TableWrapper>
     );
