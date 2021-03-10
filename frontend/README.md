@@ -55,3 +55,11 @@ and
 ```
 Editor: Format On Save
 ```
+
+## Z-indexes
+List of z-indexes used in order to avoid z-index collision and to help debugging. Please list the component that z-index is used in, the z-index itself and the reason z-index was used.
+
+- *DropdownSelect*: ```z-index: 2;```
+    - The dropdown would be under ScrollTableButton's pseudo element.
+- *ScrollTableButton*: ```z-index: 1;```
+    - Table's header or hover effects would be on top of the scroll button.

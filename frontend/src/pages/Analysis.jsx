@@ -28,8 +28,10 @@ const Overview = () => {
                 </ContainerGrid12>
             </ParentInfo>
             <ContainerGrid12>
-                <h2>{t('title')}</h2>
-                <KeywordAnalysisTable />
+                <ContentGrid6>
+                    <h2>{t('title')}</h2>
+                    <KeywordAnalysisTable />
+                </ContentGrid6>
             </ContainerGrid12>
         </>
     );

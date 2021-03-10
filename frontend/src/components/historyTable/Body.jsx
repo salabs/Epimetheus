@@ -46,7 +46,7 @@ const Body = () => {
             );
         }
     );
-    return tableBody;
+    return <tbody>{tableBody}</tbody>;
 };
 
 export default Body;

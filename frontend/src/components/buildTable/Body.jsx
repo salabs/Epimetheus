@@ -94,18 +94,22 @@ const Body = () => {
         });
     }
 
-    return filteredRowData.map(
-        ({ test_cases, suite_full_name, suite_id }, i) => {
-            return (
-                <Row
-                    key={i}
-                    test_cases={test_cases}
-                    suite={suite_full_name}
-                    id={buildNum}
-                    suiteId={suite_id}
-                />
-            );
-        }
+    return (
+        <tbody>
+            {filteredRowData.map(
+                ({ test_cases, suite_full_name, suite_id }, i) => {
+                    return (
+                        <Row
+                            key={i}
+                            test_cases={test_cases}
+                            suite={suite_full_name}
+                            id={buildNum}
+                            suiteId={suite_id}
+                        />
+                    );
+                }
+            )}
+        </tbody>
     );
 };
 

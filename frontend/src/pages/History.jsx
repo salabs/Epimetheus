@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import Table from '../components/historyTable/Table';
+import HistoryTable from '../components/historyTable/HistoryTable';
 import ParentSeries from '../components/parentData/ParentSeries';
 import Offset from '../components/buttons/OffSetButtons';
 import LastRunCheckbox from '../components/buttons/LastRunCheckbox';
@@ -117,7 +117,7 @@ const History = () => {
                             >
                                 Content loaded.
                             </div>
-                            <Table />
+                            <HistoryTable />
                         </Fragment>
                     )}
                 </ContentGrid6>

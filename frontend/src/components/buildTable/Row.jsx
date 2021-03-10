@@ -8,7 +8,7 @@ import { dashify } from '../../utils/helpers';
 import { useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { SuiteRow, LinkSuiteName } from './Row.styles';
+import { HierarchicalSuiteNameTh, SuiteRow } from '../table/Table.styles';
 
 const Row = ({ test_cases, suite, id, suiteId }) => {
     const tableRow = test_cases.map(({ builds, test_id }, index) => {
@@ -75,7 +75,7 @@ const LinksSuiteName = ({ tableCellHeight, suiteName, suiteId }) => {
     }
 
     return (
-        <LinkSuiteName
+        <HierarchicalSuiteNameTh
             rowSpan={tableCellHeight}
             data-ta={`suite-${dashify(suiteName)}`}
         >
@@ -83,6 +83,6 @@ const LinksSuiteName = ({ tableCellHeight, suiteName, suiteId }) => {
                 <div className="sr-show">{t('build.table.row.build')}</div>
                 {splitSuiteName}
             </Link>
-        </LinkSuiteName>
+        </HierarchicalSuiteNameTh>
     );
 };
