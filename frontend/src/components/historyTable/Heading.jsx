@@ -2,6 +2,7 @@ import React from 'react';
 import { useStateValue } from '../../contexts/state';
 import { StyledLink, BuildNumberCell } from './Heading.styles';
 import { colorTypes } from '../../utils/colorTypes';
+import { WideTh } from '../table/Table.styles';
 
 // helper for build number sorting
 function compareNumbers(a, b) {
@@ -71,8 +72,8 @@ export const Heading = () => {
     return (
         <thead id="history-table-head">
             <tr>
-                <Th className="wide-th">Suite</Th>
-                <Th className="wide-th">Test</Th>
+                <WideTh>Suite</WideTh>
+                <WideTh>Test</WideTh>
                 {buildNumbers}
             </tr>
         </thead>

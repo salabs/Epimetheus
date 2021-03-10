@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { dashify } from '../../utils/helpers';
-import { StyledData } from './SuiteName.styles';
+import { HierarchicalSuiteNameTh } from '../table/Table.styles';
 
 // Show suite name separated on different lines with dots showing depth level
 const SuiteName = ({ tableCellHeight, suiteName }) => {
@@ -16,12 +16,12 @@ const SuiteName = ({ tableCellHeight, suiteName }) => {
         );
     }
     return (
-        <StyledData
+        <HierarchicalSuiteNameTh
             rowSpan={tableCellHeight}
             data-ta={`suite-${dashify(suiteName)}`}
         >
             {splitSuiteName}
-        </StyledData>
+        </HierarchicalSuiteNameTh>
     );
 };
 
