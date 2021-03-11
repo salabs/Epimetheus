@@ -56,6 +56,7 @@ export const DropdownWrapper = styled.div`
         border-radius: 4px;
         box-shadow: 0 3px 5px 1px var(--tonic-grey);
         padding: 5px 3px;
+        z-index: 10;
     }
 
     .ReactA11ySelect__ul__li:focus {

@@ -8,6 +8,7 @@ export const OverflowWrapper = styled.div`
     overflow-x: auto;
     position: relative;
     width: 100%;
+    scroll-behavior: smooth;
 `;
 
 export const SpreadSheetTable = styled.table`
