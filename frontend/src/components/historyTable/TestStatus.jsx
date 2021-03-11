@@ -2,6 +2,7 @@ import React from 'react';
 import { useStateValue } from '../../contexts/state';
 import { pickIcon } from '../TestIcon';
 import { DefinedData } from './TestStatus.styles';
+import { addBgColor, removeBgColor } from './Heading';
 
 const TableTestStatusCell = ({ builds, position }) => {
     const [
@@ -25,6 +26,7 @@ const TableTestStatusCell = ({ builds, position }) => {
             suite_start_time: '',
         });
     }
+
     return arr.map((filledBuild, i) => {
         let test_status;
         try {
@@ -43,10 +45,17 @@ const TableTestStatusCell = ({ builds, position }) => {
         return (
             <DefinedData
                 data-ta={`test-status-${i}`}
-                className={`centerTableCellContent test-result-${test_status}`}
+                className={`test-result-${test_status} id-${filledBuild.build_number}`}
                 key={i}
                 status={test_status}
                 position={position}
+                title={filledBuild.build_number}
+                onMouseEnter={() =>
+                    addBgColor(`id-${filledBuild.build_number}`)
+                }
+                onMouseLeave={() =>
+                    removeBgColor(`id-${filledBuild.build_number}`)
+                }
             >
                 {testStatusIcon}
             </DefinedData>
