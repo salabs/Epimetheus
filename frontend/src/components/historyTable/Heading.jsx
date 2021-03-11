@@ -1,13 +1,30 @@
 import React from 'react';
 import { useStateValue } from '../../contexts/state';
 import { StyledLink, BuildNumberCell, Th } from './Heading.styles';
+import { colorTypes } from '../../utils/colorTypes';
 
 // helper for build number sorting
 function compareNumbers(a, b) {
     return a - b;
 }
 
-const Heading = () => {
+export function addBgColor(id) {
+    const elements = document.getElementsByClassName(id);
+
+    for (let item of elements) {
+        item.style.backgroundColor = colorTypes['kumpula yellow'];
+    }
+}
+
+export function removeBgColor(id) {
+    const elements = document.getElementsByClassName(id);
+
+    for (let item of elements) {
+        item.style = '';
+    }
+}
+
+export const Heading = () => {
     const [
         {
             historyDataState: { max_build_num },
@@ -41,6 +58,9 @@ const Heading = () => {
             <BuildNumberCell
                 key={buildNumber}
                 onClick={e => handleBuildClick(e)}
+                onMouseEnter={() => addBgColor(`id-${buildNumber}`)}
+                onMouseLeave={() => removeBgColor(`id-${buildNumber}`)}
+                className={`id-${buildNumber}`}
             >
                 <StyledLink to={`/series/${id}/build/${buildNumber}/history`}>
                     <span className="sr-show">Build </span>
@@ -58,5 +78,3 @@ const Heading = () => {
         </thead>
     );
 };
-
-export default Heading;

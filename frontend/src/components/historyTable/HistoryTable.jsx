@@ -1,6 +1,5 @@
-// eslint-disable-next-line
 import React from 'react';
-import Heading from './Heading';
+import { Heading } from './Heading';
 import Body from './Body';
 import NotFound from '../NotFound';
 import { useStateValue } from '../../contexts/state';
