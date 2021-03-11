@@ -1,8 +1,13 @@
 ﻿import React from 'react';
 import SuiteLogMessage from './SuiteLogMessage';
 import { ReactComponent as Fail } from '../../images/fail-white.svg';
-import { SelectedTestContainer, LogRow, InfoLevel } from './LogMessages.styles';
-import { OverflowWrapper, TableWrapper } from '../historyTable/Table.styles';
+import {
+    SelectedTestContainer,
+    LogRow,
+    InfoLevel,
+    OverflowWrapper,
+    TableWrapper,
+} from './LogMessages.styles';
 
 const LogMessages = ({ test }) => {
     return test ? (
