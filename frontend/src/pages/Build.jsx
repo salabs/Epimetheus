@@ -1,6 +1,6 @@
 // eslint-disable-next-line
 import React, { Fragment, useEffect } from 'react';
-import Table from '../components/buildTable/Table';
+import BuildTable from '../components/buildTable/BuildTable';
 import LastRunCheckBox from '../components/buttons/LastRunCheckbox';
 import { useStateValue } from '../contexts/state';
 import { useParams } from 'react-router';
@@ -103,7 +103,7 @@ const Build = () => {
                             <FilterContainer>
                                 <LastRunCheckBox direction="column" />
                             </FilterContainer>
-                            <Table id={branch_id} />
+                            <BuildTable id={branch_id} />
                         </ContentGrid6>
                     </ContainerGrid12>
                 </Fragment>
