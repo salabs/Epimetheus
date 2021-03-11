@@ -3,10 +3,14 @@ import { dashify } from '../../utils/helpers';
 import SuiteName from './SuiteName';
 import TestStatus from './TestStatus';
 import TestCase from './TestCase';
+import { SuiteRow } from '../buildTable/Row.styles';
 
 const Suite = ({ builds, test_case, suite, index, test_cases }) => {
     return (
-        <tr data-ta={`${dashify(suite)}`}>
+        <SuiteRow
+            data-ta={`${dashify(suite)}`}
+            className={test_cases.length === 1 ? 'childless' : ''}
+        >
             {index === 0 && (
                 <SuiteName
                     suiteName={suite}
@@ -15,7 +19,7 @@ const Suite = ({ builds, test_case, suite, index, test_cases }) => {
             )}
             <TestCase test_case={test_case} position={index} />
             <TestStatus builds={builds} position={index} />
-        </tr>
+        </SuiteRow>
     );
 };
 

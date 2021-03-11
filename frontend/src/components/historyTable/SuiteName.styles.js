@@ -1,39 +1,29 @@
 ﻿import styled from 'styled-components';
 
-export const StyledData = styled.td`
-    padding: 8px;
+export const StyledData = styled.th`
+    font-weight: normal;
     text-align: left;
-    vertical-align: top;
-    min-width: 25%;
+    border-top: 1px solid var(--hermanni-grey);
+
+    & ~ td {
+        border-top: 1px solid var(--hermanni-grey);
+    }
 
     span {
         display: inline-block;
     }
-    span:nth-child(3) {
-        padding-left: 8px;
-    }
-    span:nth-child(5) {
-        padding-left: 16px;
-    }
-    span:nth-child(7) {
-        padding-left: 24px;
-    }
-    span:nth-child(9) {
-        padding-left: 32px;
-    }
-    span:nth-child(11) {
-        padding-left: 40px;
-    }
-    span:nth-child(13) {
-        padding-left: 48px;
-    }
-    span:nth-child(15) {
-        padding-left: 56px;
-    }
-    span:nth-child(17) {
-        padding-left: 64px;
-    }
-    span:nth-child(19) {
-        padding-left: 72px;
-    }
+
+    ${calculateSpanMargin()};
 `;
+
+function calculateSpanMargin() {
+    let spansMarginRules = [];
+
+    for (let i = 0; i < 11; i++) {
+        spansMarginRules.push(
+            `span:nth-of-type(${i}) { margin-left: ${8 * i}px }`
+        );
+    }
+
+    return spansMarginRules;
+}

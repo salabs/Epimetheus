@@ -1,6 +1,6 @@
 import React from 'react';
 import { useStateValue } from '../../contexts/state';
-import { StyledLink, BuildNumberCell } from './Heading.styles';
+import { StyledLink, BuildNumberCell, Th } from './Heading.styles';
 
 // helper for build number sorting
 function compareNumbers(a, b) {
@@ -51,8 +51,8 @@ const Heading = () => {
     return (
         <thead id="history-table-head">
             <tr>
-                <th>Suite</th>
-                <th>Test</th>
+                <Th className="wide-th">Suite</Th>
+                <Th className="wide-th">Test</Th>
                 {buildNumbers}
             </tr>
         </thead>

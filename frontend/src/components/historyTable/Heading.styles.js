@@ -8,16 +8,18 @@ export const StyledLink = styled(Link)`
     padding: 0px;
     text-align: center;
     height: 100%;
-    transition: 0.33s background-color;
     text-decoration: none;
+`;
 
-    .buildNumber:hover {
+export const BuildNumberCell = styled.th`
+    padding-right: var(--space-8) !important;
+    padding-left: var(--space-8) !important;
+
+    &:hover {
         background: var(--hermanni-grey-lighter);
     }
 `;
 
-export const BuildNumberCell = styled.th`
-    :hover {
-        background: var(--hermanni-grey-lighter);
-    }
+export const Th = styled.th`
+    min-width: 200px;
 `;
