@@ -3,7 +3,7 @@ import { dashify } from '../../utils/helpers';
 import SuiteName from './SuiteName';
 import TestStatus from './TestStatus';
 import TestCase from './TestCase';
-import { SuiteRow } from '../buildTable/Row.styles';
+import { SuiteRow } from '../table/Table.styles';
 
 const Suite = ({ builds, test_case, suite, index, test_cases }) => {
     return (

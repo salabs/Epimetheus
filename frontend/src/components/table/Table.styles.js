@@ -157,3 +157,87 @@ export const SimpleTable = styled.table`
         }
     }
 `;
+
+export const WideTh = styled.th`
+    min-width: 200px;
+`;
+
+export const NarrowTh = styled.th`
+    max-width: 160px;
+`;
+
+export const HierarchicalSuiteNameTh = styled.th`
+    font-weight: normal;
+    text-align: left;
+    border-top: 1px solid var(--hermanni-grey);
+
+    & ~ td {
+        border-top: 1px solid var(--hermanni-grey);
+    }
+
+    a {
+        &:hover {
+            background-color: transparent;
+
+            span {
+                text-decoration: underline;
+                background-color: var(--hermanni-grey-lighter);
+            }
+        }
+    }
+
+    ${calculateSpanMargin()};
+`;
+
+function calculateSpanMargin() {
+    let spansMarginRules = [];
+
+    for (let i = 0; i < 11; i++) {
+        spansMarginRules.push(
+            `span:nth-of-type(${i}) {
+                margin-left: ${8 * i}px;
+                display: inline-block;
+            }`
+        );
+    }
+
+    return spansMarginRules;
+}
+
+export const SuiteRow = styled.tr`
+    border-top: ${props => props.position !== 0 && 'none !important'};
+
+    &:hover {
+        th {
+            background-color: var(--nero-white);
+        }
+    }
+
+    &.childless {
+        &:hover {
+            th {
+                background: inherit;
+
+                & ~ td {
+                    background: inherit;
+                }
+            }
+        }
+    }
+
+    &:not(.childless) {
+        th:hover {
+            & ~ td {
+                background: white;
+            }
+        }
+    }
+
+    td {
+        border-bottom: 0 !important;
+
+        &:first-of-type {
+            padding-left: 0 !important;
+        }
+    }
+`;

@@ -19,7 +19,3 @@ export const BuildNumberCell = styled.th`
     padding-right: var(--space-8) !important;
     padding-left: var(--space-8) !important;
 `;
-
-export const Th = styled.th`
-    min-width: 200px;
-`;
