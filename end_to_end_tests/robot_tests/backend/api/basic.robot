@@ -232,6 +232,26 @@ Keyword tree data
     String                      $.children[*].arguments[*]
     Array                       $.children[*].children
 
+Keyword analysis data
+    GET                         /data/series/1/builds/1/keyword_analysis
+    Integer                     response status     200
+    Array                       $.statistics
+    String                      $.statistics[*].library
+    String                      $.statistics[*].keyword
+    Number                      $.statistics[*].percent
+    Integer                     $.statistics[*].min
+    Integer                     $.statistics[*].avg
+    Integer                     $.statistics[*].max
+    Integer                     $.statistics[*].total
+    Integer                     $.statistics[*].calls
+    Integer                     $.statistics[*].versions
+    Integer                     $.statistics[*].max_call_depth
+
+    # Non existent analysis should return empty table
+    GET                         /data/series/0/builds/0/keyword_analysis
+    Integer                     response status     200
+    Array                       $.statistics    maxItems=0
+
 
 *** Keywords ***
 

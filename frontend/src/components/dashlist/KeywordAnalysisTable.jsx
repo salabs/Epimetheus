@@ -45,22 +45,30 @@ const DashboardList = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {keywordAnalysisList.map(keyword => {
-                        return (
-                            <tr key={keyword.keyword}>
-                                <td>{keyword.library}</td>
-                                <td>{keyword.keyword}</td>
-                                <td>{keyword.percent.toFixed(2)}</td>
-                                <td>{keyword.min}</td>
-                                <td>{keyword.avg}</td>
-                                <td>{keyword.max}</td>
-                                <td>{keyword.total}</td>
-                                <td>{keyword.calls}</td>
-                                <td>{keyword.versions}</td>
-                                <td>{keyword.max_call_depth}</td>
-                            </tr>
-                        );
-                    })}
+                    {keywordAnalysisList ? (
+                        keywordAnalysisList.map(keyword => {
+                            return (
+                                <tr key={keyword.keyword}>
+                                    <td>{keyword.library}</td>
+                                    <td>{keyword.keyword}</td>
+                                    <td>{keyword.percent.toFixed(2)}</td>
+                                    <td>{keyword.min}</td>
+                                    <td>{keyword.avg}</td>
+                                    <td>{keyword.max}</td>
+                                    <td>{keyword.total}</td>
+                                    <td>{keyword.calls}</td>
+                                    <td>{keyword.versions}</td>
+                                    <td>{keyword.max_call_depth}</td>
+                                </tr>
+                            );
+                        })
+                    ) : (
+                        <tr>
+                            <td colSpan="10">
+                                Sorry. No analysis data available
+                            </td>
+                        </tr>
+                    )}
                 </tbody>
             </StyledTable>
         </TableContainer>
