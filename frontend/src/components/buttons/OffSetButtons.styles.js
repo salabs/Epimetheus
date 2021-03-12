@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { ReactComponent as EndLeft } from '../../images/chevron-verticalbar-left.svg';
 
-export const Header = styled.div`
+export const Heading = styled.div`
     color: var(--evidence-grey);
     margin: 8px 0;
 `;
@@ -18,16 +18,17 @@ export const FlexDiv = styled.div`
 
     button:hover {
         text-decoration: none;
-        background: var(--hermanni-grey-lighter);
-        border-radius: 4px;
         color: var(--evidence-grey-darker);
+    }
+
+    > * {
+        margin-right: var(--space-8);
     }
 `;
 
 export const StyledDirectionButton = styled.button`
     width: 36px;
-
-    margin: 1px 4px 6px 4px;
+    height: 36px;
     background: ${props =>
         props.disabled ? 'var(--tonic-grey) !important' : 'var(--nero-white)'};
     border: 1px solid var(--tonic-grey);
@@ -38,9 +39,6 @@ export const StyledDirectionButton = styled.button`
 export const LatestButton = styled.button`
     width: 89px;
     height: 36px;
-
-    margin: 1px 4px 6px 0;
-
     background: var(--nero-white);
     border: 1px solid var(--tonic-grey);
     box-sizing: border-box;
@@ -67,6 +65,5 @@ export const StyledInput = styled.input`
     border-radius: 4px;
     max-width: 54px;
     height: 36px;
-    margin: 1px 4px 6px 4px;
     text-align: right;
 `;

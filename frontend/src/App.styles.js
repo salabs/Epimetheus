@@ -1,13 +1,9 @@
 ﻿import styled from 'styled-components';
-import theme from './styles/theme';
 
 export const StyledApp = styled.div`
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    width: 100%;
     background-color: var(--nero-white);
-    color: #222;
+    color: var(--gradient-black);
+    margin: 0 auto;
     p {
         line-height: 1.6;
     }
@@ -17,6 +13,7 @@ export const StyledApp = styled.div`
     }
     select:focus,
     input:focus {
-        outline: 1px solid ${theme.testTheme.linkColor};
+        outline: 0;
+        box-shadow: 0 0 0 4px var(--sparkling-blue);
     }
 `;

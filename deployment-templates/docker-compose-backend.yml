@@ -1,0 +1,11 @@
+version: '3.7'
+
+services:
+
+  back-end:
+    image: siilisalabs/epimetheus-backend:latest
+    ports:
+    - "5000:5000"
+    env_file:
+    - ${ENV_FILE}
+    container_name: backend-server

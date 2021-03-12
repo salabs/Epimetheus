@@ -7,14 +7,12 @@ import { useParams } from 'react-router';
 import BreadcrumbNav from '../components/BreadcrumbNav';
 import ParentBuild from '../components/parentData/ParentBuild';
 import Loading from '../components/Loading';
-import Header from '../components/header/Header';
 import BuildMetadata from '../components/metadata/BuildMetadata';
 import useMetadata from '../hooks/useMetadata';
-import {
-    ParentInfoContainer,
-    LastRunContainer,
-    TableHeader,
-} from './Build.styles';
+import { ParentInfoContainer } from './Build.styles';
+import ContentHeader from '../components/header/ContentHeader';
+import { ContainerGrid12, ContentGrid6 } from '../styles/baseComponents';
+import { FilterContainer } from '../components/overview/FilterContainer.styles';
 
 const Build = () => {
     const [
@@ -63,8 +61,7 @@ const Build = () => {
     useMetadata();
 
     return (
-        <main id="last-run">
-            <LastRunContainer id="last-run-container"></LastRunContainer>
+        <div id="last-run">
             {!historyDataState || loadingState ? (
                 <div
                     className="loading-state"
@@ -73,7 +70,11 @@ const Build = () => {
                     aria-label="Loading"
                     aria-relevant="all"
                 >
-                    <Loading />
+                    <ContainerGrid12>
+                        <ContentGrid6>
+                            <Loading />
+                        </ContentGrid6>
+                    </ContainerGrid12>
                 </div>
             ) : (
                 <Fragment>
@@ -87,17 +88,27 @@ const Build = () => {
                         Content loaded.
                     </div>
                     <BreadcrumbNav status={'build'} />
-                    <Header />
+                    <ContentHeader />
                     <ParentInfoContainer id="parentInfo-container">
-                        <ParentBuild />
+                        <ContainerGrid12>
+                            <ContentGrid6>
+                                <ParentBuild />
+                            </ContentGrid6>
+                        </ContainerGrid12>
                     </ParentInfoContainer>
-                    <BuildMetadata />
-                    <TableHeader>Test results for build {buildId}</TableHeader>
-                    <LastRunCheckBox direction="column" />
-                    <Table id={branch_id} />
+                    <ContainerGrid12>
+                        <ContentGrid6>
+                            <BuildMetadata />
+                            <h2>Test results for build {buildId}</h2>
+                            <FilterContainer>
+                                <LastRunCheckBox direction="column" />
+                            </FilterContainer>
+                            <Table id={branch_id} />
+                        </ContentGrid6>
+                    </ContainerGrid12>
                 </Fragment>
             )}
-        </main>
+        </div>
     );
 };
 

@@ -8,9 +8,9 @@ Navigate to series overview page using breadcrumbs
     Click Element    ${series_breadcrumb}
 
 Navigate to team page using breadcrumbs
-    Wait Until Element is Enabled    ${team_breadcrumb} 
-    Click Element    ${team_breadcrumb} 
-    
+    Wait Until Element is Enabled    ${team_breadcrumb}
+    Click Element    ${team_breadcrumb}
+
 Navigate to build overview page using breadcrumbs
     Wait Until Element is Enabled   ${build_breadcrumb}
     Click Element   ${build_breadcrumb}
@@ -20,7 +20,7 @@ Team page breadcrumb should contain correct value
     Wait Until Element Is Enabled   ${team_breadcrumb}
     Wait Until Element Does Not Contain     ${team_breadcrumb}  ''
     Element Should Contain      ${team_breadcrumb}  ${team}
-    
+
 Series page breadcrumbs should contain correct values
     [Arguments]     ${series}   ${team}
     Wait Until Element Is Enabled   ${series_breadcrumb}
@@ -42,14 +42,14 @@ Suite page breadcrumbs should contain correct values
 Series overview page should be of stored series
     [Arguments]     ${series}
     Wait Until Element Is Enabled    ${timeline_locator}
-    Element Should Contain      ${siteHeader}       ${series}
-    Element Should Contain      ${series_breadcrumb}        ${series} 
+    Element Should Contain      ${siteHeading}       ${series}
+    Element Should Contain      ${series_breadcrumb}        ${series}
 
 Build overview page should be of stored build
     [Arguments]     ${build}
     Wait Until Element Is Enabled   ${buildOverviewContainer}
     Element Should Contain      ${build_identifier}     ${build}
-    Element Should Contain      ${siteHeader}       ${build}
+    Element Should Contain      ${siteHeading}       ${build}
     Element Should contain      ${build_breadcrumb}     ${build}
 
 Team page should be of stored team

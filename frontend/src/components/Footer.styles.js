@@ -1,12 +1,12 @@
 ﻿import styled from 'styled-components';
 
-export const FooterContainer = styled.div`
+export const FooterContainer = styled.footer`
     margin-top: auto;
     background: var(--titan-green);
     color: var(--nero-white);
     display: flex;
     align-items: center;
-    min-height: 50px;
+    height: var(--space-48);
 
     a {
         background: var(--titan-green);

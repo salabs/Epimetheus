@@ -1,19 +1,22 @@
-﻿import React from 'react';
+import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useStateValue } from '../../contexts/state';
 import {
-    HeaderContainer,
     LinkContainer,
     OverviewLink,
     HistoryLink,
-} from './Header.styles';
+    AnalysisLink,
+} from './ContentHeader.styles';
+import { ContainerGrid12, ContentGrid6 } from '../../styles/baseComponents';
 
-const Header = () => {
+const ContentHeader = () => {
     const [t] = useTranslation(['header']);
 
     const pathname = useLocation().pathname;
     const overviewUrl = pathname.includes('overview');
+    const historyUrl = pathname.includes('history');
+    const analysisUrl = pathname.includes('analysis');
     const buildUrl = pathname.includes('build');
     const suiteUrl = pathname.includes('suite');
 
@@ -78,28 +81,38 @@ const Header = () => {
     return (
         <>
             {(seriesData || buildData) && (
-                <HeaderContainer>
-                    <h1 id="siteHeader">{formHeader()}</h1>
-                    {!selectedSuiteState && (
-                        <LinkContainer>
-                            <OverviewLink
-                                to={correctUrl('overview')}
-                                overview={overviewUrl}
-                            >
-                                {t('buttons.overview')}
-                            </OverviewLink>
-                            <HistoryLink
-                                to={correctUrl('history')}
-                                overview={overviewUrl}
-                            >
-                                {t('buttons.history')}
-                            </HistoryLink>
-                        </LinkContainer>
-                    )}
-                </HeaderContainer>
+                <ContainerGrid12>
+                    <ContentGrid6>
+                        <h1 id="siteHeading">{formHeader()}</h1>
+                        {!selectedSuiteState && (
+                            <LinkContainer>
+                                <OverviewLink
+                                    to={correctUrl('overview')}
+                                    overview={overviewUrl}
+                                >
+                                    {t('buttons.overview')}
+                                </OverviewLink>
+                                <HistoryLink
+                                    to={correctUrl('history')}
+                                    history={historyUrl}
+                                >
+                                    {t('buttons.history')}
+                                </HistoryLink>
+                                {buildUrl && (
+                                    <AnalysisLink
+                                        to={correctUrl('analysis')}
+                                        analysis={analysisUrl}
+                                    >
+                                        {t('buttons.analysis')}
+                                    </AnalysisLink>
+                                )}
+                            </LinkContainer>
+                        )}
+                    </ContentGrid6>
+                </ContainerGrid12>
             )}
         </>
     );
 };
 
-export default Header;
+export default ContentHeader;

@@ -1,28 +1,21 @@
 ﻿import styled from 'styled-components';
 
-export const ButtonContainer = styled.div`
-    padding-left: ${props => (props.ishistory ? '0' : '198px')};
-
-    @media only screen and (max-width: 1024px) {
-        padding-left: ${props => (props.ishistory ? '0' : '108px')};
-    }
-`;
-
 export const Header = styled.div`
     color: var(--evidence-grey);
-    margin: 8px 0;
+    margin: var(--space-8) 0;
 `;
 
 export const StyledDiv = styled.div`
-    padding: 8px;
     display: flex;
     flex-direction: ${props => props.direction};
-    border: 1px solid var(--hermanni-grey);
+    border: 1px solid var(--tonic-grey);
     border-radius: 4px;
     width: ${props => (props.direction === 'column' ? '10%' : '30%')};
     max-width: 230px;
     min-width: ${props => (props.direction === 'column' ? '200px' : '230px')};
-    margin-bottom: 24px;
+    line-height: 34px;
+    padding: 0 var(--space-8);
+
     @media only screen and (max-width: 1024px) {
         width: ${props => (props.direction === 'column' ? '20%' : '30%')};
     }
@@ -33,16 +26,31 @@ export const StyledDiv = styled.div`
     span {
         padding-right: 8px;
         position: relative;
-        top: -1.5px;
+        top: -1px;
+
+        svg {
+            position: relative;
+            top: -1px;
+        }
     }
 `;
 
 export const StyledLabel = styled.label`
     margin-right: 20px;
     display: block;
-    float: left;
+    position: relative;
 `;
 
 export const StyledInput = styled.input`
-    display: none;
+    appearance: none;
+    opacity: 0;
+    position: absolute;
+    top: 3px;
+    height: 16px;
+    width: 16px;
+    border-radius: 2px;
+
+    &:focus {
+        opacity: 1;
+    }
 `;

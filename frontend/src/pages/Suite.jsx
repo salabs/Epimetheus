@@ -3,16 +3,16 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useParams } from 'react-router';
 import { useStateValue } from '../contexts/state';
-import theme from '../styles/theme';
 import BreadcrumbNav from '../components/BreadcrumbNav';
 import Notfound from '../components/NotFound';
 import ParentBuild from '../components/parentData/ParentBuild';
 import Loading from '../components/Loading';
-import Header from '../components/header/Header';
 import SuiteMetadata from '../components/metadata/SuiteMetadata';
 import TestList from '../components/suite/Testlist';
 import LogMessages from '../components/suite/LogMessages';
 import { ParentInfoContainer } from './Suite.styles';
+import ContentHeader from '../components/header/ContentHeader';
+import { ContainerGrid12, ContentGrid6 } from '../styles/baseComponents';
 
 const Suite = () => {
     const { suiteId, buildId, seriesId, testId } = useParams();
@@ -68,16 +68,19 @@ const Suite = () => {
     }, [dispatch, branch_id, suiteId, buildId, seriesId, branchesState]);
 
     return (
-        <main id="suite">
+        <div id="suite">
             {!selectedSuiteState || loadingState ? (
                 <div
-                    css={theme.loadingState}
                     role="status"
                     aria-live="polite"
                     aria-label="Loading"
                     aria-relevant="all"
                 >
-                    <Loading />
+                    <ContainerGrid12>
+                        <ContentGrid6>
+                            <Loading />
+                        </ContentGrid6>
+                    </ContainerGrid12>
                 </div>
             ) : selectedSuiteState.suite ? (
                 <div>
@@ -91,22 +94,36 @@ const Suite = () => {
                         Content loaded.
                     </div>
                     <BreadcrumbNav status={'suite'} />
-                    <Header />
+                    <ContentHeader />
                     <ParentInfoContainer className="parentInfo-container">
-                        <ParentBuild />
+                        <ContainerGrid12>
+                            <ContentGrid6>
+                                <ParentBuild />
+                            </ContentGrid6>
+                        </ContainerGrid12>
                     </ParentInfoContainer>
-                    <SuiteMetadata />
-                    <TestList suite={selectedSuiteState.suite} />
-                    <LogMessages
-                        test={selectedSuiteState.suite.tests.find(
-                            i => i.id === parseInt(testId, 10)
-                        )}
-                    />
+                    <ContainerGrid12>
+                        <ContentGrid6>
+                            <SuiteMetadata />
+                        </ContentGrid6>
+                    </ContainerGrid12>
+                    <ContainerGrid12>
+                        <TestList suite={selectedSuiteState.suite} />
+                    </ContainerGrid12>
+                    <ContainerGrid12>
+                        <ContentGrid6>
+                            <LogMessages
+                                test={selectedSuiteState.suite.tests.find(
+                                    i => i.id === parseInt(testId, 10)
+                                )}
+                            />
+                        </ContentGrid6>
+                    </ContainerGrid12>
                 </div>
             ) : (
                 <Notfound />
             )}
-        </main>
+        </div>
     );
 };
 

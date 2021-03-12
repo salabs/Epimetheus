@@ -1,22 +1,19 @@
-// eslint-disable-next-line
 import React, { Fragment, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import Table from '../components/historyTable/Table';
 import ParentSeries from '../components/parentData/ParentSeries';
 import Offset from '../components/buttons/OffSetButtons';
-import Checkbox from '../components/buttons/LastRunCheckbox';
+import LastRunCheckbox from '../components/buttons/LastRunCheckbox';
 import BuildAmountSelector from '../components/buttons/BuildAmountSelector';
 import { useStateValue } from '../contexts/state';
 import { useParams } from 'react-router';
 import BreadcrumbNav from '../components/BreadcrumbNav';
 import Loading from '../components/Loading';
 import { useQueryParams } from '../hooks/useQuery';
-import Header from '../components/header/Header';
-import {
-    RelativeMain,
-    FilterContainer,
-    ParentContainer,
-} from './History.styles';
+import { RelativeMain, ParentContainer } from './History.styles';
+import ContentHeader from '../components/header/ContentHeader';
+import { ContainerGrid12, ContentGrid6 } from '../styles/baseComponents';
+import { FilterContainer } from '../components/overview/FilterContainer.styles';
 
 const History = () => {
     const [t] = useTranslation(['parentData']);
@@ -87,32 +84,46 @@ const History = () => {
     return (
         <RelativeMain id="history">
             <BreadcrumbNav status={'series'} />
-            <Header />
+            <ContentHeader />
+            <ContainerGrid12>
+                <ContentGrid6>
+                    <h4>{t('title')}</h4>
+                </ContentGrid6>
+            </ContainerGrid12>
+
             <ParentContainer id="parentInfo-container">
-                <h4>{t('title')}</h4>
-                <ParentSeries />
+                <ContainerGrid12>
+                    <ContentGrid6>
+                        <ParentSeries />
+                    </ContentGrid6>
+                </ContainerGrid12>
             </ParentContainer>
-            <FilterContainer id="filter-container">
-                <BuildAmountSelector />
-                <Offset />
-                <Checkbox direction="row" isHistory="true" />
-            </FilterContainer>
-            {!historyDataState || loadingState ? (
-                <Loading />
-            ) : (
-                <Fragment>
-                    <div
-                        className="sr-show"
-                        role="status"
-                        aria-live="polite"
-                        aria-relevant="all"
-                        aria-label="Content loaded."
-                    >
-                        Content loaded.
-                    </div>
-                    <Table />
-                </Fragment>
-            )}
+
+            <ContainerGrid12>
+                <ContentGrid6>
+                    <FilterContainer id="filter-container">
+                        <BuildAmountSelector />
+                        <Offset />
+                        <LastRunCheckbox direction="row" />
+                    </FilterContainer>
+                    {!historyDataState || loadingState ? (
+                        <Loading />
+                    ) : (
+                        <Fragment>
+                            <div
+                                className="sr-show"
+                                role="status"
+                                aria-live="polite"
+                                aria-relevant="all"
+                                aria-label="Content loaded."
+                            >
+                                Content loaded.
+                            </div>
+                            <Table />
+                        </Fragment>
+                    )}
+                </ContentGrid6>
+            </ContainerGrid12>
         </RelativeMain>
     );
 };

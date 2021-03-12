@@ -6,8 +6,8 @@ import BuildInfoTable from './BuildInfoTable';
 import { useParams } from 'react-router';
 import { useStateValue } from '../../contexts/state';
 
-const Divi = styled.div`
-    border-bottom: 1px solid #ddd;
+const TableHeading = styled.div`
+    border-bottom: 1px solid var(--tonic-grey);
     min-width: 300px;
     font-weight: bold;
 `;
@@ -59,10 +59,14 @@ const LastBuildElement = () => {
 
     return (
         <Containing>
-            <Divi>Last Build Status</Divi>
+            <TableHeading>Last Build Status</TableHeading>
             <BuildInfoTable />
-            <Divi>Failing Test Cases</Divi>
-            <FailuresTable failures={failures}/>
+            {failures.length > 0 && (
+                <React.Fragment>
+                    <TableHeading>Failing Test Cases</TableHeading>
+                    <FailuresTable failures={failures} />
+                </React.Fragment>
+            )}
         </Containing>
     );
 };

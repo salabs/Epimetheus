@@ -1,20 +1,15 @@
-﻿import styled from 'styled-components';
+import styled from 'styled-components';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-
-export const HeaderContainer = styled.div`
-    padding-left: 198px;
-
-    @media only screen and (max-width: 1024px) {
-        padding-left: 108px;
-    }
-`;
 
 export const LinkContainer = styled.div`
     padding: 10px 0;
 
-    a:nth-child(2) {
+    a {
         margin-left: 10px;
+        &:first-child {
+            margin-left: 0;
+        }
     }
 `;
 
@@ -39,6 +34,11 @@ export const OverviewLink = styled(StyledLink)`
 `;
 
 export const HistoryLink = styled(StyledLink)`
-    color: ${props => !props.overview && 'var(--pirlo-blue) !important'};
-    border-bottom: ${props => !props.overview && '4px solid var(--pirlo-blue)'};
+    color: ${props => props.history && 'var(--pirlo-blue) !important'};
+    border-bottom: ${props => props.history && '4px solid var(--pirlo-blue)'};
+`;
+
+export const AnalysisLink = styled(StyledLink)`
+    color: ${props => props.analysis && 'var(--pirlo-blue) !important'};
+    border-bottom: ${props => props.analysis && '4px solid var(--pirlo-blue)'};
 `;

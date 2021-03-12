@@ -45,6 +45,7 @@ Once you have both frontend and backend running, you can open your browser to [h
 
 Note that there should be some data saved in the database before user interface will show something. For pushing data into database, consult [TestArchiver documentation](https://github.com/salabs/TestArchiver).
 
+## Installation with docker
 Running project with [Docker](/README-docker.md)
 
 ## Browser Support
@@ -65,7 +66,23 @@ Supported browsers are "all modern browsers". This means IE and some mobile brow
 
 ## Release Notes
 
--   1.0.1 (21.10.2020)
+-   1.1.0 (2021-03-12)
+
+    -   Simple build results API
+    -   Analysis view for a build with keyword analysis table
+    -   Keyword analysis API
+    -   Accessibility improvements
+    -   Style and file name refactoring
+    -   Dockerhub publishing for new releases
+    -   Features:
+        * #141 Style and refactor the keyword analysis table enhancement
+        * #138 Fix various bugs caused by the grid bug
+        * #137 Simple single build results API enhancement
+        * #135 Keyword execution time analysis tool enhancement
+        * #133 Accessibility fix for checkbox bug
+        * #131 Check color usage enhancement
+
+-   1.0.1 (2020-10-21)
 
     -   Fixes a bug which prevented the frontend container from starting when using docker-compose
     -   Changes the default port of Nginx in Dockerfile-prod container from 80 to 8080. Services in Docker containers are now running as non root user.
@@ -74,7 +91,7 @@ Supported browsers are "all modern browsers". This means IE and some mobile brow
     -   Queryparams are now properly shown when switching between Overview and History layouts
     -   Queryparams are properly removed from state if not needed
 
--   1.0.0 (22.9.2020)
+-   1.0.0 (2020-09-22)
     -   Completely updated layout and colour palette
     -   Updated Breadcrumb nav
     -   Overview -page for Series and Builds with graphical visualisation

@@ -4,21 +4,16 @@ import { overviewElement } from '../../styles/baseComponents';
 export const ParentContainer = styled.div`
     display: flex;
     flex-flow: row wrap;
-    padding: 0 198px;
-
-    @media only screen and (max-width: 1024px) {
-        padding: 0 108px;
-    }
 `;
 
 export const ChartContainer = styled(overviewElement)`
-    margin: 20px 40px 40px 0;
+    margin: var(--space-24) var(--space-40) var(--space-40) 0;
     background-color: var(--nero-white);
-    min-width: ${props => props.minWidth};
+    width: ${props => props.width};
 `;
 
 export const ElementHeader = styled.h3`
     text-align: center;
-    margin: 10px;
+    margin: var(--space-8);
     font-family: 'Hack';
 `;

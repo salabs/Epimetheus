@@ -9,64 +9,72 @@ export const FlexContainer = styled.div`
     display: flex;
     flex-direction: column;
     padding: 40px 0px;
-    margin: 0 108px;
 
-    @media only screen and (max-width: 1024px) {
-        margin: 0 64px;
-    }
-    :hover {
-        cursor: pointer;
-    }
-
-    .Open,
-    .Close {
+    .open,
+    .close {
+        visibility: hidden;
         max-height: 0;
         overflow-y: hidden;
+        transition: all 0.25s ease-in-out;
     }
 
-    .Open {
-        max-height: 100%;
+    .open {
+        visibility: visible;
+        max-height: 5000px;
     }
 `;
 
-export const HeaderContainer = styled.div`
+export const HeaderContainer = styled.button`
     background: var(--titan-green);
     display: flex;
     align-items: center;
     flex-direction: row;
     justify-content: space-between;
-    border-radius: 48px;
+    border-radius: var(--space-48);
     width: 100%;
     color: var(--nero-white);
+    border: 0;
+    text-align: left;
+    padding: 0;
 
-    h3 {
-        font-size: 20px;
-        font-family: 'Hack';
-        letter-spacing: -0.04em;
-        font-style: normal;
-        font-weight: normal;
-        flex: 20;
-        padding-left: 56px;
+    &:hover:enabled {
+        background-color: var(--titan-green);
+        color: var(--nero-white);
+        text-decoration: none;
     }
 
-    p {
-        flex: 2;
+    h2 {
+        font-size: 20px;
+        font-family: 'Hack';
+        font-weight: normal;
+        text-transform: none;
+        letter-spacing: -0.04em;
+        line-height: var(--space-40);
+        flex: 20;
+        padding: var(--space-8) 0 var(--space-8) 56px;
+        margin: 0;
+    }
+
+    & > p {
+        flex: 3;
+        padding-right: 30px;
+        white-space: nowrap;
     }
 `;
 
 export const SvgCollection = styled(Collection)`
     position: relative;
-    left: 24px;
+    left: var(--space-24);
 `;
 
 export const SvgDown = styled(Down)`
-    color: white;
-    flex: 1;
+    position: relative;
+    right: var(--space-24);
 `;
 
 export const SvgUp = styled(Up)`
-    color: white;
-    flex: 1;
+    position: relative;
+    right: var(--space-24);
 `;
 
 export const TestListContainer = styled.div`
@@ -93,20 +101,20 @@ export const TestListContainer = styled.div`
         position: relative;
         top: -0.3em;
         height: 2.4em;
-        width: 32px;
+        width: 27px;
         color: white;
         border-bottom: 1px solid var(--tonic-grey);
         content: '';
         display: inline-block;
         left: -7px;
     }
+
     ul li:first-child:before {
         height: 3.2em;
     }
 
     ul li:last-child:before {
         border-left: 1px solid var(--tonic-grey);
-        width: 33px;
     }
 `;
 
@@ -124,7 +132,7 @@ export const DotSpan = styled.span`
 export const TestStatusRow = styled.div`
     display: inline-flex;
     flex-direction: row;
-    width: 80%;
+    width: calc(100% - 42px);
     align-items: center;
 
     span {
@@ -136,13 +144,12 @@ export const TestStatusRow = styled.div`
 export const StyledLink = styled(({ isselected, ...props }) => (
     <NavLink {...props} />
 ))`
-    padding: 4px;
+    padding: 0 4px;
     font-weight: bolder;
-    cursor: pointer;
-    display: inline;
     text-decoration: none;
     flex: 2;
     color: ${props => props.isselected && 'var(--pirlo-blue) !important'};
+    outline-offset: -2px;
 
     :hover {
         color: var(--titan-green-darker);
@@ -162,6 +169,7 @@ export const TimeContainer = styled.span`
 
 export const TagContainer = styled.span`
     flex: 3;
+    display: flex;
 
     @media only screen and (max-width: 1300px) {
         flex: 2;
@@ -169,13 +177,6 @@ export const TagContainer = styled.span`
 
     @media only screen and (max-width: 1024px) {
         flex: 1;
+        flex-wrap: wrap;
     }
-`;
-
-export const Tag = styled.span`
-    border: 1px solid var(--evidence-grey);
-    padding: 0 8px;
-    border-radius: 8px;
-    font-size: 10px;
-    margin: 0 8px;
 `;

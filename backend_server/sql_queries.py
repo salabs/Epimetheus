@@ -6,7 +6,7 @@ SELECT keyword_tree.fingerprint, keyword, library, status, arguments, call_index
 FROM keyword_tree
 JOIN tree_hierarchy ON tree_hierarchy.subtree=keyword_tree.fingerprint
 WHERE tree_hierarchy.fingerprint=%(fingerprint)s
-ORDER BY call_index;
+ORDER BY call_index::int;
 """
 
 def test_series(by_teams=False, series=None):
@@ -302,6 +302,68 @@ ORDER BY suite_full_name, full_name, build_number DESC;
            series=int(series),
            test_run_ids=test_run_ids(series, start_from=start_from, last=last, offset=offset))
 
+def simple_build_results_data(series, build_number):
+    return """
+SELECT suite_id,
+       suite_name,
+       suite_full_name,
+       suite_repository,
+       id,
+       name,
+       full_name,
+       test_run_id,
+       status,
+       setup_status,
+       execution_status,
+       teardown_status,
+       start_time,
+       fingerprint,
+       setup_fingerprint,
+       execution_fingerprint,
+       teardown_fingerprint,
+       elapsed,
+       setup_elapsed,
+       execution_elapsed,
+       teardown_elapsed
+FROM (
+    SELECT DISTINCT ON (suite.id, test_results.id)
+        suite.id as suite_id, suite.name as suite_name, suite.full_name as suite_full_name,
+        suite.repository as suite_repository,
+        suite_result.test_run_id as suite_test_run_id,
+        suite_result.start_time as suite_start_time,
+
+        test_results.id as id, test_results.name as name, test_results.full_name as full_name,
+        test_results._test_run_id as test_run_id,
+        test_results.status as status,
+        test_results.setup_status as setup_status,
+        test_results.execution_status as execution_status,
+        test_results.teardown_status as teardown_status,
+        test_results.start_time as start_time,
+        test_results.fingerprint as fingerprint,
+        test_results.setup_fingerprint as setup_fingerprint,
+        test_results.execution_fingerprint as execution_fingerprint,
+        test_results.teardown_fingerprint as teardown_fingerprint,
+        test_results.elapsed as elapsed,
+        test_results.setup_elapsed as setup_elapsed,
+        test_results.execution_elapsed as execution_elapsed,
+        test_results.teardown_elapsed as teardown_elapsed
+    FROM suite_result
+    JOIN suite ON suite.id=suite_result.suite_id
+    JOIN test_run ON test_run.id=suite_result.test_run_id
+    LEFT OUTER JOIN (
+        SELECT DISTINCT ON (test_case.id) *, test_result.test_run_id as _test_run_id
+        FROM test_result
+        JOIN test_case ON test_case.id=test_result.test_id
+        WHERE test_result.test_run_id IN ({test_run_ids})
+        ORDER BY test_case.id, start_time DESC, test_result.test_run_id DESC
+    ) as test_results ON test_results.suite_id=suite.id
+    WHERE suite_result.test_run_id IN ({test_run_ids})
+      AND NOT ignored
+    ORDER BY suite_id, test_results.id, suite_start_time DESC, suite_test_run_id DESC
+) AS results
+ORDER BY suite_full_name, full_name;
+""".format(test_run_ids=test_run_ids(series, build_num=build_number)) # nosec
+
 
 def suite_result(series, build_number, suite):
     return """
@@ -428,3 +490,31 @@ LIMIT {limit} OFFSET {limit_offset};
            limit=int(limit),
            limit_offset=int(limit_offset),
            order="ASC" if stable else "DESC")
+
+def keyword_analysis(series, build_number):
+    return """
+WITH total_elapsed AS (
+    SELECT sum(top_suite_elapsed) as total
+    FROM (
+        SELECT max(elapsed) as top_suite_elapsed
+        FROM suite_result
+        WHERE test_run_id IN ({test_run_ids})
+        GROUP BY test_run_id
+    ) AS foo
+)
+SELECT tree.library, tree.keyword,
+       sum(cumulative_execution_time)::real/total_elapsed.total*100 as percent,
+       min(min_execution_time) as min,
+       sum(cumulative_execution_time)/sum(calls) as avg,
+       max(max_execution_time) as max,
+       sum(cumulative_execution_time) as total,
+       sum(calls) as calls,
+       count(*) versions,
+       max(max_call_depth) as max_call_depth
+FROM keyword_statistics as stat
+JOIN keyword_tree as tree ON tree.fingerprint=stat.fingerprint
+CROSS JOIN total_elapsed
+WHERE test_run_id IN ({test_run_ids})
+GROUP BY tree.library, tree.keyword,  total_elapsed.total
+ORDER BY total DESC
+""".format(test_run_ids=test_run_ids(series, build_num=build_number))

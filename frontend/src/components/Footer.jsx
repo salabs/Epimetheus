@@ -8,7 +8,9 @@ const Footer = () => {
 
     return (
         <FooterContainer>
-            <EpiIcon>{t('footer.E')}</EpiIcon>
+            <EpiIcon role="img" aria-hidden="true">
+                {t('footer.E')}
+            </EpiIcon>
             <TextStyles>
                 {t('footer.epimetheus')} {t('footer.version')}{' '}
                 <span className="underline">{packageJson.version}</span>{' '}

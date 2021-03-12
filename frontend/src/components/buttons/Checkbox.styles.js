@@ -1,4 +1,6 @@
-﻿import styled from 'styled-components';
+﻿// Not used anywhere!
+
+import styled from 'styled-components';
 
 export const CheckboxContainer = styled.div`
     display: flex;
@@ -7,7 +9,7 @@ export const CheckboxContainer = styled.div`
 `;
 
 export const StyledCheckbox = styled.input`
-    border: 1px solid #eee;
+    border: 1px solid var(--hermanni-grey);
     border-radius: 10px;
     background-color: white;
     padding: 5px;
@@ -17,8 +19,8 @@ export const StyledCheckbox = styled.input`
 
 export const SelectedCheckbox = styled(StyledCheckbox)`
     background-color: transparent !important;
-    border: 2px solid #243b53 !important;
-    color: #243b53 !important;
+    border: 2px solid var(--pirlo-blue-darker) !important;
+    color: var(--pirlo-blue-darker) !important;
 `;
 
 export const Header = styled.h3`

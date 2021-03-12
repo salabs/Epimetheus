@@ -3,5 +3,6 @@
         "header": "Hide tests that are",
         "passing": "Passing",
         "failing": "Failing"
-    }
+    },
+    "Builds": "Builds"
 }

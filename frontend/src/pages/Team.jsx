@@ -5,7 +5,8 @@ import { useParams } from 'react-router';
 import SelectedTeam from '../components/team/SelectedTeam';
 import Loading from '../components/Loading';
 import { useTranslation } from 'react-i18next';
-import { TeamHeader, TeamContainer } from './Team.styles';
+import { CardsContainer, TeamContainer } from './Team.styles';
+import { ContainerGrid12, ContentGrid6 } from '../styles/baseComponents';
 
 const Team = () => {
     const [t] = useTranslation(['team']);
@@ -30,9 +31,13 @@ const Team = () => {
     }, [dispatch]);
 
     return (
-        <main id="team">
+        <div id="team">
             {!teamsState || loadingState ? (
-                <Loading />
+                <ContainerGrid12>
+                    <ContentGrid6>
+                        <Loading />
+                    </ContentGrid6>
+                </ContainerGrid12>
             ) : name ? (
                 <SelectedTeam
                     selectedTeam={teamsState.find(
@@ -41,21 +46,29 @@ const Team = () => {
                 />
             ) : (
                 <>
-                    <TeamHeader>{t('title')}</TeamHeader>
+                    <ContainerGrid12>
+                        <ContentGrid6>
+                            <h1>{t('title')}</h1>
+                        </ContentGrid6>
+                    </ContainerGrid12>
                     <TeamContainer>
-                        {teamsState.map(({ name, series_count }, i) => {
-                            return (
-                                <Card
-                                    team={name}
-                                    numberOfSeries={series_count}
-                                    key={i}
-                                />
-                            );
-                        })}
+                        <ContainerGrid12>
+                            <CardsContainer>
+                                {teamsState.map(({ name, series_count }, i) => {
+                                    return (
+                                        <Card
+                                            team={name}
+                                            numberOfSeries={series_count}
+                                            key={i}
+                                        />
+                                    );
+                                })}
+                            </CardsContainer>
+                        </ContainerGrid12>
                     </TeamContainer>
                 </>
             )}
-        </main>
+        </div>
     );
 };
 export default Team;

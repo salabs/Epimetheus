@@ -1,14 +1,17 @@
-﻿/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import BreadcrumbNav from '../components/BreadcrumbNav';
 import Build from '../components/overview/Build';
 import Series from '../components/overview/Series';
 import ParentBuild from '../components/parentData/ParentBuild';
-import Header from '../components/header/Header';
-import { ParentInfo, FlexDiv, FlexColumn } from './Overview.styles';
+import { ParentInfo } from './Overview.styles';
 import BuildAmountSelector from '../components/buttons/BuildAmountSelector';
 import Offset from '../components/buttons/OffSetButtons';
+import ContentHeader from '../components/header/ContentHeader';
+import { ContainerGrid12, ContentGrid6 } from '../styles/baseComponents';
+import ParentSeries from '../components/parentData/ParentBuild';
+import { FilterContainer } from '../components/overview/FilterContainer.styles';
 
 const Overview = () => {
     const pathname = useLocation().pathname;
@@ -17,33 +20,34 @@ const Overview = () => {
     const status = buildUrl ? 'build' : 'series';
 
     return (
-        <main>
+        <div>
             <BreadcrumbNav status={status} />
-            <Header />
+            <ContentHeader />
             <div>
                 <ParentInfo id="parentInfo-container">
-                    {!buildUrl ? (
-                        <FlexColumn>
-                            <BuildAmountSelector />
-                            <Offset />
-                        </FlexColumn>
-                    ) : (
-                        <ParentBuild />
-                    )}
+                    <ContainerGrid12>
+                        <ContentGrid6>
+                            {!buildUrl ? <ParentSeries /> : <ParentBuild />}
+                        </ContentGrid6>
+                    </ContainerGrid12>
                 </ParentInfo>
-                <FlexDiv>
+                <ContainerGrid12>
                     {buildUrl ? (
-                        <React.Fragment>
+                        <ContentGrid6>
                             <Build />
-                        </React.Fragment>
+                        </ContentGrid6>
                     ) : (
-                        <React.Fragment>
+                        <ContentGrid6>
+                            <FilterContainer>
+                                <BuildAmountSelector />
+                                <Offset />
+                            </FilterContainer>
                             <Series />
-                        </React.Fragment>
+                        </ContentGrid6>
                     )}
-                </FlexDiv>
+                </ContainerGrid12>
             </div>
-        </main>
+        </div>
     );
 };
 

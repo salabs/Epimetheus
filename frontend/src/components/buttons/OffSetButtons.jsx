@@ -6,12 +6,12 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { useQueryParams } from '../../hooks/useQuery';
 
 import {
-    Header,
     StyledInput,
     StyledDirectionButton,
     LatestButton,
     FlexDiv,
     StyledEndLeft,
+    Heading,
 } from './OffSetButtons.styles';
 
 import Left from '../../images/chevron-left.svg';
@@ -99,7 +99,7 @@ const Offset = () => {
 
     return (
         <div>
-            <Header>Offset</Header>
+            <Heading>Offset</Heading>
             <FlexDiv id="offset_container">
                 <LatestButton
                     onClick={handleLatestButtonPress}

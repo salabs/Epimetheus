@@ -1,5 +1,5 @@
 *** Settings ***
-Library         REST    ${Backend}${:}${PORT}
+Library         rest_or_null.RESTorNull  ${Backend}${:}${PORT}
 Library         RequestsLibrary
 Metadata        FIXTURE_SERIES_ID   ${FIXTURE_SERIES_ID}
 
@@ -7,12 +7,11 @@ Metadata        FIXTURE_SERIES_ID   ${FIXTURE_SERIES_ID}
 ${PORT}=  5000
 ${FIXTURE_SERIES_ID}=  2
 ${LAST_FIXTURE_TEST_RUN}=  1  # Notice: updated by some test case setups
-#${Backend}=    http://backend-server
 
 *** Test cases ***
 
 API documentation page
-    [Setup]       Create session  backend    ${Backend}${:}${PORT}
+    [Setup]       Create session  backend  ${Backend}${:}${PORT}
     [Template]    Page status ok
     /
     /data
@@ -63,6 +62,12 @@ Build info data
     Integer                 response status     200
     Valid series object     $.series
     Valid build object      $.build
+
+Simple build result data
+    GET                         /data/series/${FIXTURE_SERIES_ID}/builds/1/simple_results
+    Integer                     response status     200
+    Array                       $.suites
+    Valid simple build result suite object  $.suites[*]
 
 Suite result info data
     GET                         /data/series/${FIXTURE_SERIES_ID}/builds/1/suites/3/info
@@ -210,23 +215,42 @@ Keyword tree data
     Array                       $.children
 
     # Test execution with virtual keyword as root
-    # This does not work
-    #GET                         /data/keyword_tree/b38e47f8530f32669f42ebda3170fae067dc64bb/
-    #Integer                     response status     200
-    #String                      $.fingerprint      b38e47f8530f32669f42ebda3170fae067dc64bb
-    #Null                        $.keyword
-    #Null                        $.library
-    #String                      $.status
-    #Array                       $.arguments
-    #Array                       $.children
+    GET                         /data/keyword_tree/4bd14ecbf6c4bc29498b9094f407bb72fb09c1a8/
+    Integer                     response status     200
+    String                      $.fingerprint      4bd14ecbf6c4bc29498b9094f407bb72fb09c1a8
+    Null                        $.keyword
+    Null                        $.library
+    String                      $.status            PASS
+    Array                       $.arguments         maxItems=0
+    Array                       $.children
 
-    #String                      $.children[*].call_index
-    #String                      $.children[*].fingerprint
-    #String                      $.children[*].keyword
-    #String                      $.children[*].library
-    #String                      $.children[*].status
-    #String                      $.children[*].arguments[*]
-    #Array                       $.children[*].children
+    String                      $.children[*].call_index
+    String                      $.children[*].fingerprint
+    String                      $.children[*].keyword
+    String                      $.children[*].library
+    String                      $.children[*].status
+    String                      $.children[*].arguments[*]
+    Array                       $.children[*].children
+
+Keyword analysis data
+    GET                         /data/series/1/builds/1/keyword_analysis
+    Integer                     response status     200
+    Array                       $.statistics
+    String                      $.statistics[*].library
+    String                      $.statistics[*].keyword
+    Number                      $.statistics[*].percent
+    Integer                     $.statistics[*].min
+    Integer                     $.statistics[*].avg
+    Integer                     $.statistics[*].max
+    Integer                     $.statistics[*].total
+    Integer                     $.statistics[*].calls
+    Integer                     $.statistics[*].versions
+    Integer                     $.statistics[*].max_call_depth
+
+    # Non existent analysis should return empty table
+    GET                         /data/series/0/builds/0/keyword_analysis
+    Integer                     response status     200
+    Array                       $.statistics    maxItems=0
 
 
 *** Keywords ***
@@ -259,6 +283,35 @@ Valid build object
     String              ${json_path}.archiving_time
     String              ${json_path}.start_time
 
+Valid simple build result suite object
+    [Arguments]         ${json_path}
+    Integer             ${json_path}.id
+    String              ${json_path}.name
+    String              ${json_path}.full_name
+    String              ${json_path}.repository
+    Array               ${json_path}.tests
+    Valid simple test result    ${json_path}.tests[*]
+
+Valid simple test result
+    [Arguments]         ${json_path}
+    Integer             ${json_path}.id
+    String              ${json_path}.name
+    String              ${json_path}.full_name
+    Integer             ${json_path}.test_run_id
+    String              ${json_path}.start_time
+    String              ${json_path}.status
+    String or null      ${json_path}.setup_status
+    String or null      ${json_path}.execution_status
+    String or null      ${json_path}.teardown_status
+    Integer             ${json_path}.elapsed
+    Integer or null     ${json_path}.setup_elapsed
+    Integer or null     ${json_path}.execution_elapsed
+    Integer or null     ${json_path}.teardown_elapsed
+    String              ${json_path}.fingerprint
+    String or null      ${json_path}.setup_fingerprint
+    String or null      ${json_path}.execution_fingerprint
+    String or null      ${json_path}.teardown_fingerprint
+
 Valid log message object
     [Arguments]         ${json_path}  ${is_test_case}=${true}
     Integer             ${json_path}.id
@@ -266,7 +319,7 @@ Valid log message object
     String              ${json_path}.message
     String              ${json_path}.log_level
     Integer             ${json_path}.suite_id
-    #String              ${json_path}.test_id
+    Integer or null     ${json_path}.test_id
     Integer             ${json_path}.test_run_id
 
 Get last fixture test run id

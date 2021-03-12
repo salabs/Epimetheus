@@ -1,22 +1,14 @@
 ﻿import styled from 'styled-components';
 
 export const Container = styled.div`
-    background: var(--hermanni-grey-lighter);
-    padding: 24px 326px 24px 190px;
+    padding: var(--space-8) 0;
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    flex-flow: row wrap;
+    justify-content: space-between;
     width: 100%;
-
-    @media only screen and (max-width: 1024px) {
-        padding: 12px 190px 12px 100px;
-    }
 `;
 
 export const ParagraphContainer = styled.p`
-    display: flex;
-    padding: 0 8px;
-
     span:first-child {
         font-weight: bolder;
     }

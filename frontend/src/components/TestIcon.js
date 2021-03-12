@@ -1,6 +1,6 @@
 import React from 'react';
 import FA from 'react-fontawesome';
-import theme from '../styles/theme';
+import { colorTypes } from '../utils/colorTypes';
 import styled from 'styled-components';
 import { ReactComponent as Pass } from '../images/success.svg';
 import { ReactComponent as Fail } from '../images/fail.svg';
@@ -62,7 +62,7 @@ export const pickIcon = (test_status, key) => {
                     key={key}
                     text="Time"
                     type="clock-o"
-                    iconColor={theme.colors.skipped}
+                    iconColor={colorTypes['tonic grey']}
                 />
             );
             break;

@@ -17,30 +17,54 @@ html {
 @import url('https://fonts.googleapis.com/css?family=Space+Mono');
 @import url('https://fonts.googleapis.com/css?family=Noto+Serif');
 
-/* Colors
-----------------------*/
 :root {
-    --nelson-purple: #b8557b;
-    --semolina-red: #c63757;
-    --pirlo-blue: #067cc1;
-    --pirlo-blue-darker: #0469a4;
-    --titan-green: #238564;
-    --titan-green-darker: #14835e;
-    --titan-green-darkest: #145b43;
+    /* Colors
+    ----------------------*/
+
+    /* Main colors */
     --gradient-black: #141312;
     --evidence-grey: #77716b;
-    --evidence-grey-darker: #6b6661;
-    --hermanni-grey: #edecec;
-    --hermanni-grey-lighter: #f8f8f7;
-    --toukola-green: #e9f5e1;
-    --toukola-green-lighter: #f4f7f2;
-    --kumpula-yellow: #faf3e1;
-    --vallila-blue: #e1f1f7;
-    --arabia-red: #faecec;
     --nero-white: #ffffff;
+    --titan-green: #238564;
+    --pirlo-blue: #067cc1;
+    --semolina-red: #c63757;
+    --nelson-purple: #b8557b;
+
+    /* Background colors */
+    --arabia-red: #faecec;
+    --kumpula-yellow: #faf3e1;
+    --toukola-green: #e9f5e1;
+    --vallila-blue: #e1f1f7;
+    --hermanni-grey: #eeecec;
+
+    /* Special colors */
     --tonic-grey: #d7d4d3;
     --sparkling-blue: #80bfdb;
     --birra-brown: #976f10;
+
+    /* Shady colors */
+    --hermanni-grey-lighter: #f8f8f7;
+    --toukola-green-lighter: #f4f7f2;
+    --evidence-grey-lighter: #adaaa6;
+    --evidence-grey-darker: #6b6661;
+    --titan-green-darker: #16815d;
+    --titan-green-darkest: #145b43;
+    --pirlo-blue-darker: #0469a4;
+
+    /* Space scale
+    ----------------------*/
+    --space-80: 80px;
+    --space-64: 64px;
+    --space-48: 48px;
+    --space-40: 40px;
+    --space-24: 24px;
+    --space-16: 16px;
+    --space-8: 8px;
+    --space-4: 4px;
+
+    /* Grid
+    ----------------------*/
+    --max-page-width: 1280px;
 }
 
 /** Basics **/
@@ -57,31 +81,41 @@ h3,
 h4,
 h5 {
     font-family: 'Noto Serif Semibold';
+    margin-top: var(--space-40);
+    margin-bottom: var(--space-24);
 }
 
 h1 {
     font-size: 40px;
     font-weight: 700;
+    line-height: 56px;
+    overflow-wrap: break-word;
 }
 
 h2 {
     font-size: 30px;
     font-weight: 700;
+    line-height: 48px;
 }
 
 h3 {
-    font-size: 18px;
-    font-weight: 500;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 40px;
+    text-transform: uppercase;
 }
 
 h4 {
     font-size: 20px;
     font-weight: 500;
+    line-height: 24px;
 }
 
 h5 {
     font-size: 14px;
     font-weight: 600;
+    line-height: 24px;
+    text-transform: uppercase;
 }
 
 svg {

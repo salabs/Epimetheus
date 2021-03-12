@@ -1,13 +1,9 @@
 ﻿import styled from 'styled-components';
 
 export const SelectedTeamContainer = styled.div`
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-between;
-    padding: 40px 108px;
     background: var(--hermanni-grey-lighter);
 
-    header {
+    .selectedTeamHeading {
         flex: 1 100%;
         flex-direction: row;
         display: flex;
@@ -20,35 +16,41 @@ export const SelectedTeamContainer = styled.div`
             vertical-align: -webkit-baseline-middle;
         }
     }
-
-    @media only screen and (max-width: 1024px) {
-        padding: 24px 40px;
-    }
 `;
 
 export const CardContainer = styled.div`
     display: grid;
     grid-gap: 16px;
-    grid-template-columns: repeat(auto-fit, minmax(344px, 1fr));
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(calc(var(--max-page-width) / 4 - var(--space-16)), 1fr)
+    );
     width: 100%;
     height: 100%;
 `;
 
 export const CardSection = styled.section`
     background-color: var(--nero-white);
-    box-shadow: 0px 2px 4px #eeecec;
+    box-shadow: 0px 2px 4px var(--hermanni-grey);
     border-radius: 8px 0px 0px 0px;
-    border: 1px solid #eeecec;
+    border: 1px solid var(--hermanni-grey);
     display: grid;
-    padding: 0 16px;
+    padding: 0 var(--space-16);
     height: 232px;
-    width: 344px;
+    word-break: break-word;
 
-    header {
+    .cardHeading {
+        font-size: 20px;
+        font-weight: 500;
+        font-family: 'Noto Serif Semibold';
         display: flex;
         flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
         margin: 0;
-        max-width: 344px;
+    }
+    p {
+        margin: 0;
     }
 `;
 
@@ -62,18 +64,24 @@ export const HoverDiv = styled.div`
     }
 `;
 
-export const H5 = styled.h5`
+export const CardSubTitle = styled.p`
     color: var(--titan-green);
     font-family: 'Noto Serif';
     margin: 0;
     text-transform: uppercase;
 `;
 
-export const H4 = styled.h4`
+// max-width's 24px is the svg icon's width
+export const CardHeading = styled.p`
     color: var(--titan-green);
     overflow-wrap: break-word;
-    max-width: 290px;
+    max-width: calc(100% - 24px);
     margin: 0;
+    display: block;
+    margin-block-start: 1.33em;
+    margin-block-end: 1.33em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
 `;
 
 export const InfoContainer = styled.div`
