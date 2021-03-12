@@ -5,11 +5,13 @@ import BreadcrumbNav from '../components/BreadcrumbNav';
 import Build from '../components/overview/Build';
 import Series from '../components/overview/Series';
 import ParentBuild from '../components/parentData/ParentBuild';
-import { ParentInfo, FlexColumn } from './Overview.styles';
+import { ParentInfo } from './Overview.styles';
 import BuildAmountSelector from '../components/buttons/BuildAmountSelector';
 import Offset from '../components/buttons/OffSetButtons';
 import ContentHeader from '../components/header/ContentHeader';
 import { ContainerGrid12, ContentGrid6 } from '../styles/baseComponents';
+import ParentSeries from '../components/parentData/ParentBuild';
+import { FilterContainer } from '../components/overview/FilterContainer.styles';
 
 const Overview = () => {
     const pathname = useLocation().pathname;
@@ -25,14 +27,7 @@ const Overview = () => {
                 <ParentInfo id="parentInfo-container">
                     <ContainerGrid12>
                         <ContentGrid6>
-                            {!buildUrl ? (
-                                <FlexColumn>
-                                    <BuildAmountSelector />
-                                    <Offset />
-                                </FlexColumn>
-                            ) : (
-                                <ParentBuild />
-                            )}
+                            {!buildUrl ? <ParentSeries /> : <ParentBuild />}
                         </ContentGrid6>
                     </ContainerGrid12>
                 </ParentInfo>
@@ -43,6 +38,10 @@ const Overview = () => {
                         </ContentGrid6>
                     ) : (
                         <ContentGrid6>
+                            <FilterContainer>
+                                <BuildAmountSelector />
+                                <Offset />
+                            </FilterContainer>
                             <Series />
                         </ContentGrid6>
                     )}

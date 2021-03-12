@@ -10,13 +10,10 @@ import { useParams } from 'react-router';
 import BreadcrumbNav from '../components/BreadcrumbNav';
 import Loading from '../components/Loading';
 import { useQueryParams } from '../hooks/useQuery';
-import {
-    RelativeMain,
-    FilterContainer,
-    ParentContainer,
-} from './History.styles';
+import { RelativeMain, ParentContainer } from './History.styles';
 import ContentHeader from '../components/header/ContentHeader';
 import { ContainerGrid12, ContentGrid6 } from '../styles/baseComponents';
+import { FilterContainer } from '../components/overview/FilterContainer.styles';
 
 const History = () => {
     const [t] = useTranslation(['parentData']);

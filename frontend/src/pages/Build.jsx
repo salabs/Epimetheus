@@ -12,6 +12,7 @@ import useMetadata from '../hooks/useMetadata';
 import { ParentInfoContainer } from './Build.styles';
 import ContentHeader from '../components/header/ContentHeader';
 import { ContainerGrid12, ContentGrid6 } from '../styles/baseComponents';
+import { FilterContainer } from '../components/overview/FilterContainer.styles';
 
 const Build = () => {
     const [
@@ -99,7 +100,9 @@ const Build = () => {
                         <ContentGrid6>
                             <BuildMetadata />
                             <h2>Test results for build {buildId}</h2>
-                            <LastRunCheckBox direction="column" />
+                            <FilterContainer>
+                                <LastRunCheckBox direction="column" />
+                            </FilterContainer>
                             <Table id={branch_id} />
                         </ContentGrid6>
                     </ContainerGrid12>

@@ -49,8 +49,9 @@ export const HeaderContainer = styled.button`
         font-weight: normal;
         text-transform: none;
         letter-spacing: -0.04em;
+        line-height: var(--space-40);
         flex: 20;
-        padding-left: 56px;
+        padding: var(--space-8) 0 var(--space-8) 56px;
         margin: 0;
     }
 
@@ -148,7 +149,7 @@ export const StyledLink = styled(({ isselected, ...props }) => (
     text-decoration: none;
     flex: 2;
     color: ${props => props.isselected && 'var(--pirlo-blue) !important'};
-    outline-offset: -1px;
+    outline-offset: -2px;
 
     :hover {
         color: var(--titan-green-darker);

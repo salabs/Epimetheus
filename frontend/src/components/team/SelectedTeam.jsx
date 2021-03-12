@@ -18,7 +18,7 @@ import {
     CardHeading,
     CardSubTitle,
 } from './SelectedTeam.styles';
-import { ContainerGrid12 } from '../../styles/baseComponents';
+import { ContainerGrid12, ContentGrid6 } from '../../styles/baseComponents';
 
 const TeamCard = ({ data }) => {
     const [t] = useTranslation(['team']);
@@ -101,24 +101,35 @@ const SelectedTeam = ({ selectedTeam }) => {
         <div id="selectedTeam">
             <BreadcrumbNav status={'team'} />
             {selectedTeam && selectedTeam.all_builds ? (
-                <SelectedTeamContainer>
+                <>
                     <ContainerGrid12>
-                        <div className={'selectedTeamHeading'}>
-                            <h1>
-                                {t('card.last_build.header')} {teamName}
-                            </h1>
-                            <SeriesCount>
-                                {seriesCount} {t('card.last_build.series')}{' '}
-                            </SeriesCount>
-                        </div>
-                        <CardContainer>
-                            <TeamCard data={selectedTeam.all_builds} />
-                            {selectedTeam.series.reverse().map((serie, i) => {
-                                return <TeamCard key={i} data={serie} />;
-                            })}
-                        </CardContainer>
+                        <ContentGrid6>
+                            <h1>Team {teamName}</h1>
+                        </ContentGrid6>
                     </ContainerGrid12>
-                </SelectedTeamContainer>
+                    <SelectedTeamContainer>
+                        <ContainerGrid12>
+                            <div className={'selectedTeamHeading'}>
+                                <h2>
+                                    {t('card.last_build.header')} {teamName}
+                                </h2>
+                                <SeriesCount>
+                                    {seriesCount} {t('card.last_build.series')}{' '}
+                                </SeriesCount>
+                            </div>
+                            <CardContainer>
+                                <TeamCard data={selectedTeam.all_builds} />
+                                {selectedTeam.series
+                                    .reverse()
+                                    .map((serie, i) => {
+                                        return (
+                                            <TeamCard key={i} data={serie} />
+                                        );
+                                    })}
+                            </CardContainer>
+                        </ContainerGrid12>
+                    </SelectedTeamContainer>
+                </>
             ) : (
                 <NotFound />
             )}
