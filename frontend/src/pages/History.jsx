@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import Table from '../components/historyTable/Table';
 import ParentSeries from '../components/parentData/ParentSeries';
 import Offset from '../components/buttons/OffSetButtons';
-import Checkbox from '../components/buttons/LastRunCheckbox';
+import LastRunCheckbox from '../components/buttons/LastRunCheckbox';
 import BuildAmountSelector from '../components/buttons/BuildAmountSelector';
 import { useStateValue } from '../contexts/state';
 import { useParams } from 'react-router';
@@ -107,7 +107,7 @@ const History = () => {
                     <FilterContainer id="filter-container">
                         <BuildAmountSelector />
                         <Offset />
-                        <Checkbox direction="row" />
+                        <LastRunCheckbox direction="row" />
                     </FilterContainer>
                     {!historyDataState || loadingState ? (
                         <Loading />

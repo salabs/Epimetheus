@@ -25,16 +25,31 @@ export const StyledDiv = styled.div`
     span {
         padding-right: 8px;
         position: relative;
-        top: -1.5px;
+        top: -1px;
+
+        svg {
+            position: relative;
+            top: -1px;
+        }
     }
 `;
 
 export const StyledLabel = styled.label`
     margin-right: 20px;
     display: block;
-    float: left;
+    position: relative;
 `;
 
 export const StyledInput = styled.input`
-    display: none;
+    appearance: none;
+    opacity: 0;
+    position: absolute;
+    top: 3px;
+    height: 16px;
+    width: 16px;
+    border-radius: 2px;
+
+    &:focus {
+        opacity: 1;
+    }
 `;
