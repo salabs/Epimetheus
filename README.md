@@ -71,8 +71,9 @@ Supported browsers are "all modern browsers". This means IE and some mobile brow
     -   Simple build results API
     -   Analysis view for a build with keyword analysis table
     -   Keyword analysis API
-    -   Accessability improvements
+    -   Accessibility improvements
     -   Style and file name refactoring
+    -   Dockerhub publishing for new releases
     -   Features:
         * #141 Style and refactor the keyword analysis table enhancement
         * #138 Fix various bugs caused by the grid bug
