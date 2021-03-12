@@ -18,7 +18,7 @@ def load_config_file(file_name):
         return json.load(file)
 
 
-VERSION_NUMBER = "1.0.1"
+VERSION_NUMBER = "1.1.0"
 
 
 @register_swagger_model
