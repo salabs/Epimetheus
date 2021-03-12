@@ -98,12 +98,14 @@ const ContentHeader = () => {
                                 >
                                     {t('buttons.history')}
                                 </HistoryLink>
-                                <AnalysisLink
-                                    to={correctUrl('analysis')}
-                                    analysis={analysisUrl}
-                                >
-                                    {t('buttons.analysis')}
-                                </AnalysisLink>
+                                {buildUrl && (
+                                    <AnalysisLink
+                                        to={correctUrl('analysis')}
+                                        analysis={analysisUrl}
+                                    >
+                                        {t('buttons.analysis')}
+                                    </AnalysisLink>
+                                )}
                             </LinkContainer>
                         )}
                     </ContentGrid6>
