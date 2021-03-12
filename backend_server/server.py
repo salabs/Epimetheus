@@ -1480,15 +1480,13 @@ class KeywordAnalysisDataHandler(BaseHandler):
                                 $ref: '#/definitions/BuildKeywordAnalysisObjectModel'
         """
         statistics = yield coroutine_query(self.database.keyword_analysis, series, build_number)
-        if statistics:
-            self.write({'statistics': statistics})
-        else:
-            self.send_not_found_response()
+        self.write({'statistics': statistics})
 
 
 class FooDataHandler(BaseHandler):
     def get(self):
         self.write({'suites': []})
+
 
 
 def main():
