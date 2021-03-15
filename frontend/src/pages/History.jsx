@@ -85,11 +85,6 @@ const History = () => {
         <RelativeMain id="history">
             <BreadcrumbNav status={'series'} />
             <ContentHeader />
-            <ContainerGrid12>
-                <ContentGrid6>
-                    <h4>{t('title')}</h4>
-                </ContentGrid6>
-            </ContainerGrid12>
 
             <ParentContainer id="parentInfo-container">
                 <ContainerGrid12>
@@ -101,6 +96,9 @@ const History = () => {
 
             <ContainerGrid12>
                 <ContentGrid6>
+                    <h2>
+                        {t('test_result_history')} {selectedBranchState.name}
+                    </h2>
                     <FilterContainer id="filter-container">
                         <BuildAmountSelector />
                         <Offset />
