@@ -45,7 +45,7 @@ export const StyledInput = styled.input`
     appearance: none;
     opacity: 0;
     position: absolute;
-    top: 3px;
+    top: 8px;
     height: 16px;
     width: 16px;
     border-radius: 2px;
