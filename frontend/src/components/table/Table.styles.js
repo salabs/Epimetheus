@@ -166,6 +166,21 @@ export const NarrowTh = styled.th`
     max-width: 160px;
 `;
 
+function calculateSpanMargin() {
+    let spansMarginRules = [];
+
+    for (let i = 0; i < 11; i++) {
+        spansMarginRules.push(
+            `span:nth-of-type(${i}) {
+                margin-left: ${8 * i}px;
+                display: inline-block;
+            }`
+        );
+    }
+
+    return spansMarginRules;
+}
+
 export const HierarchicalSuiteNameTh = styled.th`
     font-weight: normal;
     text-align: left;
@@ -188,21 +203,6 @@ export const HierarchicalSuiteNameTh = styled.th`
 
     ${calculateSpanMargin()};
 `;
-
-function calculateSpanMargin() {
-    let spansMarginRules = [];
-
-    for (let i = 0; i < 11; i++) {
-        spansMarginRules.push(
-            `span:nth-of-type(${i}) {
-                margin-left: ${8 * i}px;
-                display: inline-block;
-            }`
-        );
-    }
-
-    return spansMarginRules;
-}
 
 export const SuiteRow = styled.tr`
     border-top: ${props => props.position !== 0 && 'none !important'};

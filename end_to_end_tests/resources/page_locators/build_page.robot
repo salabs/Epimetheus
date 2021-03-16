@@ -8,4 +8,4 @@ ${pass_span}	            xpath://*[@id="last-run-table"]/tbody/tr[*]/td[*]/span[
 ${fail_span}	            xpath://*[@id="last-run-table"]/tbody/tr[*]/td[*]/span[text()='Fail']
 ${last_run_table}           xpath://*[@id="last-run-table"]
 
-${first_suite}              xpath://*[@id="last-run-table"]/tbody/tr[1]/td[1]/a
+${first_suite}              xpath://*[@id="last-run-table"]/tbody/tr[1]/th[1]/a
