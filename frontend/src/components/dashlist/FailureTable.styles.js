@@ -7,6 +7,7 @@ export const TableContainer = styled.div`
     grid-area: table;
     max-height: 100%;
     overflow-y: scroll;
+    padding-top: var(--space-8);
 `;
 
 export const StyledTable = styled.table`
