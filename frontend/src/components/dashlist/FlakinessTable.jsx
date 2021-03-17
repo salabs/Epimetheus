@@ -1,30 +1,23 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router';
 import { useStateValue } from '../../contexts/state';
-import {
-    TableContainer,
-    StyledTable,
-    HighlightedButton,
-} from './FlakinessTable.styles';
+import { TableContainer, StyledTable } from './FlakinessTable.styles';
+import { ToggleButtonSmall } from '../buttons/button.styles';
 
 const StabilityButton = ({ value, text }) => {
     const [{ stabilityChecker }, dispatch] = useStateValue();
     return (
-        <HighlightedButton
+        <ToggleButtonSmall
+            className={stabilityChecker === value ? 'selected' : ''}
             onClick={() => {
                 dispatch({
                     type: 'setStabilityChecker',
                     setStability: value,
                 });
             }}
-            color={
-                stabilityChecker === value
-                    ? 'var(--evidence grey)'
-                    : 'var(--nero-white)'
-            }
         >
             {text}
-        </HighlightedButton>
+        </ToggleButtonSmall>
     );
 };
 

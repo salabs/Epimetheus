@@ -58,3 +58,37 @@ export const DefaultButton = styled.button`
         }
     }
 `;
+
+export const ToggleButton = styled.button`
+    font-family: Hack;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    text-transform: uppercase;
+    color: var(--evidence-grey);
+    background-color: var(--nero-white);
+    border: 1px solid var(--evidence-grey);
+    border-radius: var(--space-4);
+    height: var(--space-40);
+    min-width: var(--space-40);
+    padding: 0 var(--space-16);
+    white-space: nowrap;
+    box-shadow: 0px 3px 3px -1px var(--tonic-grey);
+
+    &:focus {
+        outline: 0;
+        box-shadow: 0 0 0 4px var(--sparkling-blue);
+    }
+
+    &.selected {
+        color: var(--nero-white);
+        background-color: var(--titan-green);
+        border-color: var(--titan-green);
+    }
+`;
+
+export const ToggleButtonSmall = styled(ToggleButton)`
+    font-size: 12px;
+    height: var(--space-24);
+    line-height: var(--space-24);
+`;

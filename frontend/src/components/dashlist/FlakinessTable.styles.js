@@ -6,7 +6,10 @@ export const TableContainer = styled.div`
     width: 100%;
     max-height: 400px;
     overflow-y: scroll;
-    grid-area: table;
+
+    button {
+        margin: var(--space-16) var(--space-8) var(--space-16) 0;
+    }
 `;
 
 export const StyledTable = styled.table`
@@ -32,11 +35,4 @@ export const StyledTable = styled.table`
         padding-right: 5px;
         text-align: left;
     }
-`;
-
-export const HighlightedButton = styled.button`
-    background-color: ${props => props.color};
-    color: var(--gradient-black);
-    border: 1px solid var(--gradient-black);
-    outline: none;
 `;

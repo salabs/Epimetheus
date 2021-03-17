@@ -15,15 +15,8 @@ export const StyledListContainer = styled.div`
 
 export const TableSelectors = styled.div`
     grid-area: selectorbox;
-`;
 
-export const TableButtons = styled.button`
-    padding: 10px;
-    margin-left: 4px;
-    margin-right: 4px;
-    margin-bottom: 2px;
-    background-color: ${props => props.color};
-    color: var(--gradient-black);
-    border: 1px solid var(--gradient-black);
-    outline: none;
+    button {
+        margin-right: var(--space-8);
+    }
 `;
