@@ -19,9 +19,9 @@ export const FlexDiv = styled.div`
 `;
 
 export const StyledInput = styled.input`
-    border: 1px solid var(--tonic-grey);
+    border: 1px solid var(--evidence-grey);
     border-radius: 4px;
     max-width: 54px;
-    height: 36px;
+    height: var(--space-32);
     text-align: right;
 `;

@@ -10,25 +10,26 @@ export const DropdownWrapper = styled.div`
 
     .ReactA11ySelect__button {
         width: 100%;
-        height: 36px;
+        height: var(--space-32);
+        line-height: var(--space-32);
         padding: 0 10px 0 15px;
         background-color: var(--nero-white);
-        border: 1px solid var(--tonic-grey);
+        border: 1px solid var(--evidence-grey);
         font-size: 14px;
         white-space: nowrap;
         display: flex;
         justify-content: space-between;
-        line-height: 36px;
     }
 
     .ReactA11ySelect__button:enabled:hover {
         color: var(--gradient-black);
+        background-color: var(--hermanni-grey);
         text-decoration: none;
     }
 
     .ReactA11ySelect__button:enabled:focus {
         outline: 0;
-        box-shadow: 0 0 0 4px var(--sparkling-blue);
+        box-shadow: 0 0 0 var(--space-4) var(--sparkling-blue);
     }
 
     .ReactA11ySelect__button > span:first-child {
@@ -53,7 +54,7 @@ export const DropdownWrapper = styled.div`
         margin: 0;
         font-size: 14px;
         border: 1px solid var(--tonic-grey);
-        border-radius: 4px;
+        border-radius: var(--space-4);
         box-shadow: 0 3px 5px 1px var(--tonic-grey);
         padding: 5px 3px;
     }
