@@ -1,7 +1,7 @@
 ﻿import styled from 'styled-components';
 
 export const NavBar = styled.nav`
-    background: var(--titan-green);
+    background-color: var(--titan-green);
     color: var(--nero-white);
     display: flex;
     align-items: center;
@@ -9,51 +9,45 @@ export const NavBar = styled.nav`
 `;
 
 export const SiteLogo = styled.div`
-    padding: 0px 24px 0px 40px;
+    margin: 0px var(--space-24) 0px var(--space-40);
     font-family: 'Hack' !important;
     letter-spacing: 1px;
     font-size: 30px;
     font-weight: 700;
+
     @media only screen and (max-width: 540px) {
-        width: 0;
+        width: var(--space-16);
+        margin-right: 0;
         overflow: hidden;
-        display: block;
     }
 `;
 
 export const LinkContainer = styled.div`
     a {
-        margin: 0 15px 0 15px;
-        color: var(--nero-white) !important;
-        font-size: 16px;
-        line-height: 24px;
+        color: var(--nero-white);
+        font-size: var(--space-16);
+        line-height: var(--space-24);
         font-weight: bold;
         text-decoration: none;
         border-bottom: none;
-    }
+        margin: 0 var(--space-16) 0 var(--space-16);
+        padding-bottom: var(--space-4);
 
-    a:hover,
-    .about:hover,
-    .team:hover {
-        background: var(--titan-green);
-        border-bottom: 3px solid var(--titan-green-darkest);
-    }
-    a:focus {
-        outline-color: var(--nero-white);
-    }
+        &:hover {
+            background-color: var(--titan-green);
+            border-bottom: var(--space-4) solid var(--titan-green-darkest);
+        }
 
-    .about {
-        border-bottom: ${props => !props.team && '3px solid var(--nero-white)'};
-    }
+        &:focus {
+            outline-color: var(--nero-white);
+        }
 
-    .team {
-        border-bottom: ${props => props.team && '3px solid var(--nero-white)'};
+        &.active {
+            border-bottom: var(--space-4) solid var(--nero-white);
+        }
     }
 
     @media only screen and (max-width: 540px) {
-        margin-left: 10px;
-        a {
-            margin: 0 5px 0 5px;
-        }
+        margin-left: var(--space-4);
     }
 `;
