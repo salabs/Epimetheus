@@ -27,11 +27,6 @@ export const DropdownWrapper = styled.div`
         text-decoration: none;
     }
 
-    .ReactA11ySelect__button:enabled:focus {
-        outline: 0;
-        box-shadow: 0 0 0 var(--space-4) var(--sparkling-blue);
-    }
-
     .ReactA11ySelect__button > span:first-child {
         overflow: hidden;
         white-space: nowrap;

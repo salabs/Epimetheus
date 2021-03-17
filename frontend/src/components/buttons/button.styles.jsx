@@ -32,8 +32,6 @@ export const DefaultButton = styled.button`
     }
 
     &:focus {
-        outline: 0;
-        box-shadow: 0 0 0 4px var(--sparkling-blue);
         color: var(--pirlo-blue);
 
         svg path {
@@ -74,11 +72,6 @@ export const ToggleButton = styled.button`
     padding: 0 var(--space-16);
     white-space: nowrap;
     box-shadow: 0px 3px 3px -1px var(--tonic-grey);
-
-    &:focus {
-        outline: 0;
-        box-shadow: 0 0 0 4px var(--sparkling-blue);
-    }
 
     &.selected {
         color: var(--nero-white);

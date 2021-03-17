@@ -134,6 +134,10 @@ a:hover {
     color: var(--titan-green-darker);
 }
 
+a:focus {
+    outline: 2px solid var(--pirlo-blue);
+}
+
 button {
     cursor: pointer;
 }
@@ -143,10 +147,6 @@ button[disabled] {
 }
 
 button:focus,
-a:focus {
-    outline: 2px solid var(--pirlo-blue);
-}
-
 input:focus {
     outline: 0;
     box-shadow: 0 0 0 var(--space-4) var(--sparkling-blue);
