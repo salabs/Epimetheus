@@ -22,9 +22,7 @@ export const DropdownWrapper = styled.div`
     }
 
     .ReactA11ySelect__button:enabled:hover {
-        color: var(--gradient-black);
         background-color: var(--hermanni-grey);
-        text-decoration: none;
     }
 
     .ReactA11ySelect__button > span:first-child {

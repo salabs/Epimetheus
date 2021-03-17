@@ -8,11 +8,6 @@ export const Heading = styled.div`
 export const FlexDiv = styled.div`
     display: flex;
 
-    button:hover {
-        text-decoration: none;
-        color: var(--evidence-grey-darker);
-    }
-
     > * {
         margin-right: var(--space-8);
     }

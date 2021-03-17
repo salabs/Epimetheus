@@ -37,12 +37,6 @@ export const HeaderContainer = styled.button`
     text-align: left;
     padding: 0;
 
-    &:hover:enabled {
-        background-color: var(--titan-green);
-        color: var(--nero-white);
-        text-decoration: none;
-    }
-
     h2 {
         font-size: 20px;
         font-family: 'Hack';
