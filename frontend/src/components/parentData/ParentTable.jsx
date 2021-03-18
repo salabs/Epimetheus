@@ -4,6 +4,7 @@ import { pick } from 'ramda';
 import { capitalCaseInitial, removeUnderscore } from '../../utils/helpers';
 import {
     Container,
+    ContentBlockContainer,
     ParagraphContainer,
     StatusSpan,
 } from './ParentTable.styles';
@@ -31,9 +32,16 @@ const ParentTable = props => {
     };
 
     return (
-        <React.Fragment>
-            {data && <Container id="lastRunInfo">{showData()}</Container>}
-        </React.Fragment>
+        <>
+            {data && (
+                <Container id="lastRunInfo">
+                    <ContentBlockContainer>
+                        <span className="title">Context</span>
+                        {showData()}
+                    </ContentBlockContainer>
+                </Container>
+            )}
+        </>
     );
 };
 
