@@ -74,10 +74,6 @@ export const SpreadSheetTable = styled.table`
         &:hover {
             text-decoration: underline;
         }
-
-        &:active {
-            color: var(--pirlo-blue);
-        }
     }
 `;
 
@@ -150,10 +146,6 @@ export const SimpleTable = styled.table`
 
         &:hover {
             text-decoration: underline;
-        }
-
-        &:active {
-            color: var(--pirlo-blue);
         }
     }
 `;
