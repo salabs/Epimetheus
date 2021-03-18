@@ -30,5 +30,7 @@ export const ParagraphContainer = styled.p`
 
 export const StatusSpan = styled.span`
     color: ${props =>
-        props.status === 'PASS' ? 'var(--pirlo-blue)' : 'var(--nelson-purple)'};
+        props.status === 'PASS'
+            ? 'var(--pirlo-blue-darker)'
+            : 'var(--semolina-red)'};
 `;
