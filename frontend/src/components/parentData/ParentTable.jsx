@@ -34,8 +34,8 @@ const ParentTable = props => {
     return (
         <>
             {data && (
-                <Container id="lastRunInfo">
-                    <ContentBlockContainer>
+                <Container>
+                    <ContentBlockContainer id="lastRunInfo">
                         <span className="title">Context</span>
                         {showData()}
                     </ContentBlockContainer>
