@@ -57,6 +57,7 @@ html {
     --space-64: 64px;
     --space-48: 48px;
     --space-40: 40px;
+    --space-32: 32px;
     --space-24: 24px;
     --space-16: 16px;
     --space-8: 8px;
@@ -122,18 +123,33 @@ svg {
     vertical-align: middle;
 }
 
-button:focus,
-input:focus,
-a:focus {
-    outline: 2px solid var(--pirlo-blue);
+a {
+    color: var(--titan-green);
 }
 
-button:hover:enabled,
 a:hover {
     cursor: pointer;
     text-decoration: underline;
     background: var(--hermanni-grey-lighter);
     color: var(--titan-green-darker);
+}
+
+a:focus {
+    outline: 2px solid var(--pirlo-blue);
+}
+
+button {
+    cursor: pointer;
+}
+
+button[disabled] {
+    pointer-events: none;
+}
+
+button:focus,
+input:focus {
+    outline: 0;
+    box-shadow: 0 0 0 var(--space-4) var(--sparkling-blue);
 }
 
 /** a11y **/

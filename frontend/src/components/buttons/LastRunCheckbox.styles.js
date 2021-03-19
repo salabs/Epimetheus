@@ -9,11 +9,11 @@ export const StyledDiv = styled.div`
     display: flex;
     flex-direction: ${props => props.direction};
     border: 1px solid var(--tonic-grey);
-    border-radius: 4px;
+    border-radius: var(--space-4);
     width: ${props => (props.direction === 'column' ? '10%' : '30%')};
     max-width: 230px;
     min-width: ${props => (props.direction === 'column' ? '200px' : '230px')};
-    line-height: 34px;
+    line-height: 30px;
     padding: 0 var(--space-8);
 
     @media only screen and (max-width: 1024px) {

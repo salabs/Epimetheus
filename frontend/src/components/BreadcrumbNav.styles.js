@@ -59,8 +59,6 @@ export const StyledInnerDiv = styled.ol`
 export const StyledLink = styled(Link)`
     &:hover {
         text-decoration: underline;
-        color: var(--titan-green-darker);
-        background: var(--hermanni-grey-lighter);
     }
 `;
 

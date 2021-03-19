@@ -1,30 +1,29 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router';
 import { useStateValue } from '../../contexts/state';
-import {
-    TableContainer,
-    StyledTable,
-    HighlightedButton,
-} from './FlakinessTable.styles';
+import { TableContainer, StyledTable } from './FlakinessTable.styles';
+import { ToggleButtonSmall } from '../buttons/button.styles';
 
 const StabilityButton = ({ value, text }) => {
     const [{ stabilityChecker }, dispatch] = useStateValue();
     return (
-        <HighlightedButton
+        <ToggleButtonSmall
+            role="radio"
+            aria-checked={stabilityChecker === value}
+            className={stabilityChecker === value ? 'selected' : ''}
             onClick={() => {
                 dispatch({
                     type: 'setStabilityChecker',
                     setStability: value,
                 });
+
+                document.getElementById(
+                    'flakiness-table-status'
+                ).textContent = `Content updated. Showing now ${value} in stability table.`;
             }}
-            color={
-                stabilityChecker === value
-                    ? 'var(--evidence grey)'
-                    : 'var(--nero-white)'
-            }
         >
             {text}
-        </HighlightedButton>
+        </ToggleButtonSmall>
     );
 };
 
@@ -50,10 +49,15 @@ const DashboardList = () => {
     }, [dispatch, seriesId, stabilityChecker, amountOfBuilds, offset]);
 
     return (
-        <TableContainer id="flakiness-table">
-            <StabilityButton value={'unstable'} text="Unstable" />
-            <StabilityButton value={'stable'} text="Stable" />
-            <StyledTable>
+        <TableContainer>
+            <p className="sr-show" role="status" id="flakiness-table-status">
+                {' '}
+            </p>
+            <span role="radiogroup" aria-controls="flakiness-table">
+                <StabilityButton value={'unstable'} text="Unstable" />
+                <StabilityButton value={'stable'} text="Stable" />
+            </span>
+            <StyledTable id="flakiness-table">
                 <thead>
                     <tr>
                         <th>Test_Name</th>

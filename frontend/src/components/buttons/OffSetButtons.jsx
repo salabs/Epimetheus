@@ -5,17 +5,14 @@ import { useStateValue } from '../../contexts/state';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useQueryParams } from '../../hooks/useQuery';
 
-import {
-    StyledInput,
-    StyledDirectionButton,
-    LatestButton,
-    FlexDiv,
-    StyledEndLeft,
-    Heading,
-} from './OffSetButtons.styles';
+import { StyledInput, FlexDiv, Heading } from './OffSetButtons.styles';
 
-import Left from '../../images/chevron-left.svg';
-import Right from '../../images/chevron-right.svg';
+import { DefaultButton } from './button.styles';
+
+import { ReactComponent as Left } from '../../images/chevron-left.svg';
+import { ReactComponent as Right } from '../../images/chevron-right.svg';
+import { ReactComponent as EndLeft } from '../../images/chevron-verticalbar-left.svg';
+
 const Offset = () => {
     const history = useHistory();
     const location = useLocation();
@@ -101,34 +98,34 @@ const Offset = () => {
         <div>
             <Heading>Offset</Heading>
             <FlexDiv id="offset_container">
-                <LatestButton
+                <DefaultButton
                     onClick={handleLatestButtonPress}
                     id="latest_offset_button"
                 >
-                    <StyledEndLeft /> <span>LATEST</span>
-                </LatestButton>
-                <StyledDirectionButton
+                    <EndLeft /> <span>LATEST</span>
+                </DefaultButton>
+                <DefaultButton
                     onClick={() => handleDirectionButtonPress('left')}
                     disabled={leftDisabled}
                     id="left_offset_button"
                     className={`left${leftDisabled}`}
                 >
-                    <img src={Left} alt="<" />
-                </StyledDirectionButton>
+                    <Left alt="<" />
+                </DefaultButton>
                 <StyledInput
                     type="number"
                     onChange={handleNumberInput}
                     value={inputOffset}
                     id="offset_field"
                 />
-                <StyledDirectionButton
+                <DefaultButton
                     onClick={() => handleDirectionButtonPress('right')}
                     disabled={rightDisabled}
                     id="right_offset_button"
                     className={`right${rightDisabled}`}
                 >
-                    <img src={Right} alt=">" />
-                </StyledDirectionButton>
+                    <Right src={Right} alt=">" />
+                </DefaultButton>
             </FlexDiv>
         </div>
     );
