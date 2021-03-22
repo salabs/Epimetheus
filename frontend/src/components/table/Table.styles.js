@@ -58,12 +58,6 @@ export const SpreadSheetTable = styled.table`
                 &:last-of-type {
                     padding-right: var(--space-8);
                 }
-
-                a {
-                    &:visited {
-                        color: var(--evidence-grey);
-                    }
-                }
             }
         }
     }
@@ -130,12 +124,6 @@ export const SimpleTable = styled.table`
                     position: absolute;
                     bottom: 0;
                     left: 0;
-                }
-
-                a {
-                    &:visited {
-                        color: var(--evidence-grey);
-                    }
                 }
             }
         }
