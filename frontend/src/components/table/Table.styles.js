@@ -16,7 +16,7 @@ export const SpreadSheetTable = styled.table`
     border-collapse: separate;
     font-size: 14px;
     line-height: 20px;
-    border: 1px solid var(--evidence-grey-lighter);
+    border: 1px solid var(--tonic-grey);
     border-radius: var(--space-8);
     border-spacing: 0;
     overflow: hidden;
