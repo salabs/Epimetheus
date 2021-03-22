@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import { useTranslation } from 'react-i18next';
 import {
     Container,
@@ -14,6 +15,7 @@ const Accordion = ({ header, name, value }) => {
     const [t] = useTranslation(['accordion']);
     const [Open, setOpen] = useState(true);
     const NameValuePairTable = [];
+    const id = uuidv4();
 
     if (name.length === value.length) {
         for (let i = 0; i < name.length; i++) {
@@ -26,11 +28,12 @@ const Accordion = ({ header, name, value }) => {
             <HeaderContainer
                 onClick={() => setOpen(!Open)}
                 aria-expanded={Open}
+                aria-controls={id}
             >
                 <p>{header}</p>
                 <span className="caret">{Open ? <Up /> : <Down />}</span>
             </HeaderContainer>
-            <Content className={Open ? 'Open' : 'Close'}>
+            <Content className={Open ? 'Open' : 'Close'} id={id}>
                 <SplitBorder />
                 <SimpleTable id="datatable">
                     <thead>

@@ -16,16 +16,19 @@ import {
     TagContainer,
 } from './Testlist.styles';
 import AttributeTag from '../attributeTag/AttributeTag';
+import { v4 as uuidv4 } from 'uuid';
 
 const Testlist = ({ suite }) => {
     const { suiteId, buildId, seriesId, testId } = useParams();
     const [Open, setOpen] = useState(true);
+    const id = uuidv4();
 
     return (
         <FlexContainer>
             <HeaderContainer
                 onClick={() => setOpen(!Open)}
                 aria-expanded={Open}
+                aria-controls={id}
             >
                 <SvgCollection />
                 <h2>{suite.name} Tests</h2>
@@ -35,7 +38,7 @@ const Testlist = ({ suite }) => {
                 </p>
                 {Open ? <SvgUp /> : <SvgDown />}
             </HeaderContainer>
-            <TestListContainer className={Open ? 'open' : 'close'}>
+            <TestListContainer className={Open ? 'open' : 'close'} id={id}>
                 <ul>
                     {' '}
                     {suite.tests.map((test, i) => {
