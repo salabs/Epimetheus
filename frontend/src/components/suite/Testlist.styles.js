@@ -8,7 +8,7 @@ import { ReactComponent as Down } from '../../images/chevron-down-white.svg';
 export const FlexContainer = styled.div`
     display: flex;
     flex-direction: column;
-    padding: 40px 0px;
+    margin: var(--space-40) 0px;
 
     .open,
     .close {
