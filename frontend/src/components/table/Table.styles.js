@@ -46,6 +46,12 @@ export const SpreadSheetTable = styled.table`
                 background-color: var(--kumpula-yellow);
             }
 
+            &:last-of-type {
+                td {
+                    border-bottom: 0;
+                }
+            }
+
             td {
                 border-bottom: 1px solid var(--hermanni-grey);
                 position: relative;
