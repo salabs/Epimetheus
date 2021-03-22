@@ -33,7 +33,7 @@ const SeriesCard = ({ data }) => {
                 <CardValue>{testStatusIcon}</CardValue>
             </CardHeading>
             <InfoContainer
-                className="cardInfoContainer"
+                className="card-info-container"
                 id={`${name}_series`}
                 aria-label={`Series ${name}`}
             >
@@ -43,15 +43,15 @@ const SeriesCard = ({ data }) => {
                 <CardSubTitle to={`/series/${id}/build/${last_build}/overview`}>
                     {t('card.last_build.title')} {last_build}
                 </CardSubTitle>
-                <InfoContainer className="cardInfoContainer">
+                <InfoContainer className="card-info-container">
                     {t('card.last_build.build_id')}:{' '}
                     <CardValue>{last_build_id}</CardValue>
                 </InfoContainer>
-                <InfoContainer className="cardInfoContainer">
+                <InfoContainer className="card-info-container">
                     {t('card.last_build.last_build_started')}:{' '}
                     <CardValue>{LastStarted}</CardValue>
                 </InfoContainer>
-                <InfoContainer className="cardInfoContainer">
+                <InfoContainer className="card-info-container">
                     {t('card.last_build.last_status')}:{' '}
                     <StatusSpan status={last_status}>{last_status}</StatusSpan>
                 </InfoContainer>

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const SelectedTeamContainer = styled.div`
     background: var(--hermanni-grey-lighter);
 
-    .selectedTeamHeading {
+    .selected-team-heading {
         flex: 1 100%;
         flex-direction: row;
         display: flex;

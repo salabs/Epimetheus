@@ -36,7 +36,7 @@ const SeriesList = ({ selectedTeam }) => {
                     </ContainerGrid12>
                     <SelectedTeamContainer>
                         <ContainerGrid12>
-                            <div className={'selectedTeamHeading'}>
+                            <div className="selected-team-heading">
                                 <h2>
                                     {t('card.last_build.header')} {teamName}
                                 </h2>
