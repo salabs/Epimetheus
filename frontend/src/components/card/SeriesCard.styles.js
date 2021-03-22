@@ -1,80 +1,28 @@
 ﻿import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
-export const CardSection = styled.section`
-    background-color: var(--nero-white);
-    box-shadow: 0px 2px 4px var(--hermanni-grey);
-    border-radius: 8px 0px 0px 0px;
-    border: 1px solid var(--hermanni-grey);
-    display: grid;
-    padding: 0 var(--space-16);
-    height: 232px;
-    word-break: break-word;
-
-    .cardHeading {
-        font-size: 20px;
-        font-weight: 500;
-        font-family: 'Noto Serif Semibold';
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        margin: 0;
-    }
-    p {
-        margin: 0;
-    }
+export const CardTitle = styled(Link)`
+    text-decoration: none;
+    margin: 2px var(--space-16) 0 0;
 `;
 
-export const HoverDiv = styled.div`
-    :hover {
-        cursor: pointer;
-    }
-
-    .cardInfoContainer + .cardInfoContainer {
-        border-top: 1px solid var(--hermanni-grey);
-    }
-`;
-
-export const CardSubTitle = styled.p`
-    color: var(--titan-green);
+export const CardSubTitle = styled(Link)`
     font-family: 'Noto Serif';
-    margin: 0;
     text-transform: uppercase;
-`;
-
-// max-width's 24px is the svg icon's width
-export const CardHeading = styled.p`
-    color: var(--titan-green);
-    overflow-wrap: break-word;
-    max-width: calc(100% - 24px);
-    margin: 0;
-    display: block;
-    margin-block-start: 1.33em;
-    margin-block-end: 1.33em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-`;
-
-export const InfoContainer = styled.div`
-    display: flex;
-    justify-content: space-between;
-    font-size: 12px;
-    font-weight: 400;
-    :hover {
-        background-color: var(--hermanni-grey);
-    }
+    text-decoration: none;
 `;
 
 export const CardValue = styled.span`
     color: var(--pirlo-blue);
 
     svg {
-        background: var(--hermanni-grey-lighter);
+        background-color: var(--hermanni-grey-lighter);
         transform: scale(1.5);
-    }
-`;
+        position: relative;
+        right: var(--space-4);
 
-export const StatusSpan = styled.span`
-    color: ${props =>
-        props.status === 'FAIL' ? 'var(--nelson-purple)' : 'var(--pirlo-blue)'};
+        &[name='Fail'] {
+            background-color: transparent;
+        }
+    }
 `;

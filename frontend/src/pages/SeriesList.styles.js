@@ -9,26 +9,23 @@ export const SelectedTeamContainer = styled.div`
         display: flex;
         align-items: center;
         justify-content: space-between;
-
-        span {
-            font-size: 12px;
-            color: var(--evidence-grey);
-            vertical-align: -webkit-baseline-middle;
-        }
     }
 `;
 
 export const CardContainer = styled.div`
     display: grid;
-    grid-gap: 16px;
+    grid-gap: var(--space-16);
     grid-template-columns: repeat(
         auto-fit,
         minmax(calc(var(--max-page-width) / 4 - var(--space-16)), 1fr)
     );
     width: 100%;
     height: 100%;
+    padding-bottom: var(--space-40);
 `;
 
 export const SeriesCount = styled.span`
-    margin-right: 16px;
+    font-size: 12px;
+    color: var(--evidence-grey);
+    margin-right: var(--space-16);
 `;

@@ -1,25 +1,16 @@
 import React from 'react';
-import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { CardSection, StyledSpan, CardHeading } from './TeamCard.styles';
+import { CardHeading } from './TeamCard.styles';
+import { CardSection, InfoContainer, StatusSpan } from './card.styles';
 
 const TeamCard = ({ team, numberOfSeries }) => {
     const [t] = useTranslation(['team']);
-    let history = useHistory();
     return (
-        <CardSection
-            role="link"
-            tabIndex="0"
-            onClick={() => history.push(`/team/${team}`)}
-            onKeyPress={() => history.push(`/team/${team}`)}
-            data-href={'/team/' + team}
-            className={`ta-${team}-card`}
-        >
-            <CardHeading>{team}</CardHeading>
-            <div>
-                {t('series')}:{' '}
-                <StyledSpan className="test">{numberOfSeries}</StyledSpan>
-            </div>
+        <CardSection className={`ta-${team}-card`} grid={false}>
+            <CardHeading to={'/team/' + team}>{team}</CardHeading>
+            <InfoContainer className="number-of-series">
+                {t('series')}: <StatusSpan>{numberOfSeries}</StatusSpan>
+            </InfoContainer>
         </CardSection>
     );
 };
