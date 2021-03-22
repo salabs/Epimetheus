@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useStateValue } from '../contexts/state';
-import Card from '../components/team/Card';
+import TeamCard from '../components/card/TeamCard';
 import { useParams } from 'react-router';
-import SelectedTeam from '../components/team/SelectedTeam';
+import SeriesList from './SeriesList';
 import Loading from '../components/Loading';
 import { useTranslation } from 'react-i18next';
 import { CardsContainer, TeamContainer } from './Team.styles';
@@ -39,7 +39,7 @@ const Team = () => {
                     </ContentGrid6>
                 </ContainerGrid12>
             ) : name ? (
-                <SelectedTeam
+                <SeriesList
                     selectedTeam={teamsState.find(
                         element => element.name === name
                     )}
@@ -56,7 +56,7 @@ const Team = () => {
                             <CardsContainer>
                                 {teamsState.map(({ name, series_count }, i) => {
                                     return (
-                                        <Card
+                                        <TeamCard
                                             team={name}
                                             numberOfSeries={series_count}
                                             key={i}

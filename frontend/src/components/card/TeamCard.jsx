@@ -1,9 +1,9 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { CardSection, StyledSpan, CardHeading } from './Card.styles';
+import { CardSection, StyledSpan, CardHeading } from './TeamCard.styles';
 
-const Card = ({ team, numberOfSeries }) => {
+const TeamCard = ({ team, numberOfSeries }) => {
     const [t] = useTranslation(['team']);
     let history = useHistory();
     return (
@@ -24,4 +24,4 @@ const Card = ({ team, numberOfSeries }) => {
     );
 };
 
-export default Card;
+export default TeamCard;
