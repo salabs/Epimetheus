@@ -70,7 +70,7 @@ html {
 /** Basics **/
 
 body {
-    font-family: 'Hack';
+    font-family: 'Hack', monospace;
     font-size: 14px;
     line-height: 24px;
 }
@@ -80,7 +80,7 @@ h2,
 h3,
 h4,
 h5 {
-    font-family: 'Noto Serif Semibold';
+    font-family: 'Noto Serif Semibold', serif;
     margin-top: var(--space-40);
     margin-bottom: var(--space-24);
 }
