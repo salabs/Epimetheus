@@ -5,10 +5,13 @@ import { useParams } from 'react-router';
 import SeriesList from './SeriesList';
 import Loading from '../components/Loading';
 import { useTranslation } from 'react-i18next';
-import { CardsContainer, TeamContainer } from './Team.styles';
 import { ContainerGrid12, ContentGrid6 } from '../styles/baseComponents';
+import {
+    CardContainer,
+    CardContainerGrid,
+} from '../components/card/card.styles';
 
-const Team = () => {
+const TeamList = () => {
     const [t] = useTranslation(['team']);
     const [{ loadingState, teamsState }, dispatch] = useStateValue();
 
@@ -51,9 +54,9 @@ const Team = () => {
                             <h1>{t('title')}</h1>
                         </ContentGrid6>
                     </ContainerGrid12>
-                    <TeamContainer>
+                    <CardContainer>
                         <ContainerGrid12>
-                            <CardsContainer>
+                            <CardContainerGrid>
                                 {teamsState.map(({ name, series_count }, i) => {
                                     return (
                                         <TeamCard
@@ -63,12 +66,12 @@ const Team = () => {
                                         />
                                     );
                                 })}
-                            </CardsContainer>
+                            </CardContainerGrid>
                         </ContainerGrid12>
-                    </TeamContainer>
+                    </CardContainer>
                 </>
             )}
         </div>
     );
 };
-export default Team;
+export default TeamList;

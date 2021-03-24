@@ -4,14 +4,14 @@ import { useLocation } from 'react-router-dom';
 import { useStateValue } from '../contexts/state';
 import BreadcrumbNav from '../components/BreadcrumbNav';
 import { ContainerGrid12, ContentGrid6 } from '../styles/baseComponents';
-import {
-    CardContainer,
-    SelectedTeamContainer,
-    SeriesCount,
-} from './SeriesList.styles';
+import { SeriesCount } from './SeriesList.styles';
 import NotFound from '../components/NotFound';
 import PropTypes from 'prop-types';
 import SeriesCard from '../components/card/SeriesCard';
+import {
+    CardContainer,
+    CardContainerGrid,
+} from '../components/card/card.styles';
 
 const SeriesList = ({ selectedTeam }) => {
     const [t] = useTranslation(['team']);
@@ -34,7 +34,7 @@ const SeriesList = ({ selectedTeam }) => {
                             <h1>Team {teamName}</h1>
                         </ContentGrid6>
                     </ContainerGrid12>
-                    <SelectedTeamContainer>
+                    <CardContainer>
                         <ContainerGrid12>
                             <div className="selected-team-heading">
                                 <h2>
@@ -44,7 +44,7 @@ const SeriesList = ({ selectedTeam }) => {
                                     {seriesCount} {t('card.last_build.series')}{' '}
                                 </SeriesCount>
                             </div>
-                            <CardContainer>
+                            <CardContainerGrid>
                                 <SeriesCard data={selectedTeam.all_builds} />
                                 {selectedTeam.series
                                     .reverse()
@@ -53,9 +53,9 @@ const SeriesList = ({ selectedTeam }) => {
                                             <SeriesCard key={i} data={serie} />
                                         );
                                     })}
-                            </CardContainer>
+                            </CardContainerGrid>
                         </ContainerGrid12>
-                    </SelectedTeamContainer>
+                    </CardContainer>
                 </>
             ) : (
                 <NotFound />

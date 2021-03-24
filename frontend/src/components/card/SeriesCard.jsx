@@ -1,15 +1,13 @@
 import React from 'react';
 import { pickIcon } from '../TestIcon';
 import { useTranslation } from 'react-i18next';
+import { CardValue, CardSubTitle, CardTitle } from './SeriesCard.styles';
 import {
     CardSection,
-    StatusSpan,
-    InfoContainer,
-    CardValue,
     CardHeading,
-    CardSubTitle,
-    CardTitle,
-} from './SeriesCard.styles';
+    InfoContainer,
+    StatusSpan,
+} from './card.styles';
 
 const SeriesCard = ({ data }) => {
     const [t] = useTranslation(['team']);
@@ -27,7 +25,7 @@ const SeriesCard = ({ data }) => {
     const LastStarted = last_started.slice(0, 16);
     const testStatusIcon = pickIcon(last_status);
     return (
-        <CardSection aria-label={name}>
+        <CardSection aria-label={name} grid={true}>
             <CardHeading>
                 <CardTitle to={`/series/${id}/overview`}>{name}</CardTitle>
                 <CardValue>{testStatusIcon}</CardValue>
