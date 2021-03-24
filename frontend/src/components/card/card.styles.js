@@ -115,6 +115,8 @@ export const CardContainerGrid = styled.div`
     );
     width: 100%;
     height: 100%;
+    padding-top: ${props =>
+        props.teamsList === true ? 'var(--space-40)' : '0'};
     padding-bottom: var(--space-40);
 `;
 

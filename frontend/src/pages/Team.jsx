@@ -1,18 +1,12 @@
 import React, { useEffect } from 'react';
 import { useStateValue } from '../contexts/state';
-import TeamCard from '../components/card/TeamCard';
 import { useParams } from 'react-router';
-import SeriesList from './SeriesList';
 import Loading from '../components/Loading';
-import { useTranslation } from 'react-i18next';
+import SeriesList from './SeriesList';
+import TeamList from './TeamList';
 import { ContainerGrid12, ContentGrid6 } from '../styles/baseComponents';
-import {
-    CardContainer,
-    CardContainerGrid,
-} from '../components/card/card.styles';
 
-const TeamList = () => {
-    const [t] = useTranslation(['team']);
+const Team = () => {
     const [{ loadingState, teamsState }, dispatch] = useStateValue();
 
     const { name } = useParams();
@@ -48,30 +42,9 @@ const TeamList = () => {
                     )}
                 />
             ) : (
-                <>
-                    <ContainerGrid12>
-                        <ContentGrid6>
-                            <h1>{t('title')}</h1>
-                        </ContentGrid6>
-                    </ContainerGrid12>
-                    <CardContainer>
-                        <ContainerGrid12>
-                            <CardContainerGrid>
-                                {teamsState.map(({ name, series_count }, i) => {
-                                    return (
-                                        <TeamCard
-                                            team={name}
-                                            numberOfSeries={series_count}
-                                            key={i}
-                                        />
-                                    );
-                                })}
-                            </CardContainerGrid>
-                        </ContainerGrid12>
-                    </CardContainer>
-                </>
+                <TeamList teamsState={teamsState} />
             )}
         </div>
     );
 };
-export default TeamList;
+export default Team;
