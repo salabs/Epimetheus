@@ -166,6 +166,10 @@ export const NarrowTh = styled.th`
     max-width: 160px;
 `;
 
+export const BreakWordTd = styled.td`
+    overflow-wrap: anywhere;
+`;
+
 function calculateSpanMargin() {
     let spansMarginRules = [];
 

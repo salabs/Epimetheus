@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router';
 import { useStateValue } from '../../contexts/state';
-import { TableContainer, StyledTable } from './FailureTable.styles';
+import { TableContainer } from './FailureTable.styles';
+import { BreakWordTd, SimpleTable, WideTh } from '../table/Table.styles';
 
 const DashboardList = () => {
     const { seriesId } = useParams();
@@ -40,10 +41,10 @@ const DashboardList = () => {
 
     return (
         <TableContainer className="failure-table">
-            <StyledTable>
+            <SimpleTable>
                 <thead>
                     <tr>
-                        <th>Test_Name</th>
+                        <WideTh>Test_Name</WideTh>
                         <th>Test_Id</th>
                         <th>Failures</th>
                     </tr>
@@ -52,14 +53,14 @@ const DashboardList = () => {
                     {failureList.map(entry => {
                         return (
                             <tr key={entry.id}>
-                                <td>{entry.name}</td>
+                                <BreakWordTd>{entry.name}</BreakWordTd>
                                 <td>{entry.id}</td>
                                 <td>{entry.failures}</td>
                             </tr>
                         );
                     })}
                 </tbody>
-            </StyledTable>
+            </SimpleTable>
         </TableContainer>
     );
 };

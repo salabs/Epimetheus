@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import FlakinessTable from './FlakinessTable';
 import FailureTable from './FailureTable';
-import { StyledListContainer, TableSelectors } from './ListMain.styles';
+import { TableSelectors } from './ListMain.styles';
 import { ToggleButton } from '../buttons/button.styles';
 
 const DashboardList = () => {
@@ -15,7 +15,7 @@ const DashboardList = () => {
     }
 
     return (
-        <StyledListContainer id="list-container">
+        <div id="list-container">
             <p className="sr-show" role="status" id="stability-table-status">
                 {' '}
             </p>
@@ -41,10 +41,10 @@ const DashboardList = () => {
                     Failures
                 </ToggleButton>
             </TableSelectors>
-            <span id="stability-table">
+            <div id="stability-table">
                 {window === 'flakiness' ? <FlakinessTable /> : <FailureTable />}
-            </span>
-        </StyledListContainer>
+            </div>
+        </div>
     );
 };
 

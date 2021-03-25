@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router';
 import { useStateValue } from '../../contexts/state';
-import { TableContainer, StyledTable } from './FlakinessTable.styles';
+import { TableContainer } from './FlakinessTable.styles';
 import { ToggleButtonSmall } from '../buttons/button.styles';
+import { BreakWordTd, SimpleTable, WideTh } from '../table/Table.styles';
 
 const StabilityButton = ({ value, text }) => {
     const [{ stabilityChecker }, dispatch] = useStateValue();
@@ -57,10 +58,10 @@ const DashboardList = () => {
                 <StabilityButton value={'unstable'} text="Unstable" />
                 <StabilityButton value={'stable'} text="Stable" />
             </span>
-            <StyledTable id="flakiness-table">
+            <SimpleTable id="flakiness-table">
                 <thead>
                     <tr>
-                        <th>Test_Name</th>
+                        <WideTh>Test_Name</WideTh>
                         <th>Test_Id</th>
                         <th>Flakiness</th>
                     </tr>
@@ -69,14 +70,14 @@ const DashboardList = () => {
                     {testStabilityList.map(test => {
                         return (
                             <tr key={test.test_id}>
-                                <td>{test.test_name}</td>
+                                <BreakWordTd>{test.test_name}</BreakWordTd>
                                 <td>{test.test_id}</td>
                                 <td>{test.instability.toFixed(2)}</td>
                             </tr>
                         );
                     })}
                 </tbody>
-            </StyledTable>
+            </SimpleTable>
         </TableContainer>
     );
 };
