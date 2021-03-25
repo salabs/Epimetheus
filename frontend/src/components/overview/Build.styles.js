@@ -1,5 +1,4 @@
 ﻿import styled from 'styled-components';
-import { overviewElement } from '../../styles/baseComponents';
 
 export const PageContainer = styled.div`
     display: flex;
@@ -14,7 +13,9 @@ export const FlexDiv = styled.div`
     width: 100%;
 `;
 
-export const ChartContainer = styled(overviewElement)`
+export const ChartContainer = styled.div`
+    padding: var(--space-8);
+    border: 1px solid var(--evidence-grey);
     margin: 0 0 var(--space-24) 0;
     background-color: var(--nero-white);
     width: ${props => props.width};
