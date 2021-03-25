@@ -58,8 +58,7 @@ const LastBuildElement = () => {
     }, [seriesId, offset]);
 
     return (
-        <Containing>
-            <TableHeading>Last Build Status</TableHeading>
+        <>
             <BuildInfoTable />
             {failures.length > 0 && (
                 <React.Fragment>

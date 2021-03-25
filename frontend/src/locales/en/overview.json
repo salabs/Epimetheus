@@ -2,7 +2,8 @@
     "series": {
         "all_builds": "All Build History",
         "stability_table": "Stability Table",
-        "unstable_tests": "Suites with unstable tests"
+        "unstable_tests": "Suites with unstable tests",
+        "last_build": "Last Build Status"
     },
     "build": {
         "test": "Test status",
