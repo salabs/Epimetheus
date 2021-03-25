@@ -6,8 +6,10 @@ import { CardSection, InfoContainer, StatusSpan } from './card.styles';
 const TeamCard = ({ team, numberOfSeries }) => {
     const [t] = useTranslation(['team']);
     return (
-        <CardSection className={`ta-${team}-card`} grid={false}>
-            <CardHeading to={'/team/' + team}>{team}</CardHeading>
+        <CardSection grid={false}>
+            <CardHeading to={'/team/' + team} className={`ta-${team}-card`}>
+                {team}
+            </CardHeading>
             <InfoContainer className="number-of-series">
                 {t('series')}: <StatusSpan>{numberOfSeries}</StatusSpan>
             </InfoContainer>

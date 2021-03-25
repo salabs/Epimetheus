@@ -27,18 +27,22 @@ const SeriesCard = ({ data }) => {
     return (
         <CardSection aria-label={name} grid={true}>
             <CardHeading>
-                <CardTitle to={`/series/${id}/overview`}>{name}</CardTitle>
+                <CardTitle to={`/series/${id}/overview`} id={`${name}_series`}>
+                    {name}
+                </CardTitle>
                 <CardValue>{testStatusIcon}</CardValue>
             </CardHeading>
             <InfoContainer
                 className="card-info-container"
-                id={`${name}_series`}
                 aria-label={`Series ${name}`}
             >
                 {t('card.series.builds')} <CardValue>{builds}</CardValue>
             </InfoContainer>
-            <div id={`${name}_builds`} aria-label={`Build ${last_build}`}>
-                <CardSubTitle to={`/series/${id}/build/${last_build}/overview`}>
+            <div aria-label={`Build ${last_build}`}>
+                <CardSubTitle
+                    to={`/series/${id}/build/${last_build}/overview`}
+                    id={`${name}_builds`}
+                >
                     {t('card.last_build.title')} {last_build}
                 </CardSubTitle>
                 <InfoContainer className="card-info-container">
