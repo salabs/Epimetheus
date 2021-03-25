@@ -54,7 +54,7 @@ const Series = () => {
 
     return (
         <ParentContainer>
-            <ChartContainer id="timeLineContainer" width="790px">
+            <ChartContainer id="timeLineContainer">
                 <ElementHeader>{t('series.all_builds')}</ElementHeader>
                 <TimeLineChart />
             </ChartContainer>

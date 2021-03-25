@@ -7,13 +7,14 @@ export const ParentContainer = styled.div`
 `;
 
 export const ChartContainer = styled(overviewElement)`
-    margin: var(--space-24) var(--space-40) var(--space-40) 0;
-    background-color: var(--nero-white);
-    width: ${props => props.width};
+    margin: 0 0 var(--space-24) 0;
+    width: 100%;
+    max-width: calc(var(--max-page-width) / 1.6);
 `;
 
-export const ElementHeader = styled.h3`
-    text-align: center;
-    margin: var(--space-8);
+export const ElementHeader = styled.h2`
     font-family: 'Hack';
+    font-size: 20px;
+    text-align: center;
+    margin: 0 0 var(--space-8) 0;
 `;

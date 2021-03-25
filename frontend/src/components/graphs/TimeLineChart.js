@@ -41,7 +41,7 @@ const TimeLineChart = () => {
     };
 
     const namedBuildNumberList =
-        statusCount && statusCount.map(build => 'Build: ' + build.build_number);
+        statusCount && statusCount.map(build => build.build_number);
 
     const series = [
         {
@@ -61,14 +61,25 @@ const TimeLineChart = () => {
     const options = {
         xaxis: {
             categories: namedBuildNumberList,
+            title: {
+                text: 'Build',
+            },
             labels: {
                 rotate: -45,
                 rotateAlways: false,
                 hideOverlappingLabels: true,
             },
         },
+        yaxis: {
+            title: {
+                text: 'Number of tests',
+            },
+        },
         stroke: {
             curve: 'smooth',
+        },
+        legend: {
+            position: 'top',
         },
         colors: [
             colorTypes['titan green'],
@@ -102,12 +113,7 @@ const TimeLineChart = () => {
         <div>
             {namedBuildNumberList && statusCount ? (
                 <React.Fragment>
-                    <Chart
-                        options={options}
-                        series={series}
-                        width="768"
-                        type="area"
-                    />
+                    <Chart options={options} series={series} type="area" />
                 </React.Fragment>
             ) : (
                 <Loading />
