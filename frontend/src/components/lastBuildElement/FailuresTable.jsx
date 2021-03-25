@@ -1,33 +1,9 @@
 import React from 'react';
-import styled from 'styled-components';
-
-const LastBuildTable = styled.table`
-    width: 100%;
-    th {
-        margin: 20px;
-        text-align: left;
-        vertical-align: middle;
-        border-bottom: 1px solid var(--tonic-grey);
-    }
-
-    td {
-        padding-right: 5px;
-        margin: 20px;
-        text-align: left;
-        vertical-align: middle;
-    }
-    thead th:nth-of-type(1) {
-        width: 40%;
-    }
-
-    thead th:nth-of-type(2) {
-        width: 50%;
-    }
-`;
+import { SimpleTable } from '../table/Table.styles';
 
 const FailuresTable = ({ failures }) => {
     return (
-        <LastBuildTable>
+        <SimpleTable>
             <thead>
                 <tr>
                     <th>Suite</th>
@@ -44,7 +20,7 @@ const FailuresTable = ({ failures }) => {
                     );
                 })}
             </tbody>
-        </LastBuildTable>
+        </SimpleTable>
     );
 };
 

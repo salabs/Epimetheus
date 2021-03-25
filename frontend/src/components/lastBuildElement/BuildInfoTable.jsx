@@ -1,6 +1,6 @@
 import React from 'react';
 import { useStateValue } from '../../contexts/state';
-import { LastBuildTable } from './BuildInfoTable.styles';
+import { SimpleTable, WideTh } from '../table/Table.styles';
 
 const BuildInfoTable = () => {
     const [
@@ -9,22 +9,22 @@ const BuildInfoTable = () => {
         },
     ] = useStateValue();
     return (
-        <LastBuildTable>
+        <SimpleTable>
             <tbody>
                 <tr>
-                    <th>Last Build ID</th>
+                    <WideTh>Last Build ID</WideTh>
                     <td>{seriesData.last_build_id}</td>
                 </tr>
                 <tr>
-                    <th>Start Time</th>
+                    <WideTh>Start Time</WideTh>
                     <td>{seriesData.last_started}</td>
                 </tr>
                 <tr>
-                    <th>Status</th>
+                    <WideTh>Status</WideTh>
                     <td>{seriesData.last_status}</td>
                 </tr>
             </tbody>
-        </LastBuildTable>
+        </SimpleTable>
     );
 };
 

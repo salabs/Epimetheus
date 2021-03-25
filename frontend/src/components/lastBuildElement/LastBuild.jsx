@@ -1,20 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
 import FailuresTable from './FailuresTable';
 import BuildInfoTable from './BuildInfoTable';
 import { useParams } from 'react-router';
 import { useStateValue } from '../../contexts/state';
-
-const TableHeading = styled.div`
-    border-bottom: 1px solid var(--tonic-grey);
-    min-width: 300px;
-    font-weight: bold;
-`;
-
-const Containing = styled.div`
-    min-width: 300px;
-`;
+import { TableHeading } from './LastBuild.styles';
 
 const LastBuildElement = () => {
     const { seriesId } = useParams();
@@ -61,12 +51,12 @@ const LastBuildElement = () => {
         <>
             <BuildInfoTable />
             {failures.length > 0 && (
-                <React.Fragment>
+                <>
                     <TableHeading>Failing Test Cases</TableHeading>
                     <FailuresTable failures={failures} />
-                </React.Fragment>
+                </>
             )}
-        </Containing>
+        </>
     );
 };
 
