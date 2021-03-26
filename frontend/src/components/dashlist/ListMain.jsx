@@ -13,7 +13,7 @@ const DashboardList = () => {
         setWindow(window);
         document.getElementById(
             'stability-table-status'
-        ).textContent = `${t('series.status_update', { window: window })}`;
+        ).textContent = `${t('series.status_update', { window })}`;
     }
 
     return (

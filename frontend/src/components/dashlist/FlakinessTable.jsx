@@ -23,7 +23,7 @@ const StabilityButton = ({ value, text }) => {
                 document.getElementById(
                     'flakiness-table-status'
                 ).textContent = `${t('series.status_update_stability', {
-                    value: value,
+                    value,
                 })}`;
             }}
         >
