@@ -1,8 +1,10 @@
 import React from 'react';
 import { useStateValue } from '../../contexts/state';
+import { useTranslation } from 'react-i18next';
 import { SimpleTable, WideTh } from '../table/Table.styles';
 
 const BuildInfoTable = () => {
+    const [t] = useTranslation(['overview']);
     const [
         {
             parentData: { seriesData },
@@ -12,15 +14,15 @@ const BuildInfoTable = () => {
         <SimpleTable>
             <tbody>
                 <tr>
-                    <WideTh>Last Build ID</WideTh>
+                    <WideTh>{t('series.last_build.id')}</WideTh>
                     <td>{seriesData.last_build_id}</td>
                 </tr>
                 <tr>
-                    <WideTh>Start Time</WideTh>
+                    <WideTh>{t('series.last_build.start_time')}</WideTh>
                     <td>{seriesData.last_started}</td>
                 </tr>
                 <tr>
-                    <WideTh>Status</WideTh>
+                    <WideTh>{t('series.last_build.status')}</WideTh>
                     <td>{seriesData.last_status}</td>
                 </tr>
             </tbody>

@@ -61,11 +61,15 @@ const Series = () => {
             </ChartContainer>
             <ParentContainer>
                 <TableHolder>
-                    <ElementHeader>{t('series.last_build')}</ElementHeader>
+                    <ElementHeader>
+                        {t('series.last_build.title')}
+                    </ElementHeader>
                     <LastBuildElement />
                 </TableHolder>
                 <TableHolder>
-                    <ElementHeader>{t('series.stability_table')}</ElementHeader>
+                    <ElementHeader>
+                        {t('series.stability_table.title')}
+                    </ElementHeader>
                     <DashboardList />
                 </TableHolder>
             </ParentContainer>

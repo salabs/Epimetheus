@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
 import FlakinessTable from './FlakinessTable';
 import FailureTable from './FailureTable';
+import { useTranslation } from 'react-i18next';
 import { TableSelectors } from './ListMain.styles';
 import { ToggleButton } from '../buttons/button.styles';
 
 const DashboardList = () => {
-    const [window, setWindow] = useState('flakiness');
+    const [t] = useTranslation(['overview']);
+    const [window, setWindow] = useState('stability');
 
     function updateTable(window) {
         setWindow(window);
         document.getElementById(
             'stability-table-status'
-        ).textContent = `Content updated. Showing now ${window} table.`;
+        ).textContent = `${t('series.status_update', { window: window })}`;
     }
 
     return (
@@ -26,11 +28,11 @@ const DashboardList = () => {
             >
                 <ToggleButton
                     role="radio"
-                    aria-checked={window === 'flakiness'}
-                    className={window === 'flakiness' ? 'selected' : ''}
-                    onClick={() => updateTable('flakiness')}
+                    aria-checked={window === 'stability'}
+                    className={window === 'stability' ? 'selected' : ''}
+                    onClick={() => updateTable('stability')}
                 >
-                    Stability
+                    {t('series.stability_table.stability')}
                 </ToggleButton>
                 <ToggleButton
                     role="radio"
@@ -38,11 +40,11 @@ const DashboardList = () => {
                     className={window === 'failures' ? 'selected' : ''}
                     onClick={() => updateTable('failures')}
                 >
-                    Failures
+                    {t('series.stability_table.failures')}
                 </ToggleButton>
             </TableSelectors>
             <div id="stability-table">
-                {window === 'flakiness' ? <FlakinessTable /> : <FailureTable />}
+                {window === 'stability' ? <FlakinessTable /> : <FailureTable />}
             </div>
         </div>
     );

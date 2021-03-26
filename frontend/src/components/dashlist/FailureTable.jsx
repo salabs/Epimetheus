@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router';
 import { useStateValue } from '../../contexts/state';
+import { useTranslation } from 'react-i18next';
 import { TableContainer } from './FailureTable.styles';
 import { BreakWordTd, SimpleTable, WideTh } from '../table/Table.styles';
 
 const DashboardList = () => {
+    const [t] = useTranslation(['overview']);
     const { seriesId } = useParams();
 
     const [{ amountOfBuilds, failureList, offset }, dispatch] = useStateValue();
@@ -44,9 +46,9 @@ const DashboardList = () => {
             <SimpleTable>
                 <thead>
                     <tr>
-                        <WideTh>Test_Name</WideTh>
-                        <th>Test_Id</th>
-                        <th>Failures</th>
+                        <WideTh>{t('series.stability_table.test_name')}</WideTh>
+                        <th>{t('series.stability_table.test_id')}</th>
+                        <th>{t('series.stability_table.flakiness')}</th>
                     </tr>
                 </thead>
                 <tbody>

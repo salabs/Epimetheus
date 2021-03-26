@@ -4,9 +4,11 @@ import FailuresTable from './FailuresTable';
 import BuildInfoTable from './BuildInfoTable';
 import { useParams } from 'react-router';
 import { useStateValue } from '../../contexts/state';
+import { useTranslation } from 'react-i18next';
 import { TableHeading } from './LastBuild.styles';
 
 const LastBuildElement = () => {
+    const [t] = useTranslation(['overview']);
     const { seriesId } = useParams();
     const [failures, setFailures] = useState([]);
     const [{ offset }, dispatch] = useStateValue();
@@ -52,7 +54,9 @@ const LastBuildElement = () => {
             <BuildInfoTable />
             {failures.length > 0 && (
                 <>
-                    <TableHeading>Failing Test Cases</TableHeading>
+                    <TableHeading>
+                        {t('series.last_build.failing_cases')}
+                    </TableHeading>
                     <FailuresTable failures={failures} />
                 </>
             )}
