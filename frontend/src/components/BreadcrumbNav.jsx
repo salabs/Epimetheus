@@ -6,12 +6,11 @@ import { ContainerGrid12, ContentGrid6 } from '../styles/baseComponents';
 import { BreadcrumbList } from './BreadcrumbNav.styles';
 
 const LinkItem = props => {
-    const { to, id, ariaLabel, name, first } = props.link;
+    const { to, id, ariaLabel, name } = props.link;
     const { current } = props;
 
     return (
         <li>
-            {!first && <span aria-hidden="true">/</span>}
             <Link
                 to={to}
                 id={id}
@@ -37,7 +36,6 @@ const ListItems = ({ status }) => {
             to: `/team`,
             id: 'Teams',
             name: 'Teams',
-            first: true,
         })
         .set('team', {
             to: `/team/${teamName}`,
