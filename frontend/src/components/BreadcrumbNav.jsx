@@ -1,125 +1,116 @@
 import React from 'react';
 import { useStateValue } from '../contexts/state';
 import { useParams } from 'react-router';
-import { BreadcrumbContainer, StyledInnerOl } from './BreadcrumbNav.styles';
-import { ContainerGrid12, ContentGrid6 } from '../styles/baseComponents';
 import { Link } from 'react-router-dom';
+import { ContainerGrid12, ContentGrid6 } from '../styles/baseComponents';
+import { BreadcrumbList } from './BreadcrumbNav.styles';
 
-const BreadcrumbTeams = () => {
+const LinkItem = props => {
+    const { to, id, ariaLabel, name, first } = props.link;
+    const { current } = props;
+
     return (
         <li>
-            <Link to={`/team`}>Teams</Link>
+            {!first && <span aria-hidden="true">/</span>}
+            <Link
+                to={to}
+                id={id}
+                className={current ? 'active' : ''}
+                aria-current={current ? 'page' : false}
+                aria-label={ariaLabel}
+            >
+                {name}
+            </Link>
         </li>
     );
 };
 
-const BreadcrumbItemTeam = props => {
-    const { name } = useParams();
+const ListItems = ({ status }) => {
+    const { name, series, seriesId, buildId, suiteId } = useParams();
     const [{ selectedBranchState }] = useStateValue();
     const teamName = name || selectedBranchState.team;
-    return (
-        <>
-            <BreadcrumbTeams />
-            <li>
-                <span aria-hidden="true">/</span>
-                <Link
-                    to={`/team/${teamName}`}
-                    id="TeamBreadCrumb"
-                    className={props.current ? 'active' : ''}
-                    aria-current={props.current ? 'page' : false}
-                >
-                    {teamName}
-                </Link>
-            </li>
-        </>
-    );
-};
+    const seriesName = series || selectedBranchState.id;
 
-const BreadcrumbItemSeries = props => {
-    const { series } = useParams();
-    const [{ selectedBranchState }] = useStateValue();
-    const seriesId = series || selectedBranchState.id;
-    return (
-        <>
-            <BreadcrumbItemTeam />
-            <li>
-                <span aria-hidden="true">/</span>
-                <Link
-                    to={`/series/${seriesId}/overview`}
-                    id="SeriesBreadCrumb"
-                    className={props.current ? 'active' : ''}
-                    aria-label={'series: ' + selectedBranchState.name}
-                    aria-current={props.current ? 'page' : false}
-                >
-                    {selectedBranchState.name}
-                </Link>
-            </li>
-        </>
-    );
-};
+    const links = new Map();
+    links
+        .set('teams', {
+            to: `/team`,
+            id: 'Teams',
+            name: 'Teams',
+            first: true,
+        })
+        .set('team', {
+            to: `/team/${teamName}`,
+            id: 'TeamBreadCrumb',
+            name: teamName,
+        })
+        .set('series', {
+            to: `/series/${seriesName}/overview`,
+            id: 'SeriesBreadCrumb',
+            ariaLabel: `series ${selectedBranchState.name}`,
+            name: selectedBranchState.name,
+        })
+        .set('build', {
+            to: `/series/${seriesId}/build/${buildId}/overview`,
+            id: 'BuildBreadCrumb',
+            ariaLabel: `build id ${buildId}`,
+            name: buildId,
+        })
+        .set('suite', {
+            to: `/series/${seriesId}/build/${buildId}/suite/${suiteId}/history`,
+            id: 'SuiteBreadCrumb',
+            ariaLabel: `suite id ${suiteId}`,
+            name: suiteId,
+        });
 
-const BreadcrumbItemBuild = props => {
-    const { buildId, seriesId } = useParams();
-    return (
-        <>
-            <BreadcrumbItemSeries />
-            <li>
-                <span aria-hidden="true">/</span>
-                <Link
-                    to={`/series/${seriesId}/build/${buildId}/overview`}
-                    id="BuildBreadCrumb"
-                    className={props.current ? 'active' : ''}
-                    aria-label={`buildId ${buildId}`}
-                    aria-current={props.current ? 'page' : false}
-                >
-                    {buildId}
-                </Link>
-            </li>
-        </>
-    );
-};
+    const breadcrumbArray = [];
+    switch (status) {
+        case 'team':
+            breadcrumbArray.push(
+                <LinkItem key="teams" link={links.get('teams')} />,
+                <LinkItem key="team" link={links.get('team')} current />
+            );
+            break;
+        case 'series':
+            breadcrumbArray.push(
+                <LinkItem key="teams" link={links.get('teams')} />,
+                <LinkItem key="team" link={links.get('team')} />,
+                <LinkItem key="series" link={links.get('series')} current />
+            );
+            break;
+        case 'build':
+            breadcrumbArray.push(
+                <LinkItem key="teams" link={links.get('teams')} />,
+                <LinkItem key="team" link={links.get('team')} />,
+                <LinkItem key="series" link={links.get('series')} />,
+                <LinkItem key="build" link={links.get('build')} current />
+            );
+            break;
+        case 'suite':
+            breadcrumbArray.push(
+                <LinkItem key="teams" link={links.get('teams')} />,
+                <LinkItem key="team" link={links.get('team')} />,
+                <LinkItem key="series" link={links.get('series')} />,
+                <LinkItem key="build" link={links.get('build')} />,
+                <LinkItem key="suite" link={links.get('suite')} current />
+            );
+            break;
+    }
 
-const BreadcrumbItemSuite = props => {
-    const { seriesId, buildId, suiteId } = useParams();
-    return (
-        <>
-            <BreadcrumbItemBuild />
-            <li>
-                <span aria-hidden="true">/</span>
-                <Link
-                    to={`/series/${seriesId}/build/${buildId}/suite/${suiteId}/history`}
-                    id="SuiteBreadCrumb"
-                    className={props.current ? 'active' : ''}
-                    aria-label={`suiteId ${suiteId}`}
-                    aria-current={props.current ? 'page' : false}
-                >
-                    {suiteId}
-                </Link>
-            </li>
-        </>
-    );
-};
-
-const BREADCRUMB_STATUS = {
-    team: <BreadcrumbItemTeam current />,
-    series: <BreadcrumbItemSeries current />,
-    build: <BreadcrumbItemBuild current />,
-    suite: <BreadcrumbItemSuite current />,
+    return breadcrumbArray;
 };
 
 const BreadcrumbNav = ({ status }) => {
     return (
         <ContainerGrid12>
             <ContentGrid6>
-                <BreadcrumbContainer
+                <BreadcrumbList
                     id={'breadCrumbNav'}
                     status={status}
                     aria-label="Breadcrumb"
                 >
-                    <StyledInnerOl>
-                        {BREADCRUMB_STATUS[`${status}`]}
-                    </StyledInnerOl>
-                </BreadcrumbContainer>
+                    <ListItems status={status} />
+                </BreadcrumbList>
             </ContentGrid6>
         </ContainerGrid12>
     );

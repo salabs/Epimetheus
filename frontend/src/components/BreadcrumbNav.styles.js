@@ -1,8 +1,11 @@
 ﻿import styled from 'styled-components';
 
-export const BreadcrumbContainer = styled.nav`
+export const BreadcrumbList = styled.ol`
     font-size: 14px;
-    padding-top: var(--space-40);
+    display: flex;
+    flex-direction: row;
+    list-style-type: none;
+    padding: var(--space-40) 0 0 0;
 
     a {
         text-decoration: none;
@@ -22,16 +25,8 @@ export const BreadcrumbContainer = styled.nav`
             }
         }
     }
-`;
 
-export const StyledInnerOl = styled.ol`
-    display: inline;
-    display: flex;
-    flex-direction: row;
-    list-style-type: none;
-    padding: 0;
-
-    span {
+    span[aria-hidden='true'] {
         color: var(--tonic-grey);
         padding: 0 var(--space-8);
     }
