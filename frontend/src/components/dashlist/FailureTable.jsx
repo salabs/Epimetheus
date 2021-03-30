@@ -1,9 +1,12 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router';
 import { useStateValue } from '../../contexts/state';
-import { TableContainer, StyledTable } from './FailureTable.styles';
+import { useTranslation } from 'react-i18next';
+import { TableContainer } from './FailureTable.styles';
+import { BreakWordTd, SimpleTable, WideTh } from '../table/Table.styles';
 
 const DashboardList = () => {
+    const [t] = useTranslation(['overview']);
     const { seriesId } = useParams();
 
     const [{ amountOfBuilds, failureList, offset }, dispatch] = useStateValue();
@@ -40,26 +43,26 @@ const DashboardList = () => {
 
     return (
         <TableContainer className="failure-table">
-            <StyledTable>
+            <SimpleTable>
                 <thead>
                     <tr>
-                        <th>Test_Name</th>
-                        <th>Test_Id</th>
-                        <th>Failures</th>
+                        <WideTh>{t('series.stability_table.test_name')}</WideTh>
+                        <th>{t('series.stability_table.test_id')}</th>
+                        <th>{t('series.stability_table.flakiness')}</th>
                     </tr>
                 </thead>
                 <tbody>
                     {failureList.map(entry => {
                         return (
                             <tr key={entry.id}>
-                                <td>{entry.name}</td>
+                                <BreakWordTd>{entry.name}</BreakWordTd>
                                 <td>{entry.id}</td>
                                 <td>{entry.failures}</td>
                             </tr>
                         );
                     })}
                 </tbody>
-            </StyledTable>
+            </SimpleTable>
         </TableContainer>
     );
 };

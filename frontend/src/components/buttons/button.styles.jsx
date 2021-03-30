@@ -73,6 +73,14 @@ export const ToggleButton = styled.button`
     white-space: nowrap;
     box-shadow: 0px 3px 3px -1px var(--tonic-grey);
 
+    &:hover {
+        background-color: var(--hermanni-grey);
+    }
+
+    &:focus {
+        color: var(--pirlo-blue);
+    }
+
     &.selected {
         color: var(--nero-white);
         background-color: var(--titan-green);

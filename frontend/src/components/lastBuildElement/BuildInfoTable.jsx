@@ -1,30 +1,32 @@
 import React from 'react';
 import { useStateValue } from '../../contexts/state';
-import { LastBuildTable } from './BuildInfoTable.styles';
+import { useTranslation } from 'react-i18next';
+import { SimpleTable, WideTh } from '../table/Table.styles';
 
 const BuildInfoTable = () => {
+    const [t] = useTranslation(['overview']);
     const [
         {
             parentData: { seriesData },
         },
     ] = useStateValue();
     return (
-        <LastBuildTable>
+        <SimpleTable>
             <tbody>
                 <tr>
-                    <th>Last Build ID</th>
+                    <WideTh>{t('series.last_build.id')}</WideTh>
                     <td>{seriesData.last_build_id}</td>
                 </tr>
                 <tr>
-                    <th>Start Time</th>
+                    <WideTh>{t('series.last_build.start_time')}</WideTh>
                     <td>{seriesData.last_started}</td>
                 </tr>
                 <tr>
-                    <th>Status</th>
+                    <WideTh>{t('series.last_build.status')}</WideTh>
                     <td>{seriesData.last_status}</td>
                 </tr>
             </tbody>
-        </LastBuildTable>
+        </SimpleTable>
     );
 };
 

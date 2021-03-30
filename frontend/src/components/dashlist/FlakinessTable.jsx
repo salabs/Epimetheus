@@ -1,10 +1,13 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router';
 import { useStateValue } from '../../contexts/state';
-import { TableContainer, StyledTable } from './FlakinessTable.styles';
+import { useTranslation } from 'react-i18next';
+import { TableContainer } from './FlakinessTable.styles';
 import { ToggleButtonSmall } from '../buttons/button.styles';
+import { BreakWordTd, SimpleTable, WideTh } from '../table/Table.styles';
 
 const StabilityButton = ({ value, text }) => {
+    const [t] = useTranslation(['overview']);
     const [{ stabilityChecker }, dispatch] = useStateValue();
     return (
         <ToggleButtonSmall
@@ -19,7 +22,9 @@ const StabilityButton = ({ value, text }) => {
 
                 document.getElementById(
                     'flakiness-table-status'
-                ).textContent = `Content updated. Showing now ${value} in stability table.`;
+                ).textContent = `${t('series.status_update_stability', {
+                    value,
+                })}`;
             }}
         >
             {text}
@@ -28,6 +33,7 @@ const StabilityButton = ({ value, text }) => {
 };
 
 const DashboardList = () => {
+    const [t] = useTranslation(['overview']);
     const { seriesId } = useParams();
     const [
         { testStabilityList, stabilityChecker, amountOfBuilds, offset },
@@ -54,29 +60,35 @@ const DashboardList = () => {
                 {' '}
             </p>
             <span role="radiogroup" aria-controls="flakiness-table">
-                <StabilityButton value={'unstable'} text="Unstable" />
-                <StabilityButton value={'stable'} text="Stable" />
+                <StabilityButton
+                    value={'unstable'}
+                    text={t('series.stability_table.unstable')}
+                />
+                <StabilityButton
+                    value={'stable'}
+                    text={t('series.stability_table.stable')}
+                />
             </span>
-            <StyledTable id="flakiness-table">
+            <SimpleTable id="flakiness-table">
                 <thead>
                     <tr>
-                        <th>Test_Name</th>
-                        <th>Test_Id</th>
-                        <th>Flakiness</th>
+                        <WideTh>{t('series.stability_table.test_name')}</WideTh>
+                        <th>{t('series.stability_table.test_id')}</th>
+                        <th>{t('series.stability_table.flakiness')}</th>
                     </tr>
                 </thead>
                 <tbody>
                     {testStabilityList.map(test => {
                         return (
                             <tr key={test.test_id}>
-                                <td>{test.test_name}</td>
+                                <BreakWordTd>{test.test_name}</BreakWordTd>
                                 <td>{test.test_id}</td>
                                 <td>{test.instability.toFixed(2)}</td>
                             </tr>
                         );
                     })}
                 </tbody>
-            </StyledTable>
+            </SimpleTable>
         </TableContainer>
     );
 };

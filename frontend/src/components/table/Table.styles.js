@@ -81,7 +81,7 @@ export const SimpleTable = styled.table`
         text-align: left;
 
         & tr th {
-            padding: var(--space-8) 0 var(--space-4) 0;
+            padding: var(--space-8) var(--space-8) var(--space-4) 0;
         }
     }
 
@@ -98,9 +98,11 @@ export const SimpleTable = styled.table`
                 border-bottom: 0;
             }
 
-            td {
-                padding: 1px 0;
+            td,
+            th {
+                padding: 1px var(--space-8) 1px 0;
                 position: relative;
+                text-align: left;
 
                 &:first-of-type {
                     padding-left: 2px;
@@ -140,10 +142,18 @@ export const SimpleTable = styled.table`
 
 export const WideTh = styled.th`
     min-width: 200px;
+
+    @media only screen and (max-width: 540px) {
+        min-width: unset;
+    }
 `;
 
 export const NarrowTh = styled.th`
     max-width: 160px;
+`;
+
+export const BreakWordTd = styled.td`
+    overflow-wrap: anywhere;
 `;
 
 function calculateSpanMargin() {

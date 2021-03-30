@@ -4,24 +4,14 @@ import { VegaLite } from 'react-vega';
 import { useStateValue } from '../../contexts/state';
 import Loading from '../Loading';
 import { colorTypes } from '../../utils/colorTypes';
-import styled, { css } from 'styled-components';
-import { baseTable } from '../../styles/baseComponents';
+import { css } from 'styled-components';
 import { pickIcon } from '../TestIcon';
+import { Table } from '../table/Table';
 
 const canvasStyles = css`
     padding: 20px 0px;
     summary {
         display: none;
-    }
-`;
-
-const SuiteTable = styled(baseTable)`
-    width: 100%;
-    th {
-        font-family: 'Hack';
-    }
-    td {
-        font-family: 'Hack';
     }
 `;
 
@@ -286,7 +276,7 @@ const SuiteInstability = () => {
                 css={canvasStyles}
             />
             {selectedSuite && (
-                <SuiteTable>
+                <Table>
                     <thead>
                         <tr>
                             <th>{selectedSuite.name}</th>
@@ -301,7 +291,7 @@ const SuiteInstability = () => {
                             </tr>
                         ))}
                     </tbody>
-                </SuiteTable>
+                </Table>
             )}
         </React.Fragment>
     );

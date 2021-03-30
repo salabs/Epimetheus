@@ -11,6 +11,7 @@ import {
     ChartContainer,
     ElementHeader,
 } from './Series.styles';
+import { TableHolder } from './Series.styles';
 
 const Series = () => {
     const [t] = useTranslation(['overview']);
@@ -53,19 +54,26 @@ const Series = () => {
     }, [seriesId, branchesState]);
 
     return (
-        <ParentContainer>
-            <ChartContainer id="timeLineContainer" width="790px">
+        <>
+            <ChartContainer id="timeLineContainer">
                 <ElementHeader>{t('series.all_builds')}</ElementHeader>
                 <TimeLineChart />
             </ChartContainer>
-            <ChartContainer minWidth="400px">
-                <LastBuildElement />
-            </ChartContainer>
-            <ChartContainer className="overview-list" width="500px">
-                <ElementHeader>{t('series.stability_table')}</ElementHeader>
-                <DashboardList />
-            </ChartContainer>
-        </ParentContainer>
+            <ParentContainer>
+                <TableHolder>
+                    <ElementHeader>
+                        {t('series.last_build.title')}
+                    </ElementHeader>
+                    <LastBuildElement />
+                </TableHolder>
+                <TableHolder>
+                    <ElementHeader>
+                        {t('series.stability_table.title')}
+                    </ElementHeader>
+                    <DashboardList />
+                </TableHolder>
+            </ParentContainer>
+        </>
     );
 };
 

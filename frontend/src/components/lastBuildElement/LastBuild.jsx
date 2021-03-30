@@ -1,22 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
 import FailuresTable from './FailuresTable';
 import BuildInfoTable from './BuildInfoTable';
 import { useParams } from 'react-router';
 import { useStateValue } from '../../contexts/state';
-
-const TableHeading = styled.div`
-    border-bottom: 1px solid var(--tonic-grey);
-    min-width: 300px;
-    font-weight: bold;
-`;
-
-const Containing = styled.div`
-    min-width: 300px;
-`;
+import { useTranslation } from 'react-i18next';
+import { TableHeading } from './LastBuild.styles';
 
 const LastBuildElement = () => {
+    const [t] = useTranslation(['overview']);
     const { seriesId } = useParams();
     const [failures, setFailures] = useState([]);
     const [{ offset }, dispatch] = useStateValue();
@@ -58,16 +50,17 @@ const LastBuildElement = () => {
     }, [seriesId, offset]);
 
     return (
-        <Containing>
-            <TableHeading>Last Build Status</TableHeading>
+        <>
             <BuildInfoTable />
             {failures.length > 0 && (
-                <React.Fragment>
-                    <TableHeading>Failing Test Cases</TableHeading>
+                <>
+                    <TableHeading>
+                        {t('series.last_build.failing_cases')}
+                    </TableHeading>
                     <FailuresTable failures={failures} />
-                </React.Fragment>
+                </>
             )}
-        </Containing>
+        </>
     );
 };
 
