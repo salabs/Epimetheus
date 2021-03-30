@@ -27,32 +27,32 @@ export const pickIcon = (test_status, key) => {
         case 'PASS':
             result = (
                 <>
-                    <Pass />
-                    <span className="sr-show">Pass</span>
+                    <Pass aria-hidden="true" />
+                    <span className="sr-show">Status: Pass</span>
                 </>
             );
             break;
         case 'FAIL':
             result = (
                 <>
-                    <Fail name="Fail" />
-                    <span className="sr-show">Fail</span>
+                    <Fail aria-hidden="true" name="Fail" />
+                    <span className="sr-show">Status: Fail</span>
                 </>
             );
             break;
         case 'SKIPPED':
             result = (
                 <>
-                    <Skipped text="Skipped" />
-                    <span className="sr-show">Skipped</span>
+                    <Skipped aria-hidden="true" />
+                    <span className="sr-show">Status: Skipped</span>
                 </>
             );
             break;
         case 'EMPTY':
             result = (
                 <>
-                    <NotFound />
-                    <span className="sr-show">Empty</span>
+                    <NotFound aria-hidden="true" />
+                    <span className="sr-show">Status: Empty</span>
                 </>
             );
             break;
@@ -67,7 +67,7 @@ export const pickIcon = (test_status, key) => {
             );
             break;
         default:
-            result = <span className="sr-show">Empty</span>;
+            result = <span className="sr-show">Status: Empty</span>;
     }
 
     return result;

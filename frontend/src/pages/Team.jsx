@@ -1,15 +1,12 @@
 import React, { useEffect } from 'react';
 import { useStateValue } from '../contexts/state';
-import Card from '../components/team/Card';
 import { useParams } from 'react-router';
-import SelectedTeam from '../components/team/SelectedTeam';
 import Loading from '../components/Loading';
-import { useTranslation } from 'react-i18next';
-import { CardsContainer, TeamContainer } from './Team.styles';
+import SeriesList from './SeriesList';
+import TeamList from './TeamList';
 import { ContainerGrid12, ContentGrid6 } from '../styles/baseComponents';
 
 const Team = () => {
-    const [t] = useTranslation(['team']);
     const [{ loadingState, teamsState }, dispatch] = useStateValue();
 
     const { name } = useParams();
@@ -39,34 +36,13 @@ const Team = () => {
                     </ContentGrid6>
                 </ContainerGrid12>
             ) : name ? (
-                <SelectedTeam
+                <SeriesList
                     selectedTeam={teamsState.find(
                         element => element.name === name
                     )}
                 />
             ) : (
-                <>
-                    <ContainerGrid12>
-                        <ContentGrid6>
-                            <h1>{t('title')}</h1>
-                        </ContentGrid6>
-                    </ContainerGrid12>
-                    <TeamContainer>
-                        <ContainerGrid12>
-                            <CardsContainer>
-                                {teamsState.map(({ name, series_count }, i) => {
-                                    return (
-                                        <Card
-                                            team={name}
-                                            numberOfSeries={series_count}
-                                            key={i}
-                                        />
-                                    );
-                                })}
-                            </CardsContainer>
-                        </ContainerGrid12>
-                    </TeamContainer>
-                </>
+                <TeamList teamsState={teamsState} />
             )}
         </div>
     );
