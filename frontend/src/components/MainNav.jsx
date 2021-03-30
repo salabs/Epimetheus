@@ -1,4 +1,3 @@
-// eslint-disable-next-line
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -18,22 +17,15 @@ const MainNav = () => {
             <NavBar id="main-nav">
                 <SiteLogo className="logo">{t('logo')}</SiteLogo>
                 <LinkContainer team={team}>
-                    <NavLink
-                        exact
-                        activeClassName="active"
-                        to="/"
-                        className="about"
-                    >
+                    <NavLink exact to="/" className={!team ? 'active' : ''}>
                         {t('help')}
                     </NavLink>
-                    <NavLink
-                        activeClassName="active"
-                        to="/team"
-                        className="team"
-                    >
+                    <NavLink to="/team" className={team ? 'active' : ''}>
                         {t('team')}
                     </NavLink>
-                    <a href="https://github.com/salabs/Epimetheus">{t('github')}</a>
+                    <a href="https://github.com/salabs/Epimetheus">
+                        {t('github')}
+                    </a>
                 </LinkContainer>
             </NavBar>
         </header>

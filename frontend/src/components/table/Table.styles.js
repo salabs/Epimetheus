@@ -58,12 +58,6 @@ export const SpreadSheetTable = styled.table`
                 &:last-of-type {
                     padding-right: var(--space-8);
                 }
-
-                a {
-                    &:visited {
-                        color: var(--evidence-grey);
-                    }
-                }
             }
         }
     }
@@ -73,10 +67,6 @@ export const SpreadSheetTable = styled.table`
 
         &:hover {
             text-decoration: underline;
-        }
-
-        &:active {
-            color: var(--pirlo-blue);
         }
     }
 `;
@@ -135,12 +125,6 @@ export const SimpleTable = styled.table`
                     bottom: 0;
                     left: 0;
                 }
-
-                a {
-                    &:visited {
-                        color: var(--evidence-grey);
-                    }
-                }
             }
         }
     }
@@ -150,10 +134,6 @@ export const SimpleTable = styled.table`
 
         &:hover {
             text-decoration: underline;
-        }
-
-        &:active {
-            color: var(--pirlo-blue);
         }
     }
 `;

@@ -1,3 +1,10 @@
+/* Fonts
+----------------------*/
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import url('https://fonts.googleapis.com/css?family=Cantarell');
+@import url('https://fonts.googleapis.com/css?family=Space+Mono');
+@import url('https://fonts.googleapis.com/css?family=Noto+Serif');
+
 /* Box-sizing
 ----------------------*/
 html {
@@ -8,14 +15,6 @@ html {
 *:after {
     box-sizing: inherit;
 }
-
-/* Fonts
-----------------------*/
-
-@import url('https://fonts.googleapis.com/css?family=Open+Sans');
-@import url('https://fonts.googleapis.com/css?family=Cantarell');
-@import url('https://fonts.googleapis.com/css?family=Space+Mono');
-@import url('https://fonts.googleapis.com/css?family=Noto+Serif');
 
 :root {
     /* Colors
@@ -71,7 +70,7 @@ html {
 /** Basics **/
 
 body {
-    font-family: 'Hack';
+    font-family: 'Hack', monospace;
     font-size: 14px;
     line-height: 24px;
 }
@@ -81,7 +80,7 @@ h2,
 h3,
 h4,
 h5 {
-    font-family: 'Noto Serif Semibold';
+    font-family: 'Noto Serif Semibold', serif;
     margin-top: var(--space-40);
     margin-bottom: var(--space-24);
 }
@@ -128,7 +127,6 @@ a {
 }
 
 a:hover {
-    cursor: pointer;
     text-decoration: underline;
     background: var(--hermanni-grey-lighter);
     color: var(--titan-green-darker);
@@ -136,6 +134,11 @@ a:hover {
 
 a:focus {
     outline: 2px solid var(--pirlo-blue);
+}
+
+a:active {
+    color: var(--pirlo-blue);
+    text-decoration: underline;
 }
 
 button {

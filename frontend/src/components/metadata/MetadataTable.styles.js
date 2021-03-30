@@ -68,8 +68,4 @@ export const DataRow = styled.div`
         font-weight: bolder;
         padding-bottom: 8px;
     }
-
-    a:hover {
-        color: var(--titan-green-darker);
-    }
 `;

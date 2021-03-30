@@ -9,8 +9,12 @@ export const FooterContainer = styled.footer`
     height: var(--space-48);
 
     a {
-        background: var(--titan-green);
+        background-color: var(--titan-green);
         color: var(--nero-white) !important;
+
+        &:focus {
+            outline-color: var(--nero-white);
+        }
     }
 
     .underline {
@@ -19,14 +23,14 @@ export const FooterContainer = styled.footer`
 `;
 
 export const EpiIcon = styled.span`
-    margin-left: 40px;
+    margin-left: var(--space-40);
     background: var(--nero-white);
     color: var(--titan-green);
-    border-radius: 6px;
-    padding: 0 7px;
+    border-radius: var(--space-4);
+    padding: 0 var(--space-8);
     font-weight: bolder;
 `;
 
 export const TextStyles = styled.span`
-    margin-left: 20px;
+    margin-left: var(--space-24);
 `;

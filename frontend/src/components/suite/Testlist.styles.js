@@ -144,10 +144,6 @@ export const StyledLink = styled(({ isselected, ...props }) => (
     flex: 2;
     color: ${props => props.isselected && 'var(--pirlo-blue) !important'};
     outline-offset: -2px;
-
-    :hover {
-        color: var(--titan-green-darker);
-    }
 `;
 
 export const SvgStatus = styled.span`
