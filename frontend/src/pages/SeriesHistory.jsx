@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import HistoryTable from '../components/historyTable/HistoryTable';
+import SeriesTestResultTable from '../components/seriesTestResultTable/SeriesTestResultTable';
 import ParentSeries from '../components/parentData/ParentSeries';
 import Offset from '../components/buttons/OffSetButtons';
 import LastRunCheckbox from '../components/buttons/LastRunCheckbox';
@@ -115,7 +115,7 @@ const SeriesHistory = () => {
                                 aria-relevant="all"
                                 aria-label="Content loaded."
                             />
-                            <HistoryTable />
+                            <SeriesTestResultTable />
                         </Fragment>
                     )}
                 </ContentGrid6>

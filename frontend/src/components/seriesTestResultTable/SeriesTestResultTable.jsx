@@ -5,7 +5,7 @@ import NotFound from '../NotFound';
 import { useStateValue } from '../../contexts/state';
 import { Table } from '../table/Table';
 
-const HistoryTable = () => {
+const SeriesTestResultTable = () => {
     const [
         {
             historyDataState: { max_build_num },
@@ -24,4 +24,4 @@ const HistoryTable = () => {
     }
 };
 
-export default HistoryTable;
+export default SeriesTestResultTable;
