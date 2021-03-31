@@ -2,7 +2,7 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import BreadcrumbNav from '../components/BreadcrumbNav';
-import KeywordAnalysisTable from '../components/dashlist/KeywordAnalysisTable';
+import KeywordAnalysisTable from '../components/keywordAnalysisTable/KeywordAnalysisTable';
 import ParentBuild from '../components/parentData/ParentBuild';
 import ContentHeader from '../components/header/ContentHeader';
 import { useTranslation } from 'react-i18next';
