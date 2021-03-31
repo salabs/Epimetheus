@@ -8,7 +8,6 @@ const Flakiness = ({ builds, id }) => {
     });
 
     const begin = indexOfBuild === -1 ? 0 : indexOfBuild;
-    // const begin = indexOfBuild;
     const end = indexOfBuild + 5;
     const slicedBuilds = builds.slice(begin, end);
 
