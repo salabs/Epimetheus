@@ -1,4 +1,3 @@
-// eslint-disable-next-line
 import React, { Fragment, useEffect } from 'react';
 import BuildTable from '../components/buildTable/BuildTable';
 import LastRunCheckBox from '../components/buttons/LastRunCheckbox';
@@ -9,12 +8,12 @@ import ParentBuild from '../components/parentData/ParentBuild';
 import Loading from '../components/Loading';
 import BuildMetadata from '../components/metadata/BuildMetadata';
 import useMetadata from '../hooks/useMetadata';
-import { ParentInfoContainer } from './Build.styles';
+import { ParentInfoContainer } from './BuildHistory.styles';
 import ContentHeader from '../components/header/ContentHeader';
 import { ContainerGrid12, ContentGrid6 } from '../styles/baseComponents';
 import { FilterContainer } from '../components/overview/FilterContainer.styles';
 
-const Build = () => {
+const BuildHistory = () => {
     const [
         { loadingState, historyDataState, selectedBranchState, branchesState },
         dispatch,
@@ -102,4 +101,4 @@ const Build = () => {
     );
 };
 
-export default Build;
+export default BuildHistory;
