@@ -1,5 +1,5 @@
 import React from 'react';
-import { pickIcon } from '../TestIcon';
+import { pickIcon } from '../../utils/TestIcon';
 import { StyledRow } from './Flakiness.styles';
 
 const Flakiness = ({ builds, id }) => {

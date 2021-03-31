@@ -5,7 +5,7 @@ import { useStateValue } from '../../contexts/state';
 import Loading from '../Loading';
 import { colorTypes } from '../../utils/colorTypes';
 import { css } from 'styled-components';
-import { pickIcon } from '../TestIcon';
+import { pickIcon } from '../../utils/TestIcon';
 import { Table } from '../table/Table';
 
 const canvasStyles = css`
