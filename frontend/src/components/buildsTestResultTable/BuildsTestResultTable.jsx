@@ -1,11 +1,10 @@
-// eslint-disable-next-line
 import React from 'react';
 import Body from './Body';
 import { useTranslation } from 'react-i18next';
 import { Table } from '../table/Table';
 import { WideTh } from '../table/Table.styles';
 
-const BuildTable = ({ id }) => {
+const BuildsTestResultTable = ({ id }) => {
     const [t] = useTranslation(['history']);
 
     return (
@@ -25,4 +24,4 @@ const BuildTable = ({ id }) => {
     );
 };
 
-export default BuildTable;
+export default BuildsTestResultTable;

@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect } from 'react';
-import BuildTable from '../components/buildTable/BuildTable';
+import BuildsTestResultTable from '../components/buildsTestResultTable/BuildsTestResultTable';
 import LastRunCheckBox from '../components/buttons/LastRunCheckbox';
 import { useStateValue } from '../contexts/state';
 import { useParams } from 'react-router';
@@ -92,7 +92,7 @@ const BuildHistory = () => {
                             <FilterContainer>
                                 <LastRunCheckBox direction="column" />
                             </FilterContainer>
-                            <BuildTable id={branch_id} />
+                            <BuildsTestResultTable id={branch_id} />
                         </ContentGrid6>
                     </ContainerGrid12>
                 </Fragment>
