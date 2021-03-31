@@ -8,8 +8,8 @@ import Notfound from '../components/NotFound';
 import ParentBuild from '../components/parentData/ParentBuild';
 import Loading from '../components/Loading';
 import SuiteMetadata from '../components/metadata/SuiteMetadata';
-import TestList from '../components/suite/Testlist';
-import LogMessages from '../components/suite/LogMessages';
+import TestList from '../components/suite/TestlistAccordion';
+import LogMessagesTable from '../components/suite/LogMessagesTable';
 import { ParentInfoContainer } from './Suite.styles';
 import ContentHeader from '../components/header/ContentHeader';
 import { ContainerGrid12, ContentGrid6 } from '../styles/baseComponents';
@@ -103,7 +103,7 @@ const Suite = () => {
                     </ContainerGrid12>
                     <ContainerGrid12>
                         <ContentGrid6>
-                            <LogMessages
+                            <LogMessagesTable
                                 test={selectedSuiteState.suite.tests.find(
                                     i => i.id === parseInt(testId, 10)
                                 )}

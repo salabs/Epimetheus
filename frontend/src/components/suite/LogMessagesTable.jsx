@@ -1,10 +1,10 @@
 ﻿import React from 'react';
 import SuiteLogMessage from './SuiteLogMessage';
 import { ReactComponent as Fail } from '../../images/fail-white.svg';
-import { LogRow, InfoLevel } from './LogMessages.styles';
+import { LogRow, InfoLevel } from './LogMessagesTable.styles';
 import { Table } from '../table/Table';
 
-const LogMessages = ({ test }) => {
+const LogMessagesTable = ({ test }) => {
     return test ? (
         <Table table-id="logMessages-table">
             <thead>
@@ -47,4 +47,4 @@ const LogMessages = ({ test }) => {
     ) : null;
 };
 
-export default LogMessages;
+export default LogMessagesTable;
