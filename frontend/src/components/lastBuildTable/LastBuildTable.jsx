@@ -5,7 +5,7 @@ import BuildInfoTable from './BuildInfoTable';
 import { useParams } from 'react-router';
 import { useStateValue } from '../../contexts/state';
 import { useTranslation } from 'react-i18next';
-import { TableHeading } from './LastBuild.styles';
+import { TableHeading } from './LastBuildTable.styles';
 
 const LastBuildElement = () => {
     const [t] = useTranslation(['overview']);

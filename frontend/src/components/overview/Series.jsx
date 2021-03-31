@@ -4,7 +4,7 @@ import { useParams } from 'react-router';
 import { useStateValue } from '../../contexts/state';
 import TimeLineChart from '../graphs/TimeLineChart';
 import DashboardList from '../dashlist/ListMain';
-import LastBuildElement from '../lastBuildElement/LastBuild';
+import LastBuildElement from '../lastBuildTable/LastBuildTable';
 import { useTranslation } from 'react-i18next';
 import {
     ParentContainer,
