@@ -10,12 +10,12 @@ import { useParams } from 'react-router';
 import BreadcrumbNav from '../components/BreadcrumbNav';
 import Loading from '../components/Loading';
 import { useQueryParams } from '../hooks/useQuery';
-import { ParentContainer } from './History.styles';
+import { ParentContainer } from './SeriesHistory.styles';
 import ContentHeader from '../components/header/ContentHeader';
 import { ContainerGrid12, ContentGrid6 } from '../styles/baseComponents';
 import { FilterContainer } from '../components/overview/FilterContainer.styles';
 
-const History = () => {
+const SeriesHistory = () => {
     const [t] = useTranslation(['parentData']);
     const [
         {
@@ -124,4 +124,4 @@ const History = () => {
     );
 };
 
-export default History;
+export default SeriesHistory;
