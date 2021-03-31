@@ -10,7 +10,7 @@ import BuildAmountSelector from '../components/buttons/BuildAmountSelector';
 import Offset from '../components/buttons/OffSetButtons';
 import ContentHeader from '../components/header/ContentHeader';
 import { ContainerGrid12, ContentGrid6 } from '../styles/baseComponents';
-import ParentSeries from '../components/parentData/ParentBuild';
+import ParentSeries from '../components/parentData/ParentSeries';
 import { FilterContainer } from '../components/overview/FilterContainer.styles';
 
 const Overview = () => {
