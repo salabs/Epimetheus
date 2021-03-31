@@ -16,7 +16,7 @@ export const SpreadSheetTable = styled.table`
     border-collapse: separate;
     font-size: 14px;
     line-height: 20px;
-    border: 1px solid var(--evidence-grey-lighter);
+    border: 1px solid var(--tonic-grey);
     border-radius: var(--space-8);
     border-spacing: 0;
     overflow: hidden;
@@ -44,6 +44,12 @@ export const SpreadSheetTable = styled.table`
 
             &:hover {
                 background-color: var(--kumpula-yellow);
+            }
+
+            &:last-of-type {
+                td {
+                    border-bottom: 0;
+                }
             }
 
             td {

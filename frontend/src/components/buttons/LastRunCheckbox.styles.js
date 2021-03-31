@@ -24,7 +24,7 @@ export const StyledDiv = styled.div`
     }
 
     span {
-        padding-right: 8px;
+        padding-right: var(--space-8);
         position: relative;
         top: -1px;
 
@@ -45,9 +45,9 @@ export const StyledInput = styled.input`
     appearance: none;
     opacity: 0;
     position: absolute;
-    top: 8px;
-    height: 16px;
-    width: 16px;
+    top: 6px;
+    height: var(--space-16);
+    width: var(--space-16);
     border-radius: 2px;
 
     &:focus {
