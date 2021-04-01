@@ -13,7 +13,7 @@ const ScrollTableButton = props => {
                 onClick={() => props.moveLeft()}
                 disabled={!canScrollLeft}
             >
-                <img src={ChevronLeft} alt=">" />
+                <img src={ChevronLeft} alt="<" />
             </ScrollButton>
 
             <ScrollButton
