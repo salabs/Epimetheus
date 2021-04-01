@@ -45,19 +45,19 @@ const ListItems = ({ status }) => {
         .set('series', {
             to: `/series/${seriesName}/overview`,
             id: 'SeriesBreadCrumb',
-            ariaLabel: `series ${selectedBranchState.name}`,
+            ariaLabel: `${selectedBranchState.name}: series' name`,
             name: selectedBranchState.name,
         })
         .set('build', {
             to: `/series/${seriesId}/build/${buildId}/overview`,
             id: 'BuildBreadCrumb',
-            ariaLabel: `build id ${buildId}`,
+            ariaLabel: `${buildId}: build's id`,
             name: buildId,
         })
         .set('suite', {
             to: `/series/${seriesId}/build/${buildId}/suite/${suiteId}/history`,
             id: 'SuiteBreadCrumb',
-            ariaLabel: `suite id ${suiteId}`,
+            ariaLabel: `${suiteId}: suite's id`,
             name: suiteId,
         });
 
