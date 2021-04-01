@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect } from 'react';
 import BuildsTestResultTable from '../components/buildsTestResultTable/BuildsTestResultTable';
-import LastRunCheckBox from '../components/buttons/LastRunCheckbox';
+import LastRunCheckBox from '../components/testFilters/LastRunCheckbox';
 import { useStateValue } from '../contexts/state';
 import { useParams } from 'react-router';
 import BreadcrumbNav from '../components/BreadcrumbNav';

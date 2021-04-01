@@ -3,7 +3,7 @@ import FlakinessTable from './FlakinessTable';
 import FailureTable from './FailureTable';
 import { useTranslation } from 'react-i18next';
 import { TableSelectors } from './ListMain.styles';
-import { ToggleButton } from '../buttons/button.styles';
+import { ToggleButton } from '../../styles/button.styles';
 
 const DashboardList = () => {
     const [t] = useTranslation(['overview']);
