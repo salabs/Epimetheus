@@ -10,7 +10,7 @@ export const FooterContainer = styled.footer`
 
     a {
         background-color: var(--titan-green);
-        color: var(--nero-white) !important;
+        color: var(--nero-white);
 
         &:focus {
             outline-color: var(--nero-white);

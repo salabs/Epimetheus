@@ -142,7 +142,7 @@ export const StyledLink = styled(({ isselected, ...props }) => (
     font-weight: bolder;
     text-decoration: none;
     flex: 2;
-    color: ${props => props.isselected && 'var(--pirlo-blue) !important'};
+    color: ${props => props.isselected && 'var(--pirlo-blue)'};
     outline-offset: -2px;
 `;
 

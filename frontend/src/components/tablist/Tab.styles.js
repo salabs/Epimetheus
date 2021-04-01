@@ -10,7 +10,7 @@ export const Tabs = styled.nav`
 export const TabLink = styled(({ ...props }) => <NavLink {...props} />)`
     display: inline-block;
     height: 37px;
-    background: var(--nero-white) !important;
+    background: var(--nero-white);
     color: var(--titan-green);
     position: relative;
     top: 3px;
@@ -18,7 +18,7 @@ export const TabLink = styled(({ ...props }) => <NavLink {...props} />)`
     font-size: var(--space-16);
     font-weight: bold;
     line-height: var(--space-24);
-    text-decoration: none !important;
+    text-decoration: none;
 
     &.active {
         color: var(--pirlo-blue);

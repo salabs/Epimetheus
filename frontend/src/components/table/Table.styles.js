@@ -201,8 +201,6 @@ export const HierarchicalSuiteNameTh = styled.th`
 `;
 
 export const SuiteRow = styled.tr`
-    border-top: ${props => props.position !== 0 && 'none !important'};
-
     &:hover {
         th {
             background-color: var(--nero-white);
