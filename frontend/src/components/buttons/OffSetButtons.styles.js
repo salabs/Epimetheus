@@ -15,8 +15,8 @@ export const FlexDiv = styled.div`
 
 export const StyledInput = styled.input`
     border: 1px solid var(--evidence-grey);
-    border-radius: 4px;
-    max-width: 54px;
+    border-radius: var(--space-4);
+    max-width: var(--space-64);
     height: var(--space-32);
     text-align: right;
 `;

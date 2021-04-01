@@ -9,7 +9,7 @@ export const NavBar = styled.nav`
 `;
 
 export const SiteLogo = styled.div`
-    margin: 0px var(--space-24) 0px var(--space-40);
+    margin: 0 var(--space-24) 0 var(--space-40);
     font-family: 'Hack';
     letter-spacing: 1px;
     font-size: 30px;

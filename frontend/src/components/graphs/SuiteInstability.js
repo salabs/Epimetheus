@@ -9,7 +9,7 @@ import { pickIcon } from '../TestIcon';
 import { Table } from '../table/Table';
 
 const canvasStyles = css`
-    padding: 20px 0px;
+    padding: 20px 0;
     summary {
         display: none;
     }
