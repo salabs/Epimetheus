@@ -127,7 +127,6 @@ a {
 }
 
 a:hover {
-    text-decoration: underline;
     background: var(--hermanni-grey-lighter);
     color: var(--titan-green-darker);
 }
@@ -138,7 +137,6 @@ a:focus {
 
 a:active {
     color: var(--pirlo-blue);
-    text-decoration: underline;
 }
 
 button {
