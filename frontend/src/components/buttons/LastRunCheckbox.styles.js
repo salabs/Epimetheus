@@ -8,7 +8,7 @@ export const Header = styled.div`
 export const StyledDiv = styled.div`
     display: flex;
     flex-direction: ${props => props.direction};
-    border: 1px solid var(--tonic-grey);
+    border: 1px solid var(--evidence-grey);
     border-radius: var(--space-4);
     width: ${props => (props.direction === 'column' ? '10%' : '30%')};
     max-width: 230px;
