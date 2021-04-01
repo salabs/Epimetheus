@@ -15,10 +15,7 @@ const Footer = () => {
                 {t('footer.epimetheus')} {t('footer.version')}{' '}
                 <span className="underline">{packageJson.version}</span>{' '}
                 {t('footer.powered')}{' '}
-                <span className="underline">
-                    <a href="https://www.siili.com">{t('footer.siili')}</a>
-                </span>
-                .
+                <a href="https://www.siili.com">{t('footer.siili')}</a>.
             </TextStyles>
         </FooterContainer>
     );
