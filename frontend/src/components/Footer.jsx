@@ -8,7 +8,7 @@ const Footer = () => {
 
     return (
         <FooterContainer>
-            <EpiIcon role="img" aria-hidden="true">
+            <EpiIcon role="presentation" aria-hidden="true">
                 {t('footer.E')}
             </EpiIcon>
             <TextStyles>
