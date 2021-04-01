@@ -108,6 +108,7 @@ const Offset = () => {
                     onClick={() => handleDirectionButtonPress('left')}
                     disabled={leftDisabled}
                     id="left_offset_button"
+                    aria-label="<"
                     className={`left${leftDisabled}`}
                 >
                     <Left alt="<" />
@@ -122,6 +123,7 @@ const Offset = () => {
                     onClick={() => handleDirectionButtonPress('right')}
                     disabled={rightDisabled}
                     id="right_offset_button"
+                    aria-label=">"
                     className={`right${rightDisabled}`}
                 >
                     <Right src={Right} alt=">" />
