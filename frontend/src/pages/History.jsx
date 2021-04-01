@@ -10,7 +10,7 @@ import { useParams } from 'react-router';
 import BreadcrumbNav from '../components/BreadcrumbNav';
 import Loading from '../components/Loading';
 import { useQueryParams } from '../hooks/useQuery';
-import { RelativeMain, ParentContainer } from './History.styles';
+import { ParentContainer } from './History.styles';
 import ContentHeader from '../components/header/ContentHeader';
 import { ContainerGrid12, ContentGrid6 } from '../styles/baseComponents';
 import { FilterContainer } from '../components/overview/FilterContainer.styles';
@@ -82,7 +82,7 @@ const History = () => {
     ]);
 
     return (
-        <RelativeMain id="history">
+        <div id="history">
             <BreadcrumbNav status={'series'} />
             <ContentHeader />
 
@@ -122,7 +122,7 @@ const History = () => {
                     )}
                 </ContentGrid6>
             </ContainerGrid12>
-        </RelativeMain>
+        </div>
     );
 };
 
