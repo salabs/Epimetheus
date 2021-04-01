@@ -34,10 +34,7 @@ const LogMessages = ({ test }) => {
                                         <SuiteLogMessage message={message} />
                                     </td>
                                     <td>
-                                        <div
-                                            className="table-item"
-                                            title={timestamp}
-                                        >
+                                        <div className="table-item">
                                             {timestamp}
                                         </div>
                                     </td>

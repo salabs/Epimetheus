@@ -43,7 +43,6 @@ const SuiteLogMessage = ({ message }) => {
 
     return (
         <TestMessage
-            title={message}
             role="button"
             className={canBeOpened.current ? 'can-be-opened' : ''}
             tabIndex={canBeOpened.current ? 0 : -1}
