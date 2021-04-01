@@ -26,7 +26,7 @@ export const TabLink = styled(({ ...props }) => <NavLink {...props} />)`
         height: var(--space-40);
     }
 
-    &:hover {
+    &:hover:not(.active) {
         color: var(--titan-green);
         border-bottom: var(--space-4) solid var(--tonic-grey);
         height: var(--space-40);
