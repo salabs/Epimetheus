@@ -49,7 +49,13 @@ const Accordion = ({ header, name, value }) => {
                                 <td>
                                     {item.value.includes('Http') ||
                                     item.value.includes('http') ? (
-                                        <a href={item.value}>{item.value}</a>
+                                        <a
+                                            href={item.value}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            {item.value}
+                                        </a>
                                     ) : (
                                         <span key={index}>{item.value}</span>
                                     )}

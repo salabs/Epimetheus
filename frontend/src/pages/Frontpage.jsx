@@ -35,6 +35,8 @@ const Frontpage = () => {
                                 href={t(
                                     'section.terminology.testarchiver.link_url'
                                 )}
+                                target="_blank"
+                                rel="noopener noreferrer"
                             >
                                 {t(
                                     'section.terminology.testarchiver.link_text'
@@ -47,6 +49,8 @@ const Frontpage = () => {
                                 href={t(
                                     'section.terminology.chage_engine.link_url'
                                 )}
+                                target="_blank"
+                                rel="noopener noreferrer"
                             >
                                 {t(
                                     'section.terminology.chage_engine.link_text'
@@ -96,7 +100,11 @@ const Frontpage = () => {
                     <h2>{t('section.feedback.title')}</h2>
                     <p>
                         {t('section.feedback.text')}
-                        <a href={t('section.feedback.link_url')}>
+                        <a
+                            href={t('section.feedback.link_url')}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
                             {t('section.feedback.link_text')}
                         </a>
                         .
@@ -105,7 +113,11 @@ const Frontpage = () => {
                     <h2>{t('section.contribute.title')}</h2>
                     <p>
                         {t('section.contribute.text')}
-                        <a href={t('section.contribute.link_url')}>
+                        <a
+                            href={t('section.contribute.link_url')}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
                             {t('section.contribute.link_text')}
                         </a>
                         .
@@ -113,7 +125,11 @@ const Frontpage = () => {
                     <h2>{t('section.licence.title')}</h2>
                     <p>
                         {t('section.licence.text')}
-                        <a href={t('section.licence.link_url')}>
+                        <a
+                            href={t('section.licence.link_url')}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
                             {t('section.licence.link_text')}
                         </a>
                         .
