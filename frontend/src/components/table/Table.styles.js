@@ -25,7 +25,7 @@ export const SpreadSheetTable = styled.table`
         text-align: left;
 
         tr th {
-            padding: var(--space-8) var(--space-16) var(--space-4) 0;
+            padding: var(--space-4) var(--space-16) var(--space-4) 0;
             background-color: var(--hermanni-grey);
 
             &:first-of-type {
