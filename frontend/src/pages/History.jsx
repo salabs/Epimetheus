@@ -114,9 +114,7 @@ const History = () => {
                                 aria-live="polite"
                                 aria-relevant="all"
                                 aria-label="Content loaded."
-                            >
-                                Content loaded.
-                            </div>
+                            />
                             <HistoryTable />
                         </Fragment>
                     )}

@@ -63,19 +63,11 @@ const Build = () => {
     return (
         <div id="last-run">
             {!historyDataState || loadingState ? (
-                <div
-                    className="loading-state"
-                    role="status"
-                    aria-live="polite"
-                    aria-label="Loading"
-                    aria-relevant="all"
-                >
-                    <ContainerGrid12>
-                        <ContentGrid6>
-                            <Loading />
-                        </ContentGrid6>
-                    </ContainerGrid12>
-                </div>
+                <ContainerGrid12>
+                    <ContentGrid6>
+                        <Loading />
+                    </ContentGrid6>
+                </ContainerGrid12>
             ) : (
                 <Fragment>
                     <div
@@ -84,9 +76,7 @@ const Build = () => {
                         aria-live="polite"
                         aria-relevant="all"
                         aria-label="Content loaded."
-                    >
-                        Content loaded.
-                    </div>
+                    />
                     <BreadcrumbNav status={'build'} />
                     <ContentHeader />
                     <ParentInfoContainer id="parentInfo-container">
