@@ -93,6 +93,8 @@ const ListItems = ({ status }) => {
                 <LinkItem key="suite" link={links.get('suite')} current />
             );
             break;
+        default:
+            breadcrumbArray.push('');
     }
 
     return breadcrumbArray;
