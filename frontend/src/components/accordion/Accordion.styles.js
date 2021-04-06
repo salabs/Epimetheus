@@ -67,7 +67,7 @@ export const Content = styled.div`
         word-break: break-word;
 
         th:first-of-type {
-            min-width: 150px;
+            min-width: 110px;
         }
     }
 `;
