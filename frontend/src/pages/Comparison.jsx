@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import Table from '../components/ComparisonTable/Table';
 import ComparisonCheckbox from '../components/ComparisonTable/ComparisonCheckbox';
 import { useStateValue } from '../contexts/state';
@@ -8,6 +8,7 @@ import BreadcrumbNav from '../components/BreadcrumbNav';
 import ParentBuildComparison from '../components/ComparisonTable/ParentBuildComparison';
 import ComparisonForm from '../components/ComparisonForm/ComparisonForm';
 import { ContainerGrid12, ContentGrid6 } from '../styles/baseComponents';
+import Loading from '../components/Loading';
 
 const Build = () => {
     const [{ loadingState }, dispatch] = useStateValue();
@@ -115,42 +116,38 @@ const Build = () => {
     }, [dispatch, seriesId, seriesId2, buildId2, buildId]);
 
     return (
-        <ContainerGrid12>
-            <ContentGrid6>
-                <div id="last-run">
-                    {loadingState ? (
-                        <div
-                            className="loading-state"
-                            role="status"
-                            aria-live="polite"
-                            aria-label="Loading"
-                            aria-relevant="all"
-                        >
-                            Loading
-                        </div>
-                    ) : seriesId && buildId && seriesId2 && buildId2 ? (
-                        <Fragment>
-                            <div
-                                className="sr-show"
-                                role="status"
-                                aria-live="polite"
-                                aria-relevant="all"
-                                aria-label="Content loaded."
-                            >
-                                Content loaded.
-                            </div>
-                            <BreadcrumbNav status={'compare'} />
+        <div id="last-run">
+            {loadingState ? (
+                <ContainerGrid12>
+                    <ContentGrid6>
+                        <Loading />
+                    </ContentGrid6>
+                </ContainerGrid12>
+            ) : seriesId && buildId && seriesId2 && buildId2 ? (
+                <>
+                    <div
+                        className="sr-show"
+                        role="status"
+                        aria-live="polite"
+                        aria-relevant="all"
+                        aria-label="Content loaded."
+                    >
+                        Content loaded.
+                    </div>
+                    <BreadcrumbNav status={'compare'} />
+                    <ContainerGrid12>
+                        <ContentGrid6>
                             <ParentBuildComparison />
                             <Metadata3Table buildId={buildId} />
                             <ComparisonCheckbox />
                             <Table />
-                        </Fragment>
-                    ) : (
-                        <ComparisonForm />
-                    )}
-                </div>
-            </ContentGrid6>
-        </ContainerGrid12>
+                        </ContentGrid6>
+                    </ContainerGrid12>
+                </>
+            ) : (
+                <ComparisonForm />
+            )}
+        </div>
     );
 };
 

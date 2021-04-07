@@ -25,7 +25,15 @@ const LinkItem = props => {
 };
 
 const ListItems = ({ status }) => {
-    const { name, series, seriesId, buildId, suiteId } = useParams();
+    const {
+        name,
+        series,
+        seriesId,
+        buildId,
+        suiteId,
+        seriesId2,
+        buildId2,
+    } = useParams();
     const [{ selectedBranchState }] = useStateValue();
     const teamName = name || selectedBranchState.team;
     const seriesName = series || selectedBranchState.id;
@@ -59,6 +67,16 @@ const ListItems = ({ status }) => {
             id: 'SuiteBreadCrumb',
             ariaLabel: `${suiteId}: suite's id`,
             name: suiteId,
+        })
+        .set('compare', {
+            to: `/compare`,
+            id: 'CompareBreadCrumb',
+            name: 'Compare',
+        })
+        .set('compareBuilds', {
+            to: `/compare/${seriesId}/${buildId}/to/${seriesId2}/${buildId2}`,
+            id: 'CompareBuildsBreadCrumb',
+            name: `Compare series ${seriesId} build ${buildId} to series ${seriesId2} build ${buildId2}`,
         });
 
     const breadcrumbArray = [];
@@ -91,6 +109,16 @@ const ListItems = ({ status }) => {
                 <LinkItem key="series" link={links.get('series')} />,
                 <LinkItem key="build" link={links.get('build')} />,
                 <LinkItem key="suite" link={links.get('suite')} current />
+            );
+            break;
+        case 'compare':
+            breadcrumbArray.push(
+                <LinkItem key="compare" link={links.get('compare')} />,
+                <LinkItem
+                    key="compareBuilds"
+                    link={links.get('compareBuilds')}
+                    current
+                />
             );
             break;
         default:
