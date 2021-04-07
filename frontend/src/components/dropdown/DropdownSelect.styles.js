@@ -50,6 +50,8 @@ export const DropdownWrapper = styled.div`
         border-radius: var(--space-4);
         box-shadow: 0 3px 5px 1px var(--tonic-grey);
         padding: 5px 3px;
+        max-height: 30vh;
+        overflow: auto;
         z-index: 10;
     }
 
