@@ -1,5 +1,6 @@
 import React from 'react';
 import { useStateValue } from '../../contexts/state';
+import { Table } from '../table/Table';
 
 const Metadata3Table = () => {
     const [
@@ -17,7 +18,7 @@ const Metadata3Table = () => {
 
     return (
         buildData && (
-            <table id="metadata3-table">
+            <Table simpleTable={true} id="metadata3-table">
                 <thead>
                     <tr>
                         <th>Metadata</th>
@@ -60,7 +61,7 @@ const Metadata3Table = () => {
                             }
                         )}
                 </tbody>
-            </table>
+            </Table>
         )
     );
 };

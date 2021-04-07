@@ -1,6 +1,7 @@
 ﻿import React from 'react';
 import * as R from 'ramda';
 import { compareTypes } from '../../utils/parentDataTypes';
+import { Table } from '../table/Table';
 const ParentTable = props => {
     const { data, types } = props;
 
@@ -28,19 +29,15 @@ const ParentTable = props => {
     return (
         <React.Fragment>
             {data && (
-                <div>
-                    <table>
-                        <thead>
-                            <tr>{headerRow()}</tr>
-                        </thead>
-                        <tbody>
-                            <tr>{bodyRow()}</tr>
-                        </tbody>
-                        <tbody>
-                            <tr>{bodyRow2()}</tr>
-                        </tbody>
-                    </table>
-                </div>
+                <Table simpleTable={true} id="parent-build-comparison-table">
+                    <thead>
+                        <tr>{headerRow()}</tr>
+                    </thead>
+                    <tbody>
+                        <tr>{bodyRow()}</tr>
+                        <tr>{bodyRow2()}</tr>
+                    </tbody>
+                </Table>
             )}
         </React.Fragment>
     );

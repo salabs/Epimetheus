@@ -1,9 +1,10 @@
 import React from 'react';
 import { useStateValue } from '../../contexts/state';
+import { Table } from '../table/Table';
 
 import Body from './Body';
 
-const Table = () => {
+const TestComparisonTable = () => {
     const [
         {
             parentData: { buildData },
@@ -12,7 +13,7 @@ const Table = () => {
 
     return (
         buildData && (
-            <table id="comparison-table">
+            <Table id="comparison-table">
                 <thead>
                     <tr>
                         <th>Full Test Name</th>
@@ -27,9 +28,9 @@ const Table = () => {
                 <tbody>
                     <Body />
                 </tbody>
-            </table>
+            </Table>
         )
     );
 };
 
-export default Table;
+export default TestComparisonTable;

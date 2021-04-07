@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import Loading from '../components/Loading';
 import { ContainerGrid12, ContentGrid6 } from '../styles/baseComponents';
 
 const Search = () => {
@@ -60,65 +61,70 @@ const Search = () => {
         <ContainerGrid12>
             <ContentGrid6>
                 {loadingState ? (
-                    <div>Please Wait</div>
+                    <Loading />
                 ) : (
-                    <form
-                        onSubmit={() =>
-                            history.push(
-                                `/series/${series}/build/${build}/history`
-                            )
-                        }
-                    >
-                        <div
-                            className="input-container"
-                            id="first-input-container"
+                    <>
+                        <h1>Search</h1>
+                        <form
+                            onSubmit={() =>
+                                history.push(
+                                    `/series/${series}/build/${build}/history`
+                                )
+                            }
                         >
-                            <div id="first-series-container">
-                                <h4>Series1</h4>
-                                <select
-                                    value={series}
-                                    onChange={e => setSeries(e.target.value)}
-                                >
-                                    <option value="Default" disabled>
-                                        Please select Series
-                                    </option>
-                                    {seriesList.map(series => {
-                                        return (
-                                            <option
-                                                key={series.id}
-                                                value={series.id}
-                                            >
-                                                {series.name}
-                                            </option>
-                                        );
-                                    })}
-                                </select>
+                            <div
+                                className="input-container"
+                                id="first-input-container"
+                            >
+                                <div id="first-series-container">
+                                    <h4>Series1</h4>
+                                    <select
+                                        value={series}
+                                        onChange={e =>
+                                            setSeries(e.target.value)
+                                        }
+                                    >
+                                        <option value="Default" disabled>
+                                            Please select Series
+                                        </option>
+                                        {seriesList.map(series => {
+                                            return (
+                                                <option
+                                                    key={series.id}
+                                                    value={series.id}
+                                                >
+                                                    {series.name}
+                                                </option>
+                                            );
+                                        })}
+                                    </select>
+                                </div>
+                                <div id="first-build-container">
+                                    <h4>Build1</h4>
+                                    <select
+                                        defaultValue={'Default'}
+                                        value={build}
+                                        onChange={e => setBuild(e.target.value)}
+                                    >
+                                        <option value="Default" disabled>
+                                            Please select Build after Series
+                                        </option>
+                                        {buildList.map(build => {
+                                            return (
+                                                <option
+                                                    key={build.build_number}
+                                                    value={build.build_number}
+                                                >
+                                                    {build.build_number}
+                                                </option>
+                                            );
+                                        })}
+                                    </select>
+                                </div>
                             </div>
-                            <div id="first-build-container">
-                                <h4>Build1</h4>
-                                <select
-                                    defaultValue={'Default'}
-                                    value={build}
-                                    onChange={e => setBuild(e.target.value)}
-                                >
-                                    <option value="Default" disabled>
-                                        Please select Build after Series
-                                    </option>
-                                    {buildList.map(build => {
-                                        return (
-                                            <option
-                                                key={build.build_number}
-                                                value={build.build_number}
-                                            >
-                                                {build.build_number}
-                                            </option>
-                                        );
-                                    })}
-                                </select>
-                            </div>
-                        </div>
-                        <input type="submit" value="Compare" />
-                    </form>
+                            <input type="submit" value="Compare" />
+                        </form>
+                    </>
                 )}
             </ContentGrid6>
         </ContainerGrid12>

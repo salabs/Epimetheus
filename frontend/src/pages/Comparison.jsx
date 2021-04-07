@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import Table from '../components/ComparisonTable/Table';
+import TestComparisonTable from '../components/ComparisonTable/TestComparisonTable';
 import ComparisonCheckbox from '../components/ComparisonTable/ComparisonCheckbox';
 import { useStateValue } from '../contexts/state';
 import Metadata3Table from '../components/ComparisonTable/Metadata3Table';
@@ -9,6 +9,7 @@ import ParentBuildComparison from '../components/ComparisonTable/ParentBuildComp
 import ComparisonForm from '../components/ComparisonForm/ComparisonForm';
 import { ContainerGrid12, ContentGrid6 } from '../styles/baseComponents';
 import Loading from '../components/Loading';
+import { TableContainer } from './Comparison.styles';
 
 const Build = () => {
     const [{ loadingState }, dispatch] = useStateValue();
@@ -137,10 +138,19 @@ const Build = () => {
                     <BreadcrumbNav status={'compare'} />
                     <ContainerGrid12>
                         <ContentGrid6>
-                            <ParentBuildComparison />
-                            <Metadata3Table buildId={buildId} />
+                            <h1>
+                                Comparison between series {seriesId} build{' '}
+                                {buildId} and series {seriesId2} build{' '}
+                                {buildId2}
+                            </h1>
+                            <TableContainer>
+                                <ParentBuildComparison />
+                            </TableContainer>
+                            <TableContainer>
+                                <Metadata3Table buildId={buildId} />
+                            </TableContainer>
                             <ComparisonCheckbox />
-                            <Table />
+                            <TestComparisonTable />
                         </ContentGrid6>
                     </ContainerGrid12>
                 </>

@@ -3,7 +3,7 @@ import Row from './Row';
 import { useStateValue } from '../../contexts/state';
 import { useParams } from 'react-router';
 
-const Body = ({ id }) => {
+const Body = () => {
     const [
         { comparedDataState, compareFilterMatch, compareFilterMismatch },
     ] = useStateValue();
@@ -11,7 +11,7 @@ const Body = ({ id }) => {
 
     // Do we want last-run page filters to work on suite-level (false)
     // or test-level (true)?
-    const SUITE_FILTER_NESTED = true;
+    // const SUITE_FILTER_NESTED = true;
 
     // Get result for this specific run , as well as parse the full name of a test case and the result of the test case.
 

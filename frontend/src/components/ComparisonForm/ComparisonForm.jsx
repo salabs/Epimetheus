@@ -1,6 +1,7 @@
-// eslint-disable-next-line
-import React,{ useState, useEffect, Fragment } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import Loading from '../../components/Loading';
+import { ContainerGrid12, ContentGrid6 } from '../../styles/baseComponents';
 
 const ComparisonForm = () => {
     let history = useHistory();
@@ -115,185 +116,203 @@ const ComparisonForm = () => {
         return () => {
             isCancelled = true;
         };
-    }, [team, team2, series, series2, build, build2]);
+    }, [team, team2, series, series2, build, build2, seriesLoading, teamList]);
 
     return (
         <div className="form-container">
             {loadingState ? (
-                <div>Please Wait</div>
+                <ContainerGrid12>
+                    <ContentGrid6>
+                        <Loading />
+                    </ContentGrid6>
+                </ContainerGrid12>
             ) : (
-                <form
-                    onSubmit={() =>
-                        history.push(
-                            `/compare/${series}/${build}/to/${series2}/${build2}`
-                        )
-                    }
-                >
-                    <div className="input-container" id="first-input-container">
-                        <div id="first-team-container">
-                            <h4>Team1</h4>
-                            <select
-                                defaultValue={'Default'}
-                                value={team}
-                                onChange={e => setTeam(e.target.value)}
+                <ContainerGrid12>
+                    <ContentGrid6>
+                        <h1>Compare</h1>
+                        <form
+                            onSubmit={() =>
+                                history.push(
+                                    `/compare/${series}/${build}/to/${series2}/${build2}`
+                                )
+                            }
+                        >
+                            <div
+                                className="input-container"
+                                id="first-input-container"
                             >
-                                <option
-                                    value="Default"
-                                    disabled
-                                    style={{ display: 'none' }}
-                                >
-                                    Please select Team
-                                </option>
-                                {teamList.map(team => {
-                                    return (
+                                <div id="first-team-container">
+                                    <h4>Team1</h4>
+                                    <select
+                                        defaultValue={'Default'}
+                                        value={team}
+                                        onChange={e => setTeam(e.target.value)}
+                                    >
                                         <option
-                                            value={team.name}
-                                            key={team.name}
+                                            value="Default"
+                                            disabled
+                                            style={{ display: 'none' }}
                                         >
-                                            {team.name}
+                                            Please select Team
                                         </option>
-                                    );
-                                })}
-                            </select>
-                        </div>
-                        <div id="first-series-container">
-                            <h4>Series1</h4>
-                            <select
-                                defaultValue={'Default'}
-                                value={series}
-                                onChange={e => setSeries(e.target.value)}
+                                        {teamList.map(team => {
+                                            return (
+                                                <option
+                                                    value={team.name}
+                                                    key={team.name}
+                                                >
+                                                    {team.name}
+                                                </option>
+                                            );
+                                        })}
+                                    </select>
+                                </div>
+                                <div id="first-series-container">
+                                    <h4>Series1</h4>
+                                    <select
+                                        defaultValue={'Default'}
+                                        value={series}
+                                        onChange={e =>
+                                            setSeries(e.target.value)
+                                        }
+                                    >
+                                        <option
+                                            value="Default"
+                                            disabled
+                                            style={{ display: 'none' }}
+                                        >
+                                            Please select Series
+                                        </option>
+                                        {seriesList.map(series => {
+                                            return (
+                                                <option
+                                                    key={series.id}
+                                                    value={series.id}
+                                                >
+                                                    {series.name}
+                                                </option>
+                                            );
+                                        })}
+                                    </select>
+                                </div>
+                                <div id="first-build-container">
+                                    <h4>Build1</h4>
+                                    <select
+                                        defaultValue={'Default'}
+                                        value={build}
+                                        onChange={e => setBuild(e.target.value)}
+                                    >
+                                        <option
+                                            value="Default"
+                                            disabled
+                                            style={{ display: 'none' }}
+                                        >
+                                            Please select Build
+                                        </option>
+                                        {buildList.map(build => {
+                                            return (
+                                                <option
+                                                    key={build.build_number}
+                                                    value={build.build_number}
+                                                >
+                                                    {build.build_number}
+                                                </option>
+                                            );
+                                        })}
+                                    </select>
+                                </div>
+                            </div>
+                            <div
+                                className="input-container"
+                                id="second-input-container"
                             >
-                                <option
-                                    value="Default"
-                                    disabled
-                                    style={{ display: 'none' }}
-                                >
-                                    Please select Series
-                                </option>
-                                {seriesList.map(series => {
-                                    return (
+                                <div id="second-team-container">
+                                    <h4>Team2</h4>
+                                    <select
+                                        defaultValue={'Default'}
+                                        value={team2}
+                                        onChange={e => setTeam2(e.target.value)}
+                                    >
                                         <option
-                                            key={series.id}
-                                            value={series.id}
+                                            value="Default"
+                                            disabled
+                                            style={{ display: 'none' }}
                                         >
-                                            {series.name}
+                                            Please select Team
                                         </option>
-                                    );
-                                })}
-                            </select>
-                        </div>
-                        <div id="first-build-container">
-                            <h4>Build1</h4>
-                            <select
-                                defaultValue={'Default'}
-                                value={build}
-                                onChange={e => setBuild(e.target.value)}
-                            >
-                                <option
-                                    value="Default"
-                                    disabled
-                                    style={{ display: 'none' }}
-                                >
-                                    Please select Build
-                                </option>
-                                {buildList.map(build => {
-                                    return (
+                                        {teamList.map(team => {
+                                            return (
+                                                <option
+                                                    value={team.name}
+                                                    key={team.name}
+                                                >
+                                                    {team.name}
+                                                </option>
+                                            );
+                                        })}
+                                    </select>
+                                </div>
+                                <div id="second-series-container">
+                                    <h4>Series2</h4>
+                                    <select
+                                        defaultValue={'Default'}
+                                        value={series2}
+                                        onChange={e =>
+                                            setSeries2(e.target.value)
+                                        }
+                                    >
                                         <option
-                                            key={build.build_number}
-                                            value={build.build_number}
+                                            value="Default"
+                                            disabled
+                                            style={{ display: 'none' }}
                                         >
-                                            {build.build_number}
+                                            Please select Series
                                         </option>
-                                    );
-                                })}
-                            </select>
-                        </div>
-                    </div>
-                    <div
-                        className="input-container"
-                        id="second-input-container"
-                    >
-                        <div id="second-team-container">
-                            <h4>Team2</h4>
-                            <select
-                                defaultValue={'Default'}
-                                value={team2}
-                                onChange={e => setTeam2(e.target.value)}
-                            >
-                                <option
-                                    value="Default"
-                                    disabled
-                                    style={{ display: 'none' }}
-                                >
-                                    Please select Team
-                                </option>
-                                {teamList.map(team => {
-                                    return (
+                                        {seriesList2.map(series => {
+                                            return (
+                                                <option
+                                                    key={series.id}
+                                                    value={series.id}
+                                                >
+                                                    {series.name}
+                                                </option>
+                                            );
+                                        })}
+                                    </select>
+                                </div>
+                                <div id="second-build-container">
+                                    <h4>Build2</h4>
+                                    <select
+                                        defaultValue={'Default'}
+                                        value={build2}
+                                        onChange={e =>
+                                            setBuild2(e.target.value)
+                                        }
+                                    >
                                         <option
-                                            value={team.name}
-                                            key={team.name}
+                                            value="Default"
+                                            disabled
+                                            style={{ display: 'none' }}
                                         >
-                                            {team.name}
+                                            Please select Build
                                         </option>
-                                    );
-                                })}
-                            </select>
-                        </div>
-                        <div id="second-series-container">
-                            <h4>Series2</h4>
-                            <select
-                                defaultValue={'Default'}
-                                value={series2}
-                                onChange={e => setSeries2(e.target.value)}
-                            >
-                                <option
-                                    value="Default"
-                                    disabled
-                                    style={{ display: 'none' }}
-                                >
-                                    Please select Series
-                                </option>
-                                {seriesList2.map(series => {
-                                    return (
-                                        <option
-                                            key={series.id}
-                                            value={series.id}
-                                        >
-                                            {series.name}
-                                        </option>
-                                    );
-                                })}
-                            </select>
-                        </div>
-                        <div id="second-build-container">
-                            <h4>Build2</h4>
-                            <select
-                                defaultValue={'Default'}
-                                value={build2}
-                                onChange={e => setBuild2(e.target.value)}
-                            >
-                                <option
-                                    value="Default"
-                                    disabled
-                                    style={{ display: 'none' }}
-                                >
-                                    Please select Build
-                                </option>
-                                {buildList2.map(build => {
-                                    return (
-                                        <option
-                                            key={build.build_number}
-                                            value={build.build_number}
-                                        >
-                                            {build.build_number}
-                                        </option>
-                                    );
-                                })}
-                            </select>
-                        </div>
-                    </div>
-                    <input type="submit" value="Compare" />
-                </form>
+                                        {buildList2.map(build => {
+                                            return (
+                                                <option
+                                                    key={build.build_number}
+                                                    value={build.build_number}
+                                                >
+                                                    {build.build_number}
+                                                </option>
+                                            );
+                                        })}
+                                    </select>
+                                </div>
+                            </div>
+                            <input type="submit" value="Compare" />
+                        </form>
+                    </ContentGrid6>
+                </ContainerGrid12>
             )}
         </div>
     );
