@@ -1,7 +1,5 @@
 // eslint-disable-next-line
 import React,{ useState, useEffect, Fragment } from 'react';
-/** @jsx jsx */
-import { css, jsx } from '@emotion/core';
 import { useHistory } from 'react-router-dom';
 
 const ComparisonForm = () => {
@@ -22,17 +20,6 @@ const ComparisonForm = () => {
     const [team2, setTeam2] = useState();
     const [teamList, setTeamList] = useState([]);
 
-    const buildStyles = css`
-        position: relative;
-        margin-top: 10px;
-        .input-container {
-            display: inline-block;
-            padding: 20px;
-        }
-        .input-container div {
-            padding: 10px;
-        }
-    `;
     useEffect(() => {
         let isCancelled = false;
 
@@ -131,7 +118,7 @@ const ComparisonForm = () => {
     }, [team, team2, series, series2, build, build2]);
 
     return (
-        <div className="form-container" css={buildStyles}>
+        <div className="form-container">
             {loadingState ? (
                 <div>Please Wait</div>
             ) : (
