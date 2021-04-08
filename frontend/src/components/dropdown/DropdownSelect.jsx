@@ -11,7 +11,11 @@ const DropdownSelect = props => {
 
     const selectorItems = selectorValues.map(element => {
         return (
-            <Option value={element.value.toString()} key={element.id}>
+            <Option
+                value={element.value.toString()}
+                label={element.label.toString()}
+                key={element.id}
+            >
                 {element.label}
             </Option>
         );
