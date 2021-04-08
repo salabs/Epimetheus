@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import Loading from '../../components/Loading';
-import { ContainerGrid12, ContentGrid6 } from '../../styles/baseComponents';
+import Loading from '../components/Loading';
+import { ContainerGrid12, ContentGrid6 } from '../styles/baseComponents';
 
 const ComparisonForm = () => {
     let history = useHistory();

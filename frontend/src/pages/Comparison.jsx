@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
-import TestComparisonTable from '../components/ComparisonTable/TestComparisonTable';
-import ComparisonCheckbox from '../components/ComparisonTable/ComparisonCheckbox';
+import TestComparisonTable from '../components/comparisonTable/TestComparisonTable';
+import ComparisonCheckbox from '../components/comparisonTable/ComparisonCheckbox';
 import { useStateValue } from '../contexts/state';
-import Metadata3Table from '../components/ComparisonTable/Metadata3Table';
+import Metadata3Table from '../components/comparisonTable/Metadata3Table';
 import { useParams } from 'react-router';
 import BreadcrumbNav from '../components/BreadcrumbNav';
-import ParentBuildComparison from '../components/ComparisonTable/ParentBuildComparison';
-import ComparisonForm from '../components/ComparisonForm/ComparisonForm';
+import ParentBuildComparison from '../components/comparisonTable/ParentBuildComparison';
+import ComparisonForm from './ComparisonForm';
 import { ContainerGrid12, ContentGrid6 } from '../styles/baseComponents';
 import Loading from '../components/Loading';
 import { TableContainer } from './Comparison.styles';
