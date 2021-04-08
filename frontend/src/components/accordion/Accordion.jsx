@@ -13,27 +13,27 @@ import { SimpleTable } from '../table/Table.styles';
 
 const Accordion = ({ header, name, value }) => {
     const [t] = useTranslation(['accordion']);
-    const [Open, setOpen] = useState(true);
-    const NameValuePairTable = [];
+    const [open, setOpen] = useState(true);
+    const nameValuePairTable = [];
     const id = uuidv4();
 
     if (name.length === value.length) {
         for (let i = 0; i < name.length; i++) {
-            NameValuePairTable.push({ name: name[i], value: value[i] });
+            nameValuePairTable.push({ name: name[i], value: value[i] });
         }
     }
 
     return (
         <Container>
             <HeaderContainer
-                onClick={() => setOpen(!Open)}
-                aria-expanded={Open}
+                onClick={() => setOpen(!open)}
+                aria-expanded={open}
                 aria-controls={id}
             >
                 <p>{header}</p>
-                <span className="caret">{Open ? <Up /> : <Down />}</span>
+                <span className="caret">{open ? <Up /> : <Down />}</span>
             </HeaderContainer>
-            <Content className={Open ? 'Open' : 'Close'} id={id}>
+            <Content className={open ? 'Open' : 'Close'} id={id}>
                 <SplitBorder />
                 <SimpleTable id="datatable">
                     <thead>
@@ -43,7 +43,7 @@ const Accordion = ({ header, name, value }) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {NameValuePairTable.map((item, index) => (
+                        {nameValuePairTable.map((item, index) => (
                             <tr key={index}>
                                 <td>{item.name}</td>
                                 <td>

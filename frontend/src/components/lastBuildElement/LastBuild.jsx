@@ -33,7 +33,7 @@ const LastBuildElement = () => {
                             name: x.test_case,
                             id: x.test_id,
                             suite: split_name[split_name.length - 2],
-                            failures: failures,
+                            failures,
                         };
                     })
                     .filter(data => data.failures.length !== 0);

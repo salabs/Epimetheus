@@ -1,7 +1,6 @@
 // Not used anywhere!
 
-// eslint-disable-next-line
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useStateValue } from '../contexts/state';
 import styled from 'styled-components';
@@ -107,6 +106,13 @@ const BranchFilter = () => {
         }
     };
 
+    const emptySearchField = () => {
+        setSuggestions([]);
+        setActiveOption(-1);
+        setUserInput('');
+        setVisible(false);
+    };
+
     const handleFilterChange = e => {
         const input = e.target.value;
         if (input.length === 0) {
@@ -188,13 +194,6 @@ const BranchFilter = () => {
                 }
             }
         }
-    };
-
-    const emptySearchField = () => {
-        setSuggestions([]);
-        setActiveOption(-1);
-        setUserInput('');
-        setVisible(false);
     };
 
     const handleSuggestionItemHover = e => setActiveOption(Number(e.target.id));
