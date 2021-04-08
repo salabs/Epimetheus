@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
 export const AttributeTagContainer = styled.div`
-    padding: 0 8px;
-    border-radius: 8px;
+    padding: 0 var(--space-8);
+    border-radius: var(--space-8);
     font-size: 10px;
-    margin: 0 8px;
+    margin: 0 var(--space-8);
     display: inline-block;
     line-height: 14px;
     white-space: nowrap;

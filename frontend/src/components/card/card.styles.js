@@ -87,7 +87,7 @@ export const CardHeading = styled.span`
     font-size: 20px;
     font-weight: 500;
     font-family: 'Noto Serif Semibold';
-    line-height: 24px;
+    line-height: var(--space-24);
     display: flex;
     justify-content: space-between;
     align-items: center;

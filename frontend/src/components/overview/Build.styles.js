@@ -22,8 +22,9 @@ export const ChartContainer = styled.div`
     height: ${props => props.height};
 `;
 
-export const ElementHeader = styled.h3`
-    text-align: center;
-    margin: 10px;
+export const ElementHeader = styled.h2`
     font-family: 'Hack';
+    font-size: 20px;
+    text-align: center;
+    margin: 0;
 `;

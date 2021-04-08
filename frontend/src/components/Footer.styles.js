@@ -6,11 +6,11 @@ export const FooterContainer = styled.footer`
     color: var(--nero-white);
     display: flex;
     align-items: center;
-    height: var(--space-48);
+    min-height: var(--space-48);
 
     a {
         background-color: var(--titan-green);
-        color: var(--nero-white) !important;
+        color: var(--nero-white);
 
         &:focus {
             outline-color: var(--nero-white);
@@ -32,5 +32,6 @@ export const EpiIcon = styled.span`
 `;
 
 export const TextStyles = styled.span`
+    margin-right: var(--space-8);
     margin-left: var(--space-24);
 `;

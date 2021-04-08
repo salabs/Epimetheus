@@ -5,7 +5,7 @@ export const StyledLink = styled(Link)`
     display: block;
     width: 100%;
     margin: 0;
-    padding: 0px;
+    padding: 0;
     text-align: center;
     height: 100%;
     text-decoration: none;

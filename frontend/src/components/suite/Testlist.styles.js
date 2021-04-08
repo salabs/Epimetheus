@@ -8,7 +8,7 @@ import { ReactComponent as Down } from '../../images/chevron-down-white.svg';
 export const FlexContainer = styled.div`
     display: flex;
     flex-direction: column;
-    margin: var(--space-40) 0px;
+    margin: var(--space-40) 0;
 
     .open,
     .close {
@@ -72,7 +72,7 @@ export const SvgUp = styled(Up)`
 `;
 
 export const TestListContainer = styled.div`
-    padding-left: 24px;
+    padding-left: var(--space-24);
 
     ul {
         list-style: none;
@@ -138,18 +138,18 @@ export const TestStatusRow = styled.div`
 export const StyledLink = styled(({ isselected, ...props }) => (
     <NavLink {...props} />
 ))`
-    padding: 0 4px;
+    padding: 0 var(--space-4);
     font-weight: bolder;
     text-decoration: none;
     flex: 2;
-    color: ${props => props.isselected && 'var(--pirlo-blue) !important'};
+    color: ${props => props.isselected && 'var(--pirlo-blue)'};
     outline-offset: -2px;
 `;
 
 export const SvgStatus = styled.span`
     position: relative;
     top: -2px;
-    left: 8px;
+    left: var(--space-8);
     flex: 0.5;
 `;
 

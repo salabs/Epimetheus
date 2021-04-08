@@ -25,7 +25,7 @@ export const SpreadSheetTable = styled.table`
         text-align: left;
 
         tr th {
-            padding: var(--space-8) var(--space-16) var(--space-4) 0;
+            padding: var(--space-4) var(--space-16) var(--space-4) 0;
             background-color: var(--hermanni-grey);
 
             &:first-of-type {
@@ -201,8 +201,6 @@ export const HierarchicalSuiteNameTh = styled.th`
 `;
 
 export const SuiteRow = styled.tr`
-    border-top: ${props => props.position !== 0 && 'none !important'};
-
     &:hover {
         th {
             background-color: var(--nero-white);

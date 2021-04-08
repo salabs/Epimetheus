@@ -70,18 +70,11 @@ const Suite = () => {
     return (
         <div id="suite">
             {!selectedSuiteState || loadingState ? (
-                <div
-                    role="status"
-                    aria-live="polite"
-                    aria-label="Loading"
-                    aria-relevant="all"
-                >
-                    <ContainerGrid12>
-                        <ContentGrid6>
-                            <Loading />
-                        </ContentGrid6>
-                    </ContainerGrid12>
-                </div>
+                <ContainerGrid12>
+                    <ContentGrid6>
+                        <Loading />
+                    </ContentGrid6>
+                </ContainerGrid12>
             ) : selectedSuiteState.suite ? (
                 <div>
                     <div
@@ -90,9 +83,7 @@ const Suite = () => {
                         aria-live="polite"
                         aria-relevant="all"
                         aria-label="Content loaded."
-                    >
-                        Content loaded.
-                    </div>
+                    />
                     <BreadcrumbNav status={'suite'} />
                     <ContentHeader />
                     <ParentInfoContainer className="parentInfo-container">

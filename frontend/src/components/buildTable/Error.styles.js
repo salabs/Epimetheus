@@ -6,6 +6,6 @@ export const ErrorMsg = styled.td`
     & > span {
         display: block;
         background: ${props =>
-            props.build.status === 'FAIL' && 'var(--arabia-red) !important'};
+            props.build.status === 'FAIL' && 'var(--arabia-red)'};
     }
 `;

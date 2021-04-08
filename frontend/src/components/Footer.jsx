@@ -8,16 +8,20 @@ const Footer = () => {
 
     return (
         <FooterContainer>
-            <EpiIcon role="img" aria-hidden="true">
+            <EpiIcon role="presentation" aria-hidden="true">
                 {t('footer.E')}
             </EpiIcon>
             <TextStyles>
                 {t('footer.epimetheus')} {t('footer.version')}{' '}
                 <span className="underline">{packageJson.version}</span>{' '}
                 {t('footer.powered')}{' '}
-                <span className="underline">
-                    <a href="https://www.siili.com">{t('footer.siili')}</a>
-                </span>
+                <a
+                    href="https://www.siili.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    {t('footer.siili')}
+                </a>
                 .
             </TextStyles>
         </FooterContainer>

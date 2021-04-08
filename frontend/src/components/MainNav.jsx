@@ -23,7 +23,11 @@ const MainNav = () => {
                     <NavLink to="/team" className={team ? 'active' : ''}>
                         {t('team')}
                     </NavLink>
-                    <a href="https://github.com/salabs/Epimetheus">
+                    <a
+                        href="https://github.com/salabs/Epimetheus"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
                         {t('github')}
                     </a>
                 </LinkContainer>
