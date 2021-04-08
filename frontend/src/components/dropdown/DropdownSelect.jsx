@@ -4,10 +4,8 @@ import { Select, Option } from 'react-a11y-select';
 import 'react-a11y-select/src/styles.css';
 
 const DropdownSelect = props => {
-    const { label, id } = props;
-    const selectorValues = props['selector-values'];
-    const onChange = props['on-change'];
-    const initialValue = props['initial-value'].toString();
+    const { label, selectorValues, onChange, id } = props;
+    const initialValue = props.initialValue.toString();
 
     const selectorItems = selectorValues.map(element => {
         return (

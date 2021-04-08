@@ -44,9 +44,9 @@ const BuildAmountSelector = () => {
         <SelectorContainer>
             <DropdownSelect
                 label={t('Builds')}
-                selector-values={selectorValues}
-                on-change={handleChange}
-                initial-value={amountOfBuilds}
+                selectorValues={selectorValues}
+                onChange={handleChange}
+                initialValue={amountOfBuilds}
                 id="build_amount_dropdown"
             />
         </SelectorContainer>
