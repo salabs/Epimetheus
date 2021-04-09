@@ -1,122 +1,147 @@
 import React, { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Loading from '../components/Loading';
 import { ContainerGrid12, ContentGrid6 } from '../styles/baseComponents';
+import DropdownSelect from '../components/buttons/DropdownSelect';
+import {
+    ComparisonFormContainer,
+    ComparisonAction,
+} from './ComparisonForm.styles';
 
 const ComparisonForm = () => {
-    let history = useHistory();
-    const [seriesList, setSeriesList] = useState([]);
-    const [seriesList2, setSeriesList2] = useState([]);
-    const [buildList, setBuildList] = useState([]);
-    const [buildList2, setBuildList2] = useState([]);
-    const [series, setSeries] = useState();
-    const [build, setBuild] = useState();
-
-    const [series2, setSeries2] = useState();
-    const [build2, setBuild2] = useState();
-    const [loadingState, setLoadingState] = useState(false);
-    const [seriesLoading, setSeriesLoading] = useState(true);
-
-    const [team, setTeam] = useState();
-    const [team2, setTeam2] = useState();
     const [teamList, setTeamList] = useState([]);
+    const [loadingState, setLoadingState] = useState(false);
+
+    const [team1, setTeam1] = useState();
+    const [series1, setSeries1] = useState();
+    const [seriesList1, setSeriesList1] = useState([]);
+    const [build1, setBuild1] = useState();
+    const [buildList1, setBuildList1] = useState([]);
+    const [series1Loading, setSeries1Loading] = useState(false);
+    const [build1Loading, setBuild1Loading] = useState(false);
+
+    const [team2, setTeam2] = useState();
+    const [series2, setSeries2] = useState();
+    const [seriesList2, setSeriesList2] = useState([]);
+    const [build2, setBuild2] = useState();
+    const [buildList2, setBuildList2] = useState([]);
+    const [series2Loading, setSeries2Loading] = useState(false);
+    const [build2Loading, setBuild2Loading] = useState(false);
 
     useEffect(() => {
         let isCancelled = false;
 
-        const fetchSeriesList1 = async () => {
-            setLoadingState(true);
-            try {
-                if (!isCancelled) {
-                    setLoadingState(false);
-                    setSeriesLoading(false);
-                    setSeriesList(
-                        teamList.filter(x => x.name === team)[0].series
-                    );
-                }
-            } catch (error) {
-                console.log(error);
-            }
-        };
-
-        const fetchSeriesList2 = async () => {
-            setLoadingState(true);
-            try {
-                if (!isCancelled) {
-                    setLoadingState(false);
-                    setSeriesLoading(false);
-                    setSeriesList2(
-                        teamList.filter(x => x.name === team2)[0].series
-                    );
-                }
-            } catch (error) {
-                console.log(error);
-            }
-        };
-
         const fetchTeamData = async () => {
             setLoadingState(true);
             try {
-                const res = await fetch('/data/teams', {});
+                const res = await fetch('/data/teams/?', {});
                 const json = await res.json();
                 if (!isCancelled) {
-                    setLoadingState(false);
                     setTeamList(json.teams);
-                }
-            } catch (error) {
-                console.log(error);
-            }
-        };
-
-        const fetchBuildData = async () => {
-            setLoadingState(true);
-            try {
-                const res = await fetch(`/data/series/${series}/builds/`, {});
-                const json = await res.json();
-                if (!isCancelled) {
                     setLoadingState(false);
-                    setBuildList(json.builds);
                 }
             } catch (error) {
-                console.log(error);
-            }
-        };
-        const fetchBuildData2 = async () => {
-            setLoadingState(true);
-            try {
-                const res = await fetch(`/data/series/${series2}/builds/`, {});
-                const json = await res.json();
-                if (!isCancelled) {
-                    setLoadingState(false);
-                    setBuildList2(json.builds);
-                }
-            } catch (error) {
-                console.log(error);
+                // console.log(error);
             }
         };
 
         if (!teamList.length) {
-            fetchTeamData();
+            fetchTeamData(isCancelled);
         }
 
-        if (team) {
-            fetchSeriesList1();
-        }
-        if (team2) {
-            fetchSeriesList2();
-        }
-        if (!seriesLoading) {
-            if (series) {
-                fetchBuildData();
-            }
-            if (series2) {
-                fetchBuildData2();
-            }
-        }
         return () => {
             isCancelled = true;
         };
-    }, [team, team2, series, series2, build, build2, seriesLoading, teamList]);
+    }, [teamList]);
+
+    useEffect(() => {
+        let isCancelled = false;
+        const filterSeriesList1 = async () => {
+            setSeries1Loading(true);
+            try {
+                if (!isCancelled) {
+                    await setSeriesList1(
+                        teamList.filter(x => x.name === team1)[0].series
+                    );
+                    setSeries1Loading(false);
+                }
+            } catch (error) {
+                // console.log(error);
+            }
+        };
+
+        const fetchBuildData = async () => {
+            setBuild1Loading(true);
+            setBuild1('');
+            try {
+                const res = await fetch(`/data/series/${series1}/builds/`, {});
+                const json = await res.json();
+                if (!isCancelled) {
+                    setBuildList1(json.builds);
+                    setBuild1Loading(false);
+                }
+            } catch (error) {
+                // console.log(error);
+            }
+        };
+
+        if (team1) {
+            filterSeriesList1();
+        }
+
+        if (series1) {
+            fetchBuildData();
+        }
+
+        return () => {
+            isCancelled = true;
+        };
+    }, [team1, series1, teamList]);
+
+    useEffect(() => {
+        let isCancelled = false;
+
+        const filterSeriesList2 = async () => {
+            setSeries2Loading(true);
+            try {
+                if (!isCancelled) {
+                    await setSeriesList2(
+                        teamList.filter(x => x.name === team2)[0].series
+                    );
+                    setSeries2Loading(false);
+                }
+            } catch (error) {
+                // console.log(error);
+            }
+        };
+
+        const fetchBuildData2 = async () => {
+            setBuild2Loading(true);
+            setBuild2('');
+            try {
+                const res = await fetch(`/data/series/${series2}/builds/`, {});
+                const json = await res.json();
+                if (!isCancelled) {
+                    setBuildList2(json.builds);
+                    setBuild2Loading(false);
+                }
+            } catch (error) {
+                // console.log(error);
+            }
+        };
+
+        if (team2) {
+            filterSeriesList2();
+        }
+
+        if (series2) {
+            fetchBuildData2();
+        }
+
+        return () => {
+            isCancelled = true;
+        };
+    }, [team2, series2, teamList]);
 
     return (
         <div className="form-container">
@@ -130,187 +155,115 @@ const ComparisonForm = () => {
                 <ContainerGrid12>
                     <ContentGrid6>
                         <h1>Compare</h1>
-                        <form
-                            onSubmit={() =>
-                                history.push(
-                                    `/compare/${series}/${build}/to/${series2}/${build2}`
-                                )
-                            }
-                        >
-                            <div
-                                className="input-container"
-                                id="first-input-container"
-                            >
-                                <div id="first-team-container">
-                                    <h4>Team1</h4>
-                                    <select
-                                        defaultValue={'Default'}
-                                        value={team}
-                                        onChange={e => setTeam(e.target.value)}
-                                    >
-                                        <option
-                                            value="Default"
-                                            disabled
-                                            style={{ display: 'none' }}
-                                        >
-                                            Please select Team
-                                        </option>
-                                        {teamList.map(team => {
-                                            return (
-                                                <option
-                                                    value={team.name}
-                                                    key={team.name}
-                                                >
-                                                    {team.name}
-                                                </option>
-                                            );
-                                        })}
-                                    </select>
-                                </div>
-                                <div id="first-series-container">
-                                    <h4>Series1</h4>
-                                    <select
-                                        defaultValue={'Default'}
-                                        value={series}
-                                        onChange={e =>
-                                            setSeries(e.target.value)
-                                        }
-                                    >
-                                        <option
-                                            value="Default"
-                                            disabled
-                                            style={{ display: 'none' }}
-                                        >
-                                            Please select Series
-                                        </option>
-                                        {seriesList.map(series => {
-                                            return (
-                                                <option
-                                                    key={series.id}
-                                                    value={series.id}
-                                                >
-                                                    {series.name}
-                                                </option>
-                                            );
-                                        })}
-                                    </select>
-                                </div>
-                                <div id="first-build-container">
-                                    <h4>Build1</h4>
-                                    <select
-                                        defaultValue={'Default'}
-                                        value={build}
-                                        onChange={e => setBuild(e.target.value)}
-                                    >
-                                        <option
-                                            value="Default"
-                                            disabled
-                                            style={{ display: 'none' }}
-                                        >
-                                            Please select Build
-                                        </option>
-                                        {buildList.map(build => {
-                                            return (
-                                                <option
-                                                    key={build.build_number}
-                                                    value={build.build_number}
-                                                >
-                                                    {build.build_number}
-                                                </option>
-                                            );
-                                        })}
-                                    </select>
-                                </div>
+                        <ComparisonFormContainer>
+                            <div id="first-input-container">
+                                <DropdownSelect
+                                    label="Team1"
+                                    selectorValues={teamList.map(team => {
+                                        return {
+                                            value: team.name,
+                                            label: team.name,
+                                            id: team.name,
+                                        };
+                                    })}
+                                    onChange={e => setTeam1(e)}
+                                    initialValue={team1 ? team1 : ''}
+                                    id="select-team1-search"
+                                />
+                                {!series1Loading && (
+                                    <DropdownSelect
+                                        label="Series1"
+                                        selectorValues={seriesList1.map(
+                                            series => {
+                                                return {
+                                                    value: series.id,
+                                                    label: series.name,
+                                                    id: series.id,
+                                                };
+                                            }
+                                        )}
+                                        onChange={e => setSeries1(e)}
+                                        initialValue={series1 ? series1 : ''}
+                                        id="select-series1-search"
+                                    />
+                                )}
+                                {!build1Loading && (
+                                    <DropdownSelect
+                                        label="Build1"
+                                        selectorValues={buildList1.map(
+                                            build => {
+                                                return {
+                                                    value: build.build_number,
+                                                    label: build.build_number,
+                                                    id: build.build_number,
+                                                };
+                                            }
+                                        )}
+                                        onChange={e => setBuild1(e)}
+                                        initialValue={build1 ? build1 : ''}
+                                        id="select-build1-search"
+                                    />
+                                )}
                             </div>
-                            <div
-                                className="input-container"
-                                id="second-input-container"
-                            >
-                                <div id="second-team-container">
-                                    <h4>Team2</h4>
-                                    <select
-                                        defaultValue={'Default'}
-                                        value={team2}
-                                        onChange={e => setTeam2(e.target.value)}
-                                    >
-                                        <option
-                                            value="Default"
-                                            disabled
-                                            style={{ display: 'none' }}
-                                        >
-                                            Please select Team
-                                        </option>
-                                        {teamList.map(team => {
-                                            return (
-                                                <option
-                                                    value={team.name}
-                                                    key={team.name}
-                                                >
-                                                    {team.name}
-                                                </option>
-                                            );
-                                        })}
-                                    </select>
-                                </div>
-                                <div id="second-series-container">
-                                    <h4>Series2</h4>
-                                    <select
-                                        defaultValue={'Default'}
-                                        value={series2}
-                                        onChange={e =>
-                                            setSeries2(e.target.value)
-                                        }
-                                    >
-                                        <option
-                                            value="Default"
-                                            disabled
-                                            style={{ display: 'none' }}
-                                        >
-                                            Please select Series
-                                        </option>
-                                        {seriesList2.map(series => {
-                                            return (
-                                                <option
-                                                    key={series.id}
-                                                    value={series.id}
-                                                >
-                                                    {series.name}
-                                                </option>
-                                            );
-                                        })}
-                                    </select>
-                                </div>
-                                <div id="second-build-container">
-                                    <h4>Build2</h4>
-                                    <select
-                                        defaultValue={'Default'}
-                                        value={build2}
-                                        onChange={e =>
-                                            setBuild2(e.target.value)
-                                        }
-                                    >
-                                        <option
-                                            value="Default"
-                                            disabled
-                                            style={{ display: 'none' }}
-                                        >
-                                            Please select Build
-                                        </option>
-                                        {buildList2.map(build => {
-                                            return (
-                                                <option
-                                                    key={build.build_number}
-                                                    value={build.build_number}
-                                                >
-                                                    {build.build_number}
-                                                </option>
-                                            );
-                                        })}
-                                    </select>
-                                </div>
+                            <div id="second-input-container">
+                                <DropdownSelect
+                                    label="Team2"
+                                    selectorValues={teamList.map(team => {
+                                        return {
+                                            value: team.name,
+                                            label: team.name,
+                                            id: team.name,
+                                        };
+                                    })}
+                                    onChange={e => setTeam2(e)}
+                                    initialValue={team2 ? team2 : ''}
+                                    id="select-team2-search"
+                                />
+                                {!series2Loading && (
+                                    <DropdownSelect
+                                        label="Series2"
+                                        selectorValues={seriesList2.map(
+                                            series => {
+                                                return {
+                                                    value: series.id,
+                                                    label: series.name,
+                                                    id: series.id,
+                                                };
+                                            }
+                                        )}
+                                        onChange={e => setSeries2(e)}
+                                        initialValue={series2 ? series2 : ''}
+                                        id="select-series2-search"
+                                    />
+                                )}
+                                {!build2Loading && (
+                                    <DropdownSelect
+                                        label="Build2"
+                                        selectorValues={buildList2.map(
+                                            build => {
+                                                return {
+                                                    value: build.build_number,
+                                                    label: build.build_number,
+                                                    id: build.build_number,
+                                                };
+                                            }
+                                        )}
+                                        onChange={e => setBuild2(e)}
+                                        initialValue={build2 ? build2 : ''}
+                                        id="select-build2-search"
+                                    />
+                                )}
                             </div>
-                            <input type="submit" value="Compare" />
-                        </form>
+                        </ComparisonFormContainer>
+                        {series1 && build1 && series2 && build2 && (
+                            <ComparisonAction>
+                                <Link
+                                    to={`/compare/${series1}/${build1}/to/${series2}/${build2}`}
+                                >
+                                    Compare
+                                </Link>
+                            </ComparisonAction>
+                        )}
                     </ContentGrid6>
                 </ContainerGrid12>
             )}
