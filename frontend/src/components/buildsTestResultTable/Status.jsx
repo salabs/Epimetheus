@@ -1,6 +1,6 @@
 // eslint-disable-next-line
 import React from 'react';
-import { pickIcon } from '../TestIcon';
+import { pickIcon } from '../../utils/TestIcon';
 
 const Status = ({ build, selectedBuild }) => {
     const testStatus =

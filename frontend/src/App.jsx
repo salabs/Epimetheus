@@ -4,10 +4,10 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import MainContent from './components/MainContent';
 import MainNav from './components/MainNav';
 import Footer from './components/Footer';
-import History from './pages/History';
+import SeriesHistory from './pages/SeriesHistory';
 import Overview from './pages/Overview';
 import Analysis from './pages/Analysis';
-import Build from './pages/Build';
+import BuildHistory from './pages/BuildHistory';
 import Frontpage from './pages/Frontpage';
 import Team from './pages/Team';
 import Suite from './pages/Suite';
@@ -53,10 +53,10 @@ const App = () => {
                                 <Suite />
                             </Route>
                             <Route path="/series/:seriesId/build/:buildId/history">
-                                <Build />
+                                <BuildHistory />
                             </Route>
                             <Route path="/series/:seriesId/history">
-                                <History />
+                                <SeriesHistory />
                             </Route>
                             <Route path="/series/:seriesId/overview">
                                 <Overview />

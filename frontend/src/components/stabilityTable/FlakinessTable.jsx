@@ -3,7 +3,7 @@ import { useParams } from 'react-router';
 import { useStateValue } from '../../contexts/state';
 import { useTranslation } from 'react-i18next';
 import { TableContainer } from './FlakinessTable.styles';
-import { ToggleButtonSmall } from '../buttons/button.styles';
+import { ToggleButtonSmall } from '../../styles/button.styles';
 import { BreakWordTd, SimpleTable, WideTh } from '../table/Table.styles';
 
 const StabilityButton = ({ value, text }) => {

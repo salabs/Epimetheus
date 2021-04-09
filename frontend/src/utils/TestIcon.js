@@ -1,6 +1,6 @@
 import React from 'react';
 import FA from 'react-fontawesome';
-import { colorTypes } from '../utils/colorTypes';
+import { colorTypes } from './colorTypes';
 import styled from 'styled-components';
 import { ReactComponent as Pass } from '../images/success.svg';
 import { ReactComponent as Fail } from '../images/fail.svg';

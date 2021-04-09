@@ -1,6 +1,6 @@
 ﻿import React, { useState } from 'react';
 import { useParams } from 'react-router';
-import { pickIcon } from '../TestIcon';
+import { pickIcon } from '../../utils/TestIcon';
 import {
     FlexContainer,
     HeaderContainer,
@@ -14,11 +14,11 @@ import {
     SvgStatus,
     TimeContainer,
     TagContainer,
-} from './Testlist.styles';
+} from './TestlistAccordion.styles';
 import AttributeTag from '../attributeTag/AttributeTag';
 import { v4 as uuidv4 } from 'uuid';
 
-const Testlist = ({ suite }) => {
+const TestlistAccordion = ({ suite }) => {
     const { suiteId, buildId, seriesId, testId } = useParams();
     const [Open, setOpen] = useState(true);
     const id = uuidv4();
@@ -85,4 +85,4 @@ const Testlist = ({ suite }) => {
     );
 };
 
-export default Testlist;
+export default TestlistAccordion;

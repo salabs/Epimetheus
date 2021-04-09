@@ -3,7 +3,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { useQueryParams } from '../../hooks/useQuery';
 
 import { useStateValue } from '../../contexts/state';
-import DropdownSelect from './DropdownSelect';
+import DropdownSelect from '../dropdown/DropdownSelect';
 import { SelectorContainer } from './BuildAmountSelector.styles';
 import { useTranslation } from 'react-i18next';
 

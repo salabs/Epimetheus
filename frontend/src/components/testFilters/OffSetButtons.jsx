@@ -7,7 +7,7 @@ import { useQueryParams } from '../../hooks/useQuery';
 
 import { StyledInput, FlexDiv, Heading } from './OffSetButtons.styles';
 
-import { DefaultButton } from './button.styles';
+import { DefaultButton } from '../../styles/button.styles';
 
 import { ReactComponent as Left } from '../../images/chevron-left.svg';
 import { ReactComponent as Right } from '../../images/chevron-right.svg';

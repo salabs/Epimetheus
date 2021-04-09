@@ -1,10 +1,10 @@
 import React from 'react';
 import { useStateValue } from '../../contexts/state';
-import { pickIcon } from '../TestIcon';
+import { pickIcon } from '../../utils/TestIcon';
 import { DefinedData } from './TestStatus.styles';
 import { addBgColor, removeBgColor } from './Heading';
 
-const TableTestStatusCell = ({ builds, position }) => {
+const TestStatus = ({ builds, position }) => {
     const [
         {
             historyDataState: { max_build_num },
@@ -63,4 +63,4 @@ const TableTestStatusCell = ({ builds, position }) => {
     });
 };
 
-export default TableTestStatusCell;
+export default TestStatus;

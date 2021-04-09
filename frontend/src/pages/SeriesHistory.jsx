@@ -1,21 +1,21 @@
 import React, { Fragment, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import HistoryTable from '../components/historyTable/HistoryTable';
+import SeriesTestResultTable from '../components/seriesTestResultTable/SeriesTestResultTable';
 import ParentSeries from '../components/parentData/ParentSeries';
-import Offset from '../components/buttons/OffSetButtons';
-import LastRunCheckbox from '../components/buttons/LastRunCheckbox';
-import BuildAmountSelector from '../components/buttons/BuildAmountSelector';
+import Offset from '../components/testFilters/OffSetButtons';
+import LastRunCheckbox from '../components/testFilters/LastRunCheckbox';
+import BuildAmountSelector from '../components/testFilters/BuildAmountSelector';
 import { useStateValue } from '../contexts/state';
 import { useParams } from 'react-router';
 import BreadcrumbNav from '../components/BreadcrumbNav';
 import Loading from '../components/Loading';
 import { useQueryParams } from '../hooks/useQuery';
-import { ParentContainer } from './History.styles';
+import { ParentContainer } from './SeriesHistory.styles';
 import ContentHeader from '../components/header/ContentHeader';
 import { ContainerGrid12, ContentGrid6 } from '../styles/baseComponents';
 import { FilterContainer } from '../components/overview/FilterContainer.styles';
 
-const History = () => {
+const SeriesHistory = () => {
     const [t] = useTranslation(['parentData']);
     const [
         {
@@ -115,7 +115,7 @@ const History = () => {
                                 aria-relevant="all"
                                 aria-label="Content loaded."
                             />
-                            <HistoryTable />
+                            <SeriesTestResultTable />
                         </Fragment>
                     )}
                 </ContentGrid6>
@@ -124,4 +124,4 @@ const History = () => {
     );
 };
 
-export default History;
+export default SeriesHistory;

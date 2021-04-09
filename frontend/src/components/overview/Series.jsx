@@ -3,8 +3,8 @@ import React, { useEffect } from 'react';
 import { useParams } from 'react-router';
 import { useStateValue } from '../../contexts/state';
 import TimeLineChart from '../graphs/TimeLineChart';
-import DashboardList from '../dashlist/ListMain';
-import LastBuildElement from '../lastBuildElement/LastBuild';
+import StabilityTable from '../stabilityTable/StabilityTable';
+import LastBuildElement from '../lastBuildTable/LastBuildTable';
 import { useTranslation } from 'react-i18next';
 import {
     ParentContainer,
@@ -70,7 +70,7 @@ const Series = () => {
                     <ElementHeader>
                         {t('series.stability_table.title')}
                     </ElementHeader>
-                    <DashboardList />
+                    <StabilityTable />
                 </TableHolder>
             </ParentContainer>
         </>

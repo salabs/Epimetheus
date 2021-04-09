@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import FlakinessTable from './FlakinessTable';
 import FailureTable from './FailureTable';
 import { useTranslation } from 'react-i18next';
-import { TableSelectors } from './ListMain.styles';
-import { ToggleButton } from '../buttons/button.styles';
+import { TableSelectors } from './StabilityTable.styles';
+import { ToggleButton } from '../../styles/button.styles';
 
-const DashboardList = () => {
+const StabilityTable = () => {
     const [t] = useTranslation(['overview']);
     const [window, setWindow] = useState('stability');
 
@@ -50,4 +50,4 @@ const DashboardList = () => {
     );
 };
 
-export default DashboardList;
+export default StabilityTable;
