@@ -7,8 +7,8 @@ import { useParams } from 'react-router';
 import BreadcrumbNav from '../components/BreadcrumbNav';
 import ParentBuildComparison from '../components/comparisonTable/ParentBuildComparison';
 import ComparisonForm from './ComparisonForm';
-import { ContainerGrid12, ContentGrid6 } from '../styles/baseComponents';
 import Loading from '../components/Loading';
+import { ContainerGrid12, ContentGrid6 } from '../styles/baseComponents';
 import { TableContainer } from './Comparison.styles';
 
 const Build = () => {
@@ -107,7 +107,9 @@ const Build = () => {
                         type: 'updateCompared',
                         compareData: jsoni,
                     });
-                } catch (error) {}
+                } catch (error) {
+                    // console.log(error);
+                }
             }
         };
         if (seriesId && buildId && seriesId2 && buildId2) {

@@ -2,6 +2,7 @@
 import * as R from 'ramda';
 import { compareTypes } from '../../utils/parentDataTypes';
 import { Table } from '../table/Table';
+
 const ParentTable = props => {
     const { data, types } = props;
 

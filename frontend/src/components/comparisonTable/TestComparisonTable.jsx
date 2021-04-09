@@ -1,7 +1,6 @@
 import React from 'react';
 import { useStateValue } from '../../contexts/state';
 import { Table } from '../table/Table';
-
 import Body from './Body';
 
 const TestComparisonTable = () => {

@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { useParams } from 'react-router';
 import { useStateValue } from '../../contexts/state';
 import { suiteTypes } from '../../utils/parentDataTypes';
-
 import ParentTable from './ParentTable';
 
 const ParentSeries = () => {

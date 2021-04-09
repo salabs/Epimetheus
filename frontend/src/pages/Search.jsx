@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Loading from '../components/Loading';
-import DropdownSelect from '../components/buttons/DropdownSelect';
+import DropdownSelect from '../components/dropdown/DropdownSelect';
 import { ContainerGrid12, ContentGrid6 } from '../styles/baseComponents';
 import { DropdownContainer, SearchAction } from './Search.styles';
 
