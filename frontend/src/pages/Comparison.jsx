@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import TestComparisonTable from '../components/comparisonTable/TestComparisonTable';
 import ComparisonCheckbox from '../components/comparisonTable/ComparisonCheckbox';
 import { useStateValue } from '../contexts/state';
-import Metadata3Table from '../components/comparisonTable/Metadata3Table';
+import MetadataTable from '../components/comparisonTable/MetadataTable';
 import { useParams } from 'react-router';
 import BreadcrumbNav from '../components/BreadcrumbNav';
 import ParentBuildComparison from '../components/comparisonTable/ParentBuildComparison';
@@ -149,7 +149,7 @@ const Build = () => {
                                 <ParentBuildComparison />
                             </TableContainer>
                             <TableContainer>
-                                <Metadata3Table buildId={buildId} />
+                                <MetadataTable buildId={buildId} />
                             </TableContainer>
                             <ComparisonCheckbox />
                             <TestComparisonTable />

@@ -2,7 +2,7 @@ import React from 'react';
 import { useStateValue } from '../../contexts/state';
 import { Table } from '../table/Table';
 
-const Metadata3Table = () => {
+const MetadataTable = () => {
     const [
         {
             metadataState,
@@ -66,4 +66,4 @@ const Metadata3Table = () => {
     );
 };
 
-export default Metadata3Table;
+export default MetadataTable;
