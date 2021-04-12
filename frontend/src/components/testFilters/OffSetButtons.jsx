@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-// eslint-disable-next-line
 import React, { useState, useEffect } from 'react';
 import { useStateValue } from '../../contexts/state';
 import { useHistory, useLocation } from 'react-router-dom';
@@ -75,11 +74,13 @@ const Offset = () => {
         } else {
             setrightDisabled(false);
         }
+    }, [offset, inputOffset, builds]);
 
+    useEffect(() => {
         return () => {
             dispatch({ type: 'flushQueryParams' });
         };
-    }, [offset, inputOffset, builds]);
+    }, []);
 
     const handleLatestButtonPress = () => {
         dispatch({
