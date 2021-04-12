@@ -1,6 +1,12 @@
-// eslint-disable-next-line
 import React, { useState } from 'react';
 import { useStateValue } from '../../contexts/state';
+import {
+    StyledInput,
+    StyledLabel,
+} from '../testFilters/LastRunCheckbox.styles';
+import { ReactComponent as Checked } from '../../images/checked.svg';
+import { ReactComponent as Unchecked } from '../../images/unchecked.svg';
+import { CheckboxContainer } from './ComparisonCheckbox.styles';
 
 const Checkbox = () => {
     // eslint-disable-next-line
@@ -33,28 +39,30 @@ const Checkbox = () => {
     };
 
     return (
-        <div id="last-run-checkbox-container">
-            <label labelfor="filterMatch">
-                Hide Matching tests
-                <input
+        <CheckboxContainer id="last-run-checkbox-container">
+            <StyledLabel labelfor="filterMatch">
+                <StyledInput
                     type="checkbox"
                     name="filterMatch"
                     value="match"
                     checked={matchFilter}
                     onChange={e => handleMatchFilterChange(e)}
                 />
-            </label>
-            <label labelfor="filterMismatch">
-                Hide Mismatched tests
-                <input
+                <span>{matchFilter ? <Checked /> : <Unchecked />}</span>
+                Hide Matching tests
+            </StyledLabel>
+            <StyledLabel labelfor="filterMismatch">
+                <StyledInput
                     type="checkbox"
                     name="filterMismatch"
                     value="mismatch"
                     checked={mismatchFilter}
                     onChange={e => handleMismatchFilterChange(e)}
                 />
-            </label>
-        </div>
+                <span>{mismatchFilter ? <Checked /> : <Unchecked />}</span>
+                Hide Mismatched tests
+            </StyledLabel>
+        </CheckboxContainer>
     );
 };
 
