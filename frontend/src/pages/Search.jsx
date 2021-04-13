@@ -49,7 +49,7 @@ const Search = () => {
         }
         if (!seriesLoading) {
             if (series) {
-                setBuild(undefined);
+                setBuild('');
                 setBuildList([]);
                 fetchBuildData();
             }
