@@ -39,7 +39,10 @@ const Build = () => {
                         let found = 0;
                         let metadata_len = json.metadata.length;
                         while (index < metadata_len && found === 0) {
-                            if (json.metadata[index].metadata_name === name) {
+                            if (
+                                json.metadata[parseInt(index)].metadata_name ===
+                                name
+                            ) {
                                 found = 1;
                             } else {
                                 index++;
@@ -57,10 +60,11 @@ const Build = () => {
                             };
                             json.metadata.push(temp);
                         } else {
-                            json.metadata[index].metadata2_value =
+                            json.metadata[parseInt(index)].metadata2_value =
                                 meta.metadata_value;
-                            json.metadata[index].suite2_id = meta.suite_id;
-                            json.metadata[index].test2_run_id =
+                            json.metadata[parseInt(index)].suite2_id =
+                                meta.suite_id;
+                            json.metadata[parseInt(index)].test2_run_id =
                                 meta.test_run_id;
                         }
                     });
