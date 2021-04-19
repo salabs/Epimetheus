@@ -14,7 +14,7 @@ const SeriesTestResultTable = () => {
 
     if (max_build_num > 0) {
         return (
-            <Table table-id="history-table">
+            <Table tableId="history-table">
                 <Heading />
                 <Body id="history-table-body" />
             </Table>

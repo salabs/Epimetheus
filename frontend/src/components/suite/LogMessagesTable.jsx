@@ -6,7 +6,7 @@ import { Table } from '../table/Table';
 
 const LogMessagesTable = ({ test }) => {
     return test ? (
-        <Table table-id="logMessages-table">
+        <Table tableId="logMessages-table">
             <thead>
                 <tr>
                     <th className="tableLogLevel">Level</th>

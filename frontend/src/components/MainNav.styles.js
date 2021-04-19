@@ -15,7 +15,7 @@ export const SiteLogo = styled.div`
     font-size: 30px;
     font-weight: 700;
 
-    @media only screen and (max-width: 540px) {
+    @media only screen and (max-width: 768px) {
         width: var(--space-16);
         margin-right: 0;
         overflow: hidden;

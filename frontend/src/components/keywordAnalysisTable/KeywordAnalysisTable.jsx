@@ -28,7 +28,7 @@ const DashboardList = () => {
     }, [dispatch, seriesId, buildId]);
 
     return (
-        <Table table-id="keyword-analysis-table">
+        <Table tableId="keyword-analysis-table">
             <thead>
                 <tr>
                     <WideTh>{t('table.library')}</WideTh>

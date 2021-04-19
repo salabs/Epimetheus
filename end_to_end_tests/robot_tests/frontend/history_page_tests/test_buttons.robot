@@ -6,11 +6,11 @@ Resource                            ./history_keywords.robot
 
 Test Build Amount Dropdown
   Open history page of series    3
-  Select From Dropdown    ${history_build_selector_5} 
+  Select From Dropdown    ${history_build_selector_5}
   Table should be limited to    number=5
-  Select From Dropdown    ${history_build_selector_10} 
+  Select From Dropdown    ${history_build_selector_10}
   Table should be limited to    number=10
-  Select From Dropdown    ${history_build_selector_30} 
+  Select From Dropdown    ${history_build_selector_30}
   Table should be limited to    number=30
 
 Test Offset Functionality
@@ -69,7 +69,7 @@ Most Recent Build Number should be
   [Arguments]   ${build}
   Wait Until Element Is Enabled    ${series_history_most_recent}
   ${temp_most_recent}=    Get Text    ${series_history_most_recent}
-  
+
   Should be equal as Strings    ${build}    ${temp_most_recent}
 
 Offset should be
@@ -86,5 +86,5 @@ Check offset url
 Click Right Button
   Click Element   ${offset_right}
 Click Left Button
-  Click Element   ${offset_left}  
+  Click Element   ${offset_left}
 

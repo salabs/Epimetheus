@@ -17,6 +17,13 @@ const initialState = {
         isChecked: false,
         filterType: '',
     },
+    compareFilterMatch: {
+        isChecked: false,
+    },
+    compareFilterMismatch: {
+        isChecked: false,
+    },
+    comparedDataState: [[], []],
     branchesState: null,
     selectedBranchState: { name: 'All builds', id: 1 },
     metadataState: [],

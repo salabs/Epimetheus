@@ -8,7 +8,7 @@ const BuildsTestResultTable = ({ id }) => {
     const [t] = useTranslation(['history']);
 
     return (
-        <Table table-id="last-run-table">
+        <Table tableId="last-run-table">
             <thead>
                 <tr>
                     <WideTh>{t('build.table.suite')}</WideTh>

@@ -11,6 +11,8 @@ import BuildHistory from './pages/BuildHistory';
 import Frontpage from './pages/Frontpage';
 import Team from './pages/Team';
 import Suite from './pages/Suite';
+import Comparison from './pages/Comparison';
+import Search from './pages/Search.jsx';
 import { useStateValue } from './contexts/state';
 import './utils/i118n';
 import 'normalize.css';
@@ -66,6 +68,15 @@ const App = () => {
                             </Route>
                             <Route path="/series/:seriesId/build/:buildId/analysis">
                                 <Analysis />
+                            </Route>
+                            <Route path="/compare/:seriesId/:buildId/to/:seriesId2/:buildId2">
+                                <Comparison />
+                            </Route>
+                            <Route path="/compare">
+                                <Comparison />
+                            </Route>
+                            <Route path="/search">
+                                <Search />
                             </Route>
                             <Route exact path="/team">
                                 <Team />

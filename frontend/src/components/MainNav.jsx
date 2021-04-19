@@ -11,17 +11,29 @@ const MainNav = () => {
     const team =
         location.pathname.includes('team') ||
         location.pathname.includes('series');
+    const compare = location.pathname.includes('compare');
+    const search = location.pathname.includes('search');
 
     return (
         <header>
             <NavBar id="main-nav">
                 <SiteLogo className="logo">{t('logo')}</SiteLogo>
                 <LinkContainer team={team}>
-                    <NavLink exact to="/" className={!team ? 'active' : ''}>
+                    <NavLink
+                        exact
+                        to="/"
+                        className={location.pathname === '/' ? 'active' : ''}
+                    >
                         {t('help')}
                     </NavLink>
                     <NavLink to="/team" className={team ? 'active' : ''}>
                         {t('team')}
+                    </NavLink>
+                    <NavLink to="/compare" className={compare ? 'active' : ''}>
+                        {t('compare')}
+                    </NavLink>
+                    <NavLink to="/search" className={search ? 'active' : ''}>
+                        {t('search')}
                     </NavLink>
                     <a
                         href="https://github.com/salabs/Epimetheus"

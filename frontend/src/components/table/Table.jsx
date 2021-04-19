@@ -8,8 +8,7 @@ import {
 import ScrollTableButton from './ScrollTableButton';
 
 export const Table = props => {
-    const tableId = props['table-id'];
-    const simpleTable = props['simple-table'];
+    const { tableId, simpleTable } = props;
     const ref = React.createRef();
 
     const [canScrollLeft, setCanScrollLeft] = useState(false);
