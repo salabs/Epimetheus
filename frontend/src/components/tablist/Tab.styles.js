@@ -24,11 +24,13 @@ export const TabLink = styled(({ ...props }) => <NavLink {...props} />)`
         color: var(--pirlo-blue);
         border-bottom: var(--space-4) solid var(--pirlo-blue);
         height: var(--space-40);
+        background: var(--nero-white);
     }
 
     &:hover:not(.active) {
         color: var(--titan-green);
         border-bottom: var(--space-4) solid var(--tonic-grey);
         height: var(--space-40);
+        background: var(--nero-white);
     }
 `;
