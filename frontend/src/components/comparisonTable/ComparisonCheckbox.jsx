@@ -36,7 +36,7 @@ const ComparisonCheckbox = () => {
     };
 
     return (
-        <CheckboxContainer id="last-run-checkbox-container">
+        <CheckboxContainer id="build-comparison-checkbox-filter">
             <Checkbox
                 checked={matchFilter}
                 onChange={e => handleMatchFilterChange(e)}

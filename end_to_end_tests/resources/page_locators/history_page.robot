@@ -22,6 +22,6 @@ ${disabled_offset_right}      xpath://*[contains(@class, 'rightrue')]
 ${disabled_offset_left}      xpath://*[contains(@class, 'leftrue')]
 
 
-${clicked_pass}      xpath://*[contains(@class, 'passtrue')]
+${clicked_pass}      css:input[value="PASS"][type="checkbox"]:checked
 
-${clicked_fail}      xpath://*[contains(@class, 'failtrue')]
+${clicked_fail}      css:input[value="FAIL"][type="checkbox"]:checked
