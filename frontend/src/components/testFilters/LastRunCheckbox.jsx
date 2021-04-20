@@ -1,20 +1,12 @@
-// eslint-disable-next-line
 /* eslint-disable react-hooks/exhaustive-deps */
 
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useStateValue } from '../../contexts/state';
-import { ReactComponent as Checked } from '../../images/checked.svg';
-import { ReactComponent as Unchecked } from '../../images/unchecked.svg';
-import {
-    Header,
-    StyledDiv,
-    StyledLabel,
-    StyledInput,
-} from './LastRunCheckbox.styles';
-
 import { useQueryParams } from '../../hooks/useQuery';
 import { useHistory, useLocation } from 'react-router-dom';
+import Checkbox from '../checkbox/Checkbox';
+import { Header, StyledDiv } from './LastRunCheckbox.styles';
 
 const LastRunCheckbox = ({ direction }) => {
     // eslint-disable-next-line
@@ -82,30 +74,18 @@ const LastRunCheckbox = ({ direction }) => {
         <div>
             <Header>{t('hide_tests.header')}</Header>
             <StyledDiv direction={direction} id="last-run-checkbox-container">
-                <StyledLabel labelfor="filterPassed">
-                    <StyledInput
-                        type="checkbox"
-                        name="filterPassed"
-                        value="PASS"
-                        className={`pass${passFilter}`}
-                        checked={passFilter}
-                        onChange={e => handlePassFilterChange(e)}
-                    />
-                    <span>{passFilter ? <Checked /> : <Unchecked />}</span>
-                    {t('hide_tests.passing')}
-                </StyledLabel>
-                <StyledLabel labelfor="filterFailed">
-                    <StyledInput
-                        type="checkbox"
-                        name="filterFailed"
-                        value="FAIL"
-                        checked={failFilter}
-                        className={`fail${failFilter}`}
-                        onChange={e => handleFailFilterChange(e)}
-                    />
-                    <span>{failFilter ? <Checked /> : <Unchecked />}</span>
-                    {t('hide_tests.failing')}
-                </StyledLabel>
+                <Checkbox
+                    checked={passFilter}
+                    onChange={e => handlePassFilterChange(e)}
+                    value="PASS"
+                    label={t('hide_tests.passing')}
+                />
+                <Checkbox
+                    checked={failFilter}
+                    onChange={e => handleFailFilterChange(e)}
+                    value="FAIL"
+                    label={t('hide_tests.failing')}
+                />
             </StyledDiv>
         </div>
     );
