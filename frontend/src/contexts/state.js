@@ -3,7 +3,6 @@ import logger from 'use-reducer-logger';
 export const StateContext = createContext();
 
 const initialState = {
-    historyDataState: null,
     loadingState: false,
     errorState: null,
     amountOfBuilds: 5,
@@ -30,7 +29,6 @@ const initialState = {
     testStabilityList: [],
     failureList: [],
     keywordAnalysisList: [],
-    selectedBuildState: {},
     selectedSuiteState: null,
     stabilityChecker: 'unstable',
     parentData: {

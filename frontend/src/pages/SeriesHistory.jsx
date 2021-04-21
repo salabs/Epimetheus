@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import SeriesTestResultTable from '../components/seriesTestResultTable/SeriesTestResultTable';
 import ParentSeries from '../components/parentData/ParentSeries';
@@ -17,10 +17,10 @@ import { FilterContainer } from '../components/overview/FilterContainer.styles';
 
 const SeriesHistory = () => {
     const [t] = useTranslation(['parentData']);
+    const [seriesHistory, setSeriesHistory] = useState(null);
     const [
         {
             loadingState,
-            historyDataState,
             selectedBranchState,
             amountOfBuilds,
             branchesState,
@@ -56,21 +56,13 @@ const SeriesHistory = () => {
                 try {
                     const res = await fetch(url, {});
                     const json = await res.json();
-                    dispatch({
-                        type: 'updateHistory',
-                        historyData: json,
-                    });
+                    setSeriesHistory(json);
                     dispatch({ type: 'setLoadingState', loadingState: false });
                 } catch (error) {
                     dispatch({ type: 'setErrorState', errorState: error });
                 }
             };
             fetchData();
-
-            // returned function will be called on component unmount
-            return () => {
-                dispatch({ type: 'flushHistory' });
-            };
         }
     }, [
         dispatch,
@@ -104,7 +96,7 @@ const SeriesHistory = () => {
                         <Offset />
                         <LastRunCheckbox direction="row" />
                     </FilterContainer>
-                    {!historyDataState || loadingState ? (
+                    {!seriesHistory || loadingState ? (
                         <Loading />
                     ) : (
                         <Fragment>
@@ -115,7 +107,9 @@ const SeriesHistory = () => {
                                 aria-relevant="all"
                                 aria-label="Content loaded."
                             />
-                            <SeriesTestResultTable />
+                            <SeriesTestResultTable
+                                seriesHistory={seriesHistory}
+                            />
                         </Fragment>
                     )}
                 </ContentGrid6>

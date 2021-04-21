@@ -4,14 +4,8 @@ import Row from './Row';
 import { useStateValue } from '../../contexts/state';
 import { useParams } from 'react-router';
 
-const Body = () => {
-    const [
-        {
-            historyDataState: { history },
-            lastRunFilterPass,
-            lastRunFilterFail,
-        },
-    ] = useStateValue();
+const Body = ({ history }) => {
+    const [{ lastRunFilterPass, lastRunFilterFail }] = useStateValue();
     let { buildId } = useParams();
     const buildNum = buildId;
 
