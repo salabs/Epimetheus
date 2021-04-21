@@ -5,7 +5,14 @@ import TestStatus from './TestStatus';
 import TestCase from './TestCase';
 import { SuiteRow } from '../table/Table.styles';
 
-const Suite = ({ builds, test_case, suite, index, test_cases }) => {
+const Suite = ({
+    builds,
+    test_case,
+    suite,
+    index,
+    test_cases,
+    max_build_num,
+}) => {
     return (
         <SuiteRow data-ta={`${dashify(suite)}`}>
             {index === 0 && (
@@ -15,7 +22,11 @@ const Suite = ({ builds, test_case, suite, index, test_cases }) => {
                 />
             )}
             <TestCase test_case={test_case} position={index} />
-            <TestStatus builds={builds} position={index} />
+            <TestStatus
+                builds={builds}
+                position={index}
+                max_build_num={max_build_num}
+            />
         </SuiteRow>
     );
 };

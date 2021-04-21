@@ -3,13 +3,8 @@ import { useStateValue } from '../../contexts/state';
 import Suite from './Suite';
 import { useQueryParams } from '../../hooks/useQuery';
 
-const Body = () => {
-    const [
-        {
-            historyDataState: { history },
-            amountOfBuilds,
-        },
-    ] = useStateValue();
+const Body = ({ history, max_build_num }) => {
+    const [{ amountOfBuilds }] = useStateValue();
     const queryParams = useQueryParams();
 
     const tableBody = history.map(
@@ -39,6 +34,7 @@ const Body = () => {
                                 suite={suite_full_name}
                                 test_cases={filteredTestCases}
                                 builds={builds}
+                                max_build_num={max_build_num}
                             />
                         );
                     })}

@@ -4,8 +4,9 @@ import { useTranslation } from 'react-i18next';
 import { Table } from '../table/Table';
 import { WideTh } from '../table/Table.styles';
 
-const BuildsTestResultTable = ({ id }) => {
+const BuildsTestResultTable = ({ id, buildHistory }) => {
     const [t] = useTranslation(['history']);
+    const { history } = buildHistory;
 
     return (
         <Table tableId="last-run-table">
@@ -19,7 +20,7 @@ const BuildsTestResultTable = ({ id }) => {
                     <th>{t('build.table.flakiness')}</th>
                 </tr>
             </thead>
-            <Body id={id} />
+            <Body id={id} history={history} />
         </Table>
     );
 };

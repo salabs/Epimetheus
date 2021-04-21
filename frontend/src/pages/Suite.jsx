@@ -40,7 +40,6 @@ const Suite = () => {
                     id: seriesId,
                     team: branch?.team || ' ',
                 });
-                dispatch({ type: 'setSelectedBuild', selectedBuild: buildId });
             }
         };
         const fetchSuiteData = async () => {

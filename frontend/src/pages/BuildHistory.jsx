@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import BuildsTestResultTable from '../components/buildsTestResultTable/BuildsTestResultTable';
 import LastRunCheckBox from '../components/testFilters/LastRunCheckbox';
 import { useStateValue } from '../contexts/state';
@@ -14,8 +14,9 @@ import { ContainerGrid12, ContentGrid6 } from '../styles/baseComponents';
 import { FilterContainer } from '../components/overview/FilterContainer.styles';
 
 const BuildHistory = () => {
+    const [buildHistory, setBuildHistory] = useState(null);
     const [
-        { loadingState, historyDataState, selectedBranchState, branchesState },
+        { loadingState, selectedBranchState, branchesState },
         dispatch,
     ] = useStateValue();
     let { buildId, seriesId } = useParams();
@@ -35,7 +36,6 @@ const BuildHistory = () => {
                     id: branch_id,
                     team: branch?.team || ' ',
                 });
-                dispatch({ type: 'setSelectedBuild', selectedBuild: buildId });
                 try {
                     const res = await fetch(
                         `/data/series/${branch_id}/history?start_from=${buildId}&builds=5`,
@@ -43,10 +43,7 @@ const BuildHistory = () => {
                     );
                     const json = await res.json();
                     dispatch({ type: 'setLoadingState', loadingState: false });
-                    dispatch({
-                        type: 'updateHistory',
-                        historyData: json,
-                    });
+                    setBuildHistory(json);
                 } catch (error) {
                     dispatch({ type: 'setErrorState', errorState: error });
                 }
@@ -61,7 +58,7 @@ const BuildHistory = () => {
 
     return (
         <div id="last-run">
-            {!historyDataState || loadingState ? (
+            {!buildHistory || loadingState ? (
                 <ContainerGrid12>
                     <ContentGrid6>
                         <Loading />
@@ -92,7 +89,10 @@ const BuildHistory = () => {
                             <FilterContainer>
                                 <LastRunCheckBox direction="column" />
                             </FilterContainer>
-                            <BuildsTestResultTable id={branch_id} />
+                            <BuildsTestResultTable
+                                id={branch_id}
+                                buildHistory={buildHistory}
+                            />
                         </ContentGrid6>
                     </ContainerGrid12>
                 </Fragment>
