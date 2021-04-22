@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { useStateValue } from '../../contexts/state';
 import { useTranslation } from 'react-i18next';
@@ -9,7 +9,8 @@ const DashboardList = () => {
     const [t] = useTranslation(['overview']);
     const { seriesId } = useParams();
 
-    const [{ amountOfBuilds, failureList, offset }, dispatch] = useStateValue();
+    const [failureList, setFailureList] = useState(null);
+    const [{ amountOfBuilds, offset }, dispatch] = useStateValue();
 
     useEffect(() => {
         const url = `/data/series/${seriesId}/history?builds=${amountOfBuilds}&offset=${offset}`;
@@ -33,7 +34,7 @@ const DashboardList = () => {
                     })
                     .sort((a, b) => b.failures - a.failures)
                     .slice(0, amountOfBuilds);
-                dispatch({ type: 'setFailureList', failures: filterList2 });
+                setFailureList({ failures: filterList2 });
             } catch (error) {
                 dispatch({ type: 'setErrorState', errorState: error });
             }

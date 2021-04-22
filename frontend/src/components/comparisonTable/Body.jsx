@@ -38,6 +38,7 @@ const Body = () => {
                         status2: test.builds[0].test_status,
                     };
                 }
+                return null;
             });
     }
 

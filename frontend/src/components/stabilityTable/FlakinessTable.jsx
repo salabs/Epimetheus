@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { useStateValue } from '../../contexts/state';
 import { useTranslation } from 'react-i18next';
@@ -35,8 +35,9 @@ const StabilityButton = ({ value, text }) => {
 const DashboardList = () => {
     const [t] = useTranslation(['overview']);
     const { seriesId } = useParams();
+    const [testStabilityList, setTestStabilityList] = useState(null);
     const [
-        { testStabilityList, stabilityChecker, amountOfBuilds, offset },
+        { stabilityChecker, amountOfBuilds, offset },
         dispatch,
     ] = useStateValue();
 
@@ -46,7 +47,7 @@ const DashboardList = () => {
             try {
                 const res = await fetch(url);
                 const json = await res.json();
-                dispatch({ type: 'setTestStabilityList', data: json.tests });
+                setTestStabilityList(json.tests);
             } catch (error) {
                 dispatch({ type: 'setErrorState', errorState: error });
             }
@@ -78,15 +79,16 @@ const DashboardList = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {testStabilityList.map(test => {
-                        return (
-                            <tr key={test.test_id}>
-                                <BreakWordTd>{test.test_name}</BreakWordTd>
-                                <td>{test.test_id}</td>
-                                <td>{test.instability.toFixed(2)}</td>
-                            </tr>
-                        );
-                    })}
+                    {testStabilityList &&
+                        testStabilityList.map(test => {
+                            return (
+                                <tr key={test.test_id}>
+                                    <BreakWordTd>{test.test_name}</BreakWordTd>
+                                    <td>{test.test_id}</td>
+                                    <td>{test.instability.toFixed(2)}</td>
+                                </tr>
+                            );
+                        })}
                 </tbody>
             </SimpleTable>
         </TableContainer>

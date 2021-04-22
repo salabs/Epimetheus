@@ -7,7 +7,6 @@ const initialState = {
     errorState: null,
     amountOfBuilds: 5,
     offset: 0,
-    amountFilteredData: null,
     lastRunFilterFail: {
         isChecked: false,
         filterType: '',
@@ -26,9 +25,6 @@ const initialState = {
     branchesState: null,
     selectedBranchState: { name: 'All builds', id: 1 },
     metadataState: [],
-    testStabilityList: [],
-    failureList: [],
-    keywordAnalysisList: [],
     selectedSuiteState: null,
     stabilityChecker: 'unstable',
     parentData: {
