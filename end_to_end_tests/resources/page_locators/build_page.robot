@@ -1,6 +1,6 @@
 ***Variables***
-${fail_checkbox_locator}    xpath://*[@id="last-run-checkbox-container"]/label[1]/span
-${pass_checkbox_locator}    xpath://*[@id="last-run-checkbox-container"]/label[2]/span
+${fail_checkbox_locator}    xpath://*[@id="last-run-checkbox-container"]/label[2]
+${pass_checkbox_locator}    xpath://*[@id="last-run-checkbox-container"]/label[1]
 ${table_locator}            xpath://*[@id="last-run-table"]/tbody
 ${table_row_locator}        xpath://*[@id="last-run-table"]/tbody/tr
 

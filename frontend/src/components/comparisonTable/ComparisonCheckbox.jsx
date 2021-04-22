@@ -1,16 +1,13 @@
 import React, { useState } from 'react';
 import { useStateValue } from '../../contexts/state';
-import {
-    StyledInput,
-    StyledLabel,
-} from '../testFilters/LastRunCheckbox.styles';
-import { ReactComponent as Checked } from '../../images/checked.svg';
-import { ReactComponent as Unchecked } from '../../images/unchecked.svg';
+import Checkbox from '../checkbox/Checkbox';
 import { CheckboxContainer } from './ComparisonCheckbox.styles';
 
-const Checkbox = () => {
-    // eslint-disable-next-line
-    const [{ compareFilterMatch, compareFilterMismatch }, dispatch] = useStateValue();
+const ComparisonCheckbox = () => {
+    const [
+        { compareFilterMatch, compareFilterMismatch },
+        dispatch,
+    ] = useStateValue();
     const [mismatchFilter, setMismatchFilter] = useState(
         compareFilterMatch.isChecked
     );
@@ -39,31 +36,21 @@ const Checkbox = () => {
     };
 
     return (
-        <CheckboxContainer id="last-run-checkbox-container">
-            <StyledLabel labelfor="filterMatch">
-                <StyledInput
-                    type="checkbox"
-                    name="filterMatch"
-                    value="match"
-                    checked={matchFilter}
-                    onChange={e => handleMatchFilterChange(e)}
-                />
-                <span>{matchFilter ? <Checked /> : <Unchecked />}</span>
-                Hide Matching tests
-            </StyledLabel>
-            <StyledLabel labelfor="filterMismatch">
-                <StyledInput
-                    type="checkbox"
-                    name="filterMismatch"
-                    value="mismatch"
-                    checked={mismatchFilter}
-                    onChange={e => handleMismatchFilterChange(e)}
-                />
-                <span>{mismatchFilter ? <Checked /> : <Unchecked />}</span>
-                Hide Mismatched tests
-            </StyledLabel>
+        <CheckboxContainer id="build-comparison-checkbox-filter">
+            <Checkbox
+                checked={matchFilter}
+                onChange={e => handleMatchFilterChange(e)}
+                value="match"
+                label="Hide Matching tests"
+            />
+            <Checkbox
+                checked={mismatchFilter}
+                onChange={e => handleMismatchFilterChange(e)}
+                value="mismatch"
+                label="Hide Mismatched tests"
+            />
         </CheckboxContainer>
     );
 };
 
-export default Checkbox;
+export default ComparisonCheckbox;

@@ -9,15 +9,4 @@ export const CheckboxContainer = styled.div`
     line-height: 30px;
     padding: 0 var(--space-8);
     margin-bottom: var(--space-24);
-
-    span {
-        padding-right: var(--space-8);
-        position: relative;
-        top: -1px;
-
-        svg {
-            position: relative;
-            top: -1px;
-        }
-    }
 `;

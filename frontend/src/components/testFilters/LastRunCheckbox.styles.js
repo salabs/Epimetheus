@@ -22,35 +22,4 @@ export const StyledDiv = styled.div`
     @media only screen and (max-width: 768px) {
         width: 30%;
     }
-
-    span {
-        padding-right: var(--space-8);
-        position: relative;
-        top: -1px;
-
-        svg {
-            position: relative;
-            top: -1px;
-        }
-    }
-`;
-
-export const StyledLabel = styled.label`
-    margin-right: 20px;
-    display: block;
-    position: relative;
-`;
-
-export const StyledInput = styled.input`
-    appearance: none;
-    opacity: 0;
-    position: absolute;
-    top: 6px;
-    height: var(--space-16);
-    width: var(--space-16);
-    border-radius: 2px;
-
-    &:focus {
-        opacity: 1;
-    }
 `;
