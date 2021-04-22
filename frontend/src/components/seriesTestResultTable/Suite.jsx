@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { dashify } from '../../utils/helpers';
 import SuiteName from './SuiteName';
 import TestStatus from './TestStatus';
@@ -29,6 +30,15 @@ const Suite = ({
             />
         </SuiteRow>
     );
+};
+
+Suite.propTypes = {
+    builds: PropTypes.array.isRequired,
+    test_case: PropTypes.string.isRequired,
+    suite: PropTypes.string.isRequired,
+    index: PropTypes.number.isRequired,
+    text_cases: PropTypes.string,
+    max_build_num: PropTypes.number.isRequired,
 };
 
 export default Suite;

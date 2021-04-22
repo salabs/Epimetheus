@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useStateValue } from '../../contexts/state';
 import { StyledLink, BuildNumberCell } from './Heading.styles';
 import { colorTypes } from '../../utils/colorTypes';
@@ -62,4 +63,8 @@ export const Heading = ({ max_build_num }) => {
             </tr>
         </thead>
     );
+};
+
+Heading.propTypes = {
+    max_build_num: PropTypes.number.isRequired,
 };
