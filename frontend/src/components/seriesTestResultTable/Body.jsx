@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
 import { useStateValue } from '../../contexts/state';
 import Suite from './Suite';
 import { useQueryParams } from '../../hooks/useQuery';
@@ -43,6 +44,22 @@ const Body = ({ history, max_build_num }) => {
         }
     );
     return <tbody>{tableBody}</tbody>;
+};
+
+Body.propTypes = {
+    max_build_num: PropTypes.number.isRequired,
+    history: PropTypes.arrayOf(
+        PropTypes.shape({
+            full_name: PropTypes.string,
+            id: PropTypes.number,
+            name: PropTypes.string,
+            repository: PropTypes.string,
+            suite: PropTypes.string,
+            suite_full_name: PropTypes.string,
+            suide_id: PropTypes.number,
+            test_cases: PropTypes.array,
+        }).isRequired
+    ),
 };
 
 export default Body;
