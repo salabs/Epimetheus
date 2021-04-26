@@ -1525,41 +1525,44 @@ class TestcaseKeywordHandler(BaseHandler):
                             items:
                                 $ref: '#/definitions/BuildKeywordAnalysisObjectModel'
         """
-        testcase_fingerprints = yield coroutine_query(self.database.keyword_tree_with_test_id, series, build_number, test_run)
-        log_messages = yield coroutine_query(self.database.test_case_log_messages_with_build, series, build_number, test_run)
-        setup_fingerprint=(testcase_fingerprints[0]['setup_fingerprint'])
-        execution_fingerprint=(testcase_fingerprints[0]['execution_fingerprint'])
-        teardown_fingerprint=(testcase_fingerprints[0]['teardown_fingerprint'])
-        keyword_array = {'setup': None, 'execution': None, 'teardown': None}
-        if setup_fingerprint:
-            keyword_array['setup'] = yield self.keyword_tree(setup_fingerprint.lower())
-        if execution_fingerprint:
-            keyword_array['execution'] = yield self.keyword_tree(execution_fingerprint.lower())
-        if teardown_fingerprint:
-            keyword_array['teardown'] = yield self.keyword_tree(teardown_fingerprint.lower())
+        try:
+            testcase_fingerprints = yield coroutine_query(self.database.keyword_tree_with_test_id, series, build_number, test_run)
+            log_messages = yield coroutine_query(self.database.test_case_log_messages_with_build, series, build_number, test_run)
+            setup_fingerprint=(testcase_fingerprints[0]['setup_fingerprint'])
+            execution_fingerprint=(testcase_fingerprints[0]['execution_fingerprint'])
+            teardown_fingerprint=(testcase_fingerprints[0]['teardown_fingerprint'])
+            keyword_array = {'setup': None, 'execution': None, 'teardown': None}
+            if setup_fingerprint:
+                keyword_array['setup'] = yield self.keyword_tree(setup_fingerprint.lower())
+            if execution_fingerprint:
+                keyword_array['execution'] = yield self.keyword_tree(execution_fingerprint.lower())
+            if teardown_fingerprint:
+                keyword_array['teardown'] = yield self.keyword_tree(teardown_fingerprint.lower())
 
-        amount_of_setup= 1 if setup_fingerprint else 0
-        amount_of_execution=int(keyword_array['execution']['keyword_amount'])
-        for log in log_messages:
-            parsed_execution_path = (self.parse_execution_path(log['execution_path']))
-            if(int(parsed_execution_path[0]) <= amount_of_setup):
-                if(len(parsed_execution_path) == 1):
-                    keyword_array['setup']['log_messages'].append(log['message'])
+            amount_of_setup= 1 if setup_fingerprint else 0
+            amount_of_execution=int(keyword_array['execution']['keyword_amount'])
+            for log in log_messages:
+                parsed_execution_path = (self.parse_execution_path(log['execution_path']))
+                if(int(parsed_execution_path[0]) <= amount_of_setup):
+                    if(len(parsed_execution_path) == 1):
+                        keyword_array['setup']['log_messages'].append(log['message'])
+                    else:
+                        self.set_log(keyword_array['setup'], parsed_execution_path, log, 'setup')
+                elif(int(parsed_execution_path[0]) <= (amount_of_setup + amount_of_execution)):
+                    if amount_of_setup is 1:
+                        self.set_log(keyword_array['execution'], parsed_execution_path, log, 'execution')
+                    else:
+                        self.set_log(keyword_array['execution'], parsed_execution_path, log, 'execution_no_setup')
                 else:
-                    self.set_log(keyword_array['setup'], parsed_execution_path, log, 'setup')
-            elif(int(parsed_execution_path[0]) <= (amount_of_setup + amount_of_execution)):
-                if amount_of_setup is 1:
-                    self.set_log(keyword_array['execution'], parsed_execution_path, log, 'execution')
-                else:
-                    self.set_log(keyword_array['execution'], parsed_execution_path, log, 'execution_no_setup')
-            else:
-                if(len(parsed_execution_path) == 1):
-                    keyword_array['teardown']['log_messages'].append(log['message'])
-                else:
-                    self.set_log(keyword_array['teardown'], parsed_execution_path, log, 'teardown')
+                    if(len(parsed_execution_path) == 1):
+                        keyword_array['teardown']['log_messages'].append(log['message'])
+                    else:
+                        self.set_log(keyword_array['teardown'], parsed_execution_path, log, 'teardown')
 
-        self.write({'keywords': keyword_array})
-   
+            self.write({'keywords': keyword_array})
+        except IndexError:
+            self.send_not_found_response()
+
     def set_log(self, tree, path, log, state):
         if state == 'setup' or state =='teardown':
             path=path[1:]
