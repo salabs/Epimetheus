@@ -339,7 +339,6 @@ class Application(tornado.web.Application):
                 r"/data/keyword_tree/(?P<fingerprint>[0-9a-fA-F]{40})/?$", KeywordTreeDataHandler),
             url(
                 r"/data/testcase_keywords/(?P<series>[0-9]+)/builds/(?P<build_number>[0-9]+)/test_cases/(?P<test_run>[0-9]+)", TestcaseKeywordHandler),
-            
             # url(r"/data/history/?$", OldHistoryDataHandler), # Depricated see HistoryDataHandler
             # url(r"/data/metadata/?$", OldMetaDataHandler), # Depricated see MetaDataHandler
 
@@ -1549,7 +1548,7 @@ class TestcaseKeywordHandler(BaseHandler):
                     else:
                         self.set_log(keyword_array['setup'], parsed_execution_path, log, 'setup')
                 elif(int(parsed_execution_path[0]) <= (amount_of_setup + amount_of_execution)):
-                    if amount_of_setup is 1:
+                    if amount_of_setup == 1:
                         self.set_log(keyword_array['execution'], parsed_execution_path, log, 'execution')
                     else:
                         self.set_log(keyword_array['execution'], parsed_execution_path, log, 'execution_no_setup')
