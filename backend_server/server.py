@@ -429,7 +429,6 @@ class BaseHandler(tornado.web.RequestHandler):
         if keyword_tree:
             keyword_tree['children'] = []
             keyword_tree = yield self.child_trees(keyword_tree)
-            keyword_tree['keyword_amount'] = len(keyword_tree['children']) + (1 if keyword_tree['keyword'] else 0)
             keyword_tree['log_messages'] = []
             return keyword_tree
         return None
@@ -1540,7 +1539,8 @@ class TestcaseKeywordHandler(BaseHandler):
                 keyword_array['teardown'] = yield self.keyword_tree(teardown_fingerprint.lower())
 
             amount_of_setup= 1 if setup_fingerprint else 0
-            amount_of_execution=int(keyword_array['execution']['keyword_amount'])
+            amount_of_execution=int(len(keyword_array['execution']['children']))
+
             for log in log_messages:
                 parsed_execution_path = (self.parse_execution_path(log['execution_path']))
                 if(int(parsed_execution_path[0]) <= amount_of_setup):
