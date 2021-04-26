@@ -104,6 +104,10 @@ class Database:
         sql = sql_queries.log_messages(test_run_id, test_id=test_case)
         return self.session.query(sql), list_of_dicts
 
+    def test_case_log_messages_with_build(self, series, build_number, test_case):
+        sql = sql_queries.log_messages_with_build(series, build_number, test_id=test_case)
+        return self.session.query(sql), list_of_dicts
+
     def keyword_tree(self, fingerprint):
         sql = "SELECT * FROM keyword_tree WHERE fingerprint=%(fingerprint)s"
         return self.session.query(sql, {'fingerprint': fingerprint}), single_dict
@@ -114,6 +118,8 @@ class Database:
     def keyword_analysis(self, test_series, build_number):
         return self.session.query(sql_queries.keyword_analysis(test_series, build_number)), list_of_dicts
 
+    def keyword_tree_with_test_id(self, series, build_number, test_run):
+        return self.session.query(sql_queries.fingerprints_with_id(series, build_number, test_run)), list_of_dicts
 
 def list_of_dicts(rows):
     results = []
