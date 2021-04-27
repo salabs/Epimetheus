@@ -114,7 +114,8 @@ const Offset = () => {
                     aria-label="<"
                     className={`left${leftDisabled}`}
                 >
-                    <SvgIcon svg="chevron-left" alt="<" />
+                    <SvgIcon svg="chevron-left" />
+                    <p className="sr-show">{'<'}</p>
                 </DefaultButton>
                 <StyledInput
                     type="number"
@@ -129,7 +130,8 @@ const Offset = () => {
                     aria-label=">"
                     className={`right${rightDisabled}`}
                 >
-                    <SvgIcon svg="chevron-right" alt=">" />
+                    <SvgIcon svg="chevron-right" />
+                    <p className="sr-show">{'>'}</p>
                 </DefaultButton>
             </FlexDiv>
         </div>

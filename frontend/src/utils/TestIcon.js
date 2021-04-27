@@ -24,7 +24,9 @@ export const pickIcon = (test_status, key) => {
         case 'PASS':
             result = (
                 <>
-                    <SvgIcon svg="success" aria-hidden="true" />
+                    <span aria-hidden="true">
+                        <SvgIcon svg="success" />
+                    </span>
                     <span className="sr-show">Status: Pass</span>
                 </>
             );
@@ -32,7 +34,9 @@ export const pickIcon = (test_status, key) => {
         case 'FAIL':
             result = (
                 <>
-                    <SvgIcon svg="fail" aria-hidden="true" name="Fail" />
+                    <span aria-hidden="true">
+                        <SvgIcon svg="fail" name="Fail" />
+                    </span>
                     <span className="sr-show">Status: Fail</span>
                 </>
             );
@@ -40,7 +44,9 @@ export const pickIcon = (test_status, key) => {
         case 'SKIPPED':
             result = (
                 <>
-                    <SvgIcon svg="skip" aria-hidden="true" />
+                    <span aria-hidden="true">
+                        <SvgIcon svg="skip" />
+                    </span>
                     <span className="sr-show">Status: Skipped</span>
                 </>
             );
@@ -48,7 +54,9 @@ export const pickIcon = (test_status, key) => {
         case 'EMPTY':
             result = (
                 <>
-                    <SvgIcon svg="not-found" aria-hidden="true" />
+                    <span aria-hidden="true">
+                        <SvgIcon svg="not-found" />
+                    </span>
                     <span className="sr-show">Status: Empty</span>
                 </>
             );

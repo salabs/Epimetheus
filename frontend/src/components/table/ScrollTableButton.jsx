@@ -14,11 +14,11 @@ const ScrollTableButton = props => {
             >
                 <SvgIcon
                     svg="chevron-left"
-                    width="18"
-                    height="30"
+                    width={18}
+                    height={30}
                     viewBox="0 0 9 16"
-                    alt="<"
                 />
+                <p className="sr-show">{'<'}</p>
             </ScrollButton>
 
             <ScrollButton
@@ -28,11 +28,11 @@ const ScrollTableButton = props => {
             >
                 <SvgIcon
                     svg="chevron-right"
-                    width="18"
-                    height="30"
+                    width={18}
+                    height={30}
                     viewBox="0 0 9 16"
-                    alt=">"
                 />
+                <p className="sr-show">{'>'}</p>
             </ScrollButton>
         </>
     );

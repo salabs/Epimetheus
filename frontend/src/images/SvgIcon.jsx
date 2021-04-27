@@ -1,10 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
 import { colorTypes } from '../utils/colorTypes';
 
 const SvgIcon = ({ svg, width, height, viewBox, id }) => {
     const uniqueId = uuidv4();
     const svgMap = new Map();
+
+    // a back-up in case the 'svg' parameter is not given
+    if (svg === undefined) {
+        svg = 'default';
+    }
 
     svgMap
         .set('caret-down', {
@@ -193,6 +199,14 @@ const SvgIcon = ({ svg, width, height, viewBox, id }) => {
             </defs>
         </svg>
     );
+};
+
+SvgIcon.propTypes = {
+    svg: PropTypes.string.isRequired,
+    width: PropTypes.number,
+    height: PropTypes.number,
+    viewBox: PropTypes.string,
+    id: PropTypes.string,
 };
 
 export default SvgIcon;

@@ -64,8 +64,8 @@ const Frontpage = () => {
                             {' '}
                             <SvgIcon
                                 svg="success"
-                                width="150"
-                                height="35"
+                                width={150}
+                                height={35}
                                 viewBox="0 0 20 25"
                             />
                             <span>{t('section.icons.pass')}</span>
@@ -73,8 +73,8 @@ const Frontpage = () => {
                         <div>
                             <SvgIcon
                                 svg="fail"
-                                width="150"
-                                height="35"
+                                width={150}
+                                height={35}
                                 viewBox="0 0 20 25"
                             />
                             <span>{t('section.icons.fail')}</span>
@@ -82,8 +82,8 @@ const Frontpage = () => {
                         <div>
                             <SvgIcon
                                 svg="skip"
-                                width="150"
-                                height="35"
+                                width={150}
+                                height={35}
                                 viewBox="0 0 20 25"
                             />
                             <span>{t('section.icons.skipped')}</span>
@@ -91,8 +91,8 @@ const Frontpage = () => {
                         <div>
                             <SvgIcon
                                 svg="not-found"
-                                width="150"
-                                height="35"
+                                width={150}
+                                height={35}
                                 viewBox="0 0 20 25"
                             />
                             <span>{t('section.icons.not_found')}</span>
