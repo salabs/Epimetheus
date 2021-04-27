@@ -1,9 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { ReactComponent as Pass } from '../images/success.svg';
-import { ReactComponent as Fail } from '../images/fail.svg';
-import { ReactComponent as Skipped } from '../images/skip.svg';
-import { ReactComponent as NotFound } from '../images/not-found.svg';
+import SvgIcon from '../images/SvgIcon';
 import { IconsContainer } from './Frontpage.styles';
 import { ContentGrid6, ContainerGrid12 } from '../styles/baseComponents';
 
@@ -65,15 +62,26 @@ const Frontpage = () => {
                     <IconsContainer>
                         <div>
                             {' '}
-                            <Pass width="150" height="35" viewBox="0 0 20 25" />
+                            <SvgIcon
+                                svg="success"
+                                width="150"
+                                height="35"
+                                viewBox="0 0 20 25"
+                            />
                             <span>{t('section.icons.pass')}</span>
                         </div>
                         <div>
-                            <Fail width="150" height="35" viewBox="0 0 20 25" />
+                            <SvgIcon
+                                svg="fail"
+                                width="150"
+                                height="35"
+                                viewBox="0 0 20 25"
+                            />
                             <span>{t('section.icons.fail')}</span>
                         </div>
                         <div>
-                            <Skipped
+                            <SvgIcon
+                                svg="skip"
                                 width="150"
                                 height="35"
                                 viewBox="0 0 20 25"
@@ -81,7 +89,8 @@ const Frontpage = () => {
                             <span>{t('section.icons.skipped')}</span>
                         </div>
                         <div>
-                            <NotFound
+                            <SvgIcon
+                                svg="not-found"
                                 width="150"
                                 height="35"
                                 viewBox="0 0 20 25"

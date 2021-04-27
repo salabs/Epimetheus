@@ -1,6 +1,6 @@
 ﻿import React from 'react';
 import SuiteLogMessage from './SuiteLogMessage';
-import { ReactComponent as Fail } from '../../images/fail-white.svg';
+import SvgIcon from '../../images/SvgIcon';
 import { LogRow, InfoLevel } from './LogMessagesTable.styles';
 import { Table } from '../table/Table';
 
@@ -24,7 +24,7 @@ const LogMessagesTable = ({ test }) => {
                                         {log_level}
                                         {log_level === 'FAIL' ? (
                                             <span>
-                                                <Fail />
+                                                <SvgIcon svg="fail-white" />
                                             </span>
                                         ) : (
                                             ''

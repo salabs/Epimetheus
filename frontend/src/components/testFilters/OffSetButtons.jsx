@@ -3,14 +3,11 @@ import React, { useState, useEffect } from 'react';
 import { useStateValue } from '../../contexts/state';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useQueryParams } from '../../hooks/useQuery';
+import SvgIcon from '../../images/SvgIcon';
 
 import { StyledInput, FlexDiv, Heading } from './OffSetButtons.styles';
 
 import { DefaultButton } from '../../styles/button.styles';
-
-import { ReactComponent as Left } from '../../images/chevron-left.svg';
-import { ReactComponent as Right } from '../../images/chevron-right.svg';
-import { ReactComponent as EndLeft } from '../../images/chevron-verticalbar-left.svg';
 
 const Offset = () => {
     const history = useHistory();
@@ -107,7 +104,8 @@ const Offset = () => {
                     onClick={handleLatestButtonPress}
                     id="latest_offset_button"
                 >
-                    <EndLeft /> <span>LATEST</span>
+                    <SvgIcon svg="chevron-verticalbar-left" />{' '}
+                    <span>LATEST</span>
                 </DefaultButton>
                 <DefaultButton
                     onClick={() => handleDirectionButtonPress('left')}
@@ -116,7 +114,7 @@ const Offset = () => {
                     aria-label="<"
                     className={`left${leftDisabled}`}
                 >
-                    <Left alt="<" />
+                    <SvgIcon svg="chevron-left" alt="<" />
                 </DefaultButton>
                 <StyledInput
                     type="number"
@@ -131,7 +129,7 @@ const Offset = () => {
                     aria-label=">"
                     className={`right${rightDisabled}`}
                 >
-                    <Right src={Right} alt=">" />
+                    <SvgIcon svg="chevron-right" alt=">" />
                 </DefaultButton>
             </FlexDiv>
         </div>
