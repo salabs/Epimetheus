@@ -59,7 +59,7 @@ const SvgIcon = ({ svg, width, height, viewBox, id }) => {
         .set('chevron-up', {
             d:
                 'M11.864 7.353a.46.46 0 01-.15.109.431.431 0 01-.503-.109L6 1.708.789 7.353a.461.461 0 01-.15.109.432.432 0 01-.504-.109A.505.505 0 010 7a.537.537 0 01.135-.354L5.673.647a.461.461 0 01.15-.109.43.43 0 01.504.109l5.537 5.998A.505.505 0 0112 7a.538.538 0 01-.136.354z',
-            fill: '#7B756F',
+            fill: colorTypes['evidence grey'],
             width: 12,
             height: 8,
         })
@@ -82,7 +82,7 @@ const SvgIcon = ({ svg, width, height, viewBox, id }) => {
         .set('collection-closed', {
             d:
                 'M14.5 13.5h-13A.5.5 0 011 13V6a.5.5 0 01.5-.5h13a.5.5 0 01.5.5v7a.5.5 0 01-.5.5zm-13 1A1.5 1.5 0 010 13V6a1.5 1.5 0 011.5-1.5h13A1.5 1.5 0 0116 6v7a1.5 1.5 0 01-1.5 1.5h-13zM2 3a.5.5 0 00.5.5h11a.5.5 0 000-1h-11A.5.5 0 002 3zm2-2a.5.5 0 00.5.5h7a.5.5 0 000-1h-7A.5.5 0 004 1z',
-            fill: colorTypes['evidence grey'],
+            fill: colorTypes['titan green'],
             width: 16,
             height: 16,
         })
