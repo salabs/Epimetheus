@@ -338,7 +338,7 @@ class Application(tornado.web.Application):
             url(
                 r"/data/keyword_tree/(?P<fingerprint>[0-9a-fA-F]{40})/?$", KeywordTreeDataHandler),
             url(
-                r"/data/testcase_keywords/(?P<series>[0-9]+)/builds/(?P<build_number>[0-9]+)/test_id/(?P<test_id>[0-9]+)", TestcaseKeywordHandler),
+                r"/data/testcase_keywords/series/(?P<series>[0-9]+)/builds/(?P<build_number>[0-9]+)/test_id/(?P<test_id>[0-9]+)", TestcaseKeywordHandler),
             url(
                 r"/data/testcase_keywords/test_run_id/(?P<test_run_id>[0-9]+)/test_id/(?P<test_id>[0-9]+)", TestcaseKeywordHandlerWithRun),
 
@@ -1599,7 +1599,7 @@ class TestcaseKeywordHandlerWithRun(KeywordLogHandler):
         """
         ---
         tags:
-        - Test Case Keywords With Run
+        - Test Case Keywords
         summary: Keywords of Test Cases With Test Run ID
         description: List of keywords within a Test Case Setup, Execution, Teardown and their logs, in the order of execution
         produces:
@@ -1607,7 +1607,7 @@ class TestcaseKeywordHandlerWithRun(KeywordLogHandler):
         parameters:
         -   name: test_run_id
             in: path
-            description: series id
+            description: test run id
             required: true
             type: integer
         -   name: test_id
