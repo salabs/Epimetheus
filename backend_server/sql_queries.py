@@ -533,12 +533,22 @@ GROUP BY tree.library, tree.keyword,  total_elapsed.total
 ORDER BY total DESC
 """.format(test_run_ids=test_run_ids(series, build_num=build_number))
 
-def fingerprints_with_id(series, build_number,test_run):
+def fingerprints_with_run_and_id(test_run_id, test_id):
+    return """
+SELECT setup_fingerprint, execution_fingerprint, 
+       teardown_fingerprint, test_id, 
+       test_run_id, execution_path 
+FROM test_result 
+WHERE test_id={test_id} and test_run_id={test_run_id}
+""".format(test_id=test_id,
+           test_run_id= test_run_id)
+
+def fingerprints_with_id(series, build_number,test_id):
     return """
 SELECT setup_fingerprint, execution_fingerprint, 
        teardown_fingerprint, test_id, 
        test_run_id, execution_path 
 FROM test_result 
 WHERE test_id={test_id} and test_run_id IN ({test_run_ids})
-""".format(test_id=test_run,
+""".format(test_id=test_id,
            test_run_ids=test_run_ids(series, build_num=build_number))

@@ -338,7 +338,10 @@ class Application(tornado.web.Application):
             url(
                 r"/data/keyword_tree/(?P<fingerprint>[0-9a-fA-F]{40})/?$", KeywordTreeDataHandler),
             url(
-                r"/data/testcase_keywords/(?P<series>[0-9]+)/builds/(?P<build_number>[0-9]+)/test_cases/(?P<test_run>[0-9]+)", TestcaseKeywordHandler),
+                r"/data/testcase_keywords/(?P<series>[0-9]+)/builds/(?P<build_number>[0-9]+)/test_id/(?P<test_id>[0-9]+)", TestcaseKeywordHandler),
+            url(
+                r"/data/testcase_keywords/test_run_id/(?P<test_run_id>[0-9]+)/test_id/(?P<test_id>[0-9]+)", TestcaseKeywordHandlerWithRun),
+
             # url(r"/data/history/?$", OldHistoryDataHandler), # Depricated see HistoryDataHandler
             # url(r"/data/metadata/?$", OldMetaDataHandler), # Depricated see MetaDataHandler
 
@@ -1485,9 +1488,68 @@ class KeywordAnalysisDataHandler(BaseHandler):
         statistics = yield coroutine_query(self.database.keyword_analysis, series, build_number)
         self.write({'statistics': statistics})
 
-class TestcaseKeywordHandler(BaseHandler):
+class KeywordLogHandler(BaseHandler):
+    def generate_keyword_array(self, testcase_fingerprints, log_messages):
+        keyword_array = {'setup': None, 'execution': None, 'teardown': None}
+
+        setup_fingerprint=(testcase_fingerprints[0]['setup_fingerprint'])
+        execution_fingerprint=(testcase_fingerprints[0]['execution_fingerprint'])
+        teardown_fingerprint=(testcase_fingerprints[0]['teardown_fingerprint'])
+        if setup_fingerprint:
+            keyword_array['setup'] = yield self.keyword_tree(setup_fingerprint.lower())
+        if execution_fingerprint:
+            keyword_array['execution'] = yield self.keyword_tree(execution_fingerprint.lower())
+        if teardown_fingerprint:
+            keyword_array['teardown'] = yield self.keyword_tree(teardown_fingerprint.lower())
+
+        amount_of_setup= 1 if not keyword_array['setup'] == None else 0
+        amount_of_execution=int(len(keyword_array['execution']['children']))
+
+        for log in log_messages:
+            parsed_execution_path = (self.parse_execution_path(log['execution_path']))
+            if(int(parsed_execution_path[0]) <= amount_of_setup):
+                if(len(parsed_execution_path) == 1):
+                    keyword_array['setup']['log_messages'].append(log['message'])
+                else:
+                    self.set_log(keyword_array['setup'], parsed_execution_path, log, 'setup')
+            elif(int(parsed_execution_path[0]) <= (amount_of_setup + amount_of_execution)):
+                if amount_of_setup == 1:
+                    self.set_log(keyword_array['execution'], parsed_execution_path, log, 'execution')
+                else:
+                    self.set_log(keyword_array['execution'], parsed_execution_path, log, 'execution_no_setup')
+            else:
+                if(len(parsed_execution_path) == 1):
+                    keyword_array['teardown']['log_messages'].append(log['message'])
+                else:
+                    self.set_log(keyword_array['teardown'], parsed_execution_path, log, 'teardown')
+
+        return keyword_array
+
+    @classmethod
+    def set_log(self, tree, path, log, state):
+        if state == 'setup' or state =='teardown':
+            path=path[1:]
+        else:
+            # If the state is only execution we assume there is a setup and fix indexes accordingly
+            if(state == 'execution'):
+                path[0]=(path[0]-1)
+        for number in path:
+            if(number-1 < 0):
+                tree=tree['children'][number]
+            else:
+                tree=tree['children'][(number-1)]
+        
+        tree['log_messages'].append(log['message'])
+
+    @classmethod
+    def parse_execution_path(self, execution_path):
+        remove_test_case = execution_path.split('-k')
+        test_cases_int = list(map(lambda x: int(x), remove_test_case[1:]))
+        return test_cases_int
+
+class TestcaseKeywordHandler(KeywordLogHandler):
     @tornado.gen.coroutine
-    def get(self, series, build_number, test_run):
+    def get(self, series, build_number, test_id):
         """
         ---
         tags:
@@ -1507,9 +1569,9 @@ class TestcaseKeywordHandler(BaseHandler):
             description: build number
             required: true
             type: integer
-        -   name: test_run
+        -   name: test_id
             in: path
-            description: test run
+            description: test id
             required: true
             type: integer
         responses:
@@ -1524,69 +1586,57 @@ class TestcaseKeywordHandler(BaseHandler):
                                 $ref: '#/definitions/BuildKeywordAnalysisObjectModel'
         """
         try:
-            testcase_fingerprints = yield coroutine_query(self.database.keyword_tree_with_test_id, series, build_number, test_run)
-            log_messages = yield coroutine_query(self.database.test_case_log_messages_with_build, series, build_number, test_run)
-            setup_fingerprint=(testcase_fingerprints[0]['setup_fingerprint'])
-            execution_fingerprint=(testcase_fingerprints[0]['execution_fingerprint'])
-            teardown_fingerprint=(testcase_fingerprints[0]['teardown_fingerprint'])
-            keyword_array = {'setup': None, 'execution': None, 'teardown': None}
-            if setup_fingerprint:
-                keyword_array['setup'] = yield self.keyword_tree(setup_fingerprint.lower())
-            if execution_fingerprint:
-                keyword_array['execution'] = yield self.keyword_tree(execution_fingerprint.lower())
-            if teardown_fingerprint:
-                keyword_array['teardown'] = yield self.keyword_tree(teardown_fingerprint.lower())
-
-            amount_of_setup= 1 if setup_fingerprint else 0
-            amount_of_execution=int(len(keyword_array['execution']['children']))
-
-            for log in log_messages:
-                parsed_execution_path = (self.parse_execution_path(log['execution_path']))
-                if(int(parsed_execution_path[0]) <= amount_of_setup):
-                    if(len(parsed_execution_path) == 1):
-                        keyword_array['setup']['log_messages'].append(log['message'])
-                    else:
-                        self.set_log(keyword_array['setup'], parsed_execution_path, log, 'setup')
-                elif(int(parsed_execution_path[0]) <= (amount_of_setup + amount_of_execution)):
-                    if amount_of_setup == 1:
-                        self.set_log(keyword_array['execution'], parsed_execution_path, log, 'execution')
-                    else:
-                        self.set_log(keyword_array['execution'], parsed_execution_path, log, 'execution_no_setup')
-                else:
-                    if(len(parsed_execution_path) == 1):
-                        keyword_array['teardown']['log_messages'].append(log['message'])
-                    else:
-                        self.set_log(keyword_array['teardown'], parsed_execution_path, log, 'teardown')
-
+            testcase_fingerprints = yield coroutine_query(self.database.keyword_tree_with_test_id, series, build_number, test_id)
+            log_messages = yield coroutine_query(self.database.test_case_log_messages_with_build, series, build_number, test_id)
+            keyword_array = yield from self.generate_keyword_array(testcase_fingerprints, log_messages)
             self.write({'keywords': keyword_array})
         except IndexError:
             self.send_not_found_response()
 
-    def set_log(self, tree, path, log, state):
-        if state == 'setup' or state =='teardown':
-            path=path[1:]
-        else:
-            # If the state is only execution we assume there is a setup and fix indexes accordingly
-            if(state == 'execution'):
-                path[0]=(path[0]-1)
-        for number in path:
-            if(number-1 < 0):
-                tree=tree['children'][number]
-            else:
-                tree=tree['children'][(number-1)]
-        
-        tree['log_messages'].append(log['message'])
-
-    def parse_execution_path(self, execution_path):
-        remove_test_case = execution_path.split('-k')
-        test_cases_int = list(map(lambda x: int(x), remove_test_case[1:]))
-        return test_cases_int
-
+class TestcaseKeywordHandlerWithRun(KeywordLogHandler):
+    @tornado.gen.coroutine
+    def get(self, test_run_id, test_id):
+        """
+        ---
+        tags:
+        - Test Case Keywords With Run
+        summary: Keywords of Test Cases With Test Run ID
+        description: List of keywords within a Test Case Setup, Execution, Teardown and their logs, in the order of execution
+        produces:
+        - application/json
+        parameters:
+        -   name: test_run_id
+            in: path
+            description: series id
+            required: true
+            type: integer
+        -   name: test_id
+            in: path
+            description: test id
+            required: true
+            type: integer
+        responses:
+            200:
+                description: List of keywords within a Test Case Setup, Execution, Teardown and their logs
+                schema:
+                    type: object
+                    properties:
+                        statistics:
+                            type: array
+                            items:
+                                $ref: '#/definitions/BuildKeywordAnalysisObjectModel'
+        """
+        try:
+            testcase_fingerprints = yield coroutine_query(self.database.keyword_tree_with_test_run_and_id, test_run_id, test_id)
+            log_messages = yield coroutine_query(self.database.test_case_log_messages, test_run_id, test_id)
+            keyword_array = yield from self.generate_keyword_array(testcase_fingerprints, log_messages)
+            self.write({'keywords': keyword_array})
+        except IndexError:
+            self.send_not_found_response()
+    
 class FooDataHandler(BaseHandler):
     def get(self):
         self.write({'suites': []})
-
-
 
 def main():
     parser = argparse.ArgumentParser(

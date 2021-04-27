@@ -118,8 +118,11 @@ class Database:
     def keyword_analysis(self, test_series, build_number):
         return self.session.query(sql_queries.keyword_analysis(test_series, build_number)), list_of_dicts
 
-    def keyword_tree_with_test_id(self, series, build_number, test_run):
-        return self.session.query(sql_queries.fingerprints_with_id(series, build_number, test_run)), list_of_dicts
+    def keyword_tree_with_test_id(self, series, build_number, test_id):
+        return self.session.query(sql_queries.fingerprints_with_id(series, build_number, test_id)), list_of_dicts
+
+    def keyword_tree_with_test_run_and_id(self, test_run_id, test_id):
+        return self.session.query(sql_queries.fingerprints_with_run_and_id(test_run_id, test_id)), list_of_dicts
 
 def list_of_dicts(rows):
     results = []
