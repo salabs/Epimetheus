@@ -3,12 +3,10 @@ import logger from 'use-reducer-logger';
 export const StateContext = createContext();
 
 const initialState = {
-    historyDataState: null,
     loadingState: false,
     errorState: null,
     amountOfBuilds: 5,
     offset: 0,
-    amountFilteredData: null,
     lastRunFilterFail: {
         isChecked: false,
         filterType: '',
@@ -27,10 +25,6 @@ const initialState = {
     branchesState: null,
     selectedBranchState: { name: 'All builds', id: 1 },
     metadataState: [],
-    testStabilityList: [],
-    failureList: [],
-    keywordAnalysisList: [],
-    selectedBuildState: {},
     selectedSuiteState: null,
     stabilityChecker: 'unstable',
     parentData: {

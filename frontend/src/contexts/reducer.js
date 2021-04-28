@@ -3,23 +3,12 @@ const reducer = (state, action) => {
         case 'updateCompared':
             return {
                 ...state,
-                comparedDataState: action.compareData
-            };
-
-        case 'updateHistory':
-            return {
-                ...state,
-                historyDataState: action.historyData,
+                comparedDataState: action.compareData,
             };
         case 'setAmountOfBuilds':
             return {
                 ...state,
                 amountOfBuilds: action.amountOfBuilds,
-            };
-        case 'setFailureList':
-            return {
-                ...state,
-                failureList: action.failures,
             };
         case 'setLoadingState':
             return {
@@ -76,16 +65,16 @@ const reducer = (state, action) => {
                 ...state,
                 compareFilterMatch: {
                     filterType: action.filterType,
-                    isChecked: action.isChecked
-                }
+                    isChecked: action.isChecked,
+                },
             };
         case 'setCompareMismatchFilter':
             return {
                 ...state,
                 compareFilterMismatch: {
                     filterType: action.filterType,
-                    isChecked: action.isChecked
-                }
+                    isChecked: action.isChecked,
+                },
             };
         case 'setBranches':
             return {
@@ -106,11 +95,6 @@ const reducer = (state, action) => {
                 ...state,
                 metadataState: action.metadata,
             };
-        case 'setSelectedBuild':
-            return {
-                ...state,
-                selectedBuildState: action.selectedBuild,
-            };
         case 'setTeams':
             return {
                 ...state,
@@ -120,17 +104,6 @@ const reducer = (state, action) => {
             return {
                 ...state,
                 selectedSuiteState: action.suite,
-            };
-
-        case 'setTestStabilityList':
-            return {
-                ...state,
-                testStabilityList: action.data,
-            };
-        case 'setKeywordAnalysisList':
-            return {
-                ...state,
-                keywordAnalysisList: action.data,
             };
         case 'setStabilityChecker':
             return {
@@ -157,11 +130,6 @@ const reducer = (state, action) => {
                     ...state.parentData,
                     buildData: action.buildData,
                 },
-            };
-        case 'flushHistory':
-            return {
-                ...state,
-                historyDataState: null,
             };
         case 'flushMetadata':
             return {

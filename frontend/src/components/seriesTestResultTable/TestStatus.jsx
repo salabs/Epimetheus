@@ -1,16 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useStateValue } from '../../contexts/state';
 import { pickIcon } from '../../utils/TestIcon';
 import { DefinedData } from './TestStatus.styles';
 import { addBgColor, removeBgColor } from './Heading';
 
-const TestStatus = ({ builds, position }) => {
-    const [
-        {
-            historyDataState: { max_build_num },
-            amountOfBuilds,
-        },
-    ] = useStateValue();
+const TestStatus = ({ builds, position, max_build_num }) => {
+    const [{ amountOfBuilds }] = useStateValue();
 
     // Creates correct length (amountOfBuilds) of array populated with empty values.
     // The array is used as a base in renderTestStatusRow function
@@ -61,6 +57,12 @@ const TestStatus = ({ builds, position }) => {
             </DefinedData>
         );
     });
+};
+
+TestStatus.propTypes = {
+    builds: PropTypes.array.isRequired,
+    position: PropTypes.number.isRequired,
+    max_build_num: PropTypes.number.isRequired,
 };
 
 export default TestStatus;

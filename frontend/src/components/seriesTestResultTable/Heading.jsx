@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useStateValue } from '../../contexts/state';
 import { StyledLink, BuildNumberCell } from './Heading.styles';
 import { colorTypes } from '../../utils/colorTypes';
@@ -25,15 +26,8 @@ export function removeBgColor(id) {
     }
 }
 
-export const Heading = () => {
-    const [
-        {
-            historyDataState: { max_build_num },
-            amountOfBuilds,
-            selectedBranchState,
-        },
-        dispatch,
-    ] = useStateValue();
+export const Heading = ({ max_build_num }) => {
+    const [{ amountOfBuilds, selectedBranchState }] = useStateValue();
     let { id } = selectedBranchState;
     let headingBuildNumbers = [];
     const LIMIT =
@@ -43,14 +37,6 @@ export const Heading = () => {
         headingBuildNumbers.push(i);
     }
 
-    const handleBuildClick = e => {
-        const selectedBuild = e.target.innerText.slice(6);
-        dispatch({
-            type: 'setSelectedBuild',
-            selectedBuild,
-        });
-    };
-
     // Use numeric sort to ensure correct build number ordering
     const buildNumbers = headingBuildNumbers
         .sort(compareNumbers)
@@ -58,7 +44,6 @@ export const Heading = () => {
         .map(buildNumber => (
             <BuildNumberCell
                 key={buildNumber}
-                onClick={e => handleBuildClick(e)}
                 onMouseEnter={() => addBgColor(`id-${buildNumber}`)}
                 onMouseLeave={() => removeBgColor(`id-${buildNumber}`)}
                 className={`id-${buildNumber}`}
@@ -78,4 +63,8 @@ export const Heading = () => {
             </tr>
         </thead>
     );
+};
+
+Heading.propTypes = {
+    max_build_num: PropTypes.number.isRequired,
 };
