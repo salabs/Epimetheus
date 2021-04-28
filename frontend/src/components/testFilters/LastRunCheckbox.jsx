@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-
 import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { useStateValue } from '../../contexts/state';
 import { useQueryParams } from '../../hooks/useQuery';
@@ -89,6 +89,10 @@ const LastRunCheckbox = ({ direction }) => {
             </StyledDiv>
         </div>
     );
+};
+
+LastRunCheckbox.propTypes = {
+    direction: PropTypes.string.isRequired,
 };
 
 export default LastRunCheckbox;

@@ -1,11 +1,10 @@
 ﻿import React from 'react';
+import PropTypes from 'prop-types';
 import * as R from 'ramda';
 import { compareTypes } from '../../utils/parentDataTypes';
 import { Table } from '../table/Table';
 
-const ParentTable = props => {
-    const { data, types } = props;
-
+const ParentTable = ({ data, types }) => {
     const headerRow = () => {
         return types.map(name => {
             return <th key={name}>{name}</th>;
@@ -45,6 +44,26 @@ const ParentTable = props => {
             )}
         </React.Fragment>
     );
+};
+
+ParentTable.propTypes = {
+    data: PropTypes.shape({
+        archiving_time: PropTypes.string,
+        build_id: PropTypes.string,
+        build_id2: PropTypes.string,
+        build_number: PropTypes.number,
+        build_number2: PropTypes.number,
+        generation_time: PropTypes.string,
+        name: PropTypes.string,
+        name2: PropTypes.string,
+        start_time: PropTypes.string,
+        start_time2: PropTypes.string,
+        status: PropTypes.string,
+        team: PropTypes.string,
+        team2: PropTypes.string,
+        test_runs: PropTypes.array,
+    }), // is actually required, but gives an error on the first time due to 'data' being undefined
+    types: PropTypes.array.isRequired,
 };
 
 export default ParentTable;

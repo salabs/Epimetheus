@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import { CardHeading } from './TeamCard.styles';
 import { CardSection, InfoContainer, StatusSpan } from './card.styles';
@@ -15,6 +16,11 @@ const TeamCard = ({ team, numberOfSeries }) => {
             </InfoContainer>
         </CardSection>
     );
+};
+
+TeamCard.propTypes = {
+    team: PropTypes.string.isRequired,
+    numberOfSeries: PropTypes.number.isRequired,
 };
 
 export default TeamCard;

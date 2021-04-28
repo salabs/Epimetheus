@@ -26,8 +26,10 @@ const SeriesTestResultTable = ({ seriesHistory }) => {
 };
 
 SeriesTestResultTable.propTypes = {
-    max_build_num: PropTypes.number,
-    history: historyPropType,
+    seriesHistory: PropTypes.shape({
+        max_build_num: PropTypes.number,
+        history: historyPropType,
+    }).isRequired,
 };
 
 export default SeriesTestResultTable;

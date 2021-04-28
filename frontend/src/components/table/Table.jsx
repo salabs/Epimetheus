@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import {
     OverflowWrapper,
     SimpleTable,
@@ -7,8 +8,7 @@ import {
 } from './Table.styles';
 import ScrollTableButton from './ScrollTableButton';
 
-export const Table = props => {
-    const { tableId, simpleTable } = props;
+export const Table = ({ tableId, simpleTable, children }) => {
     const ref = React.createRef();
 
     const [canScrollLeft, setCanScrollLeft] = useState(false);
@@ -95,13 +95,17 @@ export const Table = props => {
             />
             <OverflowWrapper ref={ref}>
                 {simpleTable ? (
-                    <SimpleTable id={tableId}>{props.children}</SimpleTable>
+                    <SimpleTable id={tableId}>{children}</SimpleTable>
                 ) : (
-                    <SpreadSheetTable id={tableId}>
-                        {props.children}
-                    </SpreadSheetTable>
+                    <SpreadSheetTable id={tableId}>{children}</SpreadSheetTable>
                 )}
             </OverflowWrapper>
         </TableWrapper>
     );
+};
+
+Table.propTypes = {
+    tableId: PropTypes.string.isRequired,
+    simpleTable: PropTypes.bool,
+    children: PropTypes.node.isRequired,
 };

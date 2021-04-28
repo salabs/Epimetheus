@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { pickIcon } from '../../utils/TestIcon';
 import { useTranslation } from 'react-i18next';
 import { CardValue, CardSubTitle, CardTitle } from './SeriesCard.styles';
@@ -60,6 +61,18 @@ const SeriesCard = ({ data }) => {
             </div>
         </CardSection>
     );
+};
+
+SeriesCard.propTypes = {
+    data: PropTypes.shape({
+        id: PropTypes.number,
+        name: PropTypes.string,
+        builds: PropTypes.number,
+        last_build: PropTypes.number,
+        last_build_id: PropTypes.string,
+        last_started: PropTypes.string,
+        last_status: PropTypes.string,
+    }).isRequired,
 };
 
 export default SeriesCard;

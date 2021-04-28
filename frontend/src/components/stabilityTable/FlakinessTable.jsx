@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { useParams } from 'react-router';
 import { useStateValue } from '../../contexts/state';
 import { useTranslation } from 'react-i18next';
@@ -93,6 +94,11 @@ const DashboardList = () => {
             </SimpleTable>
         </TableContainer>
     );
+};
+
+StabilityButton.propTypes = {
+    value: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
 };
 
 export default DashboardList;

@@ -9,9 +9,7 @@ import {
     StatusSpan,
 } from './ParentTable.styles';
 
-const ParentTable = props => {
-    const { data, types } = props;
-
+const ParentTable = ({ data, types }) => {
     const cleansedData = data && pick(types, data);
 
     const showData = () => {
@@ -46,7 +44,17 @@ const ParentTable = props => {
 };
 
 ParentTable.propTypes = {
-    data: PropTypes.object,
+    data: PropTypes.shape({
+        archiving_time: PropTypes.string,
+        build_id: PropTypes.string,
+        build_number: PropTypes.number,
+        generation_time: PropTypes.string,
+        name: PropTypes.string,
+        start_time: PropTypes.string,
+        status: PropTypes.string,
+        team: PropTypes.string,
+        test_runs: PropTypes.array,
+    }), // is actually required, but gives an error on the first time due to 'data' being undefined
     types: PropTypes.array.isRequired,
 };
 

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
 import { useTranslation } from 'react-i18next';
 import {
@@ -67,6 +68,12 @@ const Accordion = ({ header, name, value }) => {
             </Content>
         </Container>
     );
+};
+
+Accordion.propTypes = {
+    header: PropTypes.string.isRequired,
+    name: PropTypes.array.isRequired,
+    value: PropTypes.array.isRequired,
 };
 
 export default Accordion;
