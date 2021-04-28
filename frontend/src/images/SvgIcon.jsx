@@ -8,7 +8,7 @@ const SvgIcon = ({ svg, width, height, viewBox, id }) => {
     const svgMap = new Map();
 
     // a back-up in case the 'svg' parameter is not given
-    if (svg === undefined) {
+    if (!svg) {
         svg = 'default';
     }
 
