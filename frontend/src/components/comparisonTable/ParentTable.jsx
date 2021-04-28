@@ -30,7 +30,10 @@ const ParentTable = props => {
     return (
         <React.Fragment>
             {data && (
-                <Table simpleTable={true} id="parent-build-comparison-table">
+                <Table
+                    simpleTable={true}
+                    tableId="parent-build-comparison-table"
+                >
                     <thead>
                         <tr>{headerRow()}</tr>
                     </thead>
