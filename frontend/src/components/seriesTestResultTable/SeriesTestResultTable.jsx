@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { historyPropType } from '../../utils/PropTypes';
 import { Heading } from './Heading';
 import Body from './Body';
 import NotFound from '../NotFound';
@@ -26,18 +27,7 @@ const SeriesTestResultTable = ({ seriesHistory }) => {
 
 SeriesTestResultTable.propTypes = {
     max_build_num: PropTypes.number,
-    history: PropTypes.arrayOf(
-        PropTypes.shape({
-            full_name: PropTypes.string,
-            id: PropTypes.number,
-            name: PropTypes.string,
-            repository: PropTypes.string,
-            suite: PropTypes.string,
-            suite_full_name: PropTypes.string,
-            suide_id: PropTypes.number,
-            test_cases: PropTypes.array,
-        }).isRequired
-    ),
+    history: historyPropType,
 };
 
 export default SeriesTestResultTable;
