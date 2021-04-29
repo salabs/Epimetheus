@@ -42,3 +42,39 @@ export const historyPropType = PropTypes.arrayOf(
         test_cases: testCasePropType,
     })
 );
+
+export const testsPropType = PropTypes.shape({
+    elapsed: PropTypes.number,
+    execution_elapsed: PropTypes.number,
+    execution_fingerprint: PropTypes.string,
+    execution_status: PropTypes.string,
+    failure_log_level: PropTypes.string,
+    failure_message: PropTypes.string,
+    failure_timestamp: PropTypes.string,
+    fingerprint: PropTypes.string,
+    full_name: PropTypes.string,
+    id: PropTypes.number,
+    log_messages: PropTypes.arrayOf(
+        PropTypes.shape({
+            execution_path: PropTypes.string,
+            id: PropTypes.number,
+            log_level: PropTypes.string,
+            message: PropTypes.string,
+            suite_id: PropTypes.number,
+            test_id: PropTypes.number,
+            test_run_id: PropTypes.number,
+            timestamp: PropTypes.string,
+        })
+    ),
+    name: PropTypes.string,
+    setup_elapsed: PropTypes.number,
+    setup_fingerprint: PropTypes.string,
+    setup_status: PropTypes.string,
+    start_time: PropTypes.string,
+    status: PropTypes.string,
+    tags: PropTypes.array,
+    teardown_elapsed: PropTypes.string,
+    teardown_fingerprint: PropTypes.string,
+    teardown_status: PropTypes.string,
+    test_run_id: PropTypes.number,
+});

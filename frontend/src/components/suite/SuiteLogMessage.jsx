@@ -1,4 +1,5 @@
 ﻿import React, { useEffect, useRef, useState } from 'react';
+import PropTypes from 'prop-types';
 import { TestMessage } from './SuiteLogMessage.styles';
 
 const SuiteLogMessage = ({ message }) => {
@@ -54,6 +55,10 @@ const SuiteLogMessage = ({ message }) => {
             <div ref={content}>{message}</div>
         </TestMessage>
     );
+};
+
+SuiteLogMessage.propTypes = {
+    message: PropTypes.string.isRequired,
 };
 
 export default SuiteLogMessage;
