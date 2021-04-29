@@ -43,6 +43,20 @@ export const historyPropType = PropTypes.arrayOf(
     })
 );
 
+export const seriesPropType = PropTypes.shape({
+    builds: PropTypes.number,
+    id: PropTypes.number,
+    last_build: PropTypes.number,
+    last_build_id: PropTypes.string,
+    last_generated: PropTypes.string,
+    last_imported: PropTypes.string,
+    last_started: PropTypes.string,
+    last_status: PropTypes.string,
+    name: PropTypes.string,
+    sorting_value: PropTypes.string,
+    team: PropTypes.string,
+});
+
 export const testsPropType = PropTypes.shape({
     elapsed: PropTypes.number,
     execution_elapsed: PropTypes.number,

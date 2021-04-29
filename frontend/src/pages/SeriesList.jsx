@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { seriesPropType } from '../utils/PropTypes';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
 import { useStateValue } from '../contexts/state';
@@ -6,7 +8,6 @@ import BreadcrumbNav from '../components/BreadcrumbNav';
 import { ContainerGrid12, ContentGrid6 } from '../styles/baseComponents';
 import { SeriesCount } from './SeriesList.styles';
 import NotFound from '../components/NotFound';
-import PropTypes from 'prop-types';
 import SeriesCard from '../components/card/SeriesCard';
 import {
     CardContainer,
@@ -66,11 +67,11 @@ const SeriesList = ({ selectedTeam }) => {
 
 SeriesList.propTypes = {
     selectedTeam: PropTypes.shape({
-        all_builds: PropTypes.object,
+        all_builds: seriesPropType,
         name: PropTypes.string,
-        series: PropTypes.array,
+        series: PropTypes.arrayOf(seriesPropType),
         series_count: PropTypes.number,
-    }),
+    }).isRequired,
 };
 
 export default SeriesList;
