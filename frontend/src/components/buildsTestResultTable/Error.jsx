@@ -1,4 +1,5 @@
 import React from 'react';
+import { buildPropType } from '../../utils/PropTypes';
 import { ErrorMsg } from './Error.styles';
 
 const Error = ({ build }) => {
@@ -15,6 +16,10 @@ const Error = ({ build }) => {
             <span>{errorMessage.message}</span>
         </ErrorMsg>
     );
+};
+
+Error.propTypes = {
+    build: buildPropType.isRequired,
 };
 
 export default Error;

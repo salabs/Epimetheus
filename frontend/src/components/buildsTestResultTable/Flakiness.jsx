@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { buildPropType } from '../../utils/PropTypes';
 import { pickIcon } from '../../utils/TestIcon';
 import { StyledRow } from './Flakiness.styles';
 
@@ -44,6 +46,11 @@ const Flakiness = ({ builds, id }) => {
         return <span key={i}>{pickIcon(test_status)}</span>;
     });
     return <StyledRow className="flakiness-row">{flakinessIcons}</StyledRow>;
+};
+
+Flakiness.propTypes = {
+    builds: PropTypes.arrayOf(buildPropType).isRequired,
+    id: PropTypes.string.isRequired,
 };
 
 export default Flakiness;

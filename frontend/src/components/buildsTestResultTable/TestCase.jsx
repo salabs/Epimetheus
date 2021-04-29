@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { testCasePropType } from '../../utils/PropTypes';
 import { Link, useLocation } from 'react-router-dom';
 
 const TestCase = ({ testCases, index, suiteId, testId }) => {
@@ -12,6 +14,13 @@ const TestCase = ({ testCases, index, suiteId, testId }) => {
             </Link>
         </td>
     );
+};
+
+TestCase.propTypes = {
+    testCases: testCasePropType.isRequired,
+    index: PropTypes.number.isRequired,
+    suiteId: PropTypes.number.isRequired,
+    testId: PropTypes.number.isRequired,
 };
 
 export default TestCase;
