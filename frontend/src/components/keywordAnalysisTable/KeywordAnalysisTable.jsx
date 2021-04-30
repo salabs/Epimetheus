@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { Table } from '../table/Table';
 import { NarrowTh, WideTh } from '../table/Table.styles';
 
-const DashboardList = () => {
+const KeywordAnalysisTable = () => {
     const [t] = useTranslation(['analysis']);
     const { seriesId, buildId } = useParams();
     const [keywordAnalysisList, setKeywordAnalysisList] = useState();
@@ -69,4 +69,4 @@ const DashboardList = () => {
     );
 };
 
-export default DashboardList;
+export default KeywordAnalysisTable;

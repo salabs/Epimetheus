@@ -12,7 +12,7 @@ import { ReactComponent as Left } from '../../images/chevron-left.svg';
 import { ReactComponent as Right } from '../../images/chevron-right.svg';
 import { ReactComponent as EndLeft } from '../../images/chevron-verticalbar-left.svg';
 
-const Offset = () => {
+const OffsetButtons = () => {
     const history = useHistory();
     const location = useLocation();
     const queryParams = useQueryParams();
@@ -138,4 +138,4 @@ const Offset = () => {
     );
 };
 
-export default Offset;
+export default OffsetButtons;
