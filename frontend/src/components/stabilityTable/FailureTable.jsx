@@ -34,7 +34,7 @@ const FailureTable = () => {
                     })
                     .sort((a, b) => b.failures - a.failures)
                     .slice(0, amountOfBuilds);
-                setFailureList({ failures: filterList2 });
+                setFailureList(filterList2);
             } catch (error) {
                 dispatch({ type: 'setErrorState', errorState: error });
             }
@@ -53,15 +53,16 @@ const FailureTable = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {failureList.map(entry => {
-                        return (
-                            <tr key={entry.id}>
-                                <BreakWordTd>{entry.name}</BreakWordTd>
-                                <td>{entry.id}</td>
-                                <td>{entry.failures}</td>
-                            </tr>
-                        );
-                    })}
+                    {failureList &&
+                        failureList.map(entry => {
+                            return (
+                                <tr key={entry.id}>
+                                    <BreakWordTd>{entry.name}</BreakWordTd>
+                                    <td>{entry.id}</td>
+                                    <td>{entry.failures}</td>
+                                </tr>
+                            );
+                        })}
                 </tbody>
             </SimpleTable>
         </TableContainer>
