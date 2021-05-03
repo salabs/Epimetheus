@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { seriesPropType } from '../utils/PropTypes';
 import { useTranslation } from 'react-i18next';
 import TeamCard from '../components/card/TeamCard';
 import { ContainerGrid12, ContentGrid6 } from '../styles/baseComponents';
@@ -34,6 +36,17 @@ const TeamList = ({ teamsState }) => {
             </CardContainer>
         </>
     );
+};
+
+TeamList.propTypes = {
+    teamsState: PropTypes.arrayOf(
+        PropTypes.shape({
+            all_builds: seriesPropType,
+            name: PropTypes.string,
+            series: PropTypes.arrayOf(seriesPropType),
+            series_count: PropTypes.number,
+        }).isRequired
+    ),
 };
 
 export default TeamList;

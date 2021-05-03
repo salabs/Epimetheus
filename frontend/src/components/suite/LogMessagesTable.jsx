@@ -1,4 +1,5 @@
 ﻿import React from 'react';
+import { testsPropType } from '../../utils/PropTypes';
 import SuiteLogMessage from './SuiteLogMessage';
 import SvgIcon from '../../images/SvgIcon';
 import { LogRow, InfoLevel } from './LogMessagesTable.styles';
@@ -45,6 +46,10 @@ const LogMessagesTable = ({ test }) => {
             </tbody>
         </Table>
     ) : null;
+};
+
+LogMessagesTable.propTypes = {
+    test: testsPropType.isRequired,
 };
 
 export default LogMessagesTable;

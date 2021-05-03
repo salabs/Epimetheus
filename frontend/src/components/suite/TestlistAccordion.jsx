@@ -1,4 +1,6 @@
 ﻿import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import { testsPropType } from '../../utils/PropTypes';
 import { useParams } from 'react-router';
 import { pickIcon } from '../../utils/TestIcon';
 import {
@@ -85,6 +87,19 @@ const TestlistAccordion = ({ suite }) => {
             </TestListContainer>
         </FlexContainer>
     );
+};
+
+TestlistAccordion.propTypes = {
+    suite: PropTypes.shape({
+        full_name: PropTypes.string,
+        id: PropTypes.number,
+        log_messages: PropTypes.array,
+        name: PropTypes.string,
+        repository: PropTypes.string,
+        start_time: PropTypes.string,
+        test_run_id: PropTypes.number,
+        tests: PropTypes.arrayOf(testsPropType),
+    }).isRequired,
 };
 
 export default TestlistAccordion;

@@ -1,15 +1,19 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { ScrollButton } from './ScrollTableButton.styles';
 import SvgIcon from '../../images/SvgIcon';
 
-const ScrollTableButton = props => {
-    const { canScrollLeft, canScrollRight } = props;
-
+const ScrollTableButton = ({
+    canScrollLeft,
+    canScrollRight,
+    moveLeft,
+    moveRight,
+}) => {
     return (
         <>
             <ScrollButton
                 className="left"
-                onClick={() => props.moveLeft()}
+                onClick={() => moveLeft()}
                 disabled={!canScrollLeft}
             >
                 <SvgIcon
@@ -23,7 +27,7 @@ const ScrollTableButton = props => {
 
             <ScrollButton
                 className="right"
-                onClick={() => props.moveRight()}
+                onClick={() => moveRight()}
                 disabled={!canScrollRight}
             >
                 <SvgIcon
@@ -36,6 +40,13 @@ const ScrollTableButton = props => {
             </ScrollButton>
         </>
     );
+};
+
+ScrollTableButton.propTypes = {
+    canScrollLeft: PropTypes.bool.isRequired,
+    canScrollRight: PropTypes.bool.isRequired,
+    moveLeft: PropTypes.func.isRequired,
+    moveRight: PropTypes.func.isRequired,
 };
 
 export default ScrollTableButton;

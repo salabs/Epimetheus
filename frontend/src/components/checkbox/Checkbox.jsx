@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import SvgIcon from '../../images/SvgIcon';
 import { StyledCheckbox, StyledLabel } from './Checkbox.styles';
 
@@ -21,6 +22,13 @@ const Checkbox = ({ checked, onChange, value, label }) => {
             {label}
         </StyledLabel>
     );
+};
+
+Checkbox.propTypes = {
+    checked: PropTypes.bool.isRequired,
+    onChange: PropTypes.func.isRequired,
+    value: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
 };
 
 export default Checkbox;

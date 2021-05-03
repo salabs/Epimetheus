@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { AttributeTagContainer } from './AttributeTag.styles';
 
 // Attribute tag has four color options: grey, yellow, blue and purple.
@@ -10,6 +11,11 @@ const AttributeTag = ({ color, header }) => {
             {header}
         </AttributeTagContainer>
     );
+};
+
+AttributeTag.propTypes = {
+    color: PropTypes.oneOf(['grey', 'yellow', 'blue', 'purple']),
+    header: PropTypes.string.isRequired,
 };
 
 export default AttributeTag;

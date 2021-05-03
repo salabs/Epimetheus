@@ -1,5 +1,5 @@
-// eslint-disable-next-line
 import React from 'react';
+import { historyPropType } from '../../utils/PropTypes';
 import Row from './Row';
 import { useStateValue } from '../../contexts/state';
 import { useParams } from 'react-router';
@@ -105,6 +105,10 @@ const Body = ({ history }) => {
             )}
         </tbody>
     );
+};
+
+Body.propTypes = {
+    history: historyPropType.isRequired,
 };
 
 export default Body;

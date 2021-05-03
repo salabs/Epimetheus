@@ -4,12 +4,11 @@ import { useStateValue } from '../../contexts/state';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useQueryParams } from '../../hooks/useQuery';
 import SvgIcon from '../../images/SvgIcon';
-
 import { StyledInput, FlexDiv, Heading } from './OffSetButtons.styles';
-
 import { DefaultButton } from '../../styles/button.styles';
 
-const Offset = () => {
+const OffsetButtons = () => {
+
     const history = useHistory();
     const location = useLocation();
     const queryParams = useQueryParams();
@@ -138,4 +137,4 @@ const Offset = () => {
     );
 };
 
-export default Offset;
+export default OffsetButtons;

@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { TableContainer } from './FailureTable.styles';
 import { BreakWordTd, SimpleTable, WideTh } from '../table/Table.styles';
 
-const DashboardList = () => {
+const FailureTable = () => {
     const [t] = useTranslation(['overview']);
     const { seriesId } = useParams();
 
@@ -68,4 +68,4 @@ const DashboardList = () => {
     );
 };
 
-export default DashboardList;
+export default FailureTable;
