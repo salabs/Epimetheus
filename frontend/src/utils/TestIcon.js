@@ -2,10 +2,7 @@ import React from 'react';
 import FA from 'react-fontawesome';
 import { colorTypes } from './colorTypes';
 import styled from 'styled-components';
-import { ReactComponent as Pass } from '../images/success.svg';
-import { ReactComponent as Fail } from '../images/fail.svg';
-import { ReactComponent as Skipped } from '../images/skip.svg';
-import { ReactComponent as NotFound } from '../images/not-found.svg';
+import SvgIcon from '../images/SvgIcon';
 
 const Fanner = styled(FA)`
     ${props => props.type === 'clock-o' && 'margin-right: 8px'}
@@ -27,7 +24,9 @@ export const pickIcon = (test_status, key) => {
         case 'PASS':
             result = (
                 <>
-                    <Pass aria-hidden="true" />
+                    <span aria-hidden="true">
+                        <SvgIcon svg="success" />
+                    </span>
                     <span className="sr-show">Status: Pass</span>
                 </>
             );
@@ -35,7 +34,9 @@ export const pickIcon = (test_status, key) => {
         case 'FAIL':
             result = (
                 <>
-                    <Fail aria-hidden="true" name="Fail" />
+                    <span aria-hidden="true">
+                        <SvgIcon svg="fail" name="Fail" />
+                    </span>
                     <span className="sr-show">Status: Fail</span>
                 </>
             );
@@ -43,7 +44,9 @@ export const pickIcon = (test_status, key) => {
         case 'SKIPPED':
             result = (
                 <>
-                    <Skipped aria-hidden="true" />
+                    <span aria-hidden="true">
+                        <SvgIcon svg="skip" />
+                    </span>
                     <span className="sr-show">Status: Skipped</span>
                 </>
             );
@@ -51,7 +54,9 @@ export const pickIcon = (test_status, key) => {
         case 'EMPTY':
             result = (
                 <>
-                    <NotFound aria-hidden="true" />
+                    <span aria-hidden="true">
+                        <SvgIcon svg="not-found" />
+                    </span>
                     <span className="sr-show">Status: Empty</span>
                 </>
             );

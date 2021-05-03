@@ -8,8 +8,7 @@ import {
     Content,
     SplitBorder,
 } from './Accordion.styles';
-import { ReactComponent as Up } from '../../images/chevron-up.svg';
-import { ReactComponent as Down } from '../../images/chevron-down.svg';
+import SvgIcon from '../../images/SvgIcon';
 import { NarrowTh, SimpleTable } from '../table/Table.styles';
 
 const Accordion = ({ header, name, value }) => {
@@ -32,7 +31,13 @@ const Accordion = ({ header, name, value }) => {
                 aria-controls={id}
             >
                 <p>{header}</p>
-                <span className="caret">{open ? <Up /> : <Down />}</span>
+                <span className="caret">
+                    {open ? (
+                        <SvgIcon svg="chevron-up" />
+                    ) : (
+                        <SvgIcon svg="chevron-down" />
+                    )}
+                </span>
             </HeaderContainer>
             <Content className={open ? 'Open' : 'Close'} id={id}>
                 <SplitBorder />
