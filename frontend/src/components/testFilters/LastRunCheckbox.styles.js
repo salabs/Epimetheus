@@ -7,8 +7,8 @@ export const Header = styled.div`
 `;
 
 export const StyledDiv = styled(props => <div {...props} />).attrs(
-    ({ customProperty }) => ({
-        customProperty,
+    ({ customproperty }) => ({
+        customproperty,
     })
 )`
     display: flex;

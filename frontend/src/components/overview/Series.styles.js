@@ -8,8 +8,8 @@ export const ParentContainer = styled.div`
 `;
 
 export const ChartContainer = styled(props => <div {...props} />).attrs(
-    ({ customProperty }) => ({
-        customProperty,
+    ({ customproperty }) => ({
+        customproperty,
     })
 )`
     border: 1px solid var(--evidence-grey);

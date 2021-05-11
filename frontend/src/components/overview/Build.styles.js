@@ -7,8 +7,8 @@ export const PageContainer = styled.div`
 `;
 
 export const FlexDiv = styled(props => <div {...props} />).attrs(
-    ({ customProperty }) => ({
-        customProperty,
+    ({ customproperty }) => ({
+        customproperty,
     })
 )`
     display: flex;

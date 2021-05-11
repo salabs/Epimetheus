@@ -2,8 +2,8 @@
 import React from 'react';
 
 export const NavBar = styled(props => <nav {...props} />).attrs(
-    ({ customProperty }) => ({
-        customProperty,
+    ({ customproperty }) => ({
+        customproperty,
     })
 )`
     background-color: var(--titan-green);

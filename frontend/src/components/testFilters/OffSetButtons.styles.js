@@ -7,8 +7,8 @@ export const Heading = styled.div`
 `;
 
 export const FlexDiv = styled(props => <div {...props} />).attrs(
-    ({ customProperty }) => ({
-        customProperty,
+    ({ customproperty }) => ({
+        customproperty,
     })
 )`
     display: flex;
@@ -19,8 +19,8 @@ export const FlexDiv = styled(props => <div {...props} />).attrs(
 `;
 
 export const StyledInput = styled(props => <input {...props} />).attrs(
-    ({ customProperty }) => ({
-        customProperty,
+    ({ customproperty }) => ({
+        customproperty,
     })
 )`
     border: 1px solid var(--evidence-grey);

@@ -6,8 +6,8 @@ export const Container = styled.div`
 `;
 
 export const ContentBlockContainer = styled(props => <div {...props} />).attrs(
-    ({ customProperty }) => ({
-        customProperty,
+    ({ customproperty }) => ({
+        customproperty,
     })
 )`
     padding: var(--space-8) 0;

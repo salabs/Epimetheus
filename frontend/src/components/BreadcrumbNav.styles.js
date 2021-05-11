@@ -1,8 +1,8 @@
 ﻿import styled from 'styled-components';
 import React from 'react';
 export const BreadcrumbList = styled(props => <ol {...props} />).attrs(
-    ({ customProperty }) => ({
-        customProperty,
+    ({ customproperty }) => ({
+        customproperty,
     })
 )`
     font-size: 14px;

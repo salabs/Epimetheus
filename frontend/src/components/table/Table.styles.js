@@ -13,8 +13,8 @@ export const OverflowWrapper = styled.div`
 `;
 
 export const SpreadSheetTable = styled(props => <table {...props} />).attrs(
-    ({ customProperty }) => ({
-        customProperty,
+    ({ customproperty }) => ({
+        customproperty,
     })
 )`
     width: 100%;
@@ -83,8 +83,8 @@ export const SpreadSheetTable = styled(props => <table {...props} />).attrs(
 `;
 
 export const SimpleTable = styled(props => <table {...props} />).attrs(
-    ({ customProperty }) => ({
-        customProperty,
+    ({ customproperty }) => ({
+        customproperty,
     })
 )`
     width: 100%;
