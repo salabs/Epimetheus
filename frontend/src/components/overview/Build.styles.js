@@ -1,12 +1,16 @@
 ﻿import styled from 'styled-components';
-
+import React from 'react';
 export const PageContainer = styled.div`
     display: flex;
     flex-wrap: wrap;
     width: 100%;
 `;
 
-export const FlexDiv = styled.div`
+export const FlexDiv = styled(props => <div {...props} />).attrs(
+    ({ customProperty }) => ({
+        customProperty,
+    })
+)`
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;

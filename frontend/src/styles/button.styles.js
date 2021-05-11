@@ -1,6 +1,11 @@
 import styled from 'styled-components';
+import React from 'react';
 
-export const DefaultButton = styled.button`
+export const DefaultButton = styled(props => <button {...props} />).attrs(
+    ({ customProperty }) => ({
+        customProperty,
+    })
+)`
     font-family: Hack;
     font-style: normal;
     font-weight: bold;

@@ -28,7 +28,7 @@ const Team = () => {
     }, [dispatch]);
 
     return (
-        <div id="team">
+        <div robot_id="team" id="team">
             {!teamsState || loadingState ? (
                 <ContainerGrid12>
                     <ContentGrid6>

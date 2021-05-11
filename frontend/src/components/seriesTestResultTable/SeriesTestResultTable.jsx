@@ -10,7 +10,7 @@ const SeriesTestResultTable = ({ seriesHistory }) => {
 
     if (max_build_num > 0) {
         return (
-            <Table tableId="history-table">
+            <Table robot_id="history-table" tableId="history-table">
                 <Heading max_build_num={max_build_num} />
                 <Body
                     id="history-table-body"

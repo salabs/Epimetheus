@@ -87,7 +87,9 @@ const ContentHeader = () => {
                 <>
                     <ContainerGrid12>
                         <ContentGrid6>
-                            <h1 id="siteHeading">{formHeader()}</h1>
+                            <h1 robot_id="siteHeading" id="siteHeading">
+                                {formHeader()}
+                            </h1>
                         </ContentGrid6>
                     </ContainerGrid12>
                     {!selectedSuiteState && <Tab tabLinks={tabLinks} />}
