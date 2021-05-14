@@ -185,14 +185,22 @@ const SvgIcon = ({ svg, width, height, viewBox, id, fill }) => {
                 {svgMap.get(svg).d2 && (
                     <path
                         d={svgMap.get(svg).d2}
-                        fill={fill ? colorTypes[fill] : svgMap.get(svg).fill}
+                        fill={
+                            fill
+                                ? colorTypes[fill.toString()]
+                                : svgMap.get(svg).fill
+                        }
                     />
                 )}
                 <path
                     fillRule="evenodd"
                     clipRule="evenodd"
                     d={svgMap.get(svg).d}
-                    fill={fill ? colorTypes[fill] : svgMap.get(svg).fill}
+                    fill={
+                        fill
+                            ? colorTypes[fill.toString()]
+                            : svgMap.get(svg).fill
+                    }
                     stroke={svgMap.get(svg).stroke}
                     strokeWidth={svgMap.get(svg).strokeWidth}
                 />
