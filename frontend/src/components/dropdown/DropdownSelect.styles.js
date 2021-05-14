@@ -3,7 +3,7 @@ import caretDown from '../../images/caret-down.svg';
 
 export const DropdownWrapper = styled.div`
     .ReactA11ySelect {
-        font-family: 'Hack';
+        font-family: 'Hack', monospace;
         width: 100%;
         position: relative;
     }
