@@ -45,6 +45,14 @@ export const LinkContainer = styled.div`
         &.active {
             border-bottom: var(--space-4) solid var(--nero-white);
         }
+
+        &[target='_blank'] {
+            white-space: nowrap;
+
+            & svg {
+                vertical-align: text-top;
+            }
+        }
     }
 
     @media only screen and (max-width: 540px) {

@@ -1,6 +1,7 @@
 ﻿import React from 'react';
 import { useTranslation } from 'react-i18next';
 import packageJson from '../../package.json';
+import ExternalLink from './externalLink/ExternalLink';
 import { FooterContainer, EpiIcon, TextStyles } from './Footer.styles';
 
 const Footer = () => {
@@ -15,13 +16,11 @@ const Footer = () => {
                 {t('footer.epimetheus')} {t('footer.version')}{' '}
                 <span className="underline">{packageJson.version}</span>{' '}
                 {t('footer.powered')}{' '}
-                <a
-                    href="https://www.siili.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    {t('footer.siili')}
-                </a>
+                <ExternalLink
+                    url="https://www.siili.com"
+                    label={t('footer.siili')}
+                    color="nero white"
+                />
                 .
             </TextStyles>
         </FooterContainer>

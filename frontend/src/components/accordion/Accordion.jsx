@@ -9,6 +9,7 @@ import {
     SplitBorder,
 } from './Accordion.styles';
 import SvgIcon from '../../images/SvgIcon';
+import ExternalLink from '../externalLink/ExternalLink';
 import { NarrowTh, SimpleTable } from '../table/Table.styles';
 
 const Accordion = ({ header, name, value }) => {
@@ -55,13 +56,10 @@ const Accordion = ({ header, name, value }) => {
                                 <td>
                                     {item.value.includes('Http') ||
                                     item.value.includes('http') ? (
-                                        <a
-                                            href={item.value}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                        >
-                                            {item.value}
-                                        </a>
+                                        <ExternalLink
+                                            url={item.value}
+                                            label={item.value}
+                                        />
                                     ) : (
                                         <span key={index}>{item.value}</span>
                                     )}

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import SvgIcon from '../images/SvgIcon';
+import ExternalLink from '../components/externalLink/ExternalLink';
 import { IconsContainer } from './Frontpage.styles';
 import { ContentGrid6, ContainerGrid12 } from '../styles/baseComponents';
 
@@ -28,31 +29,25 @@ const Frontpage = () => {
                         <li>{t('section.terminology.test')}</li>
                         <li>{t('section.terminology.team')}</li>
                         <li>
-                            <a
-                                href={t(
+                            <ExternalLink
+                                url={t(
                                     'section.terminology.testarchiver.link_url'
                                 )}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                {t(
+                                label={t(
                                     'section.terminology.testarchiver.link_text'
                                 )}
-                            </a>
+                            />
                             {t('section.terminology.testarchiver.description')}
                         </li>
                         <li>
-                            <a
-                                href={t(
+                            <ExternalLink
+                                url={t(
                                     'section.terminology.chage_engine.link_url'
                                 )}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                {t(
+                                label={t(
                                     'section.terminology.chage_engine.link_text'
                                 )}
-                            </a>
+                            />
                             {t('section.terminology.chage_engine.description')}
                         </li>
                     </ul>
@@ -109,38 +104,29 @@ const Frontpage = () => {
                     <h2>{t('section.feedback.title')}</h2>
                     <p>
                         {t('section.feedback.text')}
-                        <a
-                            href={t('section.feedback.link_url')}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            {t('section.feedback.link_text')}
-                        </a>
+                        <ExternalLink
+                            url={t('section.feedback.link_url')}
+                            label={t('section.feedback.link_text')}
+                        />
                         .
                     </p>
 
                     <h2>{t('section.contribute.title')}</h2>
                     <p>
                         {t('section.contribute.text')}
-                        <a
-                            href={t('section.contribute.link_url')}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            {t('section.contribute.link_text')}
-                        </a>
+                        <ExternalLink
+                            url={t('section.contribute.link_url')}
+                            label={t('section.contribute.link_text')}
+                        />
                         .
                     </p>
                     <h2>{t('section.licence.title')}</h2>
                     <p>
                         {t('section.licence.text')}
-                        <a
-                            href={t('section.licence.link_url')}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            {t('section.licence.link_text')}
-                        </a>
+                        <ExternalLink
+                            url={t('section.licence.link_url')}
+                            label={t('section.licence.link_text')}
+                        />
                         .
                     </p>
                 </ContentGrid6>
