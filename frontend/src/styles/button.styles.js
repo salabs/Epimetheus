@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const DefaultButton = styled.button`
-    font-family: Hack;
+    font-family: 'Hack', monospace;
     font-style: normal;
     font-weight: bold;
     font-size: 12px;
@@ -58,7 +58,7 @@ export const DefaultButton = styled.button`
 `;
 
 export const ToggleButton = styled.button`
-    font-family: Hack;
+    font-family: 'Hack', monospace;
     font-style: normal;
     font-weight: bold;
     font-size: 14px;

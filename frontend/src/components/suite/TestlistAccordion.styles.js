@@ -36,7 +36,7 @@ export const HeaderContainer = styled.button`
 
     h2 {
         font-size: 20px;
-        font-family: 'Hack';
+        font-family: 'Hack', monospace;
         font-weight: normal;
         text-transform: none;
         letter-spacing: -0.04em;
