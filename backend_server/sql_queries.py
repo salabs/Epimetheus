@@ -9,11 +9,13 @@ WHERE tree_hierarchy.fingerprint=%(fingerprint)s
 ORDER BY call_index::int;
 """
 
+TEAM_NAMES = "SELECT DISTINCT team FROM test_series ORDER BY team"
+
 # Build status is aggregated from test cases statuses.
 # Due to reruns only the last execution of a test case is considered.
 # Last execution is determined primarily by test start_time if that exists
 # otherwise by archiving order i.e. test_run_id
-def test_series(by_teams=False, series=None):
+def test_series(by_teams=False, series=None, team=None):
     return """
 WITH last_builds as (
     SELECT series,
@@ -53,10 +55,12 @@ JOIN (
     JOIN suite_result ON tsm.test_run_id=suite_result.test_run_id
     GROUP BY tsm.series
 ) AS last_build_start_times ON test_series.id=last_build_start_times.series
+{team_filter}
 GROUP BY id, name, team, build_count, build_number, build_id
 ORDER BY {team_sorting} sorting_value
 """.format(team_sorting="team," if by_teams else '', # nosec
-           series_filter='WHERE series={}'.format(int(series)) if series else '') # nosec
+           series_filter='WHERE series={}'.format(int(series)) if series else '', # nosec
+           team_filter='WHERE team=%(team)s' if team else '')
 
 
 def test_run_ids(series=None, build_num=None, start_from=None, last=None, offset=0):

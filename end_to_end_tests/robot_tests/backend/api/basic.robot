@@ -19,28 +19,35 @@ API documentation page
     /data/doc
     /data/doc/
 
+Team names data
+    GET                 /data/team_names
+    Integer             response status     200
+    String              $.teams[*]
+
 Teams data
     GET                 /data/teams
     Integer             response status     200
     String              $.teams[*].name
     Integer             $.teams[*].series_count
+    Valid series object     $.teams[*].all_builds
+    Array                   $.teams[*].series     minItems=1
+    Valid series object     $.teams[*].series[*]
 
-    Object              $.teams[*].all_builds
-    Integer             $.teams[*].all_builds.id
-    String              $.teams[*].all_builds.name
-    String              $.teams[*].all_builds.team
-    String              $.teams[*].all_builds.last_imported
-    String              $.teams[*].all_builds.last_started
-    Integer             $.teams[*].all_builds.builds
-    Integer             $.teams[*].all_builds.last_build
-    String              $.teams[*].all_builds.last_build_id
-    String              $.teams[*].all_builds.last_status
-
-    Array               $.teams[*].series     minItems=1
+    GET                 /data/teams?team=TestArchiver
+    Integer             response status     200
+    String              $.teams[*].name
+    Integer             $.teams[*].series_count
+    Valid series object     $.teams[*].all_builds
+    Array                   $.teams[*].series     minItems=1
     Valid series object     $.teams[*].series[*]
 
 Series data
     GET                     /data/series
+    Integer                 response status     200
+    Array                   $.series     minItems=1
+    Valid series object     $.series[*]
+
+    GET                     /data/series?team=TestArchiver
     Integer                 response status     200
     Array                   $.series     minItems=1
     Valid series object     $.series[*]
