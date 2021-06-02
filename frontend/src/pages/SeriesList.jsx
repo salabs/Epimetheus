@@ -1,77 +1,85 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { seriesPropType } from '../utils/PropTypes';
 import { useTranslation } from 'react-i18next';
-import { useLocation } from 'react-router-dom';
 import { useStateValue } from '../contexts/state';
 import BreadcrumbNav from '../components/BreadcrumbNav';
 import { ContainerGrid12, ContentGrid6 } from '../styles/baseComponents';
 import { SeriesCount } from './SeriesList.styles';
-import NotFound from '../components/NotFound';
+import Loading from '../components/Loading';
 import SeriesCard from '../components/card/SeriesCard';
 import {
     CardContainer,
     CardContainerGrid,
 } from '../components/card/card.styles';
 
-const SeriesList = ({ selectedTeam }) => {
+const SeriesList = ({ name }) => {
     const [t] = useTranslation(['team']);
-    let location = useLocation();
-    const teamName = location.pathname.substring(
-        location.pathname.lastIndexOf('/') + 1
-    );
 
-    const [{ teamsState }] = useStateValue();
-    const seriesCount = teamsState.find(team => team.name.includes(teamName))
-        .series_count;
+    const [seriesList, setSeriesList] = useState();
+    const [dispatch] = useStateValue();
+
+    useEffect(() => {
+        const url = `/data/series/?team=${name}`;
+
+        const fetchData = async () => {
+            try {
+                const res = await fetch(url);
+                const json = await res.json();
+                setSeriesList(json.series);
+            } catch (error) {
+                dispatch({ type: 'setErrorState', errorState: error });
+            }
+        };
+        fetchData();
+    }, [dispatch, name]);
 
     return (
         <div id="selectedTeam">
             <BreadcrumbNav status={'team'} />
-            {selectedTeam && selectedTeam.all_builds ? (
+            {seriesList ? (
                 <>
                     <ContainerGrid12>
                         <ContentGrid6>
-                            <h1>Team {teamName}</h1>
+                            <h1>Team {name}</h1>
                         </ContentGrid6>
                     </ContainerGrid12>
                     <CardContainer>
                         <ContainerGrid12>
                             <div className="selected-team-heading">
                                 <h2>
-                                    {t('card.last_build.header')} {teamName}
+                                    {t('card.last_build.header')} {name}
                                 </h2>
                                 <SeriesCount>
-                                    {seriesCount} {t('card.last_build.series')}{' '}
+                                    {seriesList.length}{' '}
+                                    {t('card.last_build.series')}{' '}
                                 </SeriesCount>
                             </div>
                             <CardContainerGrid>
-                                <SeriesCard data={selectedTeam.all_builds} />
-                                {selectedTeam.series
-                                    .reverse()
-                                    .map((serie, i) => {
-                                        return (
-                                            <SeriesCard key={i} data={serie} />
-                                        );
-                                    })}
+                                <SeriesCard
+                                    data={seriesList.find(
+                                        series => series.name === 'All builds'
+                                    )}
+                                />
+                                {seriesList.reverse().map((serie, i) => {
+                                    return <SeriesCard key={i} data={serie} />;
+                                })}
                             </CardContainerGrid>
                         </ContainerGrid12>
                     </CardContainer>
                 </>
             ) : (
-                <NotFound />
+                <ContainerGrid12>
+                    <ContentGrid6>
+                        <Loading />
+                    </ContentGrid6>
+                </ContainerGrid12>
             )}
         </div>
     );
 };
 
 SeriesList.propTypes = {
-    selectedTeam: PropTypes.shape({
-        all_builds: seriesPropType,
-        name: PropTypes.string,
-        series: PropTypes.arrayOf(seriesPropType),
-        series_count: PropTypes.number,
-    }).isRequired,
+    name: PropTypes.string.isRequired,
 };
 
 export default SeriesList;

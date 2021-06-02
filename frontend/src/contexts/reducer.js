@@ -95,11 +95,6 @@ const reducer = (state, action) => {
                 ...state,
                 metadataState: action.metadata,
             };
-        case 'setTeams':
-            return {
-                ...state,
-                teamsState: action.teams,
-            };
         case 'setSelectedSuiteState':
             return {
                 ...state,
