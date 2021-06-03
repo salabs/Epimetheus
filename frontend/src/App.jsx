@@ -1,5 +1,5 @@
 // eslint-disable-next-line
-import React, { useEffect, Suspense } from 'react';
+import React, { Suspense } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import MainContent from './components/MainContent';
 import MainNav from './components/MainNav';
@@ -13,34 +13,12 @@ import Team from './pages/Team';
 import Suite from './pages/Suite';
 import Comparison from './pages/Comparison';
 import Search from './pages/Search.jsx';
-import { useStateValue } from './contexts/state';
 import './utils/i118n';
 import 'normalize.css';
 import './index.css';
 import { StyledApp } from './App.styles';
 
 const App = () => {
-    // eslint-disable-next-line
-    const [{}, dispatch] = useStateValue();
-
-    useEffect(() => {
-        const fetchData = async () => {
-            dispatch({ type: 'setLoadingState', loadingState: true });
-            try {
-                const res = await fetch(`/data/series/`, {});
-                const json = await res.json();
-                dispatch({ type: 'setLoadingState', loadingState: false });
-                dispatch({
-                    type: 'setBranches',
-                    branches: json,
-                });
-            } catch (error) {
-                // console.log(error);
-            }
-        };
-        fetchData();
-    }, [dispatch]);
-
     return (
         <StyledApp id="main-app">
             <Suspense fallback="loading">
