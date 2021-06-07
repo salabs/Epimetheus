@@ -43,17 +43,21 @@ const DashboardList = () => {
     ] = useStateValue();
 
     useEffect(() => {
+        let isSubscribed = true;
         const url = `/data/series/${seriesId}/most_stable_tests/?builds=${amountOfBuilds}&most=${stabilityChecker}&offset=${offset}`;
         const fetchData = async () => {
             try {
                 const res = await fetch(url);
                 const json = await res.json();
-                setTestStabilityList(json.tests);
+                if (isSubscribed) {
+                    setTestStabilityList(json.tests);
+                }
             } catch (error) {
                 dispatch({ type: 'setErrorState', errorState: error });
             }
         };
         fetchData();
+        return () => (isSubscribed = false);
     }, [dispatch, seriesId, stabilityChecker, amountOfBuilds, offset]);
 
     return (

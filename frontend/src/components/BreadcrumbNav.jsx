@@ -39,6 +39,9 @@ const ListItems = ({ status }) => {
     const teamName = name || selectedBranchState.team;
     const seriesName = series || selectedBranchState.id;
 
+    console.log('selectedBranchState', selectedBranchState);
+    console.log('teamName', teamName);
+
     const links = new Map();
     links
         .set('teams', {
@@ -79,6 +82,8 @@ const ListItems = ({ status }) => {
             id: 'CompareBuildsBreadCrumb',
             name: `Compare series ${seriesId} build ${buildId} to series ${seriesId2} build ${buildId2}`,
         });
+
+    console.log('links on', links);
 
     const breadcrumbArray = [];
     switch (status) {

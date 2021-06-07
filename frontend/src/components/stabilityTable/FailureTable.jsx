@@ -13,33 +13,37 @@ const FailureTable = () => {
     const [{ amountOfBuilds, offset }, dispatch] = useStateValue();
 
     useEffect(() => {
+        let isSubscribed = true;
         const url = `/data/series/${seriesId}/history?builds=${amountOfBuilds}&offset=${offset}`;
         const fetchData = async () => {
             try {
                 const res = await fetch(url);
                 const json = await res.json();
-                //The amount of failures of a test in test_cases is counted and made into an object. The objects are then sorted and only the selected amount are shown.
-                const filterList2 = json.history
-                    .filter(test => test.test_cases.length !== 0)
-                    .flatMap(x => x.test_cases)
-                    .map(x => {
-                        const failure_count = x.builds.filter(
-                            y => y.status === 'FAIL'
-                        ).length;
-                        return {
-                            name: x.test_case,
-                            id: x.test_id,
-                            failures: failure_count,
-                        };
-                    })
-                    .sort((a, b) => b.failures - a.failures)
-                    .slice(0, amountOfBuilds);
-                setFailureList(filterList2);
+                if (isSubscribed) {
+                    //The amount of failures of a test in test_cases is counted and made into an object. The objects are then sorted and only the selected amount are shown.
+                    const filterList2 = json.history
+                        .filter(test => test.test_cases.length !== 0)
+                        .flatMap(x => x.test_cases)
+                        .map(x => {
+                            const failure_count = x.builds.filter(
+                                y => y.status === 'FAIL'
+                            ).length;
+                            return {
+                                name: x.test_case,
+                                id: x.test_id,
+                                failures: failure_count,
+                            };
+                        })
+                        .sort((a, b) => b.failures - a.failures)
+                        .slice(0, amountOfBuilds);
+                    setFailureList(filterList2);
+                }
             } catch (error) {
                 dispatch({ type: 'setErrorState', errorState: error });
             }
         };
         fetchData();
+        return () => (isSubscribed = false);
     }, [dispatch, seriesId, amountOfBuilds, offset]);
 
     return (

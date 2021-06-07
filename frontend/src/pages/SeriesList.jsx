@@ -18,6 +18,9 @@ const SeriesList = ({ name }) => {
     const [seriesList, setSeriesList] = useState();
     const [dispatch] = useStateValue();
 
+    console.log('name on', name);
+    console.log('seriesList on', seriesList);
+
     useEffect(() => {
         const url = `/data/series/?team=${name}`;
 
@@ -55,11 +58,11 @@ const SeriesList = ({ name }) => {
                                 </SeriesCount>
                             </div>
                             <CardContainerGrid>
-                                <SeriesCard
+                                {/* <SeriesCard
                                     data={seriesList.find(
                                         series => series.name === 'All builds'
                                     )}
-                                />
+                                /> */}
                                 {seriesList.reverse().map((serie, i) => {
                                     return <SeriesCard key={i} data={serie} />;
                                 })}

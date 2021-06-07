@@ -28,6 +28,8 @@ const Team = () => {
         fetchData();
     }, [dispatch]);
 
+    console.log('teams on', teams);
+
     return (
         <div id="team">
             {!teams || loadingState ? (
