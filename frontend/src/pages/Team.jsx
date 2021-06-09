@@ -20,7 +20,6 @@ const Team = () => {
                 const res = await fetch('/data/team_names/', {});
                 const json = await res.json();
                 dispatch({ type: 'setLoadingState', loadingState: false });
-                // setTeams(json.teams);
                 dispatch({
                     type: 'setTeams',
                     teams: json.teams,

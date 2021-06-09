@@ -9,7 +9,6 @@ import { BreakWordTd, SimpleTable, WideTh } from '../table/Table.styles';
 
 const StabilityButton = ({ value, text }) => {
     const [t] = useTranslation(['overview']);
-    // const [{ stabilityChecker }, dispatch] = useStateValue();
 
     const { state, dispatch } = useContext(StateContext);
     const { stabilityChecker } = state;

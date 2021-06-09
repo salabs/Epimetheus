@@ -13,7 +13,6 @@ const MainNav = () => {
         location.pathname.includes('team') ||
         location.pathname.includes('series');
     const compare = location.pathname.includes('compare');
-    // const search = location.pathname.includes('search');
 
     return (
         <header>
@@ -33,9 +32,6 @@ const MainNav = () => {
                     <NavLink to="/compare" className={compare ? 'active' : ''}>
                         {t('compare')}
                     </NavLink>
-                    {/* <NavLink to="/search" className={search ? 'active' : ''}>
-                        {t('search')}
-                    </NavLink> */}
                     <ExternalLink
                         url="https://github.com/salabs/Epimetheus"
                         label={t('github')}
