@@ -11,7 +11,7 @@ const BuildsTestResultTable = ({ id, buildHistory }) => {
     const { history } = buildHistory;
 
     return (
-        <Table tableId="last-run-table">
+        <Table robot_id="last-run-table" tableId="last-run-table">
             <thead>
                 <tr>
                     <WideTh>{t('build.table.suite')}</WideTh>

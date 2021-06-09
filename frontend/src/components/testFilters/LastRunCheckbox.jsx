@@ -73,7 +73,11 @@ const LastRunCheckbox = ({ direction }) => {
     return (
         <div>
             <Header>{t('hide_tests.header')}</Header>
-            <StyledDiv direction={direction} id="last-run-checkbox-container">
+            <StyledDiv
+                direction={direction}
+                robot_id="last-run-checkbox-container"
+                id="last-run-checkbox-container"
+            >
                 <Checkbox
                     checked={passFilter}
                     onChange={e => handlePassFilterChange(e)}

@@ -26,7 +26,10 @@ const KeywordAnalysisTable = () => {
     }, [dispatch, seriesId, buildId]);
 
     return (
-        <Table tableId="keyword-analysis-table">
+        <Table
+            robot_id="keyword-analysis-table"
+            tableId="keyword-analysis-table"
+        >
             <thead>
                 <tr>
                     <WideTh>{t('table.library')}</WideTh>

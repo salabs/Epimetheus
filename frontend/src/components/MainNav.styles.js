@@ -1,6 +1,11 @@
 ﻿import styled from 'styled-components';
+import React from 'react';
 
-export const NavBar = styled.nav`
+export const NavBar = styled(props => <nav {...props} />).attrs(
+    ({ customproperty }) => ({
+        customproperty,
+    })
+)`
     background-color: var(--titan-green);
     color: var(--nero-white);
     display: flex;

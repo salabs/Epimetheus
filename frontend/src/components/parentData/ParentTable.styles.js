@@ -1,10 +1,15 @@
 ﻿import styled from 'styled-components';
+import React from 'react';
 
 export const Container = styled.div`
     padding: var(--space-8) 0 var(--space-16) 0;
 `;
 
-export const ContentBlockContainer = styled.div`
+export const ContentBlockContainer = styled(props => <div {...props} />).attrs(
+    ({ customproperty }) => ({
+        customproperty,
+    })
+)`
     padding: var(--space-8) 0;
 
     .title {

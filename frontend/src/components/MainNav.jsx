@@ -17,7 +17,7 @@ const MainNav = () => {
 
     return (
         <header>
-            <NavBar id="main-nav">
+            <NavBar robot_id="main-nav" id="main-nav">
                 <SiteLogo className="logo">{t('logo')}</SiteLogo>
                 <LinkContainer team={team}>
                     <NavLink

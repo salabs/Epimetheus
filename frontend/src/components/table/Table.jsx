@@ -8,7 +8,7 @@ import {
 } from './Table.styles';
 import ScrollTableButton from './ScrollTableButton';
 
-export const Table = ({ tableId, simpleTable, children }) => {
+export const Table = ({ tableId, robot_id, simpleTable, children }) => {
     const ref = React.createRef();
 
     const [canScrollLeft, setCanScrollLeft] = useState(false);
@@ -95,9 +95,13 @@ export const Table = ({ tableId, simpleTable, children }) => {
             />
             <OverflowWrapper ref={ref}>
                 {simpleTable ? (
-                    <SimpleTable id={tableId}>{children}</SimpleTable>
+                    <SimpleTable robot_id={robot_id} id={tableId}>
+                        {children}
+                    </SimpleTable>
                 ) : (
-                    <SpreadSheetTable id={tableId}>{children}</SpreadSheetTable>
+                    <SpreadSheetTable robot_id={robot_id} id={tableId}>
+                        {children}
+                    </SpreadSheetTable>
                 )}
             </OverflowWrapper>
         </TableWrapper>

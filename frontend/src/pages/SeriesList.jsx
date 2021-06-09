@@ -26,7 +26,7 @@ const SeriesList = ({ selectedTeam }) => {
         .series_count;
 
     return (
-        <div id="selectedTeam">
+        <div robot_id="selectedTeam" id="selectedTeam">
             <BreadcrumbNav status={'team'} />
             {selectedTeam && selectedTeam.all_builds ? (
                 <>

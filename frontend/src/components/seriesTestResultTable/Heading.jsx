@@ -55,7 +55,7 @@ export const Heading = ({ max_build_num }) => {
             </BuildNumberCell>
         ));
     return (
-        <thead id="history-table-head">
+        <thead robot_id="history-table-head" id="history-table-head">
             <tr>
                 <WideTh>Suite</WideTh>
                 <WideTh>Test</WideTh>

@@ -15,7 +15,7 @@ const Series = () => {
 
     return (
         <>
-            <ChartContainer id="timeLineContainer">
+            <ChartContainer robot_id="timeLineContainer" id="timeLineContainer">
                 <ElementHeader>{t('series.all_builds')}</ElementHeader>
                 <TimeLineChart />
             </ChartContainer>
