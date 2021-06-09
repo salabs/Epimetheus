@@ -1,12 +1,14 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useContext } from 'react';
 import PropTypes from 'prop-types';
-import { historyPropType } from '../../utils/PropTypes';
-import { useStateValue } from '../../contexts/state';
+import { historyPropType } from '../../../../utils/PropTypes';
 import Suite from './Suite';
-import { useQueryParams } from '../../hooks/useQuery';
+import { useQueryParams } from '../../../../hooks/useQuery';
+import { StateContext } from '../../../../contexts/state';
 
 const Body = ({ history, max_build_num }) => {
-    const [{ amountOfBuilds }] = useStateValue();
+    const { state } = useContext(StateContext);
+    const { amountOfBuilds } = state;
+
     const queryParams = useQueryParams();
 
     const tableBody = history.map(

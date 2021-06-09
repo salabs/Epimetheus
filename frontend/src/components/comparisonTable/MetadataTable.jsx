@@ -1,14 +1,13 @@
-import React from 'react';
-import { useStateValue } from '../../contexts/state';
+import React, { useContext } from 'react';
 import { Table } from '../table/Table';
+import { StateContext } from '../../contexts/state';
 
 const MetadataTable = () => {
-    const [
-        {
-            metadataState,
-            parentData: { buildData },
-        },
-    ] = useStateValue();
+    const { state } = useContext(StateContext);
+    const {
+        metadataState,
+        parentData: { buildData },
+    } = state;
 
     const metadata = metadataState.metadata
         ? metadataState.metadata.filter(

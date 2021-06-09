@@ -1,18 +1,19 @@
-﻿/* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router';
 import Chart from 'react-apexcharts';
 import { props } from 'ramda';
 import { useHistory } from 'react-router-dom';
 import Loading from '../../components/Loading';
-import { useStateValue } from '../../contexts/state';
 import { colorTypes } from '../../utils/colorTypes';
+import { StateContext } from '../../contexts/state';
 
 const TimeLineChart = () => {
-    const { seriesId } = useParams();
+    const { name, seriesId } = useParams();
     const history = useHistory();
 
-    const [{ amountOfBuilds, offset }, dispatch] = useStateValue();
+    const { state, dispatch } = useContext(StateContext);
+    const { amountOfBuilds, offset } = state;
+
     const [statusCount, setStatusCount] = useState();
 
     useEffect(() => {
@@ -32,7 +33,7 @@ const TimeLineChart = () => {
         };
         fetchData();
         return () => (mounted = false);
-    }, [seriesId, amountOfBuilds, offset]);
+    }, [seriesId, amountOfBuilds, offset, dispatch]);
 
     const numberOfTestsWithStatus = status => {
         return (
@@ -102,7 +103,7 @@ const TimeLineChart = () => {
                         statusCount[parseInt(dataPointIndex)];
                     dispatch({ type: 'flushParams' });
                     history.push(
-                        `/series/${seriesId}/build/${statusCountIndex.build_number}/overview`
+                        `/team/${name}/series/${seriesId}/build/${statusCountIndex.build_number}/overview`
                     );
                 },
             },

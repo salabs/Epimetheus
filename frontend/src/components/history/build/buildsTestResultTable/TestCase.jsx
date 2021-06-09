@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { testCasePropType } from '../../utils/PropTypes';
+import { testCasePropType } from '../../../../utils/PropTypes';
 import { Link, useLocation } from 'react-router-dom';
 
 const TestCase = ({ testCases, index, suiteId, testId }) => {

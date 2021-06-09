@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Row from './Row';
-import { useStateValue } from '../../contexts/state';
 import { useParams } from 'react-router';
+import { StateContext } from '../../contexts/state';
 
 const Body = () => {
-    const [
-        { comparedDataState, compareFilterMatch, compareFilterMismatch },
-    ] = useStateValue();
+    const { state } = useContext(StateContext);
+    const {
+        comparedDataState,
+        compareFilterMatch,
+        compareFilterMismatch,
+    } = state;
+
     let { buildId, buildId2 } = useParams();
 
     // Do we want last-run page filters to work on suite-level (false)

@@ -1,17 +1,18 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import FailuresTable from './FailuresTable';
 import BuildInfoTable from './BuildInfoTable';
 import { useParams } from 'react-router';
-import { useStateValue } from '../../contexts/state';
 import { useTranslation } from 'react-i18next';
 import { TableHeading } from './LastBuildTable.styles';
+import { StateContext } from '../../contexts/state';
 
 const LastBuildElement = () => {
     const [t] = useTranslation(['overview']);
     const { seriesId } = useParams();
     const [failures, setFailures] = useState([]);
-    const [{ offset }, dispatch] = useStateValue();
+
+    const { state, dispatch } = useContext(StateContext);
+    const { offset } = state;
 
     useEffect(() => {
         let mounted = true;
@@ -47,7 +48,7 @@ const LastBuildElement = () => {
         fetchHistory();
 
         return () => (mounted = false);
-    }, [seriesId, offset]);
+    }, [seriesId, offset, dispatch]);
 
     return (
         <>

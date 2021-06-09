@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { historyPropType } from '../../utils/PropTypes';
+import { historyPropType } from '../../../../utils/PropTypes';
 import { Heading } from './Heading';
 import Body from './Body';
-import NotFound from '../NotFound';
-import { Table } from '../table/Table';
+import NotFound from '../../../NotFound';
+import { Table } from '../../../table/Table';
 
 const SeriesTestResultTable = ({ seriesHistory }) => {
     const { max_build_num, history } = seriesHistory;

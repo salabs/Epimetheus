@@ -1,8 +1,5 @@
-// eslint-disable-next-line
-import React from 'react';
-import { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { useParams } from 'react-router';
-import { useStateValue } from '../contexts/state';
 import BreadcrumbNav from '../components/BreadcrumbNav';
 import Notfound from '../components/NotFound';
 import ParentBuild from '../components/parentData/ParentBuild';
@@ -10,32 +7,29 @@ import Loading from '../components/Loading';
 import SuiteMetadata from '../components/metadata/SuiteMetadata';
 import TestList from '../components/suite/TestlistAccordion';
 import LogMessagesTable from '../components/suite/LogMessagesTable';
-import { ParentInfoContainer } from './Suite.styles';
+import { ParentInfo } from '../styles/baseComponents';
 import ContentHeader from '../components/header/ContentHeader';
 import { ContainerGrid12, ContentGrid6 } from '../styles/baseComponents';
+import { StateContext } from '../contexts/state';
+import useCurrentSeries from '../hooks/useCurrentSeries';
 
 const Suite = () => {
     const { suiteId, buildId, seriesId, testId } = useParams();
-    const [
-        {
-            selectedSuiteState,
-            loadingState,
-            branchesState,
-            selectedBranchState,
-        },
-        dispatch,
-    ] = useStateValue();
 
-    const branch_id = seriesId || selectedBranchState;
+    const { state, dispatch } = useContext(StateContext);
+    const { selectedSuiteState, loadingState, selectedSeriesState } = state;
+
+    const branch_id = seriesId || selectedSeriesState;
+    const currentSeries = useCurrentSeries();
 
     useEffect(() => {
         const fetchHistoryData = async () => {
             if (branch_id && buildId) {
-                const branch = branchesState.series?.find(
+                const branch = currentSeries?.find(
                     ({ id: serie_id }) => serie_id === parseInt(branch_id, 10)
                 );
                 dispatch({
-                    type: 'setSelectedBranch',
+                    type: 'setSelectedSeries',
                     name: branch?.name,
                     id: seriesId,
                     team: branch?.team || ' ',
@@ -56,7 +50,7 @@ const Suite = () => {
                 //console.log(error);
             }
         };
-        if (branchesState) {
+        if (currentSeries) {
             fetchHistoryData();
             fetchSuiteData();
         }
@@ -64,7 +58,7 @@ const Suite = () => {
         return () => {
             dispatch({ type: 'flushSuiteState' });
         };
-    }, [dispatch, branch_id, suiteId, buildId, seriesId, branchesState]);
+    }, [dispatch, branch_id, suiteId, buildId, seriesId, currentSeries]);
 
     return (
         <div id="suite">
@@ -85,13 +79,13 @@ const Suite = () => {
                     />
                     <BreadcrumbNav status={'suite'} />
                     <ContentHeader />
-                    <ParentInfoContainer className="parentInfo-container">
+                    <ParentInfo className="parentInfo-container">
                         <ContainerGrid12>
                             <ContentGrid6>
-                                <ParentBuild />
+                                <ParentBuild currentSeries={currentSeries} />
                             </ContentGrid6>
                         </ContainerGrid12>
-                    </ParentInfoContainer>
+                    </ParentInfo>
                     <ContainerGrid12>
                         <ContentGrid6>
                             <SuiteMetadata />

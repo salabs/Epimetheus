@@ -1,12 +1,14 @@
-﻿import React from 'react';
+﻿import React, { useContext } from 'react';
 import Accordion from '../accordion/Accordion';
 import { capitalCaseInitial, removeUnderscore } from '../../utils/helpers';
-import { useStateValue } from '../../contexts/state';
 import { useTranslation } from 'react-i18next';
+import { StateContext } from '../../contexts/state';
 
 const BuildMetadata = () => {
     const [t] = useTranslation(['accordion']);
-    const [{ metadataState }] = useStateValue();
+
+    const { state } = useContext(StateContext);
+    const { metadataState } = state;
 
     const metadata =
         metadataState && metadataState.metadata
@@ -27,10 +29,10 @@ const BuildMetadata = () => {
             removeUnderscore(capitalCaseInitial(metadata_value))
         );
 
-    return (
-        metadata && (
-            <Accordion header={t('metadata')} name={name} value={value} />
-        )
+    return metadata ? (
+        <Accordion header={t('metadata')} name={name} value={value} />
+    ) : (
+        <div>No metadata found</div>
     );
 };
 

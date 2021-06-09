@@ -1,5 +1,5 @@
 import React from 'react';
-import { buildPropType } from '../../utils/PropTypes';
+import { buildPropType } from '../../../../utils/PropTypes';
 import { ErrorMsg } from './Error.styles';
 
 const Error = ({ build }) => {

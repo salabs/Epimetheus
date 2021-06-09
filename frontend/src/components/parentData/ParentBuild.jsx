@@ -1,30 +1,29 @@
-﻿/* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect } from 'react';
+﻿import React, { useEffect, useContext } from 'react';
+import PropTypes from 'prop-types';
+import { seriesPropType } from '../../utils/PropTypes';
 import { useParams } from 'react-router';
-import { useStateValue } from '../../contexts/state';
 import { buildTypes } from '../../utils/parentDataTypes';
+import { StateContext } from '../../contexts/state';
 
 import ParentTable from './ParentTable';
 
-const ParentBuild = () => {
+const ParentBuild = ({ currentSeries }) => {
     const { seriesId, buildId } = useParams();
-    const [
-        {
-            parentData: { buildData },
-            branchesState,
-        },
-        dispatch,
-    ] = useStateValue();
+
+    const { state, dispatch } = useContext(StateContext);
+    const {
+        parentData: { buildData },
+    } = state;
 
     useEffect(() => {
-        if (branchesState) {
-            const branch = branchesState.series?.find(
+        if (currentSeries) {
+            const branch = currentSeries?.find(
                 ({ id: serie_id }) => serie_id === parseInt(seriesId, 10)
             );
             const fetchData = async () => {
                 dispatch({ type: 'setSeriesData', seriesData: branch });
                 dispatch({
-                    type: 'setSelectedBranch',
+                    type: 'setSelectedSeries',
                     name: branch.name || ' ',
                     id: seriesId,
                     team: branch.team || ' ',
@@ -47,9 +46,13 @@ const ParentBuild = () => {
         return () => {
             dispatch({ type: 'flushParentData' });
         };
-    }, [seriesId, buildId, branchesState]);
+    }, [seriesId, buildId, currentSeries, dispatch]);
 
     return <ParentTable data={buildData} types={buildTypes} />;
+};
+
+ParentBuild.propTypes = {
+    currentSeries: PropTypes.arrayOf(seriesPropType),
 };
 
 export default ParentBuild;

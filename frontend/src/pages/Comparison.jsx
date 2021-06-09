@@ -1,18 +1,19 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import TestComparisonTable from '../components/comparisonTable/TestComparisonTable';
 import ComparisonCheckbox from '../components/comparisonTable/ComparisonCheckbox';
-import { useStateValue } from '../contexts/state';
 import MetadataTable from '../components/comparisonTable/MetadataTable';
 import { useParams } from 'react-router';
 import BreadcrumbNav from '../components/BreadcrumbNav';
 import ParentBuildComparison from '../components/comparisonTable/ParentBuildComparison';
 import ComparisonForm from './ComparisonForm';
 import Loading from '../components/Loading';
+import { StateContext } from '../contexts/state';
 import { ContainerGrid12, ContentGrid6 } from '../styles/baseComponents';
 import { TableContainer } from './Comparison.styles';
 
 const Build = () => {
-    const [{ loadingState }, dispatch] = useStateValue();
+    const { state, dispatch } = useContext(StateContext);
+    const { loadingState } = state;
 
     let { buildId, seriesId, buildId2, seriesId2 } = useParams();
 

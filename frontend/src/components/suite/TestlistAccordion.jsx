@@ -19,7 +19,7 @@ import SvgIcon from '../../images/SvgIcon';
 import { v4 as uuidv4 } from 'uuid';
 
 const TestlistAccordion = ({ suite }) => {
-    const { suiteId, buildId, seriesId, testId } = useParams();
+    const { suiteId, buildId, seriesId, testId, name } = useParams();
     const [Open, setOpen] = useState(true);
     const id = uuidv4();
 
@@ -57,7 +57,7 @@ const TestlistAccordion = ({ suite }) => {
                                         isselected={
                                             test.id.toString() === testId
                                         }
-                                        to={`/series/${seriesId}/build/${buildId}/suite/${suiteId}/test/${test.id}/history`}
+                                        to={`/team/${name}/series/${seriesId}/build/${buildId}/suite/${suiteId}/test/${test.id}/history`}
                                     >
                                         {test.name}
                                     </StyledLink>

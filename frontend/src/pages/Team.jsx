@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { useStateValue } from '../contexts/state';
+import React, { useEffect, useContext } from 'react';
 import { useParams } from 'react-router';
 import Loading from '../components/Loading';
 import SeriesList from './SeriesList';
 import TeamList from './TeamList';
 import { ContainerGrid12, ContentGrid6 } from '../styles/baseComponents';
+import { StateContext } from '../contexts/state';
 
 const Team = () => {
-    const [{ loadingState }, dispatch] = useStateValue();
-    const [teams, setTeams] = useState();
+    const { state, dispatch } = useContext(StateContext);
+    const { loadingState, teamsState } = state;
 
     const { name } = useParams();
 
@@ -20,7 +20,11 @@ const Team = () => {
                 const res = await fetch('/data/team_names/', {});
                 const json = await res.json();
                 dispatch({ type: 'setLoadingState', loadingState: false });
-                setTeams(json.teams);
+                // setTeams(json.teams);
+                dispatch({
+                    type: 'setTeams',
+                    teams: json.teams,
+                });
             } catch (error) {
                 dispatch({ type: 'setErrorState', errorState: error });
             }
@@ -28,11 +32,9 @@ const Team = () => {
         fetchData();
     }, [dispatch]);
 
-    console.log('teams on', teams);
-
     return (
         <div id="team">
-            {!teams || loadingState ? (
+            {!teamsState || loadingState ? (
                 <ContainerGrid12>
                     <ContentGrid6>
                         <Loading />
@@ -41,7 +43,7 @@ const Team = () => {
             ) : name ? (
                 <SeriesList name={name} />
             ) : (
-                <TeamList teams={teams} />
+                <TeamList />
             )}
         </div>
     );

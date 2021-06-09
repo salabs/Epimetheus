@@ -1,25 +1,23 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from 'react';
-import { useStateValue } from '../../contexts/state';
+import React, { useState, useEffect, useContext } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useQueryParams } from '../../hooks/useQuery';
 import SvgIcon from '../../images/SvgIcon';
 import { StyledInput, FlexDiv, Heading } from './OffSetButtons.styles';
 import { DefaultButton } from '../../styles/button.styles';
+import { StateContext } from '../../contexts/state';
 
 const OffsetButtons = () => {
-
     const history = useHistory();
     const location = useLocation();
     const queryParams = useQueryParams();
 
-    const [
-        {
-            offset,
-            parentData: { seriesData },
-        },
-        dispatch,
-    ] = useStateValue();
+    const { state, dispatch } = useContext(StateContext);
+    const {
+        offset,
+        parentData: { seriesData },
+    } = state;
+
     const [inputOffset, setInputOffset] = useState(0);
     const [leftDisabled, setleftDisabled] = useState(false);
     const [rightDisabled, setrightDisabled] = useState(false);

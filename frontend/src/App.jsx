@@ -4,14 +4,13 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import MainContent from './components/MainContent';
 import MainNav from './components/MainNav';
 import Footer from './components/Footer';
-import SeriesHistory from './pages/SeriesHistory';
-import Overview from './pages/Overview';
 import Analysis from './pages/Analysis';
-import BuildHistory from './pages/BuildHistory';
 import Frontpage from './pages/Frontpage';
 import Team from './pages/Team';
 import Suite from './pages/Suite';
 import Comparison from './pages/Comparison';
+import Series from './pages/Series';
+import Build from './pages/Build';
 import Search from './pages/Search.jsx';
 import './utils/i118n';
 import 'normalize.css';
@@ -26,26 +25,26 @@ const App = () => {
                     <MainNav />
                     <MainContent>
                         <Switch>
-                            <Route path="/series/:seriesId/build/:buildId/suite/:suiteId/test/:testId/history">
+                            <Route exact path="/team">
+                                <Team />
+                            </Route>
+                            <Route exact path="/team/:name">
+                                <Team />
+                            </Route>
+                            <Route path="/team/:name/series/:seriesId/build/:buildId/suite/:suiteId/test/:testId/history">
                                 <Suite />
                             </Route>
-                            <Route path="/series/:seriesId/build/:buildId/suite/:suiteId/history">
+                            <Route path="/team/:name/series/:seriesId/build/:buildId/suite/:suiteId/history">
                                 <Suite />
                             </Route>
-                            <Route path="/series/:seriesId/build/:buildId/history">
-                                <BuildHistory />
-                            </Route>
-                            <Route path="/series/:seriesId/history">
-                                <SeriesHistory />
-                            </Route>
-                            <Route path="/series/:seriesId/overview">
-                                <Overview />
-                            </Route>
-                            <Route path="/series/:seriesId/build/:buildId/overview">
-                                <Overview />
-                            </Route>
-                            <Route path="/series/:seriesId/build/:buildId/analysis">
+                            <Route path="/team/:name/series/:seriesId/build/:buildId/analysis">
                                 <Analysis />
+                            </Route>
+                            <Route path="/team/:name/series/:seriesId/build/:buildId">
+                                <Build />
+                            </Route>
+                            <Route path="/team/:name/series/:seriesId">
+                                <Series />
                             </Route>
                             <Route path="/compare/:seriesId/:buildId/to/:seriesId2/:buildId2">
                                 <Comparison />
@@ -55,12 +54,6 @@ const App = () => {
                             </Route>
                             <Route path="/search">
                                 <Search />
-                            </Route>
-                            <Route exact path="/team">
-                                <Team />
-                            </Route>
-                            <Route path="/team/:name">
-                                <Team />
                             </Route>
                             <Route path="/">
                                 <Frontpage />

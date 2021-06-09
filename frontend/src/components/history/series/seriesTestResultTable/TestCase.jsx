@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { dashify } from '../../utils/helpers';
+import { dashify } from '../../../../utils/helpers';
 
 const TestCase = ({ test_case, position }) => (
     <td data-ta={`${dashify(test_case)}`} position={position}>

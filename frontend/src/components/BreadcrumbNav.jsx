@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { useStateValue } from '../contexts/state';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
 import { ContainerGrid12, ContentGrid6 } from '../styles/baseComponents';
 import { BreadcrumbList } from './BreadcrumbNav.styles';
+import { StateContext } from '../contexts/state';
 
 const LinkItem = props => {
     const { to, id, ariaLabel, name } = props.link;
@@ -35,12 +35,12 @@ const ListItems = ({ status }) => {
         seriesId2,
         buildId2,
     } = useParams();
-    const [{ selectedBranchState }] = useStateValue();
-    const teamName = name || selectedBranchState.team;
-    const seriesName = series || selectedBranchState.id;
 
-    console.log('selectedBranchState', selectedBranchState);
-    console.log('teamName', teamName);
+    const { state } = useContext(StateContext);
+    const { selectedSeriesState } = state;
+
+    const teamName = name || selectedSeriesState.team;
+    const seriesName = series || selectedSeriesState.id;
 
     const links = new Map();
     links
@@ -55,19 +55,19 @@ const ListItems = ({ status }) => {
             name: teamName,
         })
         .set('series', {
-            to: `/series/${seriesName}/overview`,
+            to: `/team/${teamName}/series/${seriesName}/overview`,
             id: 'SeriesBreadCrumb',
-            ariaLabel: `${selectedBranchState.name}: series' name`,
-            name: selectedBranchState.name,
+            ariaLabel: `${selectedSeriesState.name}: series' name`,
+            name: selectedSeriesState.name,
         })
         .set('build', {
-            to: `/series/${seriesId}/build/${buildId}/overview`,
+            to: `/team/${teamName}/series/${seriesId}/build/${buildId}/overview`,
             id: 'BuildBreadCrumb',
             ariaLabel: `${buildId}: build's id`,
             name: buildId,
         })
         .set('suite', {
-            to: `/series/${seriesId}/build/${buildId}/suite/${suiteId}/history`,
+            to: `/team/${teamName}/series/${seriesId}/build/${buildId}/suite/${suiteId}/history`,
             id: 'SuiteBreadCrumb',
             ariaLabel: `${suiteId}: suite's id`,
             name: suiteId,
@@ -82,8 +82,6 @@ const ListItems = ({ status }) => {
             id: 'CompareBuildsBreadCrumb',
             name: `Compare series ${seriesId} build ${buildId} to series ${seriesId2} build ${buildId2}`,
         });
-
-    console.log('links on', links);
 
     const breadcrumbArray = [];
     switch (status) {

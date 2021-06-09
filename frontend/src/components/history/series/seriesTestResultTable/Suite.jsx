@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { buildPropType, testCasePropType } from '../../utils/PropTypes';
-import { dashify } from '../../utils/helpers';
+import { buildPropType, testCasePropType } from '../../../../utils/PropTypes';
+import { dashify } from '../../../../utils/helpers';
 import SuiteName from './SuiteName';
 import TestStatus from './TestStatus';
 import TestCase from './TestCase';
-import { SuiteRow } from '../table/Table.styles';
+import { SuiteRow } from '../../../table/Table.styles';
 
 const Suite = ({
     builds,

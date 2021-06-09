@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router';
-import { useStateValue } from '../../contexts/state';
 import { useTranslation } from 'react-i18next';
+import { StateContext } from '../../contexts/state';
 import { TableContainer } from './FailureTable.styles';
 import { BreakWordTd, SimpleTable, WideTh } from '../table/Table.styles';
 
@@ -9,8 +9,10 @@ const FailureTable = () => {
     const [t] = useTranslation(['overview']);
     const { seriesId } = useParams();
 
-    const [failureList, setFailureList] = useState(null);
-    const [{ amountOfBuilds, offset }, dispatch] = useStateValue();
+    const [failureList, setFailureList] = useState();
+
+    const { state, dispatch } = useContext(StateContext);
+    const { amountOfBuilds, offset } = state;
 
     useEffect(() => {
         let isSubscribed = true;

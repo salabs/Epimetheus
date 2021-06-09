@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import TeamCard from '../components/card/TeamCard';
 import { ContainerGrid12, ContentGrid6 } from '../styles/baseComponents';
@@ -7,9 +6,13 @@ import {
     CardContainer,
     CardContainerGrid,
 } from '../components/card/card.styles';
+import { StateContext } from '../contexts/state';
 
-const TeamList = ({ teams }) => {
+const TeamList = () => {
     const [t] = useTranslation(['team']);
+
+    const { state } = useContext(StateContext);
+    const { teamsState } = state;
 
     return (
         <>
@@ -21,7 +24,7 @@ const TeamList = ({ teams }) => {
             <CardContainer>
                 <ContainerGrid12>
                     <CardContainerGrid teamsList={true}>
-                        {teams.map((team, i) => {
+                        {teamsState.map((team, i) => {
                             return <TeamCard team={team} key={i} />;
                         })}
                     </CardContainerGrid>
@@ -29,10 +32,6 @@ const TeamList = ({ teams }) => {
             </CardContainer>
         </>
     );
-};
-
-TeamList.propTypes = {
-    teams: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default TeamList;

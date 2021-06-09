@@ -1,12 +1,16 @@
-﻿import { useEffect } from 'react';
+﻿import { useEffect, useContext } from 'react';
 import { useParams } from 'react-router';
-import { useStateValue } from '../contexts/state';
+import PropTypes from 'prop-types';
+import { seriesPropType } from '../utils/PropTypes';
+import { StateContext } from '../contexts/state';
 
-const useMetadata = () => {
-    const [{ selectedBranchState, branchesState }, dispatch] = useStateValue();
+const useMetadata = ({ currentSeries }) => {
+    const { state, dispatch } = useContext(StateContext);
+    const { selectedSeriesState } = state;
+
     let { buildId, seriesId } = useParams();
 
-    const branch_id = seriesId || selectedBranchState;
+    const branch_id = seriesId || selectedSeriesState;
 
     useEffect(() => {
         const fetchData = async () => {
@@ -28,7 +32,7 @@ const useMetadata = () => {
                 }
             }
         };
-        if (branchesState) {
+        if (currentSeries) {
             fetchData();
         }
 
@@ -36,7 +40,11 @@ const useMetadata = () => {
         return () => {
             dispatch({ type: 'flushMetadata' });
         };
-    }, [branch_id, branchesState, buildId, dispatch]);
+    }, [branch_id, currentSeries, buildId, dispatch]);
+};
+
+useMetadata.propTypes = {
+    currentSeries: PropTypes.arrayOf(seriesPropType),
 };
 
 export default useMetadata;

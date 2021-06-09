@@ -1,33 +1,35 @@
-import React, { Fragment, useEffect, useState } from 'react';
-import BuildsTestResultTable from '../components/buildsTestResultTable/BuildsTestResultTable';
-import LastRunCheckBox from '../components/testFilters/LastRunCheckbox';
-import { useStateValue } from '../contexts/state';
+import React, { Fragment, useEffect, useState, useContext } from 'react';
+import PropTypes from 'prop-types';
+import { seriesPropType } from '../../../utils/PropTypes';
+import BuildsTestResultTable from './buildsTestResultTable/BuildsTestResultTable';
+import LastRunCheckBox from '../../testFilters/LastRunCheckbox';
 import { useParams } from 'react-router';
-import BreadcrumbNav from '../components/BreadcrumbNav';
-import ParentBuild from '../components/parentData/ParentBuild';
-import Loading from '../components/Loading';
-import BuildMetadata from '../components/metadata/BuildMetadata';
-import useMetadata from '../hooks/useMetadata';
+import BreadcrumbNav from '../../BreadcrumbNav';
+import ParentBuild from '../../parentData/ParentBuild';
+import Loading from '../../Loading';
+import BuildMetadata from '../../metadata/BuildMetadata';
+import useMetadata from '../../../hooks/useMetadata';
 import { ParentInfoContainer } from './BuildHistory.styles';
-import ContentHeader from '../components/header/ContentHeader';
-import { ContainerGrid12, ContentGrid6 } from '../styles/baseComponents';
-import { FilterContainer } from '../components/overview/FilterContainer.styles';
+import ContentHeader from '../../header/ContentHeader';
+import { ContainerGrid12, ContentGrid6 } from '../../../styles/baseComponents';
+import { StateContext } from '../../../contexts/state';
+import { FilterContainer } from '../../overview/FilterContainer.styles';
 
-const BuildHistory = () => {
-    const [buildHistory, setBuildHistory] = useState(null);
-    const [
-        { loadingState, selectedBranchState, branchesState },
-        dispatch,
-    ] = useStateValue();
-    let { buildId, seriesId } = useParams();
+const BuildHistory = ({ currentSeries }) => {
+    const [buildHistory, setBuildHistory] = useState();
 
-    const branch_id = seriesId || selectedBranchState;
+    const { state, dispatch } = useContext(StateContext);
+    const { loadingState, selectedSeriesState } = state;
+
+    const { buildId, seriesId } = useParams();
+
+    const branch_id = seriesId || selectedSeriesState;
 
     useEffect(() => {
         const fetchHistoryData = async () => {
             dispatch({ type: 'setLoadingState', loadingState: true });
             if (branch_id && buildId) {
-                const branch = branchesState.series?.find(
+                const branch = currentSeries?.find(
                     ({ id: serie_id }) => serie_id === parseInt(branch_id, 10)
                 );
                 dispatch({
@@ -49,12 +51,12 @@ const BuildHistory = () => {
                 }
             }
         };
-        if (branchesState) {
+        if (currentSeries) {
             fetchHistoryData();
         }
-    }, [dispatch, branch_id, buildId, branchesState]);
+    }, [dispatch, branch_id, buildId, currentSeries]);
 
-    useMetadata();
+    useMetadata(currentSeries);
 
     return (
         <div id="last-run">
@@ -78,7 +80,7 @@ const BuildHistory = () => {
                     <ParentInfoContainer id="parentInfo-container">
                         <ContainerGrid12>
                             <ContentGrid6>
-                                <ParentBuild />
+                                <ParentBuild currentSeries={currentSeries} />
                             </ContentGrid6>
                         </ContainerGrid12>
                     </ParentInfoContainer>
@@ -99,6 +101,10 @@ const BuildHistory = () => {
             )}
         </div>
     );
+};
+
+BuildHistory.propTypes = {
+    currentSeries: PropTypes.arrayOf(seriesPropType),
 };
 
 export default BuildHistory;

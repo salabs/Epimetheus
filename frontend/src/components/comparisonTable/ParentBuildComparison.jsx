@@ -1,18 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { useParams } from 'react-router';
-import { useStateValue } from '../../contexts/state';
 import { suiteTypes } from '../../utils/parentDataTypes';
 import ParentTable from './ParentTable';
+import { StateContext } from '../../contexts/state';
 
 const ParentBuildComparison = () => {
     const { seriesId, buildId, seriesId2, buildId2 } = useParams();
 
-    const [
-        {
-            parentData: { buildData },
-        },
-        dispatch,
-    ] = useStateValue();
+    const { state, dispatch } = useContext(StateContext);
+    const {
+        parentData: { buildData },
+    } = state;
 
     useEffect(() => {
         const url = `/data/series/${seriesId}/builds/${buildId}/info/?`;

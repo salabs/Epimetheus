@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import { useStateValue } from '../contexts/state';
 import BreadcrumbNav from '../components/BreadcrumbNav';
 import { ContainerGrid12, ContentGrid6 } from '../styles/baseComponents';
 import { SeriesCount } from './SeriesList.styles';
@@ -11,15 +10,13 @@ import {
     CardContainer,
     CardContainerGrid,
 } from '../components/card/card.styles';
+import { StateContext } from '../contexts/state';
 
 const SeriesList = ({ name }) => {
     const [t] = useTranslation(['team']);
 
     const [seriesList, setSeriesList] = useState();
-    const [dispatch] = useStateValue();
-
-    console.log('name on', name);
-    console.log('seriesList on', seriesList);
+    const { dispatch } = useContext(StateContext);
 
     useEffect(() => {
         const url = `/data/series/?team=${name}`;

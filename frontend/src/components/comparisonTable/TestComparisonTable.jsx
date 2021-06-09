@@ -1,14 +1,13 @@
-import React from 'react';
-import { useStateValue } from '../../contexts/state';
+import React, { useContext } from 'react';
 import { Table } from '../table/Table';
 import Body from './Body';
+import { StateContext } from '../../contexts/state';
 
 const TestComparisonTable = () => {
-    const [
-        {
-            parentData: { buildData },
-        },
-    ] = useStateValue();
+    const { state } = useContext(StateContext);
+    const {
+        parentData: { buildData },
+    } = state;
 
     return (
         buildData && (

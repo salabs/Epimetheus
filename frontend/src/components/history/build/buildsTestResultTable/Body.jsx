@@ -1,11 +1,13 @@
-import React from 'react';
-import { historyPropType } from '../../utils/PropTypes';
+import React, { useContext } from 'react';
+import { historyPropType } from '../../../../utils/PropTypes';
 import Row from './Row';
-import { useStateValue } from '../../contexts/state';
 import { useParams } from 'react-router';
+import { StateContext } from '../../../../contexts/state';
 
 const Body = ({ history }) => {
-    const [{ lastRunFilterPass, lastRunFilterFail }] = useStateValue();
+    const { state } = useContext(StateContext);
+    const { lastRunFilterPass, lastRunFilterFail } = state;
+
     let { buildId } = useParams();
     const buildNum = buildId;
 

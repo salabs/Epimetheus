@@ -1,16 +1,16 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useQueryParams } from '../../hooks/useQuery';
-
-import { useStateValue } from '../../contexts/state';
 import DropdownSelect from '../dropdown/DropdownSelect';
 import { SelectorContainer } from './BuildAmountSelector.styles';
 import { useTranslation } from 'react-i18next';
+import { StateContext } from '../../contexts/state';
 
 const BuildAmountSelector = () => {
     const [t] = useTranslation(['buttons']);
 
-    const [{ amountOfBuilds }, dispatch] = useStateValue();
+    const { state, dispatch } = useContext(StateContext);
+    const { amountOfBuilds } = state;
 
     const history = useHistory();
     const location = useLocation();
