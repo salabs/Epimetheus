@@ -15,7 +15,7 @@ export const NavBar = styled(props => <nav {...props} />).attrs(
 
 export const SiteLogo = styled.div`
     margin: 0 var(--space-24) 0 var(--space-40);
-    font-family: 'Hack';
+    font-family: 'Hack', monospace;
     letter-spacing: 1px;
     font-size: 30px;
     font-weight: 700;
@@ -49,6 +49,14 @@ export const LinkContainer = styled.div`
 
         &.active {
             border-bottom: var(--space-4) solid var(--nero-white);
+        }
+
+        &[target='_blank'] {
+            white-space: nowrap;
+
+            & svg {
+                vertical-align: text-top;
+            }
         }
     }
 

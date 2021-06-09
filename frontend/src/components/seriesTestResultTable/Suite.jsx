@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { buildPropType, testCasePropType } from '../../utils/PropTypes';
 import { dashify } from '../../utils/helpers';
 import SuiteName from './SuiteName';
 import TestStatus from './TestStatus';
@@ -33,11 +34,11 @@ const Suite = ({
 };
 
 Suite.propTypes = {
-    builds: PropTypes.array.isRequired,
+    builds: PropTypes.arrayOf(buildPropType).isRequired,
     test_case: PropTypes.string.isRequired,
     suite: PropTypes.string.isRequired,
     index: PropTypes.number.isRequired,
-    text_cases: PropTypes.string,
+    text_cases: testCasePropType,
     max_build_num: PropTypes.number.isRequired,
 };
 

@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
 import { dashify } from '../../utils/helpers';
 import { HierarchicalSuiteNameTh } from '../table/Table.styles';
 
@@ -23,6 +24,11 @@ const SuiteName = ({ tableCellHeight, suiteName }) => {
             {splitSuiteName}
         </HierarchicalSuiteNameTh>
     );
+};
+
+SuiteName.propTypes = {
+    tableCellHeight: PropTypes.number.isRequired,
+    suiteName: PropTypes.string.isRequired,
 };
 
 export default SuiteName;

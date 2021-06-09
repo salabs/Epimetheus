@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useStateValue } from '../contexts/state';
 import { useParams } from 'react-router';
 import { Link } from 'react-router-dom';
@@ -149,6 +150,24 @@ const BreadcrumbNav = ({ status }) => {
             </ContentGrid6>
         </ContainerGrid12>
     );
+};
+
+LinkItem.propTypes = {
+    link: PropTypes.shape({
+        to: PropTypes.string.isRequired,
+        id: PropTypes.string.isRequired,
+        ariaLabel: PropTypes.string,
+        name: PropTypes.string, // is actually required, but gives an error on the first time due to 'data' being undefined
+    }),
+    current: PropTypes.bool,
+};
+
+ListItems.propTypes = {
+    status: PropTypes.string.isRequired,
+};
+
+BreadcrumbNav.propTypes = {
+    status: PropTypes.string.isRequired,
 };
 
 export default BreadcrumbNav;

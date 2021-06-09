@@ -12,7 +12,7 @@ const TestComparisonTable = () => {
 
     return (
         buildData && (
-            <Table id="comparison-table">
+            <Table tableId="comparison-table">
                 <thead>
                     <tr>
                         <th>Full Test Name</th>

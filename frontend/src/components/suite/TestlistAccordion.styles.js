@@ -1,9 +1,6 @@
 ﻿import React from 'react';
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
-import { ReactComponent as Collection } from '../../images/collection-white.svg';
-import { ReactComponent as Up } from '../../images/chevron-up-white.svg';
-import { ReactComponent as Down } from '../../images/chevron-down-white.svg';
 
 export const FlexContainer = styled.div`
     display: flex;
@@ -39,7 +36,7 @@ export const HeaderContainer = styled.button`
 
     h2 {
         font-size: 20px;
-        font-family: 'Hack';
+        font-family: 'Hack', monospace;
         font-weight: normal;
         text-transform: none;
         letter-spacing: -0.04em;
@@ -54,21 +51,17 @@ export const HeaderContainer = styled.button`
         padding-right: 30px;
         white-space: nowrap;
     }
-`;
 
-export const SvgCollection = styled(Collection)`
-    position: relative;
-    left: var(--space-24);
-`;
-
-export const SvgDown = styled(Down)`
-    position: relative;
-    right: var(--space-24);
-`;
-
-export const SvgUp = styled(Up)`
-    position: relative;
-    right: var(--space-24);
+    svg {
+        &:first-of-type {
+            position: relative;
+            left: var(--space-24);
+        }
+        &:last-of-type {
+            position: relative;
+            right: var(--space-24);
+        }
+    }
 `;
 
 export const TestListContainer = styled.div`

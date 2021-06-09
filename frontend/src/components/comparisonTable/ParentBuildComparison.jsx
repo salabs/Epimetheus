@@ -4,7 +4,7 @@ import { useStateValue } from '../../contexts/state';
 import { suiteTypes } from '../../utils/parentDataTypes';
 import ParentTable from './ParentTable';
 
-const ParentSeries = () => {
+const ParentBuildComparison = () => {
     const { seriesId, buildId, seriesId2, buildId2 } = useParams();
 
     const [
@@ -46,4 +46,4 @@ const ParentSeries = () => {
     return <ParentTable data={buildData} types={suiteTypes} />;
 };
 
-export default ParentSeries;
+export default ParentBuildComparison;

@@ -6,7 +6,7 @@ export const DefaultButton = styled(props => <button {...props} />).attrs(
         customproperty,
     })
 )`
-    font-family: Hack;
+    font-family: 'Hack', monospace;
     font-style: normal;
     font-weight: bold;
     font-size: 12px;
@@ -63,7 +63,7 @@ export const DefaultButton = styled(props => <button {...props} />).attrs(
 `;
 
 export const ToggleButton = styled.button`
-    font-family: Hack;
+    font-family: 'Hack', monospace;
     font-style: normal;
     font-weight: bold;
     font-size: 14px;

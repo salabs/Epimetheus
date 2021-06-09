@@ -27,7 +27,7 @@ export const ChartContainer = styled.div`
 `;
 
 export const ElementHeader = styled.h2`
-    font-family: 'Hack';
+    font-family: 'Hack', monospace;
     font-size: 20px;
     text-align: center;
     margin: 0;

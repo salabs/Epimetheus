@@ -1,12 +1,11 @@
 ﻿import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import { testsPropType } from '../../utils/PropTypes';
 import { useParams } from 'react-router';
 import { pickIcon } from '../../utils/TestIcon';
 import {
     FlexContainer,
     HeaderContainer,
-    SvgCollection,
-    SvgDown,
-    SvgUp,
     TestListContainer,
     DotSpan,
     TestStatusRow,
@@ -16,6 +15,7 @@ import {
     TagContainer,
 } from './TestlistAccordion.styles';
 import AttributeTag from '../attributeTag/AttributeTag';
+import SvgIcon from '../../images/SvgIcon';
 import { v4 as uuidv4 } from 'uuid';
 
 const TestlistAccordion = ({ suite }) => {
@@ -30,13 +30,17 @@ const TestlistAccordion = ({ suite }) => {
                 aria-expanded={Open}
                 aria-controls={id}
             >
-                <SvgCollection />
+                <SvgIcon svg="collection-white" />
                 <h2>{suite.name} Tests</h2>
                 <p>
                     {suite.tests.length} test
                     {suite.tests.length > 1 && 's'}
                 </p>
-                {Open ? <SvgUp /> : <SvgDown />}
+                {Open ? (
+                    <SvgIcon svg="chevron-up-white" />
+                ) : (
+                    <SvgIcon svg="chevron-down-white" />
+                )}
             </HeaderContainer>
             <TestListContainer className={Open ? 'open' : 'close'} id={id}>
                 <ul>
@@ -83,6 +87,19 @@ const TestlistAccordion = ({ suite }) => {
             </TestListContainer>
         </FlexContainer>
     );
+};
+
+TestlistAccordion.propTypes = {
+    suite: PropTypes.shape({
+        full_name: PropTypes.string,
+        id: PropTypes.number,
+        log_messages: PropTypes.array,
+        name: PropTypes.string,
+        repository: PropTypes.string,
+        start_time: PropTypes.string,
+        test_run_id: PropTypes.number,
+        tests: PropTypes.arrayOf(testsPropType),
+    }).isRequired,
 };
 
 export default TestlistAccordion;

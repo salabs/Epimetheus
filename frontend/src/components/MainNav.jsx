@@ -2,6 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
+import ExternalLink from './externalLink/ExternalLink';
 import { NavBar, LinkContainer, SiteLogo } from './MainNav.styles';
 
 const MainNav = () => {
@@ -35,13 +36,11 @@ const MainNav = () => {
                     <NavLink to="/search" className={search ? 'active' : ''}>
                         {t('search')}
                     </NavLink>
-                    <a
-                        href="https://github.com/salabs/Epimetheus"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        {t('github')}
-                    </a>
+                    <ExternalLink
+                        url="https://github.com/salabs/Epimetheus"
+                        label={t('github')}
+                        color="nero white"
+                    />
                 </LinkContainer>
             </NavBar>
         </header>

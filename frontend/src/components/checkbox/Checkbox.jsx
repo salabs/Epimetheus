@@ -1,6 +1,6 @@
 import React from 'react';
-import { ReactComponent as Checked } from '../../images/checked.svg';
-import { ReactComponent as Unchecked } from '../../images/unchecked.svg';
+import PropTypes from 'prop-types';
+import SvgIcon from '../../images/SvgIcon';
 import { StyledCheckbox, StyledLabel } from './Checkbox.styles';
 
 const Checkbox = ({ checked, onChange, value, label }) => {
@@ -12,10 +12,23 @@ const Checkbox = ({ checked, onChange, value, label }) => {
                 checked={checked}
                 onChange={onChange}
             />
-            <span>{checked ? <Checked /> : <Unchecked />}</span>
+            <span>
+                {checked ? (
+                    <SvgIcon svg="checked" />
+                ) : (
+                    <SvgIcon svg="unchecked" />
+                )}
+            </span>
             {label}
         </StyledLabel>
     );
+};
+
+Checkbox.propTypes = {
+    checked: PropTypes.bool.isRequired,
+    onChange: PropTypes.func.isRequired,
+    value: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
 };
 
 export default Checkbox;

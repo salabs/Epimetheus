@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { buildPropType } from '../../utils/PropTypes';
 import { useStateValue } from '../../contexts/state';
 import { pickIcon } from '../../utils/TestIcon';
 import { DefinedData } from './TestStatus.styles';
@@ -60,7 +61,7 @@ const TestStatus = ({ builds, position, max_build_num }) => {
 };
 
 TestStatus.propTypes = {
-    builds: PropTypes.array.isRequired,
+    builds: PropTypes.arrayOf(buildPropType).isRequired,
     position: PropTypes.number.isRequired,
     max_build_num: PropTypes.number.isRequired,
 };

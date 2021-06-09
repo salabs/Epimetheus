@@ -50,8 +50,4 @@ export const ScrollButton = styled.button`
             );
         }
     }
-
-    img {
-        width: 15px;
-    }
 `;

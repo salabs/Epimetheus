@@ -1,30 +1,52 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { ScrollButton } from './ScrollTableButton.styles';
-import ChevronRight from '../../images/chevron-right.svg';
-import ChevronLeft from '../../images/chevron-left.svg';
+import SvgIcon from '../../images/SvgIcon';
 
-const ScrollTableButton = props => {
-    const { canScrollLeft, canScrollRight } = props;
-
+const ScrollTableButton = ({
+    canScrollLeft,
+    canScrollRight,
+    moveLeft,
+    moveRight,
+}) => {
     return (
         <>
             <ScrollButton
                 className="left"
-                onClick={() => props.moveLeft()}
+                onClick={() => moveLeft()}
                 disabled={!canScrollLeft}
             >
-                <img src={ChevronLeft} alt="<" />
+                <SvgIcon
+                    svg="chevron-left"
+                    width={18}
+                    height={30}
+                    viewBox="0 0 9 16"
+                />
+                <p className="sr-show">{'<'}</p>
             </ScrollButton>
 
             <ScrollButton
                 className="right"
-                onClick={() => props.moveRight()}
+                onClick={() => moveRight()}
                 disabled={!canScrollRight}
             >
-                <img src={ChevronRight} alt=">" />
+                <SvgIcon
+                    svg="chevron-right"
+                    width={18}
+                    height={30}
+                    viewBox="0 0 9 16"
+                />
+                <p className="sr-show">{'>'}</p>
             </ScrollButton>
         </>
     );
+};
+
+ScrollTableButton.propTypes = {
+    canScrollLeft: PropTypes.bool.isRequired,
+    canScrollRight: PropTypes.bool.isRequired,
+    moveLeft: PropTypes.func.isRequired,
+    moveRight: PropTypes.func.isRequired,
 };
 
 export default ScrollTableButton;

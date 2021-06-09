@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
 import { useTranslation } from 'react-i18next';
 import {
@@ -7,8 +8,8 @@ import {
     Content,
     SplitBorder,
 } from './Accordion.styles';
-import { ReactComponent as Up } from '../../images/chevron-up.svg';
-import { ReactComponent as Down } from '../../images/chevron-down.svg';
+import SvgIcon from '../../images/SvgIcon';
+import ExternalLink from '../externalLink/ExternalLink';
 import { NarrowTh, SimpleTable } from '../table/Table.styles';
 
 const Accordion = ({ header, name, value }) => {
@@ -31,7 +32,13 @@ const Accordion = ({ header, name, value }) => {
                 aria-controls={id}
             >
                 <p>{header}</p>
-                <span className="caret">{open ? <Up /> : <Down />}</span>
+                <span className="caret">
+                    {open ? (
+                        <SvgIcon svg="chevron-up" />
+                    ) : (
+                        <SvgIcon svg="chevron-down" />
+                    )}
+                </span>
             </HeaderContainer>
             <Content className={open ? 'Open' : 'Close'} id={id}>
                 <SplitBorder />
@@ -49,13 +56,10 @@ const Accordion = ({ header, name, value }) => {
                                 <td>
                                     {item.value.includes('Http') ||
                                     item.value.includes('http') ? (
-                                        <a
-                                            href={item.value}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                        >
-                                            {item.value}
-                                        </a>
+                                        <ExternalLink
+                                            url={item.value}
+                                            label={item.value}
+                                        />
                                     ) : (
                                         <span key={index}>{item.value}</span>
                                     )}
@@ -67,6 +71,12 @@ const Accordion = ({ header, name, value }) => {
             </Content>
         </Container>
     );
+};
+
+Accordion.propTypes = {
+    header: PropTypes.string.isRequired,
+    name: PropTypes.array.isRequired,
+    value: PropTypes.array.isRequired,
 };
 
 export default Accordion;

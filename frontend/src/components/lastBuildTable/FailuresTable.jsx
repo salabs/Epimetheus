@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { buildPropType } from '../../utils/PropTypes';
 import { useTranslation } from 'react-i18next';
 import { SimpleTable } from '../table/Table.styles';
 
@@ -24,6 +26,17 @@ const FailuresTable = ({ failures }) => {
             </tbody>
         </SimpleTable>
     );
+};
+
+FailuresTable.propTypes = {
+    failures: PropTypes.arrayOf(
+        PropTypes.shape({
+            failures: PropTypes.arrayOf(buildPropType),
+            id: PropTypes.number,
+            name: PropTypes.string,
+            suite: PropTypes.string,
+        })
+    ).isRequired,
 };
 
 export default FailuresTable;

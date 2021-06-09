@@ -1,5 +1,5 @@
-// eslint-disable-next-line
 import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
 import Flakiness from './Flakiness';
 import Status from './Status';
 import Error from './Error';
@@ -9,6 +9,7 @@ import { useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { HierarchicalSuiteNameTh, SuiteRow } from '../table/Table.styles';
+import { testCasePropType } from '../../utils/PropTypes';
 
 const Row = ({ test_cases, suite, id, suiteId }) => {
     const tableRow = test_cases.map(({ builds, test_id }, index) => {
@@ -54,6 +55,13 @@ const Row = ({ test_cases, suite, id, suiteId }) => {
     return tableRow;
 };
 
+Row.propTypes = {
+    test_cases: testCasePropType.isRequired,
+    suite: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+    suiteId: PropTypes.number.isRequired,
+};
+
 export default Row;
 
 // Show suite name separated on different lines with dots showing depth level
@@ -85,4 +93,10 @@ const LinksSuiteName = ({ tableCellHeight, suiteName, suiteId }) => {
             </Link>
         </HierarchicalSuiteNameTh>
     );
+};
+
+LinksSuiteName.propTypes = {
+    tableCellHeight: PropTypes.number.isRequired,
+    suiteName: PropTypes.string.isRequired,
+    suiteId: PropTypes.number.isRequired,
 };

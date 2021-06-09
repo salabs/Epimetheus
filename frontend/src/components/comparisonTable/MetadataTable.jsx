@@ -18,7 +18,7 @@ const MetadataTable = () => {
 
     return (
         buildData && (
-            <Table simpleTable={true} id="metadata3-table">
+            <Table simpleTable={true} tableId="metadata3-table">
                 <thead>
                     <tr>
                         <th>Metadata</th>

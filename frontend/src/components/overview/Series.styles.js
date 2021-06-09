@@ -20,7 +20,7 @@ export const ChartContainer = styled(props => <div {...props} />).attrs(
 `;
 
 export const ElementHeader = styled.h2`
-    font-family: 'Hack';
+    font-family: 'Hack', monospace;
     font-size: 20px;
     text-align: center;
     margin-top: 0;

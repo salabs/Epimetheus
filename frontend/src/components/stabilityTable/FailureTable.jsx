@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { TableContainer } from './FailureTable.styles';
 import { BreakWordTd, SimpleTable, WideTh } from '../table/Table.styles';
 
-const DashboardList = () => {
+const FailureTable = () => {
     const [t] = useTranslation(['overview']);
     const { seriesId } = useParams();
 
@@ -34,7 +34,7 @@ const DashboardList = () => {
                     })
                     .sort((a, b) => b.failures - a.failures)
                     .slice(0, amountOfBuilds);
-                setFailureList({ failures: filterList2 });
+                setFailureList(filterList2);
             } catch (error) {
                 dispatch({ type: 'setErrorState', errorState: error });
             }
@@ -53,19 +53,20 @@ const DashboardList = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {failureList.map(entry => {
-                        return (
-                            <tr key={entry.id}>
-                                <BreakWordTd>{entry.name}</BreakWordTd>
-                                <td>{entry.id}</td>
-                                <td>{entry.failures}</td>
-                            </tr>
-                        );
-                    })}
+                    {failureList &&
+                        failureList.map(entry => {
+                            return (
+                                <tr key={entry.id}>
+                                    <BreakWordTd>{entry.name}</BreakWordTd>
+                                    <td>{entry.id}</td>
+                                    <td>{entry.failures}</td>
+                                </tr>
+                            );
+                        })}
                 </tbody>
             </SimpleTable>
         </TableContainer>
     );
 };
 
-export default DashboardList;
+export default FailureTable;
