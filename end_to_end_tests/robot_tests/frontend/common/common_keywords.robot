@@ -26,8 +26,8 @@ Open Series Page of Team
   Go To   ${url}
 
 Open a build
-  [Arguments]  ${series}  ${build}
-  ${str}=   Catenate  SEPARATOR=  ${url}  series/    ${series}    /build/    ${build}    /history
+  [Arguments]  ${team}  ${series}  ${build}
+  ${str}=   Catenate  SEPARATOR=  ${url}   team/   ${team}   /series/    ${series}    /build/    ${build}    /history
   Set Suite Variable    ${navigated_series}   ${series}
   Set Suite Variable    ${navigated_build}    ${build}
   Go To  ${str}
