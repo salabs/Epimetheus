@@ -5,7 +5,7 @@ import KeywordAnalysisTable from '../components/history/build/keywordAnalysisTab
 import ParentBuild from '../components/parentData/ParentBuild';
 import ContentHeader from '../components/header/ContentHeader';
 import { useTranslation } from 'react-i18next';
-import { ParentInfo } from './Overview.styles';
+import { ParentInfo } from '../styles/baseComponents';
 import { ContainerGrid12, ContentGrid6 } from '../styles/baseComponents';
 
 const Overview = () => {

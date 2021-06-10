@@ -44,7 +44,10 @@ const SeriesOverview = ({ currentSeries }) => {
                             <BuildAmountSelector />
                             <Offset />
                         </FilterContainer>
-                        <ChartContainer id="timeLineContainer">
+                        <ChartContainer
+                            id="timeLineContainer"
+                            robot_id="timeLineContainer"
+                        >
                             <ElementHeader>
                                 {t('series.all_builds')}
                             </ElementHeader>
