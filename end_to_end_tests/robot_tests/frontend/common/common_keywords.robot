@@ -63,7 +63,7 @@ Open history page of series with checkbox set
 
 Open overview page of series
   [Arguments]    ${series}
-  ${str}=   Catenate  SEPARATOR=    ${history_url}    ${series}    /overview    
+  ${str}=   Catenate  SEPARATOR=    ${history_url}    ${series}    /overview
   Current Page Is     url=${str}
   ${url}=   Get Location
   Set Suite Variable    ${navigated_series}   ${series}
@@ -72,14 +72,14 @@ Open overview page of series
 
 
 Open overview page of build
-  [Arguments]   ${series}   ${build}
-  ${url}=   Catenate  SEPARATOR=  ${url}  series/   ${series}   /build/   ${build}    /overview
+  [Arguments]   ${series}   ${build}   ${team}
+  ${url}=   Catenate  SEPARATOR=  ${url}   team/   ${team}   series/   ${series}   /build/   ${build}    /overview
   Set Suite Variable    ${navigated_series}   ${series}
   Set Suite Variable    ${navigated_build}    ${build}
   Go To   ${url}
   Wait Until Element is Enabled   ${buildOverviewContainer}
 
-Open a suite 
+Open a suite
   [Arguments]   ${series}   ${build}    ${suite}
   ${url}=   Catenate  SEPARATOR=  ${url}  series/   ${series}   /build/   ${build}    /suite/   ${suite}    /history
   Set Suite Variable    ${navigated_series}   ${series}
