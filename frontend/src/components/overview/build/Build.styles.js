@@ -20,7 +20,7 @@ export const FlexDiv = styled(props => <div {...props} />).attrs(
 export const ChartContainer = styled.div`
     padding: var(--space-8);
     border: 1px solid var(--evidence-grey);
-    margin: 0 0 var(--space-24) 0;
+    margin: var(--space-8) 0 var(--space-24) 0;
     background-color: var(--nero-white);
     width: ${props => props.width};
     height: ${props => props.height};

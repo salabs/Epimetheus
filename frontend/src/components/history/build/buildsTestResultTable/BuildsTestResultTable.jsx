@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { historyPropType } from '../../utils/PropTypes';
+import { historyPropType } from '../../../../utils/PropTypes';
 import Body from './Body';
 import { useTranslation } from 'react-i18next';
-import { Table } from '../table/Table';
-import { WideTh } from '../table/Table.styles';
+import { Table } from '../../../table/Table';
+import { WideTh } from '../../../table/Table.styles';
 
 const BuildsTestResultTable = ({ id, buildHistory }) => {
     const [t] = useTranslation(['history']);

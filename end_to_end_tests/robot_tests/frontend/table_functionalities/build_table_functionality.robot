@@ -4,7 +4,7 @@ Resource                ./keywords.robot
 *** Test Cases ***
 
 Test CheckBoxes
-  Open a build  1   1
+  Open a build  TestArchiver   1   1
   Build Should have test executions
   Hide Tests    Failing
   The status of all tests should be   Pass

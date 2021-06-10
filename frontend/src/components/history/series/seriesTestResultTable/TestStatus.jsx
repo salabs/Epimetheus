@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { buildPropType } from '../../utils/PropTypes';
-import { useStateValue } from '../../contexts/state';
-import { pickIcon } from '../../utils/TestIcon';
+import { buildPropType } from '../../../../utils/PropTypes';
+import { pickIcon } from '../../../../utils/TestIcon';
 import { DefinedData } from './TestStatus.styles';
 import { addBgColor, removeBgColor } from './Heading';
+import { StateContext } from '../../../../contexts/state';
 
 const TestStatus = ({ builds, position, max_build_num }) => {
-    const [{ amountOfBuilds }] = useStateValue();
+    const { state } = useContext(StateContext);
+    const { amountOfBuilds } = state;
 
     // Creates correct length (amountOfBuilds) of array populated with empty values.
     // The array is used as a base in renderTestStatusRow function

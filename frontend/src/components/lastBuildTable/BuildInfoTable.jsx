@@ -1,15 +1,16 @@
-import React from 'react';
-import { useStateValue } from '../../contexts/state';
+import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { SimpleTable, WideTh } from '../table/Table.styles';
+import { StateContext } from '../../contexts/state';
 
 const BuildInfoTable = () => {
     const [t] = useTranslation(['overview']);
-    const [
-        {
-            parentData: { seriesData },
-        },
-    ] = useStateValue();
+
+    const { state } = useContext(StateContext);
+    const {
+        parentData: { seriesData },
+    } = state;
+
     return (
         <SimpleTable>
             <tbody>

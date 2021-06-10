@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useStateValue } from '../../contexts/state';
 import { ContainerGrid12, ContentGrid6 } from '../../styles/baseComponents';
 import Tab from '../tablist/Tab';
+import { StateContext } from '../../contexts/state';
 
 const ContentHeader = () => {
     const [t] = useTranslation(['header']);
@@ -12,14 +12,13 @@ const ContentHeader = () => {
     const buildUrl = pathname.includes('build');
     const suiteUrl = pathname.includes('suite');
 
-    const [
-        {
-            amountOfBuilds,
-            offset,
-            parentData: { seriesData, buildData },
-            selectedSuiteState,
-        },
-    ] = useStateValue();
+    const { state } = useContext(StateContext);
+    const {
+        amountOfBuilds,
+        offset,
+        parentData: { seriesData, buildData },
+        selectedSuiteState,
+    } = state;
 
     const formSuiteHeader = () => {
         const {

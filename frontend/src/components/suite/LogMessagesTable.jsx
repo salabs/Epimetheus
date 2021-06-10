@@ -49,7 +49,7 @@ const LogMessagesTable = ({ test }) => {
 };
 
 LogMessagesTable.propTypes = {
-    test: testsPropType.isRequired,
+    test: testsPropType,
 };
 
 export default LogMessagesTable;

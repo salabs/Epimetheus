@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useParams } from 'react-router';
-import { useStateValue } from '../../contexts/state';
 import { useTranslation } from 'react-i18next';
+import { StateContext } from '../../contexts/state';
 import { TableContainer } from './FlakinessTable.styles';
 import { ToggleButtonSmall } from '../../styles/button.styles';
 import { BreakWordTd, SimpleTable, WideTh } from '../table/Table.styles';
 
 const StabilityButton = ({ value, text }) => {
     const [t] = useTranslation(['overview']);
-    const [{ stabilityChecker }, dispatch] = useStateValue();
+
+    const { state, dispatch } = useContext(StateContext);
+    const { stabilityChecker } = state;
+
     return (
         <ToggleButtonSmall
             role="radio"
@@ -36,24 +39,27 @@ const StabilityButton = ({ value, text }) => {
 const DashboardList = () => {
     const [t] = useTranslation(['overview']);
     const { seriesId } = useParams();
-    const [testStabilityList, setTestStabilityList] = useState(null);
-    const [
-        { stabilityChecker, amountOfBuilds, offset },
-        dispatch,
-    ] = useStateValue();
+    const [testStabilityList, setTestStabilityList] = useState();
+
+    const { state, dispatch } = useContext(StateContext);
+    const { stabilityChecker, amountOfBuilds, offset } = state;
 
     useEffect(() => {
+        let isSubscribed = true;
         const url = `/data/series/${seriesId}/most_stable_tests/?builds=${amountOfBuilds}&most=${stabilityChecker}&offset=${offset}`;
         const fetchData = async () => {
             try {
                 const res = await fetch(url);
                 const json = await res.json();
-                setTestStabilityList(json.tests);
+                if (isSubscribed) {
+                    setTestStabilityList(json.tests);
+                }
             } catch (error) {
                 dispatch({ type: 'setErrorState', errorState: error });
             }
         };
         fetchData();
+        return () => (isSubscribed = false);
     }, [dispatch, seriesId, stabilityChecker, amountOfBuilds, offset]);
 
     return (

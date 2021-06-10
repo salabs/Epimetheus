@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { buildPropType } from '../../utils/PropTypes';
-import { pickIcon } from '../../utils/TestIcon';
+import { buildPropType } from '../../../../utils/PropTypes';
+import { pickIcon } from '../../../../utils/TestIcon';
 import { StyledRow } from './Flakiness.styles';
 
 const Flakiness = ({ builds, id }) => {

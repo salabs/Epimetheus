@@ -13,8 +13,6 @@ ${team_breadcrumb}    xpath://*[@robot_id="TeamBreadCrumb"]
 #Build Overview
 ${buildOverviewContainer}    //*[@robot_id="buildGraphDiv"]
 
-
-
 #Build Page
 ${build_breadcrumb}         xpath://*[@robot_id="BuildBreadCrumb"]
 

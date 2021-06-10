@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { useStateValue } from '../../contexts/state';
+import { useParams } from 'react-router';
 import { StyledLink, BuildNumberCell } from './Heading.styles';
-import { colorTypes } from '../../utils/colorTypes';
-import { WideTh } from '../table/Table.styles';
+import { colorTypes } from '../../../../utils/colorTypes';
+import { StateContext } from '../../../../contexts/state';
+import { WideTh } from '../../../table/Table.styles';
 
 // helper for build number sorting
 function compareNumbers(a, b) {
@@ -27,8 +28,11 @@ export function removeBgColor(id) {
 }
 
 export const Heading = ({ max_build_num }) => {
-    const [{ amountOfBuilds, selectedBranchState }] = useStateValue();
-    let { id } = selectedBranchState;
+    const { state } = useContext(StateContext);
+    const { amountOfBuilds, selectedSeriesState } = state;
+    const { name } = useParams();
+
+    let { id } = selectedSeriesState;
     let headingBuildNumbers = [];
     const LIMIT =
         max_build_num - amountOfBuilds > 0 ? max_build_num - amountOfBuilds : 0;
@@ -48,7 +52,9 @@ export const Heading = ({ max_build_num }) => {
                 onMouseLeave={() => removeBgColor(`id-${buildNumber}`)}
                 className={`id-${buildNumber}`}
             >
-                <StyledLink to={`/series/${id}/build/${buildNumber}/history`}>
+                <StyledLink
+                    to={`/team/${name}/series/${id}/build/${buildNumber}/history`}
+                >
                     <span className="sr-show">Build </span>
                     {buildNumber}
                 </StyledLink>

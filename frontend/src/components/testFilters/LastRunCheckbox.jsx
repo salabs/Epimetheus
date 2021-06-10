@@ -1,16 +1,16 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import { useStateValue } from '../../contexts/state';
 import { useQueryParams } from '../../hooks/useQuery';
 import { useHistory, useLocation } from 'react-router-dom';
 import Checkbox from '../checkbox/Checkbox';
+import { StateContext } from '../../contexts/state';
 import { Header, StyledDiv } from './LastRunCheckbox.styles';
 
 const LastRunCheckbox = ({ direction }) => {
-    // eslint-disable-next-line
-    const [{ lastRunFilterPass, lastRunFilterFail }, dispatch] = useStateValue();
+    const { state, dispatch } = useContext(StateContext);
+    const { lastRunFilterPass, lastRunFilterFail } = state;
+
     const [passFilter, setPassFilter] = useState(lastRunFilterPass.isChecked);
     const [failFilter, setFailFilter] = useState(lastRunFilterFail.isChecked);
 
@@ -28,7 +28,7 @@ const LastRunCheckbox = ({ direction }) => {
         if (tags.includes('Failing')) {
             setFailFilter(true);
         }
-    }, []);
+    }, [queryParams]);
 
     const updateTags = tag => {
         let tagList = queryParams.getAll('tag');

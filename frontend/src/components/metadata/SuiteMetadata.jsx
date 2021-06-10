@@ -1,11 +1,13 @@
-﻿import React from 'react';
+﻿import React, { useContext } from 'react';
 import Accordion from '../accordion/Accordion';
-import { useStateValue } from '../../contexts/state';
 import { useTranslation } from 'react-i18next';
+import { StateContext } from '../../contexts/state';
 
 const SuiteMetadata = () => {
     const [t] = useTranslation(['accordion']);
-    const [{ selectedSuiteState }] = useStateValue();
+
+    const { state } = useContext(StateContext);
+    const { selectedSuiteState } = state;
 
     const name = ['Suite Id', 'Name', 'Full name', 'Repository', 'Start time'];
 

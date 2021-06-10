@@ -4,12 +4,12 @@ import Flakiness from './Flakiness';
 import Status from './Status';
 import Error from './Error';
 import TestCase from './TestCase';
-import { dashify } from '../../utils/helpers';
+import { dashify } from '../../../../utils/helpers';
 import { useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { HierarchicalSuiteNameTh, SuiteRow } from '../table/Table.styles';
-import { testCasePropType } from '../../utils/PropTypes';
+import { HierarchicalSuiteNameTh, SuiteRow } from '../../../table/Table.styles';
+import { testCasePropType } from '../../../../utils/PropTypes';
 
 const Row = ({ test_cases, suite, id, suiteId }) => {
     const tableRow = test_cases.map(({ builds, test_id }, index) => {

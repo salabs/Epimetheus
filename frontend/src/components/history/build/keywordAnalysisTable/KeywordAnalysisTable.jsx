@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router';
-import { useStateValue } from '../../contexts/state';
 import { useTranslation } from 'react-i18next';
-import { Table } from '../table/Table';
-import { NarrowTh, WideTh } from '../table/Table.styles';
+import { Table } from '../../../table/Table';
+import { StateContext } from '../../../../contexts/state';
+import { NarrowTh, WideTh } from '../../../table/Table.styles';
 
 const KeywordAnalysisTable = () => {
     const [t] = useTranslation(['analysis']);
     const { seriesId, buildId } = useParams();
+
     const [keywordAnalysisList, setKeywordAnalysisList] = useState();
-    const [dispatch] = useStateValue();
+    const { dispatch } = useContext(StateContext);
 
     useEffect(() => {
         const url = `/data/series/${seriesId}/builds/${buildId}/keyword_analysis`;

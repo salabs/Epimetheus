@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { pickIcon } from '../../utils/TestIcon';
 import { useTranslation } from 'react-i18next';
+import { useParams } from 'react-router';
 import { CardValue, CardSubTitle, CardTitle } from './SeriesCard.styles';
 import {
     CardSection,
@@ -12,6 +13,8 @@ import {
 
 const SeriesCard = ({ data }) => {
     const [t] = useTranslation(['team']);
+
+    const params = useParams();
 
     const {
         id,
@@ -28,7 +31,10 @@ const SeriesCard = ({ data }) => {
     return (
         <CardSection aria-label={name} grid={true}>
             <CardHeading>
-                <CardTitle to={`/series/${id}/overview`} id={`${name}_series`}>
+                <CardTitle
+                    to={`/team/${params.name}/series/${id}/overview`}
+                    id={`${name}_series`}
+                >
                     {name}
                 </CardTitle>
                 <CardValue>{testStatusIcon}</CardValue>
@@ -41,7 +47,7 @@ const SeriesCard = ({ data }) => {
             </InfoContainer>
             <div aria-label={`Build ${last_build}`}>
                 <CardSubTitle
-                    to={`/series/${id}/build/${last_build}/overview`}
+                    to={`/team/${params.name}/series/${id}/build/${last_build}/overview`}
                     id={`${name}_builds`}
                 >
                     {t('card.last_build.title')} {last_build}

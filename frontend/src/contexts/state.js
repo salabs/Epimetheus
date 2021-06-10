@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useReducer } from 'react';
+import React, { createContext, useReducer, useMemo } from 'react';
 import logger from 'use-reducer-logger';
 export const StateContext = createContext();
 
@@ -22,8 +22,7 @@ const initialState = {
         isChecked: false,
     },
     comparedDataState: [[], []],
-    branchesState: null,
-    selectedBranchState: { name: 'All builds', id: 1 },
+    selectedSeriesState: { name: 'All builds', id: 1 },
     metadataState: [],
     selectedSuiteState: null,
     stabilityChecker: 'unstable',
@@ -41,10 +40,14 @@ export const StateProvider = ({ reducer, children }) => {
     const rootReducer =
         process.env.NODE_ENV === 'development' ? logger(reducer) : reducer;
 
+    const [state, dispatch] = useReducer(rootReducer, initialState);
+    const contextValue = useMemo(() => {
+        return { state, dispatch };
+    }, [state, dispatch]);
+
     return (
-        <StateContext.Provider value={useReducer(rootReducer, initialState)}>
+        <StateContext.Provider value={contextValue}>
             {children}
         </StateContext.Provider>
     );
 };
-export const useStateValue = () => useContext(StateContext);

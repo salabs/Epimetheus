@@ -76,15 +76,10 @@ const reducer = (state, action) => {
                     isChecked: action.isChecked,
                 },
             };
-        case 'setBranches':
+        case 'setSelectedSeries':
             return {
                 ...state,
-                branchesState: action.branches,
-            };
-        case 'setSelectedBranch':
-            return {
-                ...state,
-                selectedBranchState: {
+                selectedSeriesState: {
                     name: action.name,
                     id: action.id,
                     team: action.team,
@@ -159,7 +154,6 @@ const reducer = (state, action) => {
                 amountOfBuilds: 5,
                 offset: 0,
             };
-
         default:
             return state;
     }

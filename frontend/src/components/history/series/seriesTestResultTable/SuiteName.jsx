@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { dashify } from '../../utils/helpers';
-import { HierarchicalSuiteNameTh } from '../table/Table.styles';
+import { dashify } from '../../../../utils/helpers';
+import { HierarchicalSuiteNameTh } from '../../../table/Table.styles';
 
 // Show suite name separated on different lines with dots showing depth level
 const SuiteName = ({ tableCellHeight, suiteName }) => {

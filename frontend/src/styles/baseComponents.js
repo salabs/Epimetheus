@@ -11,3 +11,7 @@ export const ContentGrid6 = styled.div`
     max-width: 100%;
     margin: 0 calc(100% / 12);
 `;
+
+export const ParentInfo = styled.div`
+    background: var(--hermanni-grey-lighter);
+`;

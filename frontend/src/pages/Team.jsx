@@ -1,13 +1,14 @@
-import React, { useEffect } from 'react';
-import { useStateValue } from '../contexts/state';
+import React, { useEffect, useContext } from 'react';
 import { useParams } from 'react-router';
 import Loading from '../components/Loading';
 import SeriesList from './SeriesList';
 import TeamList from './TeamList';
 import { ContainerGrid12, ContentGrid6 } from '../styles/baseComponents';
+import { StateContext } from '../contexts/state';
 
 const Team = () => {
-    const [{ loadingState, teamsState }, dispatch] = useStateValue();
+    const { state, dispatch } = useContext(StateContext);
+    const { loadingState, teamsState } = state;
 
     const { name } = useParams();
 
@@ -16,10 +17,13 @@ const Team = () => {
             dispatch({ type: 'setLoadingState', loadingState: true });
 
             try {
-                const res = await fetch('/data/teams', {});
+                const res = await fetch('/data/team_names/', {});
                 const json = await res.json();
                 dispatch({ type: 'setLoadingState', loadingState: false });
-                dispatch({ type: 'setTeams', teams: json.teams });
+                dispatch({
+                    type: 'setTeams',
+                    teams: json.teams,
+                });
             } catch (error) {
                 dispatch({ type: 'setErrorState', errorState: error });
             }
@@ -36,13 +40,9 @@ const Team = () => {
                     </ContentGrid6>
                 </ContainerGrid12>
             ) : name ? (
-                <SeriesList
-                    selectedTeam={teamsState.find(
-                        element => element.name === name
-                    )}
-                />
+                <SeriesList name={name} />
             ) : (
-                <TeamList teamsState={teamsState} />
+                <TeamList />
             )}
         </div>
     );

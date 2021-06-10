@@ -1,13 +1,12 @@
-import React, { useState } from 'react';
-import { useStateValue } from '../../contexts/state';
+import React, { useState, useContext } from 'react';
 import Checkbox from '../checkbox/Checkbox';
+import { StateContext } from '../../contexts/state';
 import { CheckboxContainer } from './ComparisonCheckbox.styles';
 
 const ComparisonCheckbox = () => {
-    const [
-        { compareFilterMatch, compareFilterMismatch },
-        dispatch,
-    ] = useStateValue();
+    const { state, dispatch } = useContext(StateContext);
+    const { compareFilterMatch, compareFilterMismatch } = state;
+
     const [mismatchFilter, setMismatchFilter] = useState(
         compareFilterMatch.isChecked
     );
