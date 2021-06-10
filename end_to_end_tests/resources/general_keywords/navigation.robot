@@ -21,8 +21,8 @@ Open Series Page of Team
   Go To   ${url}
 
 Open a build
-  [Arguments]  ${series}  ${build}   ${team}
-  ${str}=   Catenate  SEPARATOR=  ${url}   team/   ${team}   series/    ${series}    /build/    ${build}    /history
+  [Arguments]  ${team}   ${series}  ${build}
+  ${str}=   Catenate  SEPARATOR=  ${url}   team/   ${team}   /series/    ${series}    /build/    ${build}    /history
   Set Suite Variable    ${navigated_series}   ${series}
   Set Suite Variable    ${navigated_build}    ${build}
   Go To  ${str}
@@ -30,8 +30,8 @@ Open a build
 
 
 Open history page of series
-  [Arguments]    ${series}
-  ${str}=   Catenate  SEPARATOR=    ${history_url}    ${series}    /history
+  [Arguments]   ${team}   ${series}
+  ${str}=   Catenate  SEPARATOR=   ${url}   team/   ${team}   /series/   ${series}   /history
   Current Page Is     url=${str}
   ${url}=   Get Location
   Set Suite Variable    ${navigated_series}   ${series}
@@ -39,8 +39,8 @@ Open history page of series
   Wait Until Element is Enabled   ${lastRunInfo}
 
 Open history page of series with url params
-  [Arguments]    ${series}    ${offset}   ${numberofbuilds}
-  ${str}=   Catenate  SEPARATOR=    ${history_url}    ${series}    /history   ?offset=    ${offset}   &numberofbuilds=    ${numberofbuilds}
+  [Arguments]   ${team}    ${series}    ${offset}   ${numberofbuilds}
+  ${str}=   Catenate  SEPARATOR=    ${url}   team/   ${team}   /series/    ${series}    /history   ?offset=    ${offset}   &numberofbuilds=    ${numberofbuilds}
   Current Page Is     url=${str}
   ${url}=   Get Location
   Set Suite Variable    ${navigated_series}   ${series}
@@ -49,8 +49,8 @@ Open history page of series with url params
 
 
 Open history page of series with checkbox set
-  [Arguments]   ${series}   ${boolean}
-  ${str}=   Catenate  SEPARATOR=    ${history_url}    ${series}    /history   ?tag=   ${boolean}
+  [Arguments]   ${team}   ${series}   ${boolean}
+  ${str}=   Catenate  SEPARATOR=    ${url}   team/   ${team}   /series/   ${series}    /history   ?tag=   ${boolean}
   Current Page Is     url=${str}
   ${url}=   Get Location
   Set Suite Variable    ${navigated_series}   ${series}
@@ -58,8 +58,8 @@ Open history page of series with checkbox set
   Wait Until Element is Enabled   ${lastRunInfo}
 
 Open overview page of series
-  [Arguments]    ${series}
-  ${str}=   Catenate  SEPARATOR=    ${history_url}    ${series}    /overview
+  [Arguments]   ${team}    ${series}
+  ${str}=   Catenate  SEPARATOR=    ${url}   team/   ${team}   /series/    ${series}    /overview
   Current Page Is     url=${str}
   ${url}=   Get Location
   Set Suite Variable    ${navigated_series}   ${series}
@@ -86,8 +86,8 @@ Open a suite
 
 
 Navigate to first suite of build
-  [Arguments]   ${series}   ${build}   ${team}
-  ${url}=   Catenate  SEPARATOR=  ${url}   team/   ${team}   series/   ${series}   /build/   ${build}    /history
+  [Arguments]    ${team}   ${series}   ${build}
+  ${url}=   Catenate  SEPARATOR=  ${url}   team/   ${team}   /series/   ${series}   /build/   ${build}    /history
   Go To   ${url}
   Wait Until Element is Enabled   ${first_suite}
   Click Element     ${first_suite}

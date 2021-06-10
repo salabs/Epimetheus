@@ -34,8 +34,8 @@ Open a build
   Wait Until Element is Enabled   ${lastRunInfo}
 
 Open history page of series
-  [Arguments]    ${series}
-  ${str}=   Catenate  SEPARATOR=    ${history_url}    ${series}    /history
+  [Arguments]  ${team}   ${series}
+  ${str}=   Catenate  SEPARATOR=    ${url}   team/   ${team}   /series/   ${series}    /history
   Current Page Is     url=${str}
   ${url}=   Get Location
   Set Suite Variable    ${navigated_series}   ${series}
@@ -43,8 +43,8 @@ Open history page of series
   Wait Until Element is Enabled   ${lastRunInfo}
 
 Open history page of series with url params
-  [Arguments]    ${series}    ${offset}   ${numberofbuilds}
-  ${str}=   Catenate  SEPARATOR=    ${history_url}    ${series}    /history   ?offset=    ${offset}   &numberofbuilds=    ${numberofbuilds}
+  [Arguments]   ${team}    ${series}    ${offset}   ${numberofbuilds}
+  ${str}=   Catenate  SEPARATOR=    ${url}   team/   ${team}   /series/    ${series}    /history   ?offset=    ${offset}   &numberofbuilds=    ${numberofbuilds}
   Current Page Is     url=${str}
   ${url}=   Get Location
   Set Suite Variable    ${navigated_series}   ${series}
@@ -53,8 +53,8 @@ Open history page of series with url params
 
 
 Open history page of series with checkbox set
-  [Arguments]   ${series}   ${boolean}
-  ${str}=   Catenate  SEPARATOR=    ${history_url}    ${series}    /history   ?tag=   ${boolean}
+  [Arguments]   ${team}   ${series}   ${boolean}
+  ${str}=   Catenate  SEPARATOR=    ${url}   team/   ${team}   /series/    ${series}    /history   ?tag=   ${boolean}
   Current Page Is     url=${str}
   ${url}=   Get Location
   Set Suite Variable    ${navigated_series}   ${series}
@@ -62,8 +62,8 @@ Open history page of series with checkbox set
   Wait Until Element is Enabled   ${lastRunInfo}
 
 Open overview page of series
-  [Arguments]    ${series}
-  ${str}=   Catenate  SEPARATOR=    ${history_url}    ${series}    /overview
+  [Arguments]   ${team}   ${series}
+  ${str}=   Catenate  SEPARATOR=    ${url}   team/   ${team}   /series/    ${series}    /overview
   Current Page Is     url=${str}
   ${url}=   Get Location
   Set Suite Variable    ${navigated_series}   ${series}

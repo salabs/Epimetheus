@@ -27,16 +27,16 @@ Test Navbar Links From Series Page
   Test Page without Inner Nav    ${url}
 
 Test Navbar Links From History Page
-  Open history page of series    3
+  Open history page of series  TestArchiver  3
   ${url}=    Get Location
   Test Page without Inner Nav    ${url}
 
 Test Navbar Links From Build Page
-  Open a build    1    1
+  Open a build   TestArchiver    1    1
   ${url}=    Get Location
   Test Page without Inner Nav    ${url}
 
 Test Navbar links From Dashboard Page
-  Open overview page of series    3
+  Open overview page of series  TestArchiver  3
   ${url}=    Get Location
   Test Page without Inner Nav    ${url}

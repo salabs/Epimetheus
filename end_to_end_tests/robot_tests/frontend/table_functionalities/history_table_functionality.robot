@@ -6,7 +6,7 @@ Resource                            ./variables.robot
 *** Test Cases ***
 
 Test Build Amount Dropdown
-  Open history page of series    3
+  Open history page of series   TestArchiver   3
   Select From Dropdown    ${history_build_selector_5}
   History Table should be limited to    number=5
   Select From Dropdown    ${history_build_selector_10}
@@ -15,7 +15,7 @@ Test Build Amount Dropdown
   History Table should be limited to    number=30
 
 Test Offset Functionality
-  Open history page of series   3
+  Open history page of series  TestArchiver   3
   Store Most Recent Builds
   Offset should be    0
   Most Recent Build Number should be    ${most_recent_build}
