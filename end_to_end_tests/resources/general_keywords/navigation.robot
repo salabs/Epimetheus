@@ -76,7 +76,7 @@ Open overview page of build
   Wait Until Element is Enabled   ${buildOverviewContainer}
 
 Open a suite
-  [Arguments]   ${series}   ${build}    ${suite}   ${team}
+  [Arguments]   ${team}   ${series}   ${build}    ${suite}
   ${url}=   Catenate  SEPARATOR=  ${url}   team/   ${team}  series/   ${series}   /build/   ${build}    /suite/   ${suite}    /history
   Set Suite Variable    ${navigated_series}   ${series}
   Set Suite Variable    ${navigated_build}    ${build}
