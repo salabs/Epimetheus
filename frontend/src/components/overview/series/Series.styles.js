@@ -1,5 +1,5 @@
 ﻿import styled from 'styled-components';
-
+import React from 'react';
 export const ParentContainer = styled.div`
     display: flex;
     flex-wrap: wrap;
@@ -7,7 +7,11 @@ export const ParentContainer = styled.div`
     column-gap: var(--space-24);
 `;
 
-export const ChartContainer = styled.div`
+export const ChartContainer = styled(props => <div {...props} />).attrs(
+    ({ customproperty }) => ({
+        customproperty,
+    })
+)`
     border: 1px solid var(--evidence-grey);
     padding: var(--space-8);
     margin: 0 0 var(--space-24) 0;

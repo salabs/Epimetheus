@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import React from 'react';
 
 export const TableWrapper = styled.div`
     position: relative;
@@ -11,7 +12,11 @@ export const OverflowWrapper = styled.div`
     scroll-behavior: smooth;
 `;
 
-export const SpreadSheetTable = styled.table`
+export const SpreadSheetTable = styled(props => <table {...props} />).attrs(
+    ({ customproperty }) => ({
+        customproperty,
+    })
+)`
     width: 100%;
     border-collapse: separate;
     font-size: 14px;
@@ -77,7 +82,11 @@ export const SpreadSheetTable = styled.table`
     }
 `;
 
-export const SimpleTable = styled.table`
+export const SimpleTable = styled(props => <table {...props} />).attrs(
+    ({ customproperty }) => ({
+        customproperty,
+    })
+)`
     width: 100%;
     border-collapse: collapse;
     font-size: 14px;

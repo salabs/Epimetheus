@@ -7,7 +7,7 @@ import { BreadcrumbList } from './BreadcrumbNav.styles';
 import { StateContext } from '../contexts/state';
 
 const LinkItem = props => {
-    const { to, id, ariaLabel, name } = props.link;
+    const { to, id, robot_id, ariaLabel, name } = props.link;
     const { current } = props;
 
     return (
@@ -15,6 +15,7 @@ const LinkItem = props => {
             <Link
                 to={to}
                 id={id}
+                robot_id={robot_id}
                 className={current ? 'active' : ''}
                 aria-current={current ? 'page' : false}
                 aria-label={ariaLabel}
@@ -51,34 +52,40 @@ const ListItems = ({ status }) => {
         })
         .set('team', {
             to: `/team/${teamName}`,
+            robot_id: 'TeamBreadCrumb',
             id: 'TeamBreadCrumb',
             name: teamName,
         })
         .set('series', {
             to: `/team/${teamName}/series/${seriesName}/overview`,
+            robot_id: 'SeriesBreadCrumb',
             id: 'SeriesBreadCrumb',
             ariaLabel: `${selectedSeriesState.name}: series' name`,
             name: selectedSeriesState.name,
         })
         .set('build', {
             to: `/team/${teamName}/series/${seriesId}/build/${buildId}/overview`,
+            robot_id: 'BuildBreadCrumb',
             id: 'BuildBreadCrumb',
             ariaLabel: `${buildId}: build's id`,
             name: buildId,
         })
         .set('suite', {
             to: `/team/${teamName}/series/${seriesId}/build/${buildId}/suite/${suiteId}/history`,
+            robot_id: 'SuiteBreadCrumb',
             id: 'SuiteBreadCrumb',
             ariaLabel: `${suiteId}: suite's id`,
             name: suiteId,
         })
         .set('compare', {
             to: `/compare`,
+            robot_id: 'CompareBreadCrumb',
             id: 'CompareBreadCrumb',
             name: 'Compare',
         })
         .set('compareBuilds', {
             to: `/compare/${seriesId}/${buildId}/to/${seriesId2}/${buildId2}`,
+            robot_id: 'CompareBuildsBreadCrumb',
             id: 'CompareBuildsBreadCrumb',
             name: `Compare series ${seriesId} build ${buildId} to series ${seriesId2} build ${buildId2}`,
         });

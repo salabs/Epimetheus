@@ -96,10 +96,11 @@ const OffsetButtons = () => {
     return (
         <div>
             <Heading>Offset</Heading>
-            <FlexDiv id="offset_container">
+            <FlexDiv robot_id="offset_container" id="offset_container">
                 <DefaultButton
                     onClick={handleLatestButtonPress}
-                    id="latest_offset_button"
+                    robot_id="latest_offset_button"
+                    id="latest_offset_button1"
                 >
                     <SvgIcon svg="chevron-verticalbar-left" />{' '}
                     <span>LATEST</span>
@@ -107,6 +108,7 @@ const OffsetButtons = () => {
                 <DefaultButton
                     onClick={() => handleDirectionButtonPress('left')}
                     disabled={leftDisabled}
+                    robot_id="left_offset_button"
                     id="left_offset_button"
                     aria-label="<"
                     className={`left${leftDisabled}`}
@@ -118,11 +120,13 @@ const OffsetButtons = () => {
                     type="number"
                     onChange={handleNumberInput}
                     value={inputOffset}
+                    robot_id="offset_field"
                     id="offset_field"
                 />
                 <DefaultButton
                     onClick={() => handleDirectionButtonPress('right')}
                     disabled={rightDisabled}
+                    robot_id="right_offset_button"
                     id="right_offset_button"
                     aria-label=">"
                     className={`right${rightDisabled}`}

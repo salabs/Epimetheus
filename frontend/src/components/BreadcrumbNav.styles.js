@@ -1,6 +1,10 @@
 ﻿import styled from 'styled-components';
-
-export const BreadcrumbList = styled.ol`
+import React from 'react';
+export const BreadcrumbList = styled(props => <ol {...props} />).attrs(
+    ({ customproperty }) => ({
+        customproperty,
+    })
+)`
     font-size: 14px;
     display: grid;
     grid-auto-flow: column;

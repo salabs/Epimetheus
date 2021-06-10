@@ -33,7 +33,10 @@ const ParentTable = ({ data, types }) => {
         <>
             {data && (
                 <Container>
-                    <ContentBlockContainer id="lastRunInfo">
+                    <ContentBlockContainer
+                        robot_id="lastRunInfo"
+                        id="lastRunInfo"
+                    >
                         <span className="title">Context</span>
                         {showData()}
                     </ContentBlockContainer>

@@ -42,7 +42,7 @@ const Accordion = ({ header, name, value }) => {
             </HeaderContainer>
             <Content className={open ? 'Open' : 'Close'} id={id}>
                 <SplitBorder />
-                <SimpleTable id="datatable">
+                <SimpleTable robot_id="datatable" id="datatable">
                     <thead>
                         <tr>
                             <NarrowTh>{t('name')}</NarrowTh>

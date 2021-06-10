@@ -39,7 +39,7 @@ const BuildAmountSelector = () => {
         { value: 15, label: 15, id: '15_option' },
         { value: 30, label: 30, id: '30_option' },
     ];
-
+    //Note: the dropdown select id "build_amount_dropdown" is used in test automation.
     return (
         <SelectorContainer>
             <DropdownSelect

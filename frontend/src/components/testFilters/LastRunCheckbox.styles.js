@@ -1,11 +1,16 @@
 ﻿import styled from 'styled-components';
+import React from 'react';
 
 export const Header = styled.div`
     color: var(--evidence-grey);
     margin: var(--space-8) 0;
 `;
 
-export const StyledDiv = styled.div`
+export const StyledDiv = styled(props => <div {...props} />).attrs(
+    ({ customproperty }) => ({
+        customproperty,
+    })
+)`
     display: flex;
     flex-direction: ${props => props.direction};
     border: 1px solid var(--evidence-grey);

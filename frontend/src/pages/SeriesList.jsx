@@ -34,7 +34,7 @@ const SeriesList = ({ name }) => {
     }, [dispatch, name]);
 
     return (
-        <div id="selectedTeam">
+        <div robot_id="selectedTeam" id="selectedTeam">
             <BreadcrumbNav status={'team'} />
             {seriesList ? (
                 <>

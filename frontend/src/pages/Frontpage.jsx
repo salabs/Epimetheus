@@ -8,7 +8,7 @@ import { ContentGrid6, ContainerGrid12 } from '../styles/baseComponents';
 const Frontpage = () => {
     const [t] = useTranslation(['frontpage']);
     return (
-        <div id="frontpage">
+        <div robot_id="frontpage" id="frontpage">
             <ContainerGrid12>
                 <ContentGrid6>
                     <h1>{t('title')}</h1>
