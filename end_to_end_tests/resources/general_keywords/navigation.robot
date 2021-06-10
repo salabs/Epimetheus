@@ -69,7 +69,7 @@ Open overview page of series
 
 Open overview page of build
   [Arguments]   ${series}   ${build}   ${team}
-  ${url}=   Catenate  SEPARATOR=  ${url}  team/   ${team}   series/   ${series}   /build/   ${build}    /overview
+  ${url}=   Catenate  SEPARATOR=  ${url}   team/   ${team}   series/   ${series}   /build/   ${build}    /overview
   Set Suite Variable    ${navigated_series}   ${series}
   Set Suite Variable    ${navigated_build}    ${build}
   Go To   ${url}
