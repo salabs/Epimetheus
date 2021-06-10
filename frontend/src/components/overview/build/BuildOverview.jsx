@@ -70,7 +70,10 @@ const BuildOverview = ({ currentSeries }) => {
                         <PageContainer>
                             <BuildMetadata />
                             {statusCount ? (
-                                <FlexDiv id="buildGraphDiv">
+                                <FlexDiv
+                                    id="buildGraphDiv"
+                                    robot_id="buildGraphDiv"
+                                >
                                     <ChartContainer
                                         width="450px"
                                         height="300px"
