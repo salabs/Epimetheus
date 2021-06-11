@@ -33,7 +33,7 @@ where to route backend server requests. This arguments can be configured when bu
 
 ### Running docker-compose with public images
 
-There are also prebuilt images that you can use by running the command.
+There are also prebuilt images that you can use by running the command. The yml files for different deployments are located under the deployment-templates folder.
 
 `$env:ENV_FILE="configfile.env"; docker-compose -f .\docker-compose-from-remote.yml up --build`
 
