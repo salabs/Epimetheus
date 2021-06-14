@@ -39,7 +39,7 @@ Epimetheus project uses [EditorConfig](https://editorconfig.org/) to manage the 
 for settings.
 
 ## Release strategy
-Project uses semantic versioning, and all the pull requests are first created in to `develop` branch. Releases are done regularly when there are new commits in the development branch. The releases are done with a merge commit that has release version numbering in semantic order (Major, Minor, Patch) (Semantic versioning: <https://semver.org/>)
+Project uses semantic versioning, and all the pull requests are first created in to `develop` branch. `develop` is our trunk branch and can be considered the bleeding edge. `master` branch is for our stable semantically versioned releases. Releases are done regularly when there are new commits in the development branch. The releases are done with a merge commit that has release version numbering in semantic order (Major, Minor, Patch) (Semantic versioning: <https://semver.org/>)
 
 ![image](./release_strategy.png)
 
@@ -78,3 +78,39 @@ git push
 ```
 
 7. Create a pull request and follow the given guidelines. Make sure the `base` is set to `develop`.
+
+## Step-by-step example of making new release
+1. Checkout to ```develop``` branch:
+```bash
+git checkout master
+git pull
+git checkout develop
+git pull
+```
+
+2. Check what has changed since previous release. This command shows the commit message oneliners since previous release:
+```bash
+git log --pretty=%s master..HEAD
+```
+
+3. Based on the changes determine the correct version version bump (`major`/`minor`/`patch`). Usually with new features it is `minor`. This command updates the version number for the npm package.
+```bash
+npm version minor
+```
+
+4. Update the same version in backend in `backend_server/server.py`: `VERSION_NUMBER`
+
+5. Update Release notes in `README.md`. You can first broadly characterize the changes and then list the features (i.e. copy the output of `git log --pretty=%s master..HEAD`).
+
+6. Commit the changes
+```bash
+git add -u
+git commit -m "release x.x.x"
+```
+
+7. Push the changes and make a pull request to `master`
+```bash
+git push
+```
+
+8. Once the release has been merge make a [new Github release](https://github.com/salabs/Epimetheus/releases/new) that will also tag the commit. Set the tag as the new version and make sure it points to current master. Release title is the version. Copy the list of changes to the release notes area below. If issue numbers are prefixed with `#` Github will add a handy link to the corresponding issue. Finally publish release.
