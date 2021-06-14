@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import Loading from '../components/Loading';
 import DropdownSelect from '../components/dropdown/DropdownSelect';
 import { ContainerGrid12, ContentGrid6 } from '../styles/baseComponents';
@@ -7,24 +7,27 @@ import {
     ComparisonFormContainer,
     ComparisonAction,
 } from './ComparisonForm.styles';
+import { DefaultButton } from '../styles/button.styles';
 
 const ComparisonForm = () => {
+    const history = useHistory();
+
     const [teamList, setTeamList] = useState([]);
     const [loadingState, setLoadingState] = useState(false);
 
     const [team1, setTeam1] = useState();
     const [series1, setSeries1] = useState();
-    const [seriesList1, setSeriesList1] = useState([]);
+    const [seriesList1, setSeriesList1] = useState();
     const [build1, setBuild1] = useState();
-    const [buildList1, setBuildList1] = useState([]);
+    const [buildList1, setBuildList1] = useState();
     const [series1Loading, setSeries1Loading] = useState(false);
     const [build1Loading, setBuild1Loading] = useState(false);
 
     const [team2, setTeam2] = useState();
     const [series2, setSeries2] = useState();
-    const [seriesList2, setSeriesList2] = useState([]);
+    const [seriesList2, setSeriesList2] = useState();
     const [build2, setBuild2] = useState();
-    const [buildList2, setBuildList2] = useState([]);
+    const [buildList2, setBuildList2] = useState();
     const [series2Loading, setSeries2Loading] = useState(false);
     const [build2Loading, setBuild2Loading] = useState(false);
 
@@ -74,7 +77,10 @@ const ComparisonForm = () => {
             setBuild1Loading(true);
             setBuild1('');
             try {
-                const res = await fetch(`/data/series/${series1}/builds/`, {});
+                const res = await fetch(
+                    `/data/series/${series1}/builds/?builds=0`,
+                    {}
+                );
                 const json = await res.json();
                 if (!isCancelled) {
                     setBuildList1(json.builds);
@@ -119,7 +125,10 @@ const ComparisonForm = () => {
             setBuild2Loading(true);
             setBuild2('');
             try {
-                const res = await fetch(`/data/series/${series2}/builds/`, {});
+                const res = await fetch(
+                    `/data/series/${series2}/builds/?builds=0`,
+                    {}
+                );
                 const json = await res.json();
                 if (!isCancelled) {
                     setBuildList2(json.builds);
@@ -170,39 +179,55 @@ const ComparisonForm = () => {
                                     initialValue={team1 ? team1 : ''}
                                     id="select-team1-search"
                                 />
-                                {!series1Loading && (
-                                    <DropdownSelect
-                                        label="Series1"
-                                        selectorValues={seriesList1.map(
-                                            series => {
-                                                return {
-                                                    value: series.id,
-                                                    label: series.name,
-                                                    id: series.id,
-                                                };
+                                {series1Loading ? (
+                                    <ContentGrid6>
+                                        <Loading />
+                                    </ContentGrid6>
+                                ) : (
+                                    seriesList1 && (
+                                        <DropdownSelect
+                                            label="Series1"
+                                            selectorValues={seriesList1
+                                                .map(series => {
+                                                    return {
+                                                        value: series.id,
+                                                        label: series.name,
+                                                        id: series.id,
+                                                    };
+                                                })
+                                                .reverse()}
+                                            onChange={e => setSeries1(e)}
+                                            initialValue={
+                                                series1 ? series1 : ''
                                             }
-                                        )}
-                                        onChange={e => setSeries1(e)}
-                                        initialValue={series1 ? series1 : ''}
-                                        id="select-series1-search"
-                                    />
+                                            id="select-series1-search"
+                                        />
+                                    )
                                 )}
-                                {!build1Loading && (
-                                    <DropdownSelect
-                                        label="Build1"
-                                        selectorValues={buildList1.map(
-                                            build => {
-                                                return {
-                                                    value: build.build_number,
-                                                    label: build.build_number,
-                                                    id: build.build_number,
-                                                };
-                                            }
-                                        )}
-                                        onChange={e => setBuild1(e)}
-                                        initialValue={build1 ? build1 : ''}
-                                        id="select-build1-search"
-                                    />
+                                {build1Loading ? (
+                                    <ContentGrid6>
+                                        <Loading />
+                                    </ContentGrid6>
+                                ) : (
+                                    buildList1 && (
+                                        <DropdownSelect
+                                            label="Build1"
+                                            selectorValues={buildList1.map(
+                                                build => {
+                                                    return {
+                                                        value:
+                                                            build.build_number,
+                                                        label:
+                                                            build.build_number,
+                                                        id: build.build_number,
+                                                    };
+                                                }
+                                            )}
+                                            onChange={e => setBuild1(e)}
+                                            initialValue={build1 ? build1 : ''}
+                                            id="select-build1-search"
+                                        />
+                                    )
                                 )}
                             </div>
                             <div id="second-input-container">
@@ -219,49 +244,69 @@ const ComparisonForm = () => {
                                     initialValue={team2 ? team2 : ''}
                                     id="select-team2-search"
                                 />
-                                {!series2Loading && (
-                                    <DropdownSelect
-                                        label="Series2"
-                                        selectorValues={seriesList2.map(
-                                            series => {
-                                                return {
-                                                    value: series.id,
-                                                    label: series.name,
-                                                    id: series.id,
-                                                };
+                                {series2Loading ? (
+                                    <ContentGrid6>
+                                        <Loading />
+                                    </ContentGrid6>
+                                ) : (
+                                    seriesList2 && (
+                                        <DropdownSelect
+                                            label="Series2"
+                                            selectorValues={seriesList2
+                                                .map(series => {
+                                                    return {
+                                                        value: series.id,
+                                                        label: series.name,
+                                                        id: series.id,
+                                                    };
+                                                })
+                                                .reverse()}
+                                            onChange={e => setSeries2(e)}
+                                            initialValue={
+                                                series2 ? series2 : ''
                                             }
-                                        )}
-                                        onChange={e => setSeries2(e)}
-                                        initialValue={series2 ? series2 : ''}
-                                        id="select-series2-search"
-                                    />
+                                            id="select-series2-search"
+                                        />
+                                    )
                                 )}
-                                {!build2Loading && (
-                                    <DropdownSelect
-                                        label="Build2"
-                                        selectorValues={buildList2.map(
-                                            build => {
-                                                return {
-                                                    value: build.build_number,
-                                                    label: build.build_number,
-                                                    id: build.build_number,
-                                                };
-                                            }
-                                        )}
-                                        onChange={e => setBuild2(e)}
-                                        initialValue={build2 ? build2 : ''}
-                                        id="select-build2-search"
-                                    />
+                                {build2Loading ? (
+                                    <ContentGrid6>
+                                        <Loading />
+                                    </ContentGrid6>
+                                ) : (
+                                    buildList2 && (
+                                        <DropdownSelect
+                                            label="Build2"
+                                            selectorValues={buildList2.map(
+                                                build => {
+                                                    return {
+                                                        value:
+                                                            build.build_number,
+                                                        label:
+                                                            build.build_number,
+                                                        id: build.build_number,
+                                                    };
+                                                }
+                                            )}
+                                            onChange={e => setBuild2(e)}
+                                            initialValue={build2 ? build2 : ''}
+                                            id="select-build2-search"
+                                        />
+                                    )
                                 )}
                             </div>
                         </ComparisonFormContainer>
                         {series1 && build1 && series2 && build2 && (
                             <ComparisonAction>
-                                <Link
-                                    to={`/compare/${series1}/${build1}/to/${series2}/${build2}`}
+                                <DefaultButton
+                                    onClick={() =>
+                                        history.push(
+                                            `/compare/${series1}/${build1}/to/${series2}/${build2}`
+                                        )
+                                    }
                                 >
-                                    Compare
-                                </Link>
+                                    <span>Compare</span>
+                                </DefaultButton>
                             </ComparisonAction>
                         )}
                     </ContentGrid6>
