@@ -46,6 +46,7 @@ Once you have both frontend and backend running, you can open your browser to [h
 Note that there should be some data saved in the database before user interface will show something. For pushing data into database, consult [TestArchiver documentation](https://github.com/salabs/TestArchiver).
 
 ## Installation with docker
+
 Running project with [Docker](/README-docker.md)
 
 ## Browser Support
@@ -66,7 +67,20 @@ Supported browsers are "all modern browsers". This means IE and some mobile brow
 
 ## Release Notes
 
+-   1.2.0 (2021-06-14)
+
+    -   Compare page
+    -   Team Name API
+    -   Team filter to series and team API
+    -   Refactoring frontend application state usage
+    -   Unify different component styles
+    -   Contribution and release documentation updates
+    -   Bug fixes:
+        -   <p>#177 offset button reset</p>
+        -   <p>#174 Wrong build status when first fails and rerun passes</p>
+
 -   1.1.0 (2021-03-12)
+
     -   Simple build results API
     -   Analysis view for a build with keyword analysis table
     -   Keyword analysis API
@@ -74,14 +88,15 @@ Supported browsers are "all modern browsers". This means IE and some mobile brow
     -   Style and file name refactoring
     -   Dockerhub publishing for new releases
     -   Features:
-        - <p>#141 Style and refactor the keyword analysis table enhancement</p>
-        - <p>#138 Fix various bugs caused by the grid bug</p>
-        - <p>#137 Simple single build results API enhancement</p>
-        - <p>#135 Keyword execution time analysis tool enhancement</p>
-        - <p>#133 Accessibility fix for checkbox bug</p>
-        - <p>#131 Check color usage enhancement</p>
+        -   <p>#141 Style and refactor the keyword analysis table enhancement</p>
+        -   <p>#138 Fix various bugs caused by the grid bug</p>
+        -   <p>#137 Simple single build results API enhancement</p>
+        -   <p>#135 Keyword execution time analysis tool enhancement</p>
+        -   <p>#133 Accessibility fix for checkbox bug</p>
+        -   <p>#131 Check color usage enhancement</p>
 
 -   1.0.1 (2020-10-21)
+
     -   Fixes a bug which prevented the frontend container from starting when using docker-compose
     -   Changes the default port of Nginx in Dockerfile-prod container from 80 to 8080. Services in Docker containers are now running as non root user.
     -   Layout fixes
