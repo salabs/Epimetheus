@@ -1,12 +1,11 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import BreadcrumbNav from '../components/BreadcrumbNav';
-import KeywordAnalysisTable from '../components/dashlist/KeywordAnalysisTable';
+import KeywordAnalysisTable from '../components/history/build/keywordAnalysisTable/KeywordAnalysisTable';
 import ParentBuild from '../components/parentData/ParentBuild';
 import ContentHeader from '../components/header/ContentHeader';
 import { useTranslation } from 'react-i18next';
-import { ParentInfo } from './Overview.styles';
+import { ParentInfo } from '../styles/baseComponents';
 import { ContainerGrid12, ContentGrid6 } from '../styles/baseComponents';
 
 const Overview = () => {
@@ -28,8 +27,10 @@ const Overview = () => {
                 </ContainerGrid12>
             </ParentInfo>
             <ContainerGrid12>
-                <h2>{t('title')}</h2>
-                <KeywordAnalysisTable />
+                <ContentGrid6>
+                    <h2>{t('title')}</h2>
+                    <KeywordAnalysisTable />
+                </ContentGrid6>
             </ContainerGrid12>
         </>
     );

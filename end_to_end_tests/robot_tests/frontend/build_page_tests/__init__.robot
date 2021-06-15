@@ -1,3 +1,0 @@
-*** Settings ***
-
-Force Tags    Build

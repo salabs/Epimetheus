@@ -1,16 +1,14 @@
-import React, { useEffect } from 'react';
-import { useStateValue } from '../contexts/state';
-import Card from '../components/team/Card';
+import React, { useEffect, useContext } from 'react';
 import { useParams } from 'react-router';
-import SelectedTeam from '../components/team/SelectedTeam';
 import Loading from '../components/Loading';
-import { useTranslation } from 'react-i18next';
-import { CardsContainer, TeamContainer } from './Team.styles';
+import SeriesList from './SeriesList';
+import TeamList from './TeamList';
 import { ContainerGrid12, ContentGrid6 } from '../styles/baseComponents';
+import { StateContext } from '../contexts/state';
 
 const Team = () => {
-    const [t] = useTranslation(['team']);
-    const [{ loadingState, teamsState }, dispatch] = useStateValue();
+    const { state, dispatch } = useContext(StateContext);
+    const { loadingState, teamsState } = state;
 
     const { name } = useParams();
 
@@ -19,10 +17,13 @@ const Team = () => {
             dispatch({ type: 'setLoadingState', loadingState: true });
 
             try {
-                const res = await fetch('/data/teams', {});
+                const res = await fetch('/data/team_names/', {});
                 const json = await res.json();
                 dispatch({ type: 'setLoadingState', loadingState: false });
-                dispatch({ type: 'setTeams', teams: json.teams });
+                dispatch({
+                    type: 'setTeams',
+                    teams: json.teams,
+                });
             } catch (error) {
                 dispatch({ type: 'setErrorState', errorState: error });
             }
@@ -31,7 +32,7 @@ const Team = () => {
     }, [dispatch]);
 
     return (
-        <div id="team">
+        <div robot_id="team" id="team">
             {!teamsState || loadingState ? (
                 <ContainerGrid12>
                     <ContentGrid6>
@@ -39,34 +40,9 @@ const Team = () => {
                     </ContentGrid6>
                 </ContainerGrid12>
             ) : name ? (
-                <SelectedTeam
-                    selectedTeam={teamsState.find(
-                        element => element.name === name
-                    )}
-                />
+                <SeriesList name={name} />
             ) : (
-                <>
-                    <ContainerGrid12>
-                        <ContentGrid6>
-                            <h1>{t('title')}</h1>
-                        </ContentGrid6>
-                    </ContainerGrid12>
-                    <TeamContainer>
-                        <ContainerGrid12>
-                            <CardsContainer>
-                                {teamsState.map(({ name, series_count }, i) => {
-                                    return (
-                                        <Card
-                                            team={name}
-                                            numberOfSeries={series_count}
-                                            key={i}
-                                        />
-                                    );
-                                })}
-                            </CardsContainer>
-                        </ContainerGrid12>
-                    </TeamContainer>
-                </>
+                <TeamList />
             )}
         </div>
     );

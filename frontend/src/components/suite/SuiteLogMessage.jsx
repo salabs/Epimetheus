@@ -1,4 +1,5 @@
 ﻿import React, { useEffect, useRef, useState } from 'react';
+import PropTypes from 'prop-types';
 import { TestMessage } from './SuiteLogMessage.styles';
 
 const SuiteLogMessage = ({ message }) => {
@@ -43,7 +44,6 @@ const SuiteLogMessage = ({ message }) => {
 
     return (
         <TestMessage
-            title={message}
             role="button"
             className={canBeOpened.current ? 'can-be-opened' : ''}
             tabIndex={canBeOpened.current ? 0 : -1}
@@ -55,6 +55,10 @@ const SuiteLogMessage = ({ message }) => {
             <div ref={content}>{message}</div>
         </TestMessage>
     );
+};
+
+SuiteLogMessage.propTypes = {
+    message: PropTypes.string.isRequired,
 };
 
 export default SuiteLogMessage;

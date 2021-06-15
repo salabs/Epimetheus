@@ -1,30 +1,30 @@
-/* Box-sizing
-----------------------*/
-html {
-    box-sizing: border-box;
-}
-*,
-*:before,
-*:after {
-    box-sizing: inherit;
-}
-
 /* Fonts
-----------------------*/
-
+---------------------- */
 @import url('https://fonts.googleapis.com/css?family=Open+Sans');
 @import url('https://fonts.googleapis.com/css?family=Cantarell');
 @import url('https://fonts.googleapis.com/css?family=Space+Mono');
 @import url('https://fonts.googleapis.com/css?family=Noto+Serif');
 
+/* Box-sizing
+---------------------- */
+html {
+    box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
 :root {
     /* Colors
-    ----------------------*/
+    ---------------------- */
 
     /* Main colors */
     --gradient-black: #141312;
     --evidence-grey: #77716b;
-    --nero-white: #ffffff;
+    --nero-white: #fff;
     --titan-green: #238564;
     --pirlo-blue: #067cc1;
     --semolina-red: #c63757;
@@ -52,25 +52,26 @@ html {
     --pirlo-blue-darker: #0469a4;
 
     /* Space scale
-    ----------------------*/
+    ---------------------- */
     --space-80: 80px;
     --space-64: 64px;
     --space-48: 48px;
     --space-40: 40px;
+    --space-32: 32px;
     --space-24: 24px;
     --space-16: 16px;
     --space-8: 8px;
     --space-4: 4px;
 
     /* Grid
-    ----------------------*/
+    ---------------------- */
     --max-page-width: 1280px;
 }
 
 /** Basics **/
 
 body {
-    font-family: 'Hack';
+    font-family: 'Hack', monospace;
     font-size: 14px;
     line-height: 24px;
 }
@@ -80,7 +81,7 @@ h2,
 h3,
 h4,
 h5 {
-    font-family: 'Noto Serif Semibold';
+    font-family: 'Noto Serif Semibold', serif;
     margin-top: var(--space-40);
     margin-bottom: var(--space-24);
 }
@@ -122,18 +123,35 @@ svg {
     vertical-align: middle;
 }
 
-button:focus,
-input:focus,
+a {
+    color: var(--titan-green);
+}
+
+a:hover {
+    background: var(--hermanni-grey-lighter);
+    color: var(--titan-green-darker);
+}
+
 a:focus {
     outline: 2px solid var(--pirlo-blue);
 }
 
-button:hover:enabled,
-a:hover {
+a:active {
+    color: var(--pirlo-blue);
+}
+
+button {
     cursor: pointer;
-    text-decoration: underline;
-    background: var(--hermanni-grey-lighter);
-    color: var(--titan-green-darker);
+}
+
+button[disabled] {
+    pointer-events: none;
+}
+
+button:focus,
+input:focus {
+    outline: 0;
+    box-shadow: 0 0 0 var(--space-4) var(--sparkling-blue);
 }
 
 /** a11y **/

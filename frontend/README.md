@@ -4,7 +4,7 @@ User interface for test results.
 
 ## Start the project with
 
-```
+```bash
 npm install
 npm run start
 ```
@@ -15,7 +15,7 @@ The default configuration for backend server is `http://localhost:5000`.
 
 Backend server configuration can be changed by setting the following environment variables:
 
-```
+```dosini
 REACT_APP_SERVER_URL=localhost
 REACT_APP_FRONT_END_PORT=5000
 ```
@@ -46,12 +46,16 @@ Install plugins:
 [Eslint](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
 In Visual Studio Code settings check
 
-```
-Prettier: Require Config
-```
+> Prettier: Require Config
 
 and
 
-```
-Editor: Format On Save
-```
+> Editor: Format On Save
+
+## Z-indexes
+List of z-indexes used in order to avoid z-index collision and to help debugging. Please list the component that z-index is used in, the z-index itself and the reason z-index was used.
+
+- *DropdownSelect*: `z-index: 2;`
+  - The dropdown would be under ScrollTableButton's pseudo element.
+- *ScrollTableButton*: `z-index: 1;`
+  - Table's header or hover effects would be on top of the scroll button.

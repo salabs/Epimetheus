@@ -1,8 +1,28 @@
 {
     "series": {
         "all_builds": "All Build History",
-        "stability_table": "Stability Table",
-        "unstable_tests": "Suites with unstable tests"
+        "stability_table": {
+            "title": "Stability Table",
+            "test_name": "Test_Name",
+            "test_id": "Test_Id",
+            "flakiness": "Flakiness",
+            "stability": "Stability",
+            "failures": "Failures",
+            "unstable": "Unstable",
+            "stable": "Stable"
+        },
+        "unstable_tests": "Suites with unstable tests",
+        "last_build": {
+            "title": "Last Build Status",
+            "id": "Last build ID",
+            "start_time": "Start time",
+            "status": "Status",
+            "failing_cases": "Failing Test Cases",
+            "suite": "Suite",
+            "test_case": "Test case"
+        },
+        "status_update": "Content updated. Showing now {{window}} table.",
+        "status_update_stability": "Content updated. Showing now {{value}} in stability table."
     },
     "build": {
         "test": "Test status",

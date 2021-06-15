@@ -9,43 +9,58 @@ WHERE tree_hierarchy.fingerprint=%(fingerprint)s
 ORDER BY call_index::int;
 """
 
-def test_series(by_teams=False, series=None):
+TEAM_NAMES = "SELECT DISTINCT team FROM test_series ORDER BY team"
+
+# Build status is aggregated from test cases statuses.
+# Due to reruns only the last execution of a test case is considered.
+# Last execution is determined primarily by test start_time if that exists
+# otherwise by archiving order i.e. test_run_id
+def test_series(by_teams=False, series=None, team=None):
     return """
-SELECT *
+WITH last_builds as (
+    SELECT series,
+           max(build_number) as build_number,
+           count(*) as build_count
+    FROM test_series_mapping
+    {series_filter}
+    GROUP BY series
+)
+SELECT id, name, team, build_count as builds,
+       build_number as last_build,
+       CASE WHEN build_id IS NULL THEN build_number::text ELSE build_id END as last_build_id,
+       min(generated) as last_generated,
+       min(imported_at) as last_imported,
+       min(status) as last_status,
+       min(start_time) as last_started,
+       CASE WHEN min(start_time) IS NOT NULL THEN min(start_time) ELSE min(imported_at) END as sorting_value
 FROM (
-    SELECT DISTINCT ON (id)
-            id, name, team,
-            count(*) OVER (PARTITION BY id ) as builds,
-            build_number as last_build,
-            build_id as last_build_id,
-            generated as last_generated,
-            imported_at as last_imported,
-            status as last_status,
-            start_time as last_started,
-            CASE WHEN start_time IS NOT NULL THEN start_time ELSE imported_at END as sorting_value
-    FROM (
-        SELECT test_series.id, name, team, build_number,
-                CASE WHEN build_id IS NOT NULL THEN build_id ELSE build_number::text END as build_id,
-                min(generated) as generated,
-                min(imported_at) as imported_at,
-                min(start_time) as start_time,
-                min(status) as status
-        FROM test_series
-        JOIN test_series_mapping as tsm ON tsm.series=test_series.id
-        JOIN test_run ON tsm.test_run_id=test_run.id
-        JOIN (
-            SELECT test_run_id, min(status) as status, min(start_time) as start_time
-            FROM suite_result
-            GROUP BY test_run_id
-        ) AS suite_result ON suite_result.test_run_id=test_run.id
-        WHERE NOT ignored {series_filter}
-        GROUP BY test_series.id, name, team, build_number, build_id
-    ) AS builds
-    ORDER BY id, build_number DESC
-) AS unordered
+    SELECT DISTINCT ON (tsm.series, test_id)
+         tsm.series, build_count, tsm.build_number, build_id,
+         generated, imported_at,
+         test_result.status
+    FROM last_builds
+    JOIN test_series_mapping as tsm ON last_builds.series=tsm.series
+                                   AND last_builds.build_number=tsm.build_number
+    JOIN test_result ON tsm.test_run_id=test_result.test_run_id
+    JOIN test_run ON test_run.id=tsm.test_run_id
+    WHERE NOT test_run.ignored
+    ORDER BY tsm.series, test_id, start_time DESC, test_result.test_run_id DESC
+) AS final_test_results
+JOIN test_series ON test_series.id=final_test_results.series
+JOIN (
+    SELECT tsm.series, min(start_time) as start_time
+    FROM last_builds
+    JOIN test_series_mapping as tsm ON last_builds.series=tsm.series
+                                   AND last_builds.build_number=tsm.build_number
+    JOIN suite_result ON tsm.test_run_id=suite_result.test_run_id
+    GROUP BY tsm.series
+) AS last_build_start_times ON test_series.id=last_build_start_times.series
+{team_filter}
+GROUP BY id, name, team, build_count, build_number, build_id
 ORDER BY {team_sorting} sorting_value
 """.format(team_sorting="team," if by_teams else '', # nosec
-           series_filter='AND test_series.id={}'.format(int(series)) if series else '') # nosec
+           series_filter='WHERE series={}'.format(int(series)) if series else '', # nosec
+           team_filter='WHERE team=%(team)s' if team else '')
 
 
 def test_run_ids(series=None, build_num=None, start_from=None, last=None, offset=0):
@@ -104,15 +119,26 @@ FROM (
     SELECT team, name,
            build_number, build_id,
            test_run.id as test_run_id,
-           min(status) as status,
-           min(imported_at) as imported_at,
-           min(generated) as generated,
-           min(start_time) as start_time
+           min(test_run.imported_at) as imported_at,
+           min(test_run.generated) as generated,
+           -- Status can be aggregated by min because of FAIL, PASS, SKIP are in alphabetical order
+           min(test_statuses.status) as status,
+           -- The starting timestamp is from the suite timestamps
+           min(suite_result.start_time) as start_time
     FROM test_series_mapping as tsm
     JOIN test_series ON test_series.id=tsm.series
     JOIN test_run ON test_run.id=tsm.test_run_id
     JOIN suite_result ON suite_result.test_run_id=test_run.id
-    WHERE tsm.series={series} {build_filter}
+    JOIN (
+        SELECT DISTINCT ON (build_id, test_id)
+            test_result.test_run_id, status
+        FROM test_result
+        JOIN test_series_mapping as tsm ON tsm.test_run_id=test_result.test_run_id
+        WHERE tsm.series={series}
+        ORDER BY build_id, test_id, start_time DESC, test_result.test_run_id DESC
+    ) AS test_statuses ON tsm.test_run_id=test_statuses.test_run_id
+    WHERE tsm.series={series} and NOT test_run.ignored
+        {build_filter}
     GROUP BY team, name, build_number, build_id, test_run.id
     ORDER BY build_number, test_run.id
 ) AS test_runs

@@ -9,5 +9,6 @@ export const IconsContainer = styled.div`
         padding-top: 20px;
         min-height: 100px;
         max-width: 150px;
+        text-align: center;
     }
 `;

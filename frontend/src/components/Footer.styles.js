@@ -6,11 +6,15 @@ export const FooterContainer = styled.footer`
     color: var(--nero-white);
     display: flex;
     align-items: center;
-    height: var(--space-48);
+    min-height: var(--space-48);
 
     a {
-        background: var(--titan-green);
-        color: var(--nero-white) !important;
+        background-color: var(--titan-green);
+        color: var(--nero-white);
+
+        &:focus {
+            outline-color: var(--nero-white);
+        }
     }
 
     .underline {
@@ -19,14 +23,15 @@ export const FooterContainer = styled.footer`
 `;
 
 export const EpiIcon = styled.span`
-    margin-left: 40px;
+    margin-left: var(--space-40);
     background: var(--nero-white);
     color: var(--titan-green);
-    border-radius: 6px;
-    padding: 0 7px;
+    border-radius: var(--space-4);
+    padding: 0 var(--space-8);
     font-weight: bolder;
 `;
 
 export const TextStyles = styled.span`
-    margin-left: 20px;
+    margin-right: var(--space-8);
+    margin-left: var(--space-24);
 `;
