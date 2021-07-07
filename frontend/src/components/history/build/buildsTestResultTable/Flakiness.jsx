@@ -45,6 +45,7 @@ const Flakiness = ({ builds, id }) => {
     const flakinessIcons = flakinessData.map(({ test_status }, i) => {
         return <span key={i}>{pickIcon(test_status)}</span>;
     });
+
     return <StyledRow className="flakiness-row">{flakinessIcons}</StyledRow>;
 };
 

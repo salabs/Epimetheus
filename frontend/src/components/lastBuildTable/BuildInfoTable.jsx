@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { SimpleTable, WideTh } from '../table/Table.styles';
 import { StateContext } from '../../contexts/state';
+import { StatusSpan } from '../parentData/ParentTable.styles';
 
 const BuildInfoTable = () => {
     const [t] = useTranslation(['overview']);
@@ -24,7 +25,11 @@ const BuildInfoTable = () => {
                 </tr>
                 <tr>
                     <WideTh>{t('series.last_build.status')}</WideTh>
-                    <td>{seriesData.last_status}</td>
+                    <td>
+                        <StatusSpan status={seriesData.last_status}>
+                            {seriesData.last_status}
+                        </StatusSpan>
+                    </td>
                 </tr>
             </tbody>
         </SimpleTable>
