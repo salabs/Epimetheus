@@ -34,5 +34,6 @@ ${buildOverviewContainer}    //*[@robot_id="buildGraphDiv"]
 
 ${first_suite}              xpath://*[@robot_id="last-run-table"]/tbody/tr[1]/th[1]/a
 
-${series_list}    xpath://*[@robot_id="selectedTeam"]/div[3]/div/div[2]/section[*]
+${series_list}    xpath://*[@robot_id="selectedTeam"]/div[4]/div/div[2]/section[*]
 ${teams_xpath}    xpath://*[@robot_id="team"]/div[2]/div/div/section[*]
+
