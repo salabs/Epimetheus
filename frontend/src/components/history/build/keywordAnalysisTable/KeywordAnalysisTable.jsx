@@ -3,6 +3,11 @@ import { useParams } from 'react-router';
 import { useTranslation } from 'react-i18next';
 import { Table } from '../../../table/Table';
 import { StateContext } from '../../../../contexts/state';
+import Loading from '../../../Loading';
+import {
+    ContainerGrid12,
+    ContentGrid6,
+} from '../../../../styles/baseComponents';
 import { NarrowTh, WideTh } from '../../../table/Table.styles';
 
 const KeywordAnalysisTable = () => {
@@ -10,7 +15,8 @@ const KeywordAnalysisTable = () => {
     const { seriesId, buildId } = useParams();
 
     const [keywordAnalysisList, setKeywordAnalysisList] = useState();
-    const { dispatch } = useContext(StateContext);
+    const { state, dispatch } = useContext(StateContext);
+    const { loadingState } = state;
 
     useEffect(() => {
         const url = `/data/series/${seriesId}/builds/${buildId}/keyword_analysis`;
@@ -46,7 +52,13 @@ const KeywordAnalysisTable = () => {
                 </tr>
             </thead>
             <tbody>
-                {keywordAnalysisList ? (
+                {loadingState ? (
+                    <ContainerGrid12>
+                        <ContentGrid6>
+                            <Loading />
+                        </ContentGrid6>
+                    </ContainerGrid12>
+                ) : keywordAnalysisList ? (
                     keywordAnalysisList.map(keyword => {
                         return (
                             <tr key={keyword.library + keyword.keyword}>

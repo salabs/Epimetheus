@@ -15,7 +15,6 @@ const ParentTable = ({ data, types }) => {
     const showData = () => {
         return Object.entries(cleansedData).map(([key, value]) => {
             const cleanedHeader = removeUnderscore(capitalCaseInitial(key));
-
             return (
                 <ParagraphContainer key={key}>
                     <span>{cleanedHeader}&#58;</span>
