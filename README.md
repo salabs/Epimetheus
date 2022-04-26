@@ -22,7 +22,7 @@ If you have multiple python installations on your machine, remember to use the '
 also with pip you might need to use 'pip3' to make sure the requirements get installed with the right python.
 
 ```bash
-cd backend-server
+cd backend_server
 pip install -r requirements.txt
 python .\server.py --database dbname --host dbhost --user dbuser --pw dbpasswd --port 5000
 ```
