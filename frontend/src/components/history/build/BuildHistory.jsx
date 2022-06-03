@@ -56,7 +56,7 @@ const BuildHistory = ({ currentSeries }) => {
         }
     }, [dispatch, branch_id, buildId, currentSeries]);
 
-    useMetadata(currentSeries);
+    useMetadata({ currentSeries });
 
     return (
         <div id="last-run">

@@ -30,7 +30,7 @@ const BuildOverview = ({ currentSeries }) => {
     const { dispatch } = useContext(StateContext);
     const [statusCount, setStatusCount] = useState();
 
-    useMetadata(currentSeries);
+    useMetadata({ currentSeries });
 
     useEffect(() => {
         const url = `/data/series/${seriesId}/status_counts/?start_from=${buildId}&builds=1`;
