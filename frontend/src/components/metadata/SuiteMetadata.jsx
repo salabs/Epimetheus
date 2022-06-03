@@ -1,17 +1,15 @@
-﻿import React from 'react';
-import MetadataTable from './MetadataTable';
-import { useStateValue } from '../../contexts/state';
+﻿import React, { useContext } from 'react';
+import Accordion from '../accordion/Accordion';
+import { useTranslation } from 'react-i18next';
+import { StateContext } from '../../contexts/state';
 
 const SuiteMetadata = () => {
-    const [{ selectedSuiteState }] = useStateValue();
+    const [t] = useTranslation(['accordion']);
 
-    const name = [
-        'Suite Id:',
-        'Name:',
-        'Full name:',
-        'Repository:',
-        'Starttime:',
-    ];
+    const { state } = useContext(StateContext);
+    const { selectedSuiteState } = state;
+
+    const name = ['Suite Id', 'Name', 'Full name', 'Repository', 'Start time'];
 
     const value = selectedSuiteState && [
         selectedSuiteState.suite.id.toString(),
@@ -23,7 +21,11 @@ const SuiteMetadata = () => {
             : '',
     ];
 
-    return selectedSuiteState && <MetadataTable name={name} value={value} />;
+    return (
+        selectedSuiteState && (
+            <Accordion header={t('metadata')} name={name} value={value} />
+        )
+    );
 };
 
 export default SuiteMetadata;

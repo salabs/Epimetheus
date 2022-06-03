@@ -50,7 +50,7 @@ const Build = () => {
         <PageContainer>
             <BuildMetadata />
             {statusCount ? (
-                <FlexDiv id="buildGraphDiv">
+                <FlexDiv robot_id="buildGraphDiv" id="buildGraphDiv">
                     <ChartContainer width="450px" height="300px">
                         <ElementHeader>{t('build.suite')}</ElementHeader>
                         <PieChart

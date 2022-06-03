@@ -9,7 +9,7 @@ const Loading = () => {
             aria-label="Loading"
             aria-relevant="all"
         >
-            Loading
+            <span aria-hidden="true">Loading</span>
         </LoadingDiv>
     );
 };

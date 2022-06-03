@@ -1,33 +1,24 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useStateValue } from '../../contexts/state';
-import {
-    LinkContainer,
-    OverviewLink,
-    HistoryLink,
-    AnalysisLink,
-} from './ContentHeader.styles';
 import { ContainerGrid12, ContentGrid6 } from '../../styles/baseComponents';
+import Tab from '../tablist/Tab';
+import { StateContext } from '../../contexts/state';
 
 const ContentHeader = () => {
     const [t] = useTranslation(['header']);
 
     const pathname = useLocation().pathname;
-    const overviewUrl = pathname.includes('overview');
-    const historyUrl = pathname.includes('history');
-    const analysisUrl = pathname.includes('analysis');
     const buildUrl = pathname.includes('build');
     const suiteUrl = pathname.includes('suite');
 
-    const [
-        {
-            amountOfBuilds,
-            offset,
-            parentData: { seriesData, buildData },
-            selectedSuiteState,
-        },
-    ] = useStateValue();
+    const { state } = useContext(StateContext);
+    const {
+        amountOfBuilds,
+        offset,
+        parentData: { seriesData, buildData },
+        selectedSuiteState,
+    } = state;
 
     const formSuiteHeader = () => {
         const {
@@ -78,38 +69,30 @@ const ContentHeader = () => {
             : beginningUrl.concat('/' + prop + '?' + numberOfBuildsUrl);
     };
 
+    const tabLinks = [
+        { to: correctUrl('overview'), translation: t('buttons.overview') },
+        { to: correctUrl('history'), translation: t('buttons.history') },
+    ];
+    if (buildUrl) {
+        tabLinks.push({
+            to: correctUrl('analysis'),
+            translation: t('buttons.analysis'),
+        });
+    }
+
     return (
         <>
             {(seriesData || buildData) && (
-                <ContainerGrid12>
-                    <ContentGrid6>
-                        <h1 id="siteHeading">{formHeader()}</h1>
-                        {!selectedSuiteState && (
-                            <LinkContainer>
-                                <OverviewLink
-                                    to={correctUrl('overview')}
-                                    overview={overviewUrl}
-                                >
-                                    {t('buttons.overview')}
-                                </OverviewLink>
-                                <HistoryLink
-                                    to={correctUrl('history')}
-                                    history={historyUrl}
-                                >
-                                    {t('buttons.history')}
-                                </HistoryLink>
-                                {buildUrl && (
-                                    <AnalysisLink
-                                        to={correctUrl('analysis')}
-                                        analysis={analysisUrl}
-                                    >
-                                        {t('buttons.analysis')}
-                                    </AnalysisLink>
-                                )}
-                            </LinkContainer>
-                        )}
-                    </ContentGrid6>
-                </ContainerGrid12>
+                <>
+                    <ContainerGrid12>
+                        <ContentGrid6>
+                            <h1 robot_id="siteHeading" id="siteHeading">
+                                {formHeader()}
+                            </h1>
+                        </ContentGrid6>
+                    </ContainerGrid12>
+                    {!selectedSuiteState && <Tab tabLinks={tabLinks} />}
+                </>
             )}
         </>
     );

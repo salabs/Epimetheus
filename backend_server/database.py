@@ -36,10 +36,14 @@ class Database:
 
         self.session = queries.TornadoSession(connection_uri)
 
-    def test_series(self, series_id=None):
-        return self.session.query(sql_queries.test_series(series=series_id)), list_of_dicts
+    def team_names(self):
+        return self.session.query(sql_queries.TEAM_NAMES), list_of_values
 
-    def teams(self):
+    def test_series(self, series_id=None, team=None):
+        sql = sql_queries.test_series(series=series_id, team=team)
+        return self.session.query(sql, {'team': team}), list_of_dicts
+
+    def teams(self, team=None):
         def series_by_team(rows):
             all_series = list_of_dicts(rows)
             teams = []
@@ -60,7 +64,8 @@ class Database:
             if current_team:
                 teams.append(current_team)
             return teams
-        return self.session.query(sql_queries.test_series(by_teams=True)), series_by_team
+        sql = sql_queries.test_series(by_teams=True, team=team)
+        return self.session.query(sql, {'team': team}), series_by_team
 
     def history_page_data(self, test_series, start_from, num_of_builds, offset):
         history_sql = sql_queries.history_page_data(test_series, start_from, num_of_builds, offset)
@@ -136,6 +141,13 @@ def list_of_dicts(rows):
 def single_dict(rows):
     return list_of_dicts(rows)[0] if rows else None
 
+def list_of_values(rows):
+    results = []
+    for row in rows:
+        values = [row[key] for key in row]
+        results.append(values if len(values) > 1 else values[0])
+    return results
+
 def history_data(history_rows):
     suites = []
     current_suite = None
@@ -207,7 +219,7 @@ def simple_build_result_data(rows):
     for row in list_of_dicts(rows):
         suite, test = _separate_suite_and_test_values(row)
         if not current_suite or suite['id'] != current_suite['id']:
-            suites.append(suite)
+            suites.append(current_suite)
             current_suite = suite
             current_suite['tests'] = []
         if test['id']:

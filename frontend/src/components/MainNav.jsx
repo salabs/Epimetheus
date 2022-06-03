@@ -1,8 +1,8 @@
-// eslint-disable-next-line
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useLocation } from 'react-router-dom';
+import ExternalLink from './externalLink/ExternalLink';
 import { NavBar, LinkContainer, SiteLogo } from './MainNav.styles';
 
 const MainNav = () => {
@@ -12,28 +12,31 @@ const MainNav = () => {
     const team =
         location.pathname.includes('team') ||
         location.pathname.includes('series');
+    const compare = location.pathname.includes('compare');
 
     return (
         <header>
-            <NavBar id="main-nav">
+            <NavBar robot_id="main-nav" id="main-nav">
                 <SiteLogo className="logo">{t('logo')}</SiteLogo>
                 <LinkContainer team={team}>
                     <NavLink
                         exact
-                        activeClassName="active"
                         to="/"
-                        className="about"
+                        className={location.pathname === '/' ? 'active' : ''}
                     >
                         {t('help')}
                     </NavLink>
-                    <NavLink
-                        activeClassName="active"
-                        to="/team"
-                        className="team"
-                    >
+                    <NavLink to="/team" className={team ? 'active' : ''}>
                         {t('team')}
                     </NavLink>
-                    <a href="https://github.com/salabs/Epimetheus">{t('github')}</a>
+                    <NavLink to="/compare" className={compare ? 'active' : ''}>
+                        {t('compare')}
+                    </NavLink>
+                    <ExternalLink
+                        url="https://github.com/salabs/Epimetheus"
+                        label={t('github')}
+                        color="nero white"
+                    />
                 </LinkContainer>
             </NavBar>
         </header>

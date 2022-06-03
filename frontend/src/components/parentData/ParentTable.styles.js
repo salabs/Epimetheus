@@ -1,20 +1,41 @@
 ﻿import styled from 'styled-components';
+import React from 'react';
 
 export const Container = styled.div`
+    padding: var(--space-8) 0 var(--space-16) 0;
+`;
+
+export const ContentBlockContainer = styled(props => <div {...props} />).attrs(
+    ({ customproperty }) => ({
+        customproperty,
+    })
+)`
     padding: var(--space-8) 0;
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-between;
-    width: 100%;
+
+    .title {
+        display: block;
+        color: var(--evidence-grey);
+        font-size: 12px;
+    }
+
+    p {
+        display: inline-block;
+        margin: 0 var(--space-16) 0 0;
+        font-size: 12px;
+    }
 `;
 
 export const ParagraphContainer = styled.p`
     span:first-child {
         font-weight: bolder;
+        display: inline-block;
+        margin-right: var(--space-4);
     }
 `;
 
 export const StatusSpan = styled.span`
     color: ${props =>
-        props.status === 'PASS' ? 'var(--pirlo-blue)' : 'var(--nelson-purple)'};
+        props.status === 'PASS'
+            ? 'var(--pirlo-blue-darker)'
+            : 'var(--semolina-red)'};
 `;

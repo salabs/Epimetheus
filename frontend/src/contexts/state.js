@@ -1,14 +1,12 @@
-import React, { createContext, useContext, useReducer } from 'react';
+import React, { createContext, useReducer, useMemo } from 'react';
 import logger from 'use-reducer-logger';
 export const StateContext = createContext();
 
 const initialState = {
-    historyDataState: null,
     loadingState: false,
     errorState: null,
     amountOfBuilds: 5,
     offset: 0,
-    amountFilteredData: null,
     lastRunFilterFail: {
         isChecked: false,
         filterType: '',
@@ -17,13 +15,15 @@ const initialState = {
         isChecked: false,
         filterType: '',
     },
-    branchesState: null,
-    selectedBranchState: { name: 'All builds', id: 1 },
+    compareFilterMatch: {
+        isChecked: false,
+    },
+    compareFilterMismatch: {
+        isChecked: false,
+    },
+    comparedDataState: [[], []],
+    selectedSeriesState: { name: 'All builds', id: 1 },
     metadataState: [],
-    testStabilityList: [],
-    failureList: [],
-    keywordAnalysisList: [],
-    selectedBuildState: {},
     selectedSuiteState: null,
     stabilityChecker: 'unstable',
     parentData: {
@@ -40,10 +40,14 @@ export const StateProvider = ({ reducer, children }) => {
     const rootReducer =
         process.env.NODE_ENV === 'development' ? logger(reducer) : reducer;
 
+    const [state, dispatch] = useReducer(rootReducer, initialState);
+    const contextValue = useMemo(() => {
+        return { state, dispatch };
+    }, [state, dispatch]);
+
     return (
-        <StateContext.Provider value={useReducer(rootReducer, initialState)}>
+        <StateContext.Provider value={contextValue}>
             {children}
         </StateContext.Provider>
     );
 };
-export const useStateValue = () => useContext(StateContext);

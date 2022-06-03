@@ -18,7 +18,7 @@ def load_config_file(file_name):
         return json.load(file)
 
 
-VERSION_NUMBER = "1.1.0"
+VERSION_NUMBER = "1.2.0"
 
 
 @register_swagger_model
@@ -307,6 +307,7 @@ class Application(tornado.web.Application):
         handlers = [
             url(r"/$", BaseDataHandler),
             url(r"/data/?$", BaseDataHandler),
+            url(r"/data/team_names/?$", TeamNamesDataHandler),
             url(r"/data/teams/?$", TeamsDataHandler),
             url(r"/data/series/?$", SeriesDataHandler),
             url(r"/data/series/(?P<series>[0-9]+)/info/?$",
@@ -361,7 +362,6 @@ class Application(tornado.web.Application):
 
 class InvalidArgumentError(ValueError):
     """Exception for communicating an invalid user argument was suplied"""
-    pass
 
 
 def free_connection(connections):
@@ -464,6 +464,33 @@ class BaseDataHandler(BaseHandler):
         self.redirect('/data/doc')
 
 
+class TeamNamesDataHandler(BaseHandler):
+    @tornado.gen.coroutine
+    def get(self):
+        """
+        ---
+        tags:
+        - Teams
+        summary: Get list of team names
+        description: Returns an array of all teams found in the database.
+        produces:
+        - application/json
+        responses:
+            200:
+              description: A list of teams
+              schema:
+                    type: object
+                    properties:
+                        teams:
+                            type: array
+                            items:
+                                type: string
+                                description: Team name
+        """
+        teams = yield coroutine_query(self.database.team_names)
+        self.write({'teams': teams})
+
+
 class TeamsDataHandler(BaseHandler):
     @tornado.gen.coroutine
     def get(self):
@@ -476,6 +503,13 @@ class TeamsDataHandler(BaseHandler):
             Nested in each team is listed all series for the team in an array.
         produces:
         - application/json
+        parameters:
+        -   name: team
+            in: query
+            description: name of the team
+            required: false
+            type: string
+            allowEmptyValue: true
         responses:
             200:
               description: A list of teams
@@ -499,7 +533,8 @@ class TeamsDataHandler(BaseHandler):
                                         items:
                                             $ref: '#/definitions/SeriesModel'
         """
-        teams = yield coroutine_query(self.database.teams)
+        team = self.get_argument('team', None)
+        teams = yield coroutine_query(self.database.teams, team=team)
         self.write({'teams': teams})
 
 
@@ -514,6 +549,13 @@ class SeriesDataHandler(BaseHandler):
         description: List all test series. Most recently updated first
         produces:
         - application/json
+        parameters:
+        -   name: team
+            in: query
+            description: name of the team
+            required: false
+            type: string
+            allowEmptyValue: true
         responses:
             200:
                 description: A list of series
@@ -525,7 +567,8 @@ class SeriesDataHandler(BaseHandler):
                             items:
                                 $ref: '#/definitions/SeriesModel'
         """
-        series = yield coroutine_query(self.database.test_series)
+        team = self.get_argument('team', None)
+        series = yield coroutine_query(self.database.test_series, team=team)
         self.write({'series': series})
 
 

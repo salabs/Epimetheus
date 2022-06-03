@@ -12,7 +12,7 @@ export const LoadingDiv = styled.div`
         content: '...';
         vertical-align: bottom;
         display: inline-block;
-        width: 0px;
+        width: 0;
         height: 30px;
         animation-name: history-loader;
         animation-duration: 1.5s;
