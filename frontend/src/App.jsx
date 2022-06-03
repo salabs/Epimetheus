@@ -11,7 +11,7 @@ import Suite from './pages/Suite';
 import Comparison from './pages/Comparison';
 import Series from './pages/Series';
 import Build from './pages/Build';
-import Search from './pages/Search.jsx';
+import Search from './pages/Search';
 import './utils/i118n';
 import 'normalize.css';
 import './index.css';
