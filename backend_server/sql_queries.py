@@ -350,7 +350,13 @@ SELECT suite_id,
        elapsed,
        setup_elapsed,
        execution_elapsed,
-       teardown_elapsed
+       teardown_elapsed,
+       setup_fingerprint_suite,
+       setup_elapsed_suite,
+       setup_status_suite,
+       teardown_fingerprint_suite,
+       teardown_elapsed_suite,
+       teardown_status_suite
 FROM (
     SELECT DISTINCT ON (suite.id, test_results.id)
         suite.id as suite_id, suite.name as suite_name, suite.full_name as suite_full_name,
@@ -372,7 +378,13 @@ FROM (
         test_results.elapsed as elapsed,
         test_results.setup_elapsed as setup_elapsed,
         test_results.execution_elapsed as execution_elapsed,
-        test_results.teardown_elapsed as teardown_elapsed
+        test_results.teardown_elapsed as teardown_elapsed,
+        suite_result.setup_fingerprint as setup_fingerprint_suite,
+        suite_result.setup_elapsed as setup_elapsed_suite,
+        suite_result.setup_status as setup_status_suite,
+        suite_result.teardown_fingerprint as teardown_fingerprint_suite,
+        suite_result.teardown_elapsed as teardown_elapsed_suite,
+        suite_result.teardown_status as teardown_status_suite
     FROM suite_result
     JOIN suite ON suite.id=suite_result.suite_id
     JOIN test_run ON test_run.id=suite_result.test_run_id

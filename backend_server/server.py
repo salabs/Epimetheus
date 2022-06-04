@@ -145,18 +145,30 @@ class SimpleTestResultModel:
         teardown_status:
             type: string
             description: Status of the test case teardown phase, null if there was no teardown
-        elapsed:
+        setup_status_suite:
             type: string
+            description: Status of the parent suite setup phase, null if there was no teardown
+        teardown_status_suite:
+            type: string
+            description: Status of the parent suite teardown phase, null if there was no teardown
+        elapsed:
+            type: integer
             description: Total running time of the test case in millis
         setup_elapsed:
-            type: string
+            type: integer
             description: Running time of the test case setup phase in millis, null if there was no setup
         execution_elapsed:
-            type: string
+            type: integer
             description: Running time of the test case execution phase in millis, null if there was no execution
         teardown_elapsed:
-            type: string
+            type: integer
             description: Running time of the test case teardown phase in millis, null if there was no teardown
+        setup_elapsed_suite:
+            type: integer
+            description: Running time of the parent suite setup phase in millis, null if there was no teardown
+        teardown_elapsed_suite:
+            type: integer
+            description: Running time of the parent suite teardown phase in millis, null if there was no teardown
         fingerprint:
             type: string
             description: Fingerprint of the test case
@@ -169,6 +181,12 @@ class SimpleTestResultModel:
         teardown_fingerprint:
             type: string
             description: Fingerprint of the test case teardown phase, refers to a keyword tree, null if there was no teardown
+        setup_fingerprint_suite:
+            type: string
+            description: Fingerprint of the parent suite setup phase, refers to a keyword tree, null if there was no setup
+        teardown_fingerprint_suite:
+            type: string
+            description: Fingerprint of the parent suite teardown phase, refers to a keyword tree, null if there was no setup
     """
 
 @register_swagger_model

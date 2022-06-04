@@ -1,5 +1,5 @@
 *** Settings ***
-Library         rest_or_null.RESTorNull  ${Backend}${:}${PORT}
+Library         rest_or_null.RESTorNull  ${Backend}${:}${PORT}  WITH NAME  REST
 Library         RequestsLibrary
 Metadata        FIXTURE_SERIES_ID   ${FIXTURE_SERIES_ID}
 
@@ -20,64 +20,64 @@ API documentation page
     /data/doc/
 
 Team names data
-    GET                 /data/team_names
+    REST.GET            /data/team_names
     Integer             response status     200
     String              $.teams[*]
 
 Teams data
-    GET                 /data/teams
-    Integer             response status     200
-    String              $.teams[*].name
-    Integer             $.teams[*].series_count
+    REST.GET                /data/teams
+    Integer                 response status     200
+    String                  $.teams[*].name
+    Integer                 $.teams[*].series_count
     Valid series object     $.teams[*].all_builds
     Array                   $.teams[*].series     minItems=1
     Valid series object     $.teams[*].series[*]
 
-    GET                 /data/teams?team=TestArchiver
-    Integer             response status     200
-    String              $.teams[*].name
-    Integer             $.teams[*].series_count
+    REST.GET                /data/teams?team=TestArchiver
+    Integer                 response status     200
+    String                  $.teams[*].name
+    Integer                 $.teams[*].series_count
     Valid series object     $.teams[*].all_builds
     Array                   $.teams[*].series     minItems=1
     Valid series object     $.teams[*].series[*]
 
 Series data
-    GET                     /data/series
+    REST.GET                /data/series
     Integer                 response status     200
     Array                   $.series     minItems=1
     Valid series object     $.series[*]
 
-    GET                     /data/series?team=TestArchiver
+    REST.GET                /data/series?team=TestArchiver
     Integer                 response status     200
     Array                   $.series     minItems=1
     Valid series object     $.series[*]
 
 Series info data
-    GET                     /data/series/${FIXTURE_SERIES_ID}/info
+    REST.GET                /data/series/${FIXTURE_SERIES_ID}/info
     Integer                 response status     200
     Valid series object     $.series
     Valid build object      $.last_build
     Valid build object      $.first_build
 
 Builds data
-    GET                     /data/series/${FIXTURE_SERIES_ID}/builds/
+    REST.GET                /data/series/${FIXTURE_SERIES_ID}/builds/
     Integer                 response status     200
     Valid build object      $.builds[*]
 
 Build info data
-    GET                     /data/series/${FIXTURE_SERIES_ID}/builds/1/info
+    REST.GET                /data/series/${FIXTURE_SERIES_ID}/builds/1/info
     Integer                 response status     200
     Valid series object     $.series
     Valid build object      $.build
 
 Simple build result data
-    GET                         /data/series/${FIXTURE_SERIES_ID}/builds/1/simple_results
+    REST.GET                    /data/series/${FIXTURE_SERIES_ID}/builds/1/simple_results
     Integer                     response status     200
     Array                       $.suites
     Valid simple build result suite object  $.suites[*]
 
 Suite result info data
-    GET                         /data/series/${FIXTURE_SERIES_ID}/builds/1/suites/3/info
+    REST.GET                    /data/series/${FIXTURE_SERIES_ID}/builds/1/suites/3/info
     Integer                     response status     200
     Valid series object         $.series
     Valid build object          $.build
@@ -95,8 +95,7 @@ Suite result info data
     Integer                     $.suite.tests[*].test_runs[*]
 
 History data
-    # GET                 /data/history?series=1 Depricated
-    GET                 /data/series/${FIXTURE_SERIES_ID}/history
+    REST.GET            /data/series/${FIXTURE_SERIES_ID}/history
     Integer             response status     200
     Array               $.history     minItems=1
 
@@ -126,7 +125,7 @@ History data
     Array               $.history[*].test_cases[*].builds[*].messages
 
 Most stable tests data
-    GET                 /data/series/${FIXTURE_SERIES_ID}/most_stable_tests
+    REST.GET            /data/series/${FIXTURE_SERIES_ID}/most_stable_tests
     Integer             response status     200
     Array               $.tests     minItems=1
     Integer             $.tests[*].test_id
@@ -139,7 +138,7 @@ Most stable tests data
     Number              $.tests[*].instability
 
 Status counts data
-    GET                 /data/series/${FIXTURE_SERIES_ID}/status_counts
+    REST.GET            /data/series/${FIXTURE_SERIES_ID}/status_counts
     Integer             response status     200
     Array               $.status_counts     minItems=1
     Integer             $.status_counts[*].build_number
@@ -156,8 +155,7 @@ Status counts data
     Integer             $.status_counts[*].tests_other
 
 Build metadata
-    #GET                 /data/metadata?series=1&build_number=1 Depricated
-    GET                 /data/series/${FIXTURE_SERIES_ID}/builds/1/metadata
+    REST.GET            /data/series/${FIXTURE_SERIES_ID}/builds/1/metadata
     Integer             response status     200
     Array               $.metadata     minItems=1
 
@@ -167,7 +165,7 @@ Build metadata
     String              $.metadata[*].metadata_value
 
 Suite result data
-    GET                         /data/series/${FIXTURE_SERIES_ID}/builds/1/suites/3/
+    REST.GET                    /data/series/${FIXTURE_SERIES_ID}/builds/1/suites/3/
     Integer                     response status     200
     Object                      $.suite
     Integer                     $.suite.id
@@ -198,21 +196,21 @@ Suite result data
 
 Suite log message data
     [Setup]     Get last fixture test run id
-    GET                 /data/test_runs/${LAST_FIXTURE_TEST_RUN}/suites/1/log_messages
+    REST.GET            /data/test_runs/${LAST_FIXTURE_TEST_RUN}/suites/1/log_messages
     Integer             response status     200
     Array               $.log_messages     minItems=1
     Valid log message object    $.log_messages[*]
 
 Test case log message data
     [Setup]     Get last fixture test run id
-    GET                 /data/test_runs/${LAST_FIXTURE_TEST_RUN}/test_cases/1/log_messages
+    REST.GET            /data/test_runs/${LAST_FIXTURE_TEST_RUN}/test_cases/1/log_messages
     Integer             response status     200
     Array               $.log_messages     minItems=1
     Valid log message object    $.log_messages[*]
 
 Keyword tree data
     # Actual keyword as root
-    GET                         /data/keyword_tree/b635250f3188478654825cb08c0c4e0547f81be6/
+    REST.GET                    /data/keyword_tree/b635250f3188478654825cb08c0c4e0547f81be6/
     Integer                     response status     200
     String                      $.fingerprint      b635250f3188478654825cb08c0c4e0547f81be6
     String                      $.keyword          Log
@@ -222,7 +220,7 @@ Keyword tree data
     Array                       $.children
 
     # Test execution with virtual keyword as root
-    GET                         /data/keyword_tree/4bd14ecbf6c4bc29498b9094f407bb72fb09c1a8/
+    REST.GET                    /data/keyword_tree/4bd14ecbf6c4bc29498b9094f407bb72fb09c1a8/
     Integer                     response status     200
     String                      $.fingerprint      4bd14ecbf6c4bc29498b9094f407bb72fb09c1a8
     Null                        $.keyword
@@ -240,7 +238,7 @@ Keyword tree data
     Array                       $.children[*].children
 
 Keyword analysis data
-    GET                         /data/series/1/builds/1/keyword_analysis
+    REST.GET                    /data/series/1/builds/1/keyword_analysis
     Integer                     response status     200
     Array                       $.statistics
     String                      $.statistics[*].library
@@ -255,7 +253,7 @@ Keyword analysis data
     Integer                     $.statistics[*].max_call_depth
 
     # Non existent analysis should return empty table
-    GET                         /data/series/0/builds/0/keyword_analysis
+    REST.GET                    /data/series/0/builds/0/keyword_analysis
     Integer                     response status     200
     Array                       $.statistics    maxItems=0
 
@@ -264,7 +262,7 @@ Keyword analysis data
 
 Page status ok
     [Arguments]     ${url}
-    ${resp}=    Get Request     backend      ${url}
+    ${resp}=    GET On Session     backend      ${url}
     Should be equal as strings  ${resp.status_code}   200
 
 Valid series object
@@ -310,14 +308,20 @@ Valid simple test result
     String or null      ${json_path}.setup_status
     String or null      ${json_path}.execution_status
     String or null      ${json_path}.teardown_status
+    String or null      ${json_path}.setup_status_suite
+    String or null      ${json_path}.teardown_status_suite
     Integer             ${json_path}.elapsed
     Integer or null     ${json_path}.setup_elapsed
     Integer or null     ${json_path}.execution_elapsed
     Integer or null     ${json_path}.teardown_elapsed
+    Integer or null     ${json_path}.setup_elapsed_suite
+    Integer or null     ${json_path}.teardown_elapsed_suite
     String              ${json_path}.fingerprint
     String or null      ${json_path}.setup_fingerprint
     String or null      ${json_path}.execution_fingerprint
     String or null      ${json_path}.teardown_fingerprint
+    String or null      ${json_path}.setup_fingerprint_suite
+    String or null      ${json_path}.teardown_fingerprint_suite
 
 Valid log message object
     [Arguments]         ${json_path}  ${is_test_case}=${true}
@@ -330,6 +334,6 @@ Valid log message object
     Integer             ${json_path}.test_run_id
 
 Get last fixture test run id
-    GET     /data/series/${FIXTURE_SERIES_ID}/builds/?number_of_builds=1
+    REST.GET     /data/series/${FIXTURE_SERIES_ID}/builds/?number_of_builds=1
     ${last_fixture_test_run}=  Integer  $.builds[0].test_runs[0]
     Set global variable  ${LAST_FIXTURE_TEST_RUN}  ${last_fixture_test_run}[0]
