@@ -3,7 +3,7 @@
 const proxy = require('http-proxy-middleware');
 
 let server_url = process.env.REACT_APP_SERVER_URL || 'localhost';
-let server_port = process.env.REACT_APP_FRONT_END_PORT || '5050';
+let server_port = process.env.REACT_APP_FRONT_END_PORT || '5000';
 
 module.exports = function(app) {
     app.use(
