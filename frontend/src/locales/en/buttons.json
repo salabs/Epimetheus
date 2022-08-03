@@ -1,8 +1,11 @@
 {
-    "hide_tests": {
-        "header": "Hide tests that are",
+    "buttons": {
+        "header": "Hide {{subject}} that are",
         "passing": "Passing",
         "failing": "Failing"
     },
-    "Builds": "Builds"
+    "Builds": "Builds",
+    "search": {
+        "header": "Search for a {{subject}} by name"
+    }
 }

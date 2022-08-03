@@ -40,7 +40,7 @@ const BuildHistory = ({ currentSeries }) => {
                 });
                 try {
                     const res = await fetch(
-                        `/data/series/${branch_id}/history?start_from=${buildId}&builds=5`,
+                        `/data/series/${branch_id}/history?start_from=${buildId}&builds=6`,
                         {}
                     );
                     const json = await res.json();
@@ -56,7 +56,7 @@ const BuildHistory = ({ currentSeries }) => {
         }
     }, [dispatch, branch_id, buildId, currentSeries]);
 
-    useMetadata(currentSeries);
+    useMetadata({ currentSeries });
 
     return (
         <div id="last-run">
@@ -93,7 +93,7 @@ const BuildHistory = ({ currentSeries }) => {
                             </FilterContainer>
                             <BuildsTestResultTable
                                 id={branch_id}
-                                buildHistory={buildHistory}
+                                buildHistory={buildHistory.history}
                             />
                         </ContentGrid6>
                     </ContainerGrid12>

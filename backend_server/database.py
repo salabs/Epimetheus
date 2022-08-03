@@ -210,7 +210,7 @@ def simple_build_result_data(rows):
     for row in list_of_dicts(rows):
         suite, test = _separate_suite_and_test_values(row)
         if not current_suite or suite['id'] != current_suite['id']:
-            suites.append(suite)
+            suites.append(current_suite)
             current_suite = suite
             current_suite['tests'] = []
         if test['id']:
