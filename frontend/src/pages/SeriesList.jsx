@@ -6,6 +6,7 @@ import { ContainerGrid12, ContentGrid6 } from '../styles/baseComponents';
 import { SeriesCount } from './SeriesList.styles';
 import Loading from '../components/Loading';
 import SeriesCard from '../components/card/SeriesCard';
+import SearchBy from '../components/common/SearchBy';
 import {
     CardContainer,
     CardContainerGrid,
@@ -25,7 +26,7 @@ const SeriesList = ({ name }) => {
             try {
                 const res = await fetch(url);
                 const json = await res.json();
-                setSeriesList(json.series);
+                setSeriesList(json.series.reverse());
             } catch (error) {
                 dispatch({ type: 'setErrorState', errorState: error });
             }
@@ -43,29 +44,38 @@ const SeriesList = ({ name }) => {
                             <h1>Team {name}</h1>
                         </ContentGrid6>
                     </ContainerGrid12>
-                    <CardContainer>
-                        <ContainerGrid12>
-                            <div className="selected-team-heading">
-                                <h2>
-                                    {t('card.last_build.header')} {name}
-                                </h2>
-                                <SeriesCount>
-                                    {seriesList.length}{' '}
-                                    {t('card.last_build.series')}{' '}
-                                </SeriesCount>
-                            </div>
-                            <CardContainerGrid>
-                                {/* <SeriesCard
-                                    data={seriesList.find(
-                                        series => series.name === 'All builds'
-                                    )}
-                                /> */}
-                                {seriesList.reverse().map((serie, i) => {
-                                    return <SeriesCard key={i} data={serie} />;
-                                })}
-                            </CardContainerGrid>
-                        </ContainerGrid12>
-                    </CardContainer>
+                    <SearchBy
+                        searchBy={['name']}
+                        dataset={seriesList}
+                        filterBy={{ filter: true, direction: 'row' }}
+                        translation="series"
+                    >
+                        {data => (
+                            <CardContainer>
+                                <ContainerGrid12>
+                                    <div className="selected-team-heading">
+                                        <h2>
+                                            {t('card.last_build.header')} {name}
+                                        </h2>
+                                        <SeriesCount>
+                                            {data.length}{' '}
+                                            {t('card.last_build.series')}{' '}
+                                        </SeriesCount>
+                                    </div>
+                                    <CardContainerGrid>
+                                        {data.map((serie, i) => {
+                                            return (
+                                                <SeriesCard
+                                                    key={i}
+                                                    data={serie}
+                                                />
+                                            );
+                                        })}
+                                    </CardContainerGrid>
+                                </ContainerGrid12>
+                            </CardContainer>
+                        )}
+                    </SearchBy>
                 </>
             ) : (
                 <ContainerGrid12>

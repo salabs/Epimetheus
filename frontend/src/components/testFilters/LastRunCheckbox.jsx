@@ -72,7 +72,7 @@ const LastRunCheckbox = ({ direction }) => {
 
     return (
         <div>
-            <Header>{t('hide_tests.header')}</Header>
+            <Header>{t('buttons.header', { subject: 'tests' })}</Header>
             <StyledDiv
                 direction={direction}
                 robot_id="last-run-checkbox-container"
@@ -82,13 +82,13 @@ const LastRunCheckbox = ({ direction }) => {
                     checked={passFilter}
                     onChange={e => handlePassFilterChange(e)}
                     value="PASS"
-                    label={t('hide_tests.passing')}
+                    label={t('buttons.passing')}
                 />
                 <Checkbox
                     checked={failFilter}
                     onChange={e => handleFailFilterChange(e)}
                     value="FAIL"
-                    label={t('hide_tests.failing')}
+                    label={t('buttons.failing')}
                 />
             </StyledDiv>
         </div>

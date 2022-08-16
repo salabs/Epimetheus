@@ -66,6 +66,13 @@ Supported browsers are "all modern browsers". This means IE and some mobile brow
 [Apache 2.0](https://choosealicense.com/licenses/apache-2.0/)
 
 ## Release Notes
+-   1.2.1 (2022-08-16)
+
+    -   Query params read in initial state fixed. Makes sure passing and failing filters are included in the state.
+    -   BugFix for Issue 212 metadata not displaying
+    -   Fixes data duplication in simple build results API
+    -   Common search component for teams view, filters and average time for build series
+
 
 -   1.2.0 (2021-06-14)
 

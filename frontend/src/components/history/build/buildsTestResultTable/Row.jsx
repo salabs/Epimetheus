@@ -23,9 +23,16 @@ const Row = ({ test_cases, suite, id, suiteId }) => {
             filteredBuilds !== null && filteredBuilds.length > 0
                 ? filteredBuilds[0]
                 : builds[0];
-
         const testRunTime = build ? build.test_run_time : 'not found';
-
+        const averageRunTime = builds
+            .filter(
+                b =>
+                    b.build_number !== build.build_number &&
+                    b.test_status === build.test_status
+            )
+            .reduce((acc, cur, i, array) => {
+                return acc + cur.elapsed / array.length;
+            }, 0);
         return (
             <SuiteRow key={index} position={index} build={build}>
                 {index === 0 && (
@@ -42,10 +49,14 @@ const Row = ({ test_cases, suite, id, suiteId }) => {
                     suiteId={suiteId}
                     testId={test_id}
                 />
-
                 <Error build={build} />
                 <td className="test-time-row">
                     {(testRunTime / 1000).toFixed(2)}s
+                </td>
+                <td>
+                    {averageRunTime > 0
+                        ? `${(averageRunTime / 1000).toFixed(2)}s`
+                        : ''}
                 </td>
                 <Flakiness builds={builds} id={id} />
             </SuiteRow>

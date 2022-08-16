@@ -8,7 +8,6 @@ import { WideTh } from '../../../table/Table.styles';
 
 const BuildsTestResultTable = ({ id, buildHistory }) => {
     const [t] = useTranslation(['history']);
-    const { history } = buildHistory;
 
     return (
         <Table robot_id="last-run-table" tableId="last-run-table">
@@ -19,20 +18,18 @@ const BuildsTestResultTable = ({ id, buildHistory }) => {
                     <th>{t('build.table.test')}</th>
                     <WideTh>{t('build.table.error')}</WideTh>
                     <th>{t('build.table.time')}</th>
+                    <th>Average time</th>
                     <th>{t('build.table.flakiness')}</th>
                 </tr>
             </thead>
-            <Body id={id} history={history} />
+            <Body id={id} history={buildHistory} />
         </Table>
     );
 };
 
 BuildsTestResultTable.propTypes = {
     id: PropTypes.string.isRequired,
-    buildHistory: PropTypes.shape({
-        max_build_num: PropTypes.number,
-        history: historyPropType,
-    }).isRequired,
+    buildHistory: historyPropType.isRequired,
 };
 
 export default BuildsTestResultTable;
