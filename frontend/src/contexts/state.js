@@ -2,18 +2,39 @@ import React, { createContext, useReducer, useMemo } from 'react';
 import logger from 'use-reducer-logger';
 export const StateContext = createContext();
 
+const params = new Proxy(new URLSearchParams(window.location.search), {
+    get: (searchParams, prop) => searchParams.get(prop),
+});
+
+let initialPassFilter = '';
+let initialPassIsChecked = false;
+let initialFailFilter = '';
+let initialFailIsChecked = false;
+
+console.log(params);
+
+if (params.tag != null && params.tag.includes('Passing')) {
+    initialPassFilter = 'PASS';
+    initialPassIsChecked = true;
+}
+
+if (params.tag != null && params.tag.includes('Failing')) {
+    initialFailFilter = 'FAIL';
+    initialFailIsChecked = true;
+}
+
 const initialState = {
     loadingState: false,
     errorState: null,
     amountOfBuilds: 5,
     offset: 0,
     lastRunFilterFail: {
-        isChecked: false,
-        filterType: '',
+        isChecked: initialFailIsChecked,
+        filterType: initialFailFilter,
     },
     lastRunFilterPass: {
-        isChecked: false,
-        filterType: '',
+        isChecked: initialPassIsChecked,
+        filterType: initialPassFilter,
     },
     compareFilterMatch: {
         isChecked: false,
