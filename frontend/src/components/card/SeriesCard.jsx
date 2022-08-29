@@ -24,9 +24,20 @@ const SeriesCard = ({ data }) => {
         last_build_id,
         last_started,
         last_status,
+        last_imported,
     } = data;
 
-    const LastStarted = last_started.slice(0, 16);
+    let LastStarted;
+    const LastStartedFallBack = '';
+    try {
+        LastStarted = last_started.slice(0, 16);
+    } catch(e) {
+        if (last_imported !== null) {
+            LastStarted = last_imported.slice(0, 16);
+        } else {
+            LastStarted = LastStartedFallBack;
+        }
+    }
     const testStatusIcon = pickIcon(last_status);
     return (
         <CardSection aria-label={name} grid={true}>
