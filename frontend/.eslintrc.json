@@ -12,7 +12,7 @@
         "react/prop-types": 0,
         "no-console": 1,
         "react-hooks/rules-of-hooks": 2,
-        "react-hooks/exhaustive-deps": 1,
+        "react-hooks/exhaustive-deps": 0,
         "no-unused-vars": ["error", { "varsIgnorePattern": "React" }],
         "no-irregular-whitespace": 1
     },
@@ -34,6 +34,11 @@
     "settings": {
         "react": {
             "version": "detect"
+        },
+        "import/resolver": {
+            "node": {
+                "extensions": [".js", ".jsx", ".ts", ".tsx"]
+            }
         }
     }
 }
