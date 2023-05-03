@@ -474,6 +474,20 @@ ORDER BY timestamp, id
            suite_filter="AND suite_id={}".format(int(suite_id)) if suite_id else '',
            test_filter="test_id={}".format(int(test_id)) if test_id else 'test_id IS NULL')
 
+def log_messages_with_build(series, build_number, suite_id=None, test_id=None):
+    return """
+SELECT *
+FROM log_message
+WHERE test_run_id IN ({test_run_ids})
+  AND {test_filter}
+  {suite_filter}
+ORDER BY timestamp, id
+""".format(suite_filter="AND suite_id={}".format(int(suite_id)) if suite_id else '',
+           test_filter="test_id={}".format(int(test_id)) if test_id else 'test_id IS NULL',
+           test_run_ids=test_run_ids(series, build_num=build_number))
+
+
+
 def most_stable_tests(series, start_from, last, offset, limit, limit_offset, stable):
     return """
 SELECT suite_id, suite_name, suite_full_name,
@@ -544,3 +558,23 @@ WHERE test_run_id IN ({test_run_ids})
 GROUP BY tree.library, tree.keyword,  total_elapsed.total
 ORDER BY total DESC
 """.format(test_run_ids=test_run_ids(series, build_num=build_number))
+
+def fingerprints_with_run_and_id(test_run_id, test_id):
+    return """
+SELECT setup_fingerprint, execution_fingerprint, 
+       teardown_fingerprint, test_id, 
+       test_run_id, execution_path 
+FROM test_result 
+WHERE test_id={test_id} and test_run_id={test_run_id}
+""".format(test_id=test_id,
+           test_run_id= test_run_id)
+
+def fingerprints_with_id(series, build_number,test_id):
+    return """
+SELECT setup_fingerprint, execution_fingerprint, 
+       teardown_fingerprint, test_id, 
+       test_run_id, execution_path 
+FROM test_result 
+WHERE test_id={test_id} and test_run_id IN ({test_run_ids})
+""".format(test_id=test_id,
+           test_run_ids=test_run_ids(series, build_num=build_number))
